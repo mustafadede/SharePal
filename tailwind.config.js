@@ -26,6 +26,8 @@ export default {
       },
       animation: {
         text: "text 5s ease infinite",
+        scrollDown: "scrollDown 3s ease infinite",
+        scrollText: "scrollText 3s ease infinite",
       },
       keyframes: {
         text: {
@@ -36,6 +38,26 @@ export default {
           "50%": {
             "background-size": "200% 200%",
             "background-position": "right center",
+          },
+        },
+        scrollDown: {
+          "0%, 100%": {
+            "background-size": "200% 200%",
+            "background-position": "left center",
+            "background-color": "#86198F",
+          },
+          "50%": {
+            "background-size": "200% 200%",
+            "background-position": "right center",
+          },
+        },
+        scrollText: {
+          "0%, 100%": {
+            position: "relative",
+            top: "0px",
+          },
+          "50%": {
+            top: "20px",
           },
         },
       },

@@ -2,7 +2,7 @@ import Root from "./routes/Root";
 
 function App() {
   return (
-    <div className="bg-cGradient2 h-screen">
+    <div className="min-h-screen bg-cGradient2">
       <Root />
     </div>
   );
