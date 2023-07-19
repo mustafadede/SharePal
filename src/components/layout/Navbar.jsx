@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import PrimaryButton from "../common/PrimaryButton";
 import { Link } from "react-router-dom";
 import SecondaryButton from "../common/SecondaryButton";
-function Navbar() {
+import { signOutAction } from "../../firebase/firebaseActions";
+function Navbar({ isNotLoggedin = true }) {
   return (
     <nav className="flex flex-wrap items-center justify-between py-4 mx-10">
       <div className="flex items-center flex-shrink-0 md:mr-6 bg-gradient-to-r from-cDarkerPurple to-pink-500 bg-clip-text animate-text">
@@ -11,8 +12,20 @@ function Navbar() {
         </Link>
       </div>
       <div className="flex gap-2 md:gap-4">
-        <SecondaryButton title="Sign Up" whereTo={"/signup"} />
-        <PrimaryButton title="Log In" whereTo={"/login"} />
+        {isNotLoggedin ? (
+          <>
+            <SecondaryButton title="Sign Up" whereTo={"/signup"} />
+            <PrimaryButton title="Log In" whereTo={"/login"} />
+          </>
+        ) : (
+          <SecondaryButton
+            title="Log Out"
+            whereTo={"/"}
+            onClickHandler={() => {
+              signOutAction;
+            }}
+          />
+        )}
       </div>
     </nav>
   );

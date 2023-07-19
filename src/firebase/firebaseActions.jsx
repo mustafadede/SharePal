@@ -1,7 +1,6 @@
-import { getAuth, createUserWithEmailAndPassword, setPersistence, signInWithEmailAndPassword } from "firebase/auth";
-import app from "./firebaseConfig";
+import { createUserWithEmailAndPassword, setPersistence, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+import { app, auth } from "./firebaseConfig";
 import { toast } from "react-toastify";
-const auth = getAuth(app);
 
 const createUserWithEmailAction = async (email, password) => {
   try {
@@ -23,9 +22,8 @@ const createUserWithEmailAction = async (email, password) => {
 
 const signInWithEmailAction = async (email, password) => {
   try {
-    await setPersistence(auth, browserSessionPersistence);
     await signInWithEmailAndPassword(auth, email, password);
-    return toast("Giriş işlemi başarılı!");
+    return true;
   } catch (error) {
     const errorCode = error.code;
     if (error.code === "auth/user-not-found") {
@@ -40,4 +38,12 @@ const signInWithEmailAction = async (email, password) => {
   }
 };
 
-export { createUserWithEmailAction, signInWithEmailAction };
+const signOutAction = signOut(auth)
+  .then(() => {
+    return true;
+  })
+  .catch((error) => {
+    return false;
+  });
+
+export { createUserWithEmailAction, signInWithEmailAction, signOutAction };

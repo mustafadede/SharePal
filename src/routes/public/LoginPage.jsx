@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import video from "../../assets/video-playback.webm";
-import { createUserWithEmailAction } from "../../firebase/firebaseActions";
+import { signInWithEmailAction } from "../../firebase/firebaseActions";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/layout/Navbar";
+import { getAuth } from "firebase/auth";
 
-function SignUpPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPass, setConfirmPass] = useState("");
+function LoginPage() {
+  const [email, setEmail] = useState("mustafadede@gmail.com");
+  const [password, setPassword] = useState("123123");
+
   const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
@@ -20,21 +21,18 @@ function SignUpPage() {
     setPassword(e.target.value);
   };
 
-  const handleConfirmPassChange = (e) => {
-    setConfirmPass(e.target.value);
-  };
   const submitHandler = (e) => {
     e.preventDefault();
-    if (confirmPass !== password) {
-      return toast("Şifreler eşleşmiyor!");
-    }
-    if (email.includes("@") && email.includes(".") && password && password.length >= 6) {
-      createUserWithEmailAction(email, password).then((res) => {
+
+    if (email && password && password.length >= 6) {
+      signInWithEmailAction(email, password).then((res) => {
         if (res) {
-          navigate("/login");
-          toast("Kayıt işlemi başarılı! Lütfen giriş yapın.");
+          toast("Giriş başarılı!");
+          navigate("/feed");
         }
       });
+    } else {
+      toast("Lütfen bilgileri kontrol edin!");
     }
   };
 
@@ -55,27 +53,21 @@ function SignUpPage() {
           </motion.div>
           <motion.div className="md:w-1/2 max-h-[calc(100vh-16vh)] mx-10 overflow-hidden rounded-3xl ">
             <motion.form className="flex flex-col items-center justify-center w-full h-96 md:h-full" onSubmit={submitHandler}>
-              <h1 className="mb-10 text-5xl font-bold text-center text-cWhite">Sign Up</h1>
+              <h1 className="mb-10 text-5xl font-bold text-center text-cWhite">Log In</h1>
               <motion.input
                 type="email"
-                placeholder="Email"
+                placeholder="mustafadede@gmail.com"
                 className="w-full px-4 py-3 my-2 text-xl transition-colors md:w-3/4 bg-cGradient1 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
                 onChange={handleEmailChange}
               />
               <motion.input
                 type="password"
-                placeholder="Password"
+                placeholder="123123"
                 className="w-full px-4 py-3 my-2 text-xl transition-colors md:w-3/4 bg-cGradient1 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
                 onChange={handlePasswordChange}
               />
-              <motion.input
-                type="password"
-                placeholder="Confirm Password"
-                className="w-full px-4 py-3 my-2 text-xl transition-colors md:w-3/4 bg-cGradient1 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
-                onChange={handleConfirmPassChange}
-              />
               <button type="submit" className="w-full py-2 mt-2 text-xl rounded-lg md:w-3/4 bg-fuchsia-600 text-cWhite">
-                Sign up
+                Log In
               </button>
             </motion.form>
           </motion.div>
@@ -85,4 +77,4 @@ function SignUpPage() {
   );
 }
 
-export default SignUpPage;
+export default LoginPage;

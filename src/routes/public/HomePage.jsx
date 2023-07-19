@@ -1,6 +1,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import video from "../../assets/video-playback.webm";
+import Navbar from "../../components/layout/Navbar";
 
 function HomePage() {
   const cardsList = {
@@ -41,6 +42,7 @@ function HomePage() {
   const item = { hidden: { y: 10, opacity: 0 }, visible: { y: 0, opacity: 1 } };
   return (
     <>
+      <Navbar />
       <AnimatePresence>
         <motion.div
           initial={{ opacity: 0, y: 100 }}

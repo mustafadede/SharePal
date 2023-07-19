@@ -1,6 +1,5 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Navbar from "../components/layout/Navbar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -19,7 +18,6 @@ function RootLayout() {
         pauseOnHover
         theme="dark"
       />
-      <Navbar />
       <Outlet />;
     </>
   );

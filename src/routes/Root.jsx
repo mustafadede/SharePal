@@ -4,10 +4,9 @@ import RootLayout from "./RootLayout";
 import NotFound from "./NotFound";
 import HomePage from "./public/HomePage";
 import SignUpPage from "./public/SignUpPage";
-import SignInPage from "./public/SignInPage";
 import FeedPage from "./private/FeedPage";
 import ProfilePage from "./private/ProfilePage";
-
+import LoginPage from "./public/LoginPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -17,7 +16,7 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "signup", element: <SignUpPage /> },
       { path: "feed", element: <FeedPage /> },
-      { path: "login", element: <SignInPage /> },
+      { path: "login", element: <LoginPage /> },
       { path: "profile", element: <ProfilePage /> },
       // { path: "settings", element: <Settings /> },
     ],
