@@ -1,0 +1,16 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBaJ8blkIuWTN9qSYR83AHU6MBEdJVBbVU",
+  authDomain: "sharepal-494cb.firebaseapp.com",
+  projectId: "sharepal-494cb",
+  storageBucket: "sharepal-494cb.appspot.com",
+  messagingSenderId: "388795619723",
+  appId: "1:388795619723:web:0d29f8f9fc7b71f2ac778e",
+  measurementId: "G-42V6R9M397",
+};
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+export default app;
