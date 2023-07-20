@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-const ProfileCard = ({ nick, username, following, followers }) => {
+const ProfileCard = ({ nick = "-", username, following = "-", followers = "-" }) => {
   return (
     <div className="w-80 h-fit bg-slate-900 rounded-2xl flex flex-col z-0">
       <div className="relative h-28">
@@ -24,8 +24,8 @@ const ProfileCard = ({ nick, username, following, followers }) => {
           <p className="text-sm text-slate-300">Following</p>
         </div>
       </div>
-      <p className="text-lg text-purple-400 flex items-center justify-center py-4">
-        <NavLink to={"/profile"}>Profile</NavLink>
+      <p className="text-lg text-purple-400 hover:text-slate-300 transition-colors flex items-center justify-center py-4">
+        <NavLink to={"/profile"}>Go to Profile</NavLink>
       </p>
     </div>
   );

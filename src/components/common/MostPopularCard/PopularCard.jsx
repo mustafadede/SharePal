@@ -12,7 +12,6 @@ function PopularCard({ padding }) {
         },
       });
       const data = await response.json();
-      console.log(data);
       const populerDatas = data.results.slice(0, 4);
       setData(populerDatas);
     };
@@ -25,7 +24,7 @@ function PopularCard({ padding }) {
       {data.map((value, index) => {
         return <PopularItem key={index} data={value} />;
       })}
-      <p className="text-fuchsia-600 transition-colors hover:text-fuchsia-700 text-lg pt-4">
+      <p className="text-fuchsia-600 transition-colors hover:text-slate-300 text-lg pt-4">
         <NavLink to={"/home"}>Show more</NavLink>
       </p>
     </div>
