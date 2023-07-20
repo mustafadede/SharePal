@@ -5,7 +5,6 @@ import { signInWithEmailAction } from "../../firebase/firebaseActions";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/layout/Navbar";
-import { getAuth } from "firebase/auth";
 
 function LoginPage() {
   const [email, setEmail] = useState("mustafadede@gmail.com");
@@ -35,7 +34,6 @@ function LoginPage() {
       toast("Lütfen bilgileri kontrol edin!");
     }
   };
-
   return (
     <>
       <Navbar />

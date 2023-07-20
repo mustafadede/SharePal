@@ -38,12 +38,4 @@ const signInWithEmailAction = async (email, password) => {
   }
 };
 
-const signOutAction = signOut(auth)
-  .then(() => {
-    return true;
-  })
-  .catch((error) => {
-    return false;
-  });
-
-export { createUserWithEmailAction, signInWithEmailAction, signOutAction };
+export { createUserWithEmailAction, signInWithEmailAction };

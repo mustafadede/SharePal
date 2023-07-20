@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function RootLayout() {
   return (
-    <>
+    <div className="container mx-auto">
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -19,7 +19,7 @@ function RootLayout() {
         theme="dark"
       />
       <Outlet />;
-    </>
+    </div>
   );
 }
 
