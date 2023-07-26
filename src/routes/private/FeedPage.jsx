@@ -6,8 +6,7 @@ import PopularCard from "../../components/common/MostPopularCard/PopularCard";
 import { getCurrentUserData } from "../../firebase/firebaseActions";
 import FeedActionBox from "../../components/layout/FeedActionBox";
 import FeedCard from "../../components/common/FeedCard";
-import MyListsCard from "../../components/common/MyListsCard/myListsCard";
-
+import MyListsCard from "../../components/common/MyListsCard/MyListsCard";
 function FeedPage() {
   const [user, setUser] = useState(null);
   useEffect(() => {
