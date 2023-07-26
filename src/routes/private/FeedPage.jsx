@@ -6,6 +6,7 @@ import PopularCard from "../../components/common/MostPopularCard/PopularCard";
 import { getCurrentUserData } from "../../firebase/firebaseActions";
 import FeedActionBox from "../../components/layout/FeedActionBox";
 import FeedCard from "../../components/common/FeedCard";
+import MyListsCard from "../../components/common/MyListsCard/myListsCard";
 
 function FeedPage() {
   const [user, setUser] = useState(null);
@@ -24,8 +25,10 @@ function FeedPage() {
     <>
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
       <div className="flex mx-10">
-        <div className="hidden lg:w-1/4 h-fit lg:flex sticky top-[4.7rem] bg-cGradient2">
+        <div className="hidden lg:w-1/4 h-fit lg:flex flex-col sticky top-[4.7rem] bg-cGradient2">
           {user ? <ProfileCard nick={user.nick} following={user.following} followers={user.followers} /> : <p>Yükleniyor...</p>}
+
+          <MyListsCard />
         </div>
         <div className="flex flex-col w-full px-6">
           <FeedActionBox />
