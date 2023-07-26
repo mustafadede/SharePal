@@ -14,8 +14,8 @@ function FeedActionBox() {
         transition={{ delay: 0.2 }}
       />
       <div className="flex w-full gap-2 mt-1">
-        <FeedActionBoxButton icons={<Link2Icon className="h-6 transition-colors w-fit text-slate-300" />} text="Attach Film/Series" />
-        <FeedActionBoxButton icons={<CameraIcon className="h-6 transition-colors w-fit text-slate-300" />} text="Upload Photo" />
+        <FeedActionBoxButton icons={<Link2Icon className="h-6 transition-all w-fit text-slate-300" />} text="Attach Film/Series" />
+        <FeedActionBoxButton icons={<CameraIcon className="h-6 transition-all w-fit text-slate-300" />} text="Upload Photo" />
         <button className="w-full p-2 text-lg transition-colors rounded-lg select-none h-100 bg-slate-600 hover:bg-fuchsia-800 text-cWhite">
           Post
         </button>

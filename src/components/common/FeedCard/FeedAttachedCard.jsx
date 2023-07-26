@@ -1,5 +1,6 @@
 import { BookmarkIcon } from "@radix-ui/react-icons";
 import React from "react";
+import FeedCardButtons from "./Buttons/FeedCardButtons";
 
 function FeedAttachedCard() {
   return (
@@ -22,6 +23,7 @@ function FeedAttachedCard() {
         </div>
         <BookmarkIcon className="w-6 h-6 text-slate-400 group-hover:text-slate-200" />
       </button>
+      <FeedCardButtons />
     </div>
   );
 }

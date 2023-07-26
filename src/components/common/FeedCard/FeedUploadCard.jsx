@@ -1,7 +1,7 @@
 import React from "react";
 import FeedCardButtons from "./Buttons/FeedCardButtons";
 
-function FeedCommentCard() {
+function FeedUploadCard() {
   return (
     <div className="flex flex-col w-full p-4 my-4 bg-slate-900 rounded-xl">
       <div className="flex gap-4">
@@ -12,9 +12,13 @@ function FeedCommentCard() {
         </div>
       </div>
       <p className="py-4 text-slate-200">hello hello hello hello hello</p>
+      <img
+        src="https://images.pexels.com/photos/2659629/pexels-photo-2659629.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        className="object-cover w-full transition-all duration-300 border h-96 rounded-xl bg-slate-800 border-slate-600 hover:border-fuchsia-600 hover:opacity-70"
+      ></img>
       <FeedCardButtons />
     </div>
   );
 }
 
-export default FeedCommentCard;
+export default FeedUploadCard;
