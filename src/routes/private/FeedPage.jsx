@@ -26,7 +26,6 @@ function FeedPage() {
       <div className="flex mx-10">
         <div className="hidden lg:w-1/4 h-fit lg:flex flex-col sticky top-[4.7rem] bg-cGradient2">
           {user ? <ProfileCard nick={user.nick} following={user.following} followers={user.followers} /> : <p>Yükleniyor...</p>}
-
           <MyListsCard />
         </div>
         <div className="flex flex-col w-full px-6">
