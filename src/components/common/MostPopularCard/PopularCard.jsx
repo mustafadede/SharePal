@@ -19,12 +19,12 @@ function PopularCard({ padding }) {
   }, []);
 
   return (
-    <div className="w-80 h-fit bg-slate-900 rounded-2xl p-6 flex flex-col">
+    <div className="flex flex-col p-6 w-80 h-fit bg-slate-900 rounded-2xl">
       <p className="text-2xl text-slate-200">Popular</p>
       {data.map((value, index) => {
         return <PopularItem key={index} data={value} />;
       })}
-      <p className="text-fuchsia-600 transition-colors hover:text-slate-300 text-lg pt-4">
+      <p className="pt-4 text-lg transition-colors text-fuchsia-600 hover:text-slate-300">
         <NavLink to={"/home"}>Show more</NavLink>
       </p>
     </div>
