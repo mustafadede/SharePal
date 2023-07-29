@@ -1,5 +1,5 @@
 import React from "react";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createHashRouter } from "react-router-dom";
 import RootLayout from "./RootLayout";
 import NotFound from "./NotFound";
 import HomePage from "./public/HomePage";
@@ -7,7 +7,8 @@ import SignUpPage from "./public/SignUpPage";
 import FeedPage from "./private/FeedPage";
 import ProfilePage from "./private/ProfilePage";
 import LoginPage from "./public/LoginPage";
-const router = createBrowserRouter([
+
+const router = createHashRouter([
   {
     path: "/",
     element: <RootLayout />,

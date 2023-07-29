@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { auth, database } from "./firebaseConfig";
 import { toast } from "react-toastify";
 import { child, get, getDatabase, ref, set } from "firebase/database";

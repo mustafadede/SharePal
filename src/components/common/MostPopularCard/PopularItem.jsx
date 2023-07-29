@@ -1,5 +1,4 @@
 function PopularItem(data) {
-  console.log(data.data.original_title);
   return (
     <div className="py-2 mt-4 cursor-pointer group">
       <div>
