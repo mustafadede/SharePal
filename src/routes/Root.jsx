@@ -7,7 +7,7 @@ import SignUpPage from "./public/SignUpPage";
 import FeedPage from "./private/FeedPage";
 import ProfilePage from "./private/ProfilePage";
 import LoginPage from "./public/LoginPage";
-
+import PrivateRoute from "./PrivateRoute";
 const router = createHashRouter([
   {
     path: "/",
@@ -16,9 +16,23 @@ const router = createHashRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: "signup", element: <SignUpPage /> },
-      { path: "feed", element: <FeedPage /> },
       { path: "login", element: <LoginPage /> },
-      { path: "profile", element: <ProfilePage /> },
+      {
+        path: "feed",
+        element: (
+          <PrivateRoute>
+            <FeedPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "profile",
+        element: (
+          <PrivateRoute>
+            <ProfilePage />
+          </PrivateRoute>
+        ),
+      },
       // { path: "settings", element: <Settings /> },
     ],
   },

@@ -1,4 +1,10 @@
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  browserSessionPersistence,
+  createUserWithEmailAndPassword,
+  getAuth,
+  setPersistence,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth, database } from "./firebaseConfig";
 import { toast } from "react-toastify";
 import { child, get, getDatabase, ref, set } from "firebase/database";
@@ -13,6 +19,7 @@ const createUserWithEmailAction = async (data) => {
         displayName: data.name,
         following: 0,
         followers: 0,
+        email: data.email,
       });
       return true;
     }
@@ -32,8 +39,9 @@ const createUserWithEmailAction = async (data) => {
 
 const signInWithEmailAction = async (email, password) => {
   try {
-    await signInWithEmailAndPassword(auth, email, password);
-    return true;
+    await setPersistence(auth, browserSessionPersistence);
+    const user = await signInWithEmailAndPassword(auth, email, password);
+    return user;
   } catch (error) {
     const errorCode = error.code;
     if (error.code === "auth/user-not-found") {
@@ -57,6 +65,7 @@ const getCurrentUserData = async (userId) => {
         following: snapshot.val().following,
         followers: snapshot.val().followers,
       };
+      console.log(snapshot.val());
       return user;
     } else {
       console.log("No data available");
@@ -67,4 +76,5 @@ const getCurrentUserData = async (userId) => {
     return null;
   }
 };
+
 export { createUserWithEmailAction, signInWithEmailAction, getCurrentUserData };

@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/layout/Navbar";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import ProfileCard from "../../components/common/ProfileCard";
 import PopularCard from "../../components/common/MostPopularCard/PopularCard";
 import { getCurrentUserData } from "../../firebase/firebaseActions";
 import FeedActionBox from "../../components/layout/FeedActionBox";
 import FeedCard from "../../components/common/FeedCard";
 import MyListsCard from "../../components/common/MyListsCard/MyListsCard";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../../store/authSlice";
+import { auth } from "../../firebase/firebaseConfig";
 function FeedPage() {
+  const dispatch = useDispatch();
   const [user, setUser] = useState(null);
+
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -19,7 +24,7 @@ function FeedPage() {
       }
     };
     getUser();
-  }, [getAuth().currentUser.uid]);
+  }, [localStorage.getItem("user")]);
   return (
     <>
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />

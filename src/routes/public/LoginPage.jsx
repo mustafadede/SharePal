@@ -6,9 +6,15 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Navbar from "../../components/layout/Navbar";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/authSlice";
+import { userActions } from "../../store/userSlice";
+import { auth } from "../../firebase/firebaseConfig";
 
 function LoginPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -21,6 +27,8 @@ function LoginPage() {
         if (res) {
           toast("Giriş başarılı!");
           navigate("/feed");
+          console.log(auth.currentUser);
+          dispatch(authActions.login(res.user.uid));
         }
       });
     } else {
@@ -39,7 +47,7 @@ function LoginPage() {
     <>
       <Navbar />
       <AnimatePresence>
-        <div className="flex flex-col items-center justify-center md:flex-row overflow-hidden">
+        <div className="flex flex-col items-center justify-center overflow-hidden md:flex-row">
           <motion.div
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
