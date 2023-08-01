@@ -27,7 +27,6 @@ function LoginPage() {
         if (res) {
           toast("Giriş başarılı!");
           navigate("/feed");
-          console.log(auth.currentUser);
           dispatch(authActions.login(res.user.uid));
         }
       });

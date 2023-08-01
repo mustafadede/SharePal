@@ -4,10 +4,11 @@ import {
   getAuth,
   setPersistence,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth, database } from "./firebaseConfig";
 import { toast } from "react-toastify";
-import { child, get, getDatabase, ref, set } from "firebase/database";
+import { child, get, getDatabase, push, ref, set } from "firebase/database";
 
 const dbRef = ref(getDatabase());
 
@@ -19,6 +20,10 @@ const createUserWithEmailAction = async (data) => {
         displayName: data.name,
         following: 0,
         followers: 0,
+        email: data.email,
+      });
+      updateProfile(auth.currentUser, {
+        displayName: data.name,
         email: data.email,
       });
       return true;
@@ -65,7 +70,6 @@ const getCurrentUserData = async (userId) => {
         following: snapshot.val().following,
         followers: snapshot.val().followers,
       };
-      console.log(snapshot.val());
       return user;
     } else {
       console.log("No data available");
@@ -77,4 +81,47 @@ const getCurrentUserData = async (userId) => {
   }
 };
 
-export { createUserWithEmailAction, signInWithEmailAction, getCurrentUserData };
+const createPostAction = async (text, attachedFilm, attachedPhoto) => {
+  try {
+    const userId = getAuth().currentUser.uid;
+    const newPostRef = push(ref(database, `posts/${userId}`));
+    set(newPostRef, {
+      nick: getAuth().currentUser.displayName,
+      content: text,
+      attachedPhoto: attachedPhoto || null,
+      attachedFilm: attachedFilm || null,
+      likes: 0,
+      comments: 0,
+      date: Date.now(),
+    });
+    return true;
+  } catch (error) {
+    console.error(error);
+    return toast("Something went wrong!");
+  }
+};
+
+const getAllPosts = async () => {
+  const postsRef = ref(database, "posts");
+  const snapshot = await get(postsRef);
+  const allPosts = [];
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      const posts = childSnapshot.val();
+      Object.entries(posts).forEach(([key, value]) => {
+        allPosts.push({
+          postId: key,
+          nick: value.nick,
+          content: value.content,
+          attachedPhoto: value.content.attachedPhoto,
+          attachedFilm: value.content.attachedFilm,
+          likes: value.likes,
+          comments: value.comments,
+          date: value.date,
+        });
+      });
+    });
+  }
+  return allPosts;
+};
+export { createUserWithEmailAction, signInWithEmailAction, getCurrentUserData, createPostAction, getAllPosts };
