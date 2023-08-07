@@ -13,8 +13,7 @@ function FeedAttachedCard({ data }) {
       <div className="flex gap-4">
         <div className="w-12 h-12 rounded-full bg-fuchsia-600"></div>
         <div className="flex flex-col">
-          <p className="text-md text-slate-200">Mustafa DEDE</p>
-          <p className="text-sm text-slate-400">@{data.nick}</p>
+          <p className="text-md text-slate-200">@{data.nick}</p>
         </div>
       </div>
       <p className="my-2 text-slate-200">{data.text}</p>
