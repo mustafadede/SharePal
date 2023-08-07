@@ -9,6 +9,7 @@ import MyListsCard from "../../components/common/MyListsCard/MyListsCard";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../store/userSlice";
 import { allPostsActions } from "../../store/allPostsSlice";
+import { motion } from "framer-motion";
 
 function FeedPage() {
   const { user } = useSelector((state) => state.user);
@@ -51,11 +52,16 @@ function FeedPage() {
       <div className="flex mx-10">
         {!search && (
           <>
-            <div className="hidden lg:w-1/4 h-fit lg:flex flex-col sticky top-[4.7rem] bg-cGradient2">
+            <motion.div
+              className="hidden lg:w-1/4 h-fit lg:flex flex-col sticky top-[4.7rem] bg-cGradient2"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
               {user ? <ProfileCard nick={user.nick} following={user.following} followers={user.followers} /> : <ProfileCard />}
               <MyListsCard />
-            </div>
-            <div className="flex flex-col w-full px-6">
+            </motion.div>
+            <motion.div className="flex flex-col w-full px-6">
               <FeedActionBox />
               {post.map((data, i) => {
                 if (data.attachedFilm && !data.attachedPhoto) {
@@ -66,12 +72,16 @@ function FeedPage() {
                   return <FeedCard isComment={true} data={data} />;
                 }
               })}
-            </div>
+            </motion.div>
           </>
         )}
         {search && (
           <>
-            <div className="hidden w-full h-fit lg:flex sticky top-[4.7rem] justify-center">
+            <motion.div
+              className="hidden w-full h-fit lg:flex sticky top-[4.7rem] justify-center"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
               <p className="w-[53.5rem] overflow-x-scroll">
                 <h1 className="mb-4 text-3xl text-slate-200">Search</h1>
                 <input
@@ -80,12 +90,17 @@ function FeedPage() {
                   placeholder="Search for a user or movie/series"
                 />
               </p>
-            </div>
+            </motion.div>
           </>
         )}
-        <div className="hidden w-1/3 h-fit lg:flex sticky top-[4.7rem] justify-center">
+        <motion.div
+          className="hidden w-1/3 h-fit lg:flex sticky top-[4.7rem] justify-center"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
           <PopularCard />
-        </div>
+        </motion.div>
       </div>
     </>
   );
