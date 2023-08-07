@@ -15,10 +15,17 @@ function FeedActionBox() {
     if (text.length > 0 && text.length <= 280) {
       dispatch(
         createPostActions.updatePost({
+          id: getAuth().currentUser.uid + Date.now(),
           text: text,
           attachedFilm: attachedFilm,
           attachedPhoto: attachedPhoto,
           nick: getAuth().currentUser.displayName,
+          likes: 0,
+          comments: 0,
+          replies: 0,
+          date: new Date().toISOString(),
+          isLiked: false,
+          isReposted: false,
         })
       );
       dispatch(createPostActions.updateText(""));

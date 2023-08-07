@@ -17,6 +17,7 @@ function FeedPage() {
 
   const dispatch = useDispatch();
   useEffect(() => {
+    document.title = "SharePal | Feed";
     const getData = async () => {
       try {
         const userData = await getCurrentUserData(localStorage.getItem("user"));

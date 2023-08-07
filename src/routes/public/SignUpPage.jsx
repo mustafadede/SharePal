@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import video from "../../assets/video-playback.webm";
 import { createUserWithEmailAction } from "../../firebase/firebaseActions";
@@ -35,12 +35,14 @@ function SignUpPage() {
       });
     }
   };
-
+  useEffect(() => {
+    document.title = "SharePal | Sign Up";
+  }, []);
   return (
     <>
       <Navbar />
       <AnimatePresence>
-        <div className="flex flex-col items-center justify-center md:flex-row overflow-hidden">
+        <div className="flex flex-col items-center justify-center overflow-hidden md:flex-row">
           <motion.div
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}

@@ -23,12 +23,21 @@ function Navbar({ isNotLoggedin = true, additionalClasses = "" }) {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const handleNavigation = () => {
+    if (localStorage.getItem("user") === null) {
+      navigate("/");
+    } else {
+      navigate("/feed");
+    }
+  };
+
   return (
     <nav className={`flex flex-wrap items-center justify-between py-4 mx-10 ${additionalClasses}`}>
       <div className="flex items-center flex-shrink-0 md:mr-6 bg-gradient-to-r from-cDarkerPurple to-pink-500 bg-clip-text animate-text">
-        <Link to={"/"}>
+        <button onClick={handleNavigation}>
           <span className="text-4xl font-bold tracking-tight text-transparent cursor-pointer select-none">SharePal</span>
-        </Link>
+        </button>
       </div>
       <div className="flex gap-2 md:gap-4">
         {isNotLoggedin ? (

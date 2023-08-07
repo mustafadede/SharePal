@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import video from "../../assets/video-playback.webm";
 import { signInWithEmailAction } from "../../firebase/firebaseActions";
@@ -41,7 +41,9 @@ function LoginPage() {
       : "w-full px-4 py-3 my-2 text-xl transition-colors md:w-3/4 bg-cGradient1 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl";
     return definer;
   };
-
+  useEffect(() => {
+    document.title = "SharePal | Log In";
+  }, []);
   return (
     <>
       <Navbar />
