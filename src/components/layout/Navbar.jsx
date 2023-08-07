@@ -19,7 +19,7 @@ const dropdownItems = [
   },
 ];
 
-function Navbar({ isNotLoggedin = true, additionalClasses = "" }) {
+function Navbar({ isNotLoggedin = true, additionalClasses = "", handleSearch, handleSearchFalse }) {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,6 +29,7 @@ function Navbar({ isNotLoggedin = true, additionalClasses = "" }) {
       navigate("/");
     } else {
       navigate("/feed");
+      handleSearchFalse();
     }
   };
 
@@ -48,11 +49,9 @@ function Navbar({ isNotLoggedin = true, additionalClasses = "" }) {
         ) : (
           <>
             <div className="flex items-center justify-center gap-4">
-              <Link to={"/search"}>
-                <button className="flex items-center justify-center rounded w-7 h-7">
-                  <MagnifyingGlassIcon className="w-10 h-10 md:w-6 md:h-6 text-cWhite hover:text-fuchsia-700 hover:transition-colors" />
-                </button>
-              </Link>
+              <button className="flex items-center justify-center rounded w-7 h-7" onClick={() => handleSearch()}>
+                <MagnifyingGlassIcon className="w-10 h-10 md:w-6 md:h-6 text-cWhite hover:text-fuchsia-700 hover:transition-colors" />
+              </button>
               <Link to={"/profile"}>
                 <button className="flex items-center justify-center rounded w-7 h-7">
                   <PersonIcon className="w-10 h-10 md:w-6 md:h-6 text-cWhite hover:text-fuchsia-700 hover:transition-colors" />

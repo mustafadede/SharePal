@@ -1,7 +1,7 @@
 import React from "react";
 
 function ProfilePage() {
-  return <div className="text-cWhite">ProfilePage</div>;
+  return <div>ProfilePage</div>;
 }
 
 export default ProfilePage;
