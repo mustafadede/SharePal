@@ -1,8 +1,13 @@
 import React from "react";
-import image from "../../assets/video-playback.webm";
+import { motion } from "framer-motion";
 function AccountSettings({ user }) {
   return (
-    <div className="flex flex-col w-full h-full px-5 py-4 ml-4 bg-slate-900 rounded-2xl">
+    <motion.div
+      className="flex flex-col w-full h-full px-5 py-4 ml-4 bg-slate-900 rounded-2xl"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.2 }}
+    >
       <h1 className="mb-4 text-3xl text-slate-200">Account</h1>
       <div className="flex flex-col gap-2">
         <p className="w-full my-2 text-xl text-slate-300">Information</p>
@@ -50,7 +55,7 @@ function AccountSettings({ user }) {
           Save
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

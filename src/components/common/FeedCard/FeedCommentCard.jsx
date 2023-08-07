@@ -3,7 +3,6 @@ import FeedCardButtons from "./Buttons/FeedCardButtons";
 import { motion } from "framer-motion";
 import FeedCardActionsSkeleton from "./FeedCardActions/FeedCardActionsSkeleton";
 function FeedCommentCard({ data }) {
-  console.log(data);
   return (
     <motion.div
       className="flex flex-col w-full p-4 my-4 bg-slate-900 rounded-xl"

@@ -1,6 +1,7 @@
 import React from "react";
 import FeedCardButtons from "./Buttons/FeedCardButtons";
 import { motion } from "framer-motion";
+import FeedCardActionsSkeleton from "./FeedCardActions/FeedCardActionsSkeleton";
 
 function FeedUploadCard({ data }) {
   return (
@@ -21,6 +22,11 @@ function FeedUploadCard({ data }) {
         src={data.attachedPhoto}
         className="object-cover w-full transition-all duration-300 border h-96 rounded-xl bg-slate-800 border-slate-600 hover:border-fuchsia-600 hover:opacity-70"
       ></img>
+      <div className="flex gap-2">
+        <FeedCardActionsSkeleton action={"likes"} number={data.likes} />
+        <FeedCardActionsSkeleton action={"comments"} number={data.comments} />
+        <FeedCardActionsSkeleton action={"replies"} number={data.replies} />
+      </div>
       <FeedCardButtons />
     </motion.div>
   );

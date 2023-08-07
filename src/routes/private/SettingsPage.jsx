@@ -8,7 +8,7 @@ import AccountSettings from "../../components/layout/AccountSettings";
 import PrivacySettings from "../../components/layout/PrivacySettings";
 import ThemeSettings from "../../components/layout/ThemeSettings";
 import { useNavigate } from "react-router-dom";
-
+import { motion } from "framer-motion";
 function SettingsPage() {
   const { user } = useSelector((state) => state.user);
   const [selectedSection, setSelectedSection] = useState("Account");
@@ -42,14 +42,19 @@ function SettingsPage() {
           {user ? <ProfileCard nick={user.nick} following={user.following} followers={user.followers} /> : <ProfileCard />}
           <MyListsCard />
         </div>
-        <div className="sticky px-5 py-4 ml-4 top-[4.7rem] w-72 bg-slate-900 rounded-2xl h-[30rem]">
+        <motion.div
+          className="sticky px-5 py-4 ml-4 top-[4.7rem] w-72 bg-slate-900 rounded-2xl h-[30rem]"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+        >
           <h1 className="mb-4 text-3xl text-slate-200">Settings</h1>
           <div className="flex flex-col">
             <SettingsButton title="Account" handleSelection={handleSelection} />
             <SettingsButton title="Privacy" handleSelection={handleSelection} />
             <SettingsButton title="Theme" handleSelection={handleSelection} />
           </div>
-        </div>
+        </motion.div>
         {handleSettingsBar()}
       </div>
     </>

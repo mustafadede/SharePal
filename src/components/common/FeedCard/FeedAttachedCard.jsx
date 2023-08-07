@@ -2,6 +2,7 @@ import { BookmarkIcon } from "@radix-ui/react-icons";
 import React from "react";
 import FeedCardButtons from "./Buttons/FeedCardButtons";
 import { motion } from "framer-motion";
+import FeedCardActionsSkeleton from "./FeedCardActions/FeedCardActionsSkeleton";
 
 function FeedAttachedCard({ data }) {
   return (
@@ -24,6 +25,11 @@ function FeedAttachedCard({ data }) {
         </div>
         <BookmarkIcon className="w-6 h-6 text-slate-400 group-hover:text-slate-200" />
       </button>
+      <div className="flex gap-2">
+        <FeedCardActionsSkeleton action={"likes"} number={data.likes} />
+        <FeedCardActionsSkeleton action={"comments"} number={data.comments} />
+        <FeedCardActionsSkeleton action={"replies"} number={data.replies} />
+      </div>
       <FeedCardButtons />
     </motion.div>
   );
