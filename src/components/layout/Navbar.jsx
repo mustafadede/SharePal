@@ -29,7 +29,6 @@ function Navbar({ isNotLoggedin = true, additionalClasses = "" }) {
       navigate("/");
     } else {
       navigate("/feed");
-      handleSearchFalse();
     }
   };
 
