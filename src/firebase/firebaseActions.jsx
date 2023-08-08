@@ -69,6 +69,7 @@ const getCurrentUserData = async (userId) => {
         nick: snapshot.val().displayName,
         following: snapshot.val().following,
         followers: snapshot.val().followers,
+        email: snapshot.val().email,
       };
       return user;
     } else {

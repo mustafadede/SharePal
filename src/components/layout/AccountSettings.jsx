@@ -17,7 +17,7 @@ function AccountSettings({ user }) {
         />
         <input
           className="w-full px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
-          placeholder="Email"
+          placeholder={`Email (${user.email})`}
         />
         <input
           className="w-full px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
@@ -28,7 +28,7 @@ function AccountSettings({ user }) {
           <div className="flex flex-row gap-4 rounded-2xl">
             <div className="flex flex-col gap-2">
               <p className="text-xl text-slate-300">Profile Picture</p>
-              <button className="px-4 py-3 text-lg transition-all hover:bg-slate-800 hover:text-fuchsia-600 bg-cGradient2 text-cWhite focus:outline-none rounded-2xl">
+              <button className="px-4 py-3 text-lg transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl">
                 Upload
               </button>
             </div>
@@ -36,7 +36,7 @@ function AccountSettings({ user }) {
           <div className="flex flex-row gap-4 rounded-2xl">
             <div className="flex flex-col gap-2">
               <p className="text-xl text-slate-300">Banner Picture</p>
-              <button className="px-4 py-3 text-lg transition-all hover:bg-slate-800 hover:text-fuchsia-600 bg-cGradient2 text-cWhite focus:outline-none rounded-2xl">
+              <button className="px-4 py-3 text-lg transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl">
                 Upload
               </button>
             </div>
@@ -51,7 +51,7 @@ function AccountSettings({ user }) {
           className="px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
           placeholder="Current Password"
         />
-        <button className="w-full px-4 py-3 my-2 text-xl transition-all hover:bg-slate-800 hover:text-fuchsia-600 bg-cGradient2 text-cWhite focus:outline-none rounded-2xl">
+        <button className="w-full px-4 py-3 my-2 text-xl transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl">
           Save
         </button>
       </div>
