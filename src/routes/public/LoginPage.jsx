@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import video from "../../assets/video-playback.webm";
 import { signInWithEmailAction } from "../../firebase/firebaseActions";
@@ -8,13 +8,12 @@ import { useForm } from "react-hook-form";
 import Navbar from "../../components/layout/Navbar";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/authSlice";
-import { userActions } from "../../store/userSlice";
-import { auth } from "../../firebase/firebaseConfig";
+import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 
 function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -33,6 +32,10 @@ function LoginPage() {
     } else {
       toast("Lütfen bilgileri kontrol edin!");
     }
+  };
+
+  const handleShowPasword = () => {
+    setShowPassword(!showPassword);
   };
 
   const onClassDefiner = (value) => {
@@ -70,13 +73,18 @@ function LoginPage() {
                 {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
                 aria-invalid={errors.email ? true : false}
               />
-              <motion.input
-                type="password"
-                placeholder="Password"
-                className={onClassDefiner(errors.password)}
-                {...register("password", { required: true, minLength: 6 })}
-                aria-invalid={errors.password ? true : false}
-              />
+              <div className="relative flex justify-center w-full">
+                <motion.input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  className={onClassDefiner(errors.password) + " w-full"}
+                  {...register("password", { required: true, minLength: 6 })}
+                  aria-invalid={errors.password ? true : false}
+                />
+                <button type="button" className="absolute top-6 right-20 2xl:right-24 text-slate-400" onClick={handleShowPasword}>
+                  {showPassword ? <EyeOpenIcon className="w-6 h-6" /> : <EyeClosedIcon className="w-6 h-6" />}
+                </button>
+              </div>
               <button type="submit" className="w-full py-2 mt-2 text-xl rounded-lg md:w-3/4 bg-fuchsia-600 text-cWhite">
                 Log In
               </button>

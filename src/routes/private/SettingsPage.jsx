@@ -38,10 +38,15 @@ function SettingsPage() {
     <>
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
       <div className="flex mx-10">
-        <div className="hidden lg:w-1/4 h-fit lg:flex flex-col sticky top-[4.7rem] bg-cGradient2">
+        <motion.div
+          className="hidden lg:w-1/4 h-fit lg:flex flex-col sticky top-[4.7rem] bg-cGradient2"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+        >
           {user ? <ProfileCard nick={user.nick} following={user.following} followers={user.followers} /> : <ProfileCard />}
           <MyListsCard />
-        </div>
+        </motion.div>
         <motion.div
           className="sticky px-5 py-4 ml-4 top-[4.7rem] w-72 bg-slate-900 rounded-2xl h-[30rem]"
           initial={{ opacity: 0, y: -20 }}

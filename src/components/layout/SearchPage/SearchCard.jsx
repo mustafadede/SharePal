@@ -27,7 +27,7 @@ function SearchCard({ title, poster, releaseDate }) {
         {title}
       </motion.h1>
       <motion.p
-        className="absolute text-fuchsia-600 bottom-5 left-4 bg-slate-900"
+        className="absolute text-fuchsia-600 bottom-5 left-4"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}

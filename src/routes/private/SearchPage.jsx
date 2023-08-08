@@ -17,10 +17,10 @@ function SearchPage() {
     <>
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
       <div className="flex mx-10">
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full pr-6">
           {/* Search title and input start */}
           <motion.div className="sticky flex w-full pb-4 " initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
-            <p className="w-[53.5rem]">
+            <div className="w-full">
               <h1 className="mb-4 text-3xl text-slate-200">Search</h1>
               <input
                 className="w-full py-2 text-2xl text-white transition-all bg-transparent border-b-2 outline-none focus-within:border-slate-900"
@@ -29,11 +29,11 @@ function SearchPage() {
                 onChange={(e) => setSearch(e.target.value)}
                 onKeyDown={(e) => handleSearch(e)}
               />
-            </p>
+            </div>
             {/* Search title and input end */}
           </motion.div>
           {/* Search results start */}
-          <div className="flex flex-row w-[53.5rem] flex-wrap gap-7">
+          <div className="flex flex-row flex-wrap w-full gap-7">
             {movies.length > 0 &&
               movies.map((movie) =>
                 movie.release_date || movie.first_air_date ? (
@@ -52,7 +52,7 @@ function SearchPage() {
         </div>
         {/* Most popular movies and series start */}
         <motion.div
-          className="hidden w-1/3 h-fit lg:flex sticky top-[4.7rem] justify-center"
+          className="hidden w-fit h-fit lg:flex sticky top-[4.7rem]"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}

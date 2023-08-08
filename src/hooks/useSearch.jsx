@@ -1,10 +1,7 @@
-let value = 0;
-
 const useSearch = async (search, setMovies) => {
   try {
     if (search === "") return;
     if (search) {
-      console.log(search);
       const response = await fetch(`https://api.themoviedb.org/3/search/multi?query=${search}&include_adult=false&language=en-US&page=1`, {
         method: "GET",
         headers: {
@@ -13,7 +10,6 @@ const useSearch = async (search, setMovies) => {
         },
       });
       const data = await response.json();
-      console.log(value++);
       setMovies(data.results);
     }
   } catch (err) {

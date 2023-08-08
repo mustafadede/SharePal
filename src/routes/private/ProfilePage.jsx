@@ -18,7 +18,7 @@ function ProfilePage() {
           <InfoCard user={user} />
         </div>
         <motion.div
-          className="hidden w-1/3 h-fit lg:flex sticky top-[4.7rem] justify-center"
+          className="hidden w-fit h-fit lg:flex sticky top-[4.7rem] justify-center"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}

@@ -11,7 +11,7 @@ function InfoCard({ user }) {
     >
       <div className="flex flex-col items-center">
         <motion.p
-          className="text-2xl text-slate-300"
+          className="text-2xl 2xl:text-xl text-slate-300"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
@@ -19,7 +19,7 @@ function InfoCard({ user }) {
           {user.followers}
         </motion.p>
         <motion.p
-          className="text-2xl text-slate-300"
+          className="text-2xl 2xl:text-xl text-slate-300"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
@@ -30,7 +30,7 @@ function InfoCard({ user }) {
       <p className="text-2xl border-l border-slate-600 h-14"></p>
       <div className="flex flex-col items-center">
         <motion.p
-          className="text-2xl text-slate-300"
+          className="text-2xl 2xl:text-xl text-slate-300"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
@@ -38,7 +38,7 @@ function InfoCard({ user }) {
           {user.following}
         </motion.p>
         <motion.p
-          className="text-2xl text-slate-300"
+          className="text-2xl 2xl:text-xl text-slate-300"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
@@ -49,7 +49,7 @@ function InfoCard({ user }) {
       <p className="text-2xl border-l border-slate-600 h-14"></p>
       <div className="flex flex-col items-center">
         <motion.p
-          className="text-2xl text-fuchsia-600"
+          className="text-2xl 2xl:text-xl text-fuchsia-600"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
@@ -57,7 +57,7 @@ function InfoCard({ user }) {
           #1
         </motion.p>
         <motion.p
-          className="text-2xl text-slate-200"
+          className="text-2xl 2xl:text-xl text-slate-200"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
