@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Pencil1Icon } from "@radix-ui/react-icons";
-function ProfileBanner() {
+function ProfileBanner({ user }) {
   return (
     <motion.div
       className="relative w-full h-64 overflow-hidden rounded-2xl bg-slate-900"
@@ -34,7 +34,7 @@ function ProfileBanner() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            Your name
+            {user.nick || "Loading..."}
           </motion.h1>
           {/*  Name section end */}
           {/* Quote section start */}

@@ -9,6 +9,7 @@ import ProfilePage from "./private/ProfilePage";
 import LoginPage from "./public/LoginPage";
 import PrivateRoute from "./PrivateRoute";
 import SettingsPage from "./private/SettingsPage";
+import SearchPage from "./private/SearchPage";
 const router = createHashRouter([
   {
     path: "/",
@@ -23,6 +24,14 @@ const router = createHashRouter([
         element: (
           <PrivateRoute>
             <FeedPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "search",
+        element: (
+          <PrivateRoute>
+            <SearchPage />
           </PrivateRoute>
         ),
       },

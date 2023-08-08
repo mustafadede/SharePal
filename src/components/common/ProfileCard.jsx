@@ -4,8 +4,14 @@ const ProfileCard = ({ nick = "-", username, following = "-", followers = "-" })
   return (
     <div className="z-0 flex flex-col w-72 h-fit bg-slate-900 rounded-2xl">
       <div className="relative h-28">
-        <div className="h-24 bg-slate-700 rounded-t-2xl"></div>
-        <div className="absolute w-20 h-20 transform -translate-x-1/2 rounded-full bg-fuchsia-600 top-11 left-1/2"></div>
+        <img
+          className="object-cover object-top w-full h-24 bg-slate-700 rounded-t-2xl opacity-90"
+          src="https://static01.nyt.com/images/2017/04/24/arts/24bates/24bates-videoSixteenByNineJumbo1600.jpg"
+        ></img>
+        <img
+          className="absolute object-cover w-20 h-20 transform -translate-x-1/2 rounded-full bg-fuchsia-600 top-11 left-1/2"
+          src="https://avatars.githubusercontent.com/u/95627279?v=4s"
+        ></img>
       </div>
       <div className="flex flex-col items-center justify-center pt-5">
         <p className="text-xl text-slate-200">{username}</p>
