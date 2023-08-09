@@ -5,15 +5,13 @@ import PopularCard from "../../components/common/MostPopularCard/PopularCard";
 import { getCurrentUserData, getAllPosts } from "../../firebase/firebaseActions";
 import FeedActionBox from "../../components/layout/FeedActionBox";
 import FeedCard from "../../components/common/FeedCard";
-import MyListsCard from "../../components/common/MyListsCard/MyListsCard";
+import MyPinnedListsCard from "../../components/common/MyPinnedListsCard/MyPinnedListsCard";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../store/userSlice";
-import { allPostsActions } from "../../store/allPostsSlice";
 import { motion } from "framer-motion";
 
 function FeedPage() {
   const { user } = useSelector((state) => state.user);
-  const { allPosts } = useSelector((state) => state.allPosts);
   const { post } = useSelector((state) => state.createPost);
   const dispatch = useDispatch();
 
@@ -23,10 +21,6 @@ function FeedPage() {
       try {
         const userData = await getCurrentUserData(localStorage.getItem("user"));
         userData && dispatch(userActions.updateUser(userData));
-        // getAllPosts().then((data) => {
-        //   dispatch(allPostsActions.updateAllPosts(data));
-        // });
-        // dispatch(allPostsActions.updateLength());
       } catch (error) {
         console.log(error);
       }
@@ -45,7 +39,7 @@ function FeedPage() {
           transition={{ delay: 0.1 }}
         >
           {user ? <ProfileCard nick={user.nick} following={user.following} followers={user.followers} /> : <ProfileCard />}
-          <MyListsCard />
+          <MyPinnedListsCard />
         </motion.div>
         <motion.div className="flex flex-col w-full px-6">
           <FeedActionBox />

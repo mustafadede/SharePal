@@ -2,7 +2,7 @@ import Navbar from "../../components/layout/Navbar";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ProfileCard from "../../components/common/ProfileCard";
-import MyListsCard from "../../components/common/MyListsCard/MyListsCard";
+import MyPinnedListsCard from "../../components/common/MyPinnedListsCard/MyPinnedListsCard";
 import SettingsButton from "../../components/common/SettingsButton";
 import AccountSettings from "../../components/layout/AccountSettings";
 import PrivacySettings from "../../components/layout/PrivacySettings";
@@ -45,7 +45,7 @@ function SettingsPage() {
           transition={{ delay: 0.1 }}
         >
           {user ? <ProfileCard nick={user.nick} following={user.following} followers={user.followers} /> : <ProfileCard />}
-          <MyListsCard />
+          <MyPinnedListsCard />
         </motion.div>
         <motion.div
           className="sticky px-5 py-4 ml-4 top-[4.7rem] w-72 bg-slate-900 rounded-2xl h-[30rem]"

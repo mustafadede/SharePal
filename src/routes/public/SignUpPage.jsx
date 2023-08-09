@@ -44,6 +44,7 @@ function SignUpPage() {
       <AnimatePresence>
         <div className="flex flex-col items-center justify-center overflow-hidden md:flex-row">
           <motion.div
+            key={"signupVideo"}
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -100 }}

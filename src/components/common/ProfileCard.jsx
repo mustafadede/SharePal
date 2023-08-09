@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 const ProfileCard = ({ nick = "-", username, following = "-", followers = "-" }) => {
   return (
-    <div className="z-0 flex flex-col w-72 h-fit bg-slate-900 rounded-2xl">
+    <div className="flex flex-col w-72 h-fit bg-slate-900 rounded-2xl">
       <div className="relative h-28">
         <img
           className="object-cover object-top w-full h-24 bg-slate-700 rounded-t-2xl opacity-90"
