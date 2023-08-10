@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 import ProfileCard from "../../components/common/ProfileCard";
 import MyPinnedListsCard from "../../components/common/MyPinnedListsCard/MyPinnedListsCard";
 import SettingsButton from "../../components/common/SettingsButton";
-import AccountSettings from "../../components/layout/AccountSettings";
-import PrivacySettings from "../../components/layout/PrivacySettings";
-import ThemeSettings from "../../components/layout/ThemeSettings";
+import AccountSettings from "../../components/layout/SettingsPage/AccountSettings";
+import PrivacySettings from "../../components/layout/SettingsPage/PrivacySettings";
+import ThemeSettings from "../../components/layout/SettingsPage/ThemeSettings";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 function SettingsPage() {
