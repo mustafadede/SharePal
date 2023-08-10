@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 function InfoCard({ user }) {
-  console.log(user.followers);
   return (
     <motion.div
       className="flex items-center justify-around w-full h-24 bg-slate-900 rounded-2xl"

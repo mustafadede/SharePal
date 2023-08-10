@@ -31,7 +31,7 @@ function FeedPage() {
   return (
     <>
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
-      <div className="flex mx-10">
+      <div className="flex mx-10 ">
         <motion.div
           className="hidden lg:w-1/4 h-fit lg:flex flex-col sticky top-[4.7rem] bg-cGradient2"
           initial={{ opacity: 0, y: -20 }}

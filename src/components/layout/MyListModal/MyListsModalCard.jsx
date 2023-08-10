@@ -2,13 +2,25 @@ import { Cross1Icon, DrawingPinFilledIcon, DrawingPinIcon } from "@radix-ui/reac
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MyListsActions } from "../../../store/myListsSlice";
+import { toast } from "react-toastify";
 
-function MyListsModalCard({ title, id, disabled = false }) {
-  const { isPinned } = useSelector((state) => state.myLists.myLists[id]);
+function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = false }) {
   const dispatch = useDispatch();
-  const handlePin = (id) => {
-    dispatch(MyListsActions.setPinned(id));
+  const handlePin = (listNum) => {
+    if (!isPinned) {
+      dispatch(MyListsActions.setPinned(listNum));
+      toast.success("List pinned successfully!");
+    } else {
+      dispatch(MyListsActions.setPinned(listNum));
+      toast.error("List unpinned successfully!");
+    }
   };
+
+  const handleRemove = (id) => {
+    dispatch(MyListsActions.deleteList(id));
+    toast.success("List removed successfully!");
+  };
+
   return (
     <div
       className={`flex items-center justify-between w-full h-10  overflow-hidden peer group ${
@@ -17,15 +29,15 @@ function MyListsModalCard({ title, id, disabled = false }) {
     >
       <p className={` text-slate-200  ${disabled ? "text-md" : "group-hover:text-fuchsia-400 text-xl"}`}>{title}</p>
       <div className="flex items-center gap-2">
-        <button className="ml-auto transition-all rounded-lg" onClick={() => handlePin(id)}>
+        <button className="ml-auto transition-all rounded-lg" onClick={() => handlePin(listNum)}>
           {!isPinned ? (
             <DrawingPinIcon className="w-6 h-6 ml-auto text-slate-200 hover:text-fuchsia-600" />
           ) : (
-            <DrawingPinFilledIcon className="w-6 h-6 ml-auto text-fuchsia-600" />
+            <DrawingPinFilledIcon className={`w-6 h-6 ml-auto text-fuchsia-600`} />
           )}
         </button>
         {!disabled && (
-          <button className="ml-auto transition-all rounded-lg">
+          <button className="ml-auto transition-all rounded-lg" onClick={() => handleRemove(id)}>
             <Cross1Icon className="w-6 h-6 ml-auto text-slate-200 hover:text-red-600" />
           </button>
         )}
