@@ -3,8 +3,10 @@ import React from "react";
 import FeedCardButtons from "./Buttons/FeedCardButtons";
 import { motion } from "framer-motion";
 import FeedCardActionsSkeleton from "./FeedCardActions/FeedCardActionsSkeleton";
+import { useSelector } from "react-redux";
 
-function FeedAttachedCard({ data }) {
+function FeedAttachedCard({ data, index }) {
+  const postAction = useSelector((state) => state.postAction);
   return (
     <motion.div
       className="flex flex-col w-full p-4 my-4 bg-slate-900 rounded-xl"
@@ -26,11 +28,11 @@ function FeedAttachedCard({ data }) {
         <BookmarkIcon className="w-6 h-6 text-slate-400 group-hover:text-slate-200" />
       </button>
       <div className="flex gap-2">
-        <FeedCardActionsSkeleton action={"likes"} number={data.likes} />
-        <FeedCardActionsSkeleton action={"comments"} number={data.comments} />
-        <FeedCardActionsSkeleton action={"replies"} number={data.replies} />
+        <FeedCardActionsSkeleton action={"likes"} number={postAction.postLikesList[index]?.likes} data={data} />
+        <FeedCardActionsSkeleton action={"comments"} number={postAction.postCommentsList[index]?.comments} data={data} />
+        <FeedCardActionsSkeleton action={"reposts"} number={postAction.postRepostsList[index]?.reposts} data={data} />
       </div>
-      <FeedCardButtons />
+      <FeedCardButtons data={data} />
     </motion.div>
   );
 }

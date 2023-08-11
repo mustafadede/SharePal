@@ -22,10 +22,8 @@ function FeedActionBox() {
           nick: getAuth().currentUser.displayName,
           likes: 0,
           comments: 0,
-          replies: 0,
+          reposts: 0,
           date: new Date().toISOString(),
-          isLiked: false,
-          isReposted: false,
         })
       );
       dispatch(createPostActions.updateText(""));
@@ -36,7 +34,11 @@ function FeedActionBox() {
       toast.error("Post field must be between 1 and 280 characters!");
     }
   };
-
+  const handlePost = (e) => {
+    if (e.ctrlKey && e.key === "Enter") {
+      createPost();
+    }
+  };
   return (
     <motion.div
       className="w-full px-3 overflow-hidden rounded-lg h-[10.2rem] bg-slate-900"
@@ -54,6 +56,7 @@ function FeedActionBox() {
         onChange={(e) =>
           e.target.value.length > 0 && e.target.value.length <= 280 && dispatch(createPostActions.updateText(e.target.value))
         }
+        onKeyDown={(e) => handlePost(e)}
       />
       <div className="flex w-full gap-2 mt-1">
         <FeedActionBoxButton

@@ -3,13 +3,13 @@ import FeedCommentCard from "./FeedCard/FeedCommentCard";
 import FeedAttachedCard from "./FeedCard/FeedAttachedCard";
 import FeedUploadCard from "./FeedCard/FeedUploadCard";
 
-function FeedCard({ isAttached = false, isComment = false, isUpload = false, data }) {
+function FeedCard({ isAttached = false, isComment = false, isUpload = false, data, index }) {
   return isComment ? (
-    <FeedCommentCard data={data} />
+    <FeedCommentCard data={data} index={index} />
   ) : isAttached ? (
-    <FeedAttachedCard data={data} />
+    <FeedAttachedCard data={data} index={index} />
   ) : isUpload ? (
-    <FeedUploadCard data={data} />
+    <FeedUploadCard data={data} index={index} />
   ) : null;
 }
 

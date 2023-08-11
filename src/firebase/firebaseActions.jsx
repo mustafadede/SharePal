@@ -93,6 +93,7 @@ const createPostAction = async (text, attachedFilm, attachedPhoto) => {
       attachedFilm: attachedFilm || null,
       likes: 0,
       comments: 0,
+      repost: 0,
       date: Date.now(),
     });
     return true;

@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Pencil1Icon } from "@radix-ui/react-icons";
+import { Link } from "react-router-dom";
 function ProfileBanner({ user }) {
   return (
     <motion.div
@@ -60,7 +61,7 @@ function ProfileBanner({ user }) {
       </div>
       {/*  Name, Quote end */}
       {/*  Edit button start */}
-      <motion.div>
+      <Link to="/settings">
         <motion.button
           className="absolute p-2 text-lg transition-all bg-transparent border-2 rounded-lg border-slate-400 text-slate-400 right-5 top-5 hover:border-fuchsia-800 hover:bg-fuchsia-800 hover:text-cWhite"
           initial={{ opacity: 0, y: -20 }}
@@ -69,7 +70,7 @@ function ProfileBanner({ user }) {
         >
           <Pencil1Icon />
         </motion.button>
-      </motion.div>
+      </Link>
       {/*  Edit button end */}
     </motion.div>
   );

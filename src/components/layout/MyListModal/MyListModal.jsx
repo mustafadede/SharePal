@@ -29,6 +29,17 @@ function MyListModal() {
       handleCreateList();
     }
   };
+  const handleSuggestion = (suggestion) => {
+    if (suggestion) {
+      dispatch(
+        MyListsActions.setMyLists({
+          id: Math.random().toString(36).substr(2, 9),
+          title: suggestion,
+          isPinned: false,
+        })
+      );
+    }
+  };
   return (
     <div className="px-8 pt-4 overflow-hidden h-[30rem]">
       <ModalHeader title="My Lists" />
@@ -53,7 +64,13 @@ function MyListModal() {
           </div>
         </div>
         {/** Create List section end */}
-        <Suggestion title="Name" suggestion1="My Watchlist" suggestion2="My Top 10" suggestion3="My Top 5" />
+        <Suggestion
+          title="Name"
+          suggestion1="My Watchlist"
+          suggestion2="My Top 10"
+          suggestion3="My Top 5"
+          handleSuggestion={handleSuggestion}
+        />
         {/** My Lists section start */}
         <div className="h-64 overflow-scroll no-scrollbar">
           {/** My Lists map */}

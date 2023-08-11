@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { HeartIcon, HeartFilledIcon } from "@radix-ui/react-icons";
-function FeedCardLikeButton() {
+import { useDispatch, useSelector } from "react-redux";
+import { postActionActions } from "../../../../store/postActionSlice";
+function FeedCardLikeButton({ data }) {
   const [isLiked, setIsLiked] = useState(false);
-
+  const dispatch = useDispatch();
   const handleLike = () => {
     setIsLiked(!isLiked);
+    if (!isLiked) {
+      dispatch(postActionActions.addPostToLikesList({ ...data, isLiked: true, likes: data.likes + 1 }));
+    } else {
+      dispatch(postActionActions.removePostFromLikesList(data.id));
+    }
   };
 
   return (

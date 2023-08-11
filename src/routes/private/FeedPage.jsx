@@ -14,7 +14,6 @@ function FeedPage() {
   const { user } = useSelector((state) => state.user);
   const { post } = useSelector((state) => state.createPost);
   const dispatch = useDispatch();
-
   useEffect(() => {
     document.title = "SharePal | Feed";
     const getData = async () => {
@@ -43,13 +42,13 @@ function FeedPage() {
         </motion.div>
         <motion.div className="flex flex-col w-full px-6">
           <FeedActionBox />
-          {post.map((data, i) => {
+          {post.map((data, index) => {
             if (data.attachedFilm && !data.attachedPhoto) {
-              return <FeedCard isAttached={true} data={data} />;
+              return <FeedCard key={index} isAttached={true} data={data} index={index} />;
             } else if (data.attachedPhoto && !data.attachedFilm) {
-              return <FeedCard isUpload={true} data={data} />;
+              return <FeedCard key={index} isUpload={true} data={data} index={index} />;
             } else {
-              return <FeedCard isComment={true} data={data} />;
+              return <FeedCard key={index} isComment={true} data={data} index={index} />;
             }
           })}
         </motion.div>

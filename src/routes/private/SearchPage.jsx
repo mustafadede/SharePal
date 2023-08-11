@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import PopularCard from "../../components/common/MostPopularCard/PopularCard";
 import SearchCard from "../../components/layout/SearchPage/SearchCard";
 import useSearch from "../../hooks/useSearch";
-
+import Suggestion from "../../components/common/Suggestion";
 function SearchPage() {
   const [search, setSearch] = useState("");
   const [movies, setMovies] = useState("");
@@ -12,6 +12,10 @@ function SearchPage() {
     if (e.key === "Enter") {
       useSearch(search, setMovies);
     }
+  };
+  const handleSuggestion = (suggestion) => {
+    setSearch(suggestion);
+    useSearch(suggestion, setMovies);
   };
   return (
     <>
@@ -28,6 +32,13 @@ function SearchPage() {
                 placeholder="Search for a user or movie/series"
                 onChange={(e) => setSearch(e.target.value)}
                 onKeyDown={(e) => handleSearch(e)}
+              />
+              <Suggestion
+                title="Search"
+                suggestion1="Bates Motel"
+                suggestion2="The Boys"
+                suggestion3="The Imitation Game"
+                handleSuggestion={handleSuggestion}
               />
             </div>
             {/* Search title and input end */}
