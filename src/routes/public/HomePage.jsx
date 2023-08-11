@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import video from "../../assets/video-playback.webm";
 import Navbar from "../../components/layout/Navbar";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
+  const navigate = useNavigate();
   const cardsList = {
     hidden: {
       y: 10,
@@ -42,6 +44,11 @@ function HomePage() {
   const item = { hidden: { y: 10, opacity: 0 }, visible: { y: 0, opacity: 1 } };
   useEffect(() => {
     document.title = "SharePal";
+    if (localStorage.getItem("user")) {
+      navigate("/feed");
+    } else {
+      navigate("/");
+    }
   }, []);
   return (
     <>
