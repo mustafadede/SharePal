@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { child, get, getDatabase, push, ref, set } from "firebase/database";
 
 const dbRef = ref(getDatabase());
+setPersistence(auth, browserSessionPersistence);
 
 const createUserWithEmailAction = async (data) => {
   try {
@@ -44,7 +45,6 @@ const createUserWithEmailAction = async (data) => {
 
 const signInWithEmailAction = async (email, password) => {
   try {
-    await setPersistence(auth, browserSessionPersistence);
     const user = await signInWithEmailAndPassword(auth, email, password);
     return user;
   } catch (error) {

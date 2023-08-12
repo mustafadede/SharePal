@@ -44,11 +44,11 @@ function HomePage() {
   const item = { hidden: { y: 10, opacity: 0 }, visible: { y: 0, opacity: 1 } };
   useEffect(() => {
     document.title = "SharePal";
-    if (localStorage.getItem("user")) {
-      navigate("/feed");
-    } else {
-      navigate("/");
-    }
+    // if (localStorage.getItem("user")) {
+    //   navigate("/feed");
+    // } else {
+    //   navigate("/");
+    // }
   }, []);
   return (
     <>
