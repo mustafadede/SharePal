@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-const ProfileCard = ({ nick = "-", username, following = "-", followers = "-" }) => {
+const ProfileCard = ({ nick = "-", username, following = "-", followers = "-", quote = "-" }) => {
   return (
     <div className="flex flex-col w-72 h-fit bg-slate-900 rounded-2xl">
       <div className="relative h-28">
@@ -16,9 +16,7 @@ const ProfileCard = ({ nick = "-", username, following = "-", followers = "-" })
       <div className="flex flex-col items-center justify-center pt-5">
         <p className="text-xl text-slate-200">{username}</p>
         <p className="text-md text-slate-400">@{nick}</p>
-        <p className="px-6 pt-2 text-sm text-center xl:text-lg text-slate-300">
-          Some old wounds never truly heal, and bleed again at the slightest word.
-        </p>
+        <p className="px-6 pt-2 text-sm text-center xl:text-lg text-slate-300">{quote}</p>
       </div>
       <div className="flex justify-around pt-2 text-center">
         <div className="flex flex-col ">

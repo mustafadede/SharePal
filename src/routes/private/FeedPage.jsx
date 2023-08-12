@@ -37,7 +37,11 @@ function FeedPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
-          {user ? <ProfileCard nick={user.nick} following={user.following} followers={user.followers} /> : <ProfileCard />}
+          {user ? (
+            <ProfileCard nick={user.nick} following={user.following} followers={user.followers} quote={user.quote} />
+          ) : (
+            <ProfileCard />
+          )}
           <MyPinnedListsCard />
         </motion.div>
         <motion.div className="flex flex-col w-full px-6">

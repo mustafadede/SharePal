@@ -6,7 +6,7 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { auth, database } from "./firebaseConfig";
+import { auth, database, storage } from "./firebaseConfig";
 import { toast } from "react-toastify";
 import { child, get, getDatabase, push, ref, set } from "firebase/database";
 
@@ -22,6 +22,7 @@ const createUserWithEmailAction = async (data) => {
         following: 0,
         followers: 0,
         email: data.email,
+        quote: "",
       });
       updateProfile(auth.currentUser, {
         displayName: data.name,
@@ -70,8 +71,31 @@ const getCurrentUserData = async (userId) => {
         following: snapshot.val().following,
         followers: snapshot.val().followers,
         email: snapshot.val().email,
+        quote: snapshot.val().quote,
       };
       return user;
+    } else {
+      console.log("No data available");
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+const updateCurrentUserData = async (userId, data) => {
+  try {
+    const snapshot = await get(child(dbRef, `users/${userId}`));
+    if (snapshot.exists()) {
+      await set(ref(database, `users/${userId}`), {
+        displayName: data.nick,
+        email: data.email,
+        following: snapshot.val().following,
+        followers: snapshot.val().followers,
+        quote: data.quote,
+      });
+      return true;
     } else {
       console.log("No data available");
       return null;
@@ -126,4 +150,4 @@ const getAllPosts = async () => {
   }
   return allPosts;
 };
-export { createUserWithEmailAction, signInWithEmailAction, getCurrentUserData, createPostAction, getAllPosts };
+export { createUserWithEmailAction, signInWithEmailAction, getCurrentUserData, updateCurrentUserData, createPostAction, getAllPosts };

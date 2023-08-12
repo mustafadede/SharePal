@@ -46,7 +46,7 @@ function ProfileBanner({ user }) {
             transition={{ delay: 0.5 }}
           >
             <svg
-              class="w-8 h-8 absolute text-slate-600 mb-4 right-[-28px] top-[-7px] transform opacity-40 -translate-y-2/4 -translate-x-2/4"
+              className="w-8 h-8 absolute text-slate-600 mb-4 right-[-28px] top-[-7px] transform opacity-40 -translate-y-2/4 -translate-x-2/4"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"
@@ -54,7 +54,7 @@ function ProfileBanner({ user }) {
             >
               <path d="M6 0H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3H2a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3h-1a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Z" />
             </svg>
-            Some old wounds never truly heal, and bleed again at the slightest word.
+            {user.quote}
           </motion.p>
           {/*  Quote section end */}
         </div>

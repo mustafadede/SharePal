@@ -1,6 +1,49 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
-function AccountSettings({ user }) {
+import { useDispatch, useSelector } from "react-redux";
+import { userActions } from "../../../store/userSlice";
+import { updateCurrentUserData } from "../../../firebase/firebaseActions";
+import { toast } from "react-toastify";
+function AccountSettings() {
+  const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const photoRef = useRef(null);
+  const bannerRef = useRef(null);
+  const [photo, setPhoto] = useState(null);
+  const [banner, setBanner] = useState(null);
+  const [nick, setNick] = useState(user.nick);
+  const [email, setEmail] = useState(user.email);
+  const [quote, setQuote] = useState(user.quote);
+
+  const formHandler = () => {
+    if (nick === "" && email === "" && quote === "") return toast.error("You didn't change anything!");
+    dispatch(userActions.updateUser({ ...user, nick, email, quote }));
+    const data = {
+      nick,
+      email,
+      quote,
+    };
+    updateCurrentUserData(localStorage.getItem("user"), data) && toast.success("Updated successfully!");
+  };
+
+  const handleProfileChange = (e) => {
+    setPhoto(e.target.files[0]);
+  };
+
+  const handleBannerChange = (e) => {
+    setBanner(e.target.files[0]);
+  };
+
+  const handleUploadPhotoButtonClick = () => {
+    if (photoRef.current) {
+      photoRef.current.click();
+    }
+  };
+  const handleUploadBannerButtonClick = () => {
+    if (bannerRef.current) {
+      bannerRef.current.click();
+    }
+  };
   return (
     <motion.div
       className="flex flex-col w-full h-full px-5 py-4 ml-4 bg-slate-900 rounded-2xl"
@@ -14,21 +57,34 @@ function AccountSettings({ user }) {
         <input
           className="w-full px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
           placeholder={`Your nickname (${user.nick})`}
+          onChange={(e) => {
+            setNick(e.target.value);
+          }}
         />
         <input
           className="w-full px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
           placeholder={`Email (${user.email})`}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
         />
         <input
           className="w-full px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
-          placeholder="Quote"
+          placeholder={`Quote (${user.quote})`}
+          onChange={(e) => {
+            setQuote(e.target.value);
+          }}
         />
         <p className="w-full my-2 text-xl text-slate-300">Pictures</p>
         <div className="flex flex-row justify-center gap-10">
           <div className="flex flex-row gap-4 rounded-2xl">
             <div className="flex flex-col gap-2">
               <p className="text-xl text-slate-300">Profile Picture</p>
-              <button className="px-4 py-3 text-lg transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl">
+              <input type="file" accept="image/jpeg" onChange={handleProfileChange} style={{ display: "none" }} ref={photoRef} />
+              <button
+                className="px-4 py-3 text-lg transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl"
+                onClick={handleUploadPhotoButtonClick}
+              >
                 Upload
               </button>
             </div>
@@ -36,7 +92,11 @@ function AccountSettings({ user }) {
           <div className="flex flex-row gap-4 rounded-2xl">
             <div className="flex flex-col gap-2">
               <p className="text-xl text-slate-300">Banner Picture</p>
-              <button className="px-4 py-3 text-lg transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl">
+              <input type="file" accept="image/jpeg, image/gif" onChange={handleBannerChange} style={{ display: "none" }} ref={bannerRef} />
+              <button
+                className="px-4 py-3 text-lg transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl"
+                onClick={handleUploadBannerButtonClick}
+              >
                 Upload
               </button>
             </div>
@@ -51,7 +111,10 @@ function AccountSettings({ user }) {
           className="px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
           placeholder="Current Password"
         />
-        <button className="w-full px-4 py-3 my-2 text-xl transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl">
+        <button
+          className="w-full px-4 py-3 my-2 text-xl transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl"
+          onClick={formHandler}
+        >
           Save
         </button>
       </div>

@@ -10,6 +10,7 @@ import { getAuth } from "firebase/auth";
 
 function FeedActionBox() {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
   const { attachedFilm, attachedPhoto, text } = useSelector((state) => state.createPost);
   const createPost = () => {
     if (text.length > 0 && text.length <= 280) {
@@ -19,7 +20,7 @@ function FeedActionBox() {
           text: text,
           attachedFilm: attachedFilm,
           attachedPhoto: attachedPhoto,
-          nick: getAuth().currentUser.displayName,
+          nick: user.nick,
           likes: 0,
           comments: 0,
           reposts: 0,
