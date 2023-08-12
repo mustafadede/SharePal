@@ -7,7 +7,7 @@ import InfoCard from "../../components/layout/ProfilePage/InfoCard";
 import { useSelector } from "react-redux";
 import Tabs from "../../components/layout/ProfilePage/Tabs";
 import PostsSection from "../../components/layout/ProfilePage/PostsSection";
-import ListsSection from "../../components/layout/ProfilePage/ListsSection";
+import ListsSection from "../../components/layout/ProfilePage/ListsSection/ListsSection";
 import ActivitiesSection from "../../components/layout/ProfilePage/ActivitiesSection";
 
 function ProfilePage() {
