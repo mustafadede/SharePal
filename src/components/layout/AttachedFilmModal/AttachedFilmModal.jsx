@@ -22,7 +22,7 @@ function AttachedFilmModal() {
       <input
         className="w-full h-10 mt-4 text-lg bg-transparent border-b-2 outline-none text-cWhite border-b-slate-400"
         type="text"
-        placeholder="Search for a film..."
+        placeholder="Search film/series..."
         onChange={(e) => setSearch(e.target.value)}
         onKeyDown={handleSearch}
       ></input>
