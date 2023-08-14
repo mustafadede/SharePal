@@ -19,7 +19,6 @@ const ModalOverlay = (props) => {
         exit={{ opacity: 0 }}
       >
         <motion.div
-          className="bg-slate-900 rounded-2xl"
           onClick={stopPropagation}
           key="modalContent"
           initial={{ opacity: 0, y: -20 }}

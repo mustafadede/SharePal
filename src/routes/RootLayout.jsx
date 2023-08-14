@@ -1,9 +1,14 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
+import MyListModal from "../components/layout/MyListModal/MyListModal";
+import ModalSkeleton from "../components/layout/ModalSkeleton/ModalSkeleton";
+import AttachedFilmModal from "../components/layout/AttachedFilmModal/AttachedFilmModal";
 
 function RootLayout() {
+  const { modalState, modalName } = useSelector((state) => state.modal);
   return (
     <div className="container mx-auto">
       <ToastContainer
@@ -18,6 +23,16 @@ function RootLayout() {
         pauseOnHover
         theme="dark"
       />
+      {modalState && modalName === "pinnedModal" && (
+        <ModalSkeleton>
+          <MyListModal />
+        </ModalSkeleton>
+      )}
+      {modalState && modalName === "attachedFilmModal" && (
+        <ModalSkeleton>
+          <AttachedFilmModal />
+        </ModalSkeleton>
+      )}
       <Outlet />;
     </div>
   );

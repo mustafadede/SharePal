@@ -41,7 +41,7 @@ function MyListModal() {
     }
   };
   return (
-    <div className="px-8 pt-4 overflow-hidden h-[30rem]">
+    <div className="bg-slate-900 rounded-2xl px-8 pt-4 overflow-hidden h-[30rem]">
       <ModalHeader title="My Lists" />
       <div className="flex flex-col justify-center py-4 pt-4">
         {/** Create List section start */}

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createPostActions } from "../../store/createPostSlice";
 import { createPostAction } from "../../firebase/firebaseActions";
 import { getAuth } from "firebase/auth";
+import { modalActions } from "../../store/modalSlice";
 
 function FeedActionBox() {
   const dispatch = useDispatch();
@@ -40,51 +41,57 @@ function FeedActionBox() {
       createPost();
     }
   };
+  const handleAttachedFilm = () => {
+    dispatch(modalActions.openModal("attachedFilmModal"));
+  };
+
   return (
-    <motion.div
-      className="w-full px-3 overflow-hidden rounded-lg h-[10.2rem] bg-slate-900"
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.2 }}
-    >
-      <motion.textarea
-        name="post"
-        className="w-full h-20 px-4 py-2 mt-4 rounded-lg outline-none resize-none text-md text-cWhite bg-slate-800 "
-        placeholder="What's happening?"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3 }}
-        onChange={(e) =>
-          e.target.value.length > 0 && e.target.value.length <= 280 && dispatch(createPostActions.updateText(e.target.value))
-        }
-        onKeyDown={(e) => handlePost(e)}
-      />
-      <div className="flex w-full gap-2 mt-1">
-        <FeedActionBoxButton
-          icons={<Link2Icon className="h-6 transition-all w-fit text-slate-300" />}
-          text="Attach Film/Series"
-          onClickAction={() => {
-            dispatch(createPostActions.updateAttachedFilm({ id: 1, name: "Batman", photo: "https://i.imgur.com/2xW3YzB.png" }));
-          }}
-        />
-        <FeedActionBoxButton
-          icons={<CameraIcon className="h-6 transition-all w-fit text-slate-300" />}
-          text="Upload Photo"
-          onClickAction={() => {
-            dispatch(createPostActions.updateAttachedPhoto("https://i.imgur.com/2xW3YzB.png"));
-          }}
-        />
-        <motion.button
-          className="w-full p-2 text-lg transition-colors rounded-lg select-none h-100 bg-slate-600 hover:bg-fuchsia-800 text-cWhite"
-          onClick={createPost}
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+    <>
+      <motion.div
+        className="w-full px-3 overflow-hidden rounded-lg h-[10.2rem] bg-slate-900"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+      >
+        <motion.textarea
+          name="post"
+          className="w-full h-20 px-4 py-2 mt-4 rounded-lg outline-none resize-none text-md text-cWhite bg-slate-800 "
+          placeholder="What's happening?"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-        >
-          Post
-        </motion.button>
-      </div>
-    </motion.div>
+          onChange={(e) =>
+            e.target.value.length > 0 && e.target.value.length <= 280 && dispatch(createPostActions.updateText(e.target.value))
+          }
+          onKeyDown={(e) => handlePost(e)}
+        />
+        <div className="flex w-full gap-2 mt-1">
+          <FeedActionBoxButton
+            icons={<Link2Icon className="h-6 transition-all w-fit text-slate-300" />}
+            text="Attach Film/Series"
+            onClickAction={() => {
+              handleAttachedFilm();
+            }}
+          />
+          <FeedActionBoxButton
+            icons={<CameraIcon className="h-6 transition-all w-fit text-slate-300" />}
+            text="Upload Photo"
+            onClickAction={() => {
+              dispatch(createPostActions.updateAttachedPhoto("https://i.imgur.com/2xW3YzB.png"));
+            }}
+          />
+          <motion.button
+            className="w-full p-2 text-lg transition-colors rounded-lg select-none h-100 bg-slate-600 hover:bg-fuchsia-800 text-cWhite"
+            onClick={createPost}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            Post
+          </motion.button>
+        </div>
+      </motion.div>
+    </>
   );
 }
 
