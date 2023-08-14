@@ -42,7 +42,7 @@ function FeedActionBox() {
     }
   };
   const handleAttachedFilm = () => {
-    dispatch(modalActions.openModal("attachedFilmModal"));
+    dispatch(modalActions.openModal({ name: "attachedFilmModal" }));
   };
 
   return (

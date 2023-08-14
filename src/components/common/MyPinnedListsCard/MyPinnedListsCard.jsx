@@ -9,7 +9,7 @@ function MyPinnedListsCard() {
   const { myLists, pinnedLists } = useSelector((state) => state.myLists);
   const dispatch = useDispatch();
   const clickHandler = () => {
-    dispatch(modalActions.openModal("pinnedModal"));
+    dispatch(modalActions.openModal({ name: "pinnedModal" }));
   };
   return (
     <>

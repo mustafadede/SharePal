@@ -1,12 +1,19 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { PlusIcon } from "@radix-ui/react-icons";
-function SearchCard({ title, poster, releaseDate }) {
+import { useDispatch } from "react-redux";
+import { modalActions } from "../../../store/modalSlice";
+function SearchCard({ title, poster, releaseDate, overview, vote }) {
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(modalActions.openModal({ name: "searchCardModal", data: { title, poster, releaseDate, overview, vote } }));
+  };
   return (
     <motion.div
       className="relative w-48 h-64 transition-all cursor-pointer rounded-2xl hover:scale-105"
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
+      onClick={handleClick}
     >
       {poster === null && (
         <div className="absolute flex items-center justify-center w-full h-full rounded-2xl bg-gradient-to-t from-transparent to-fuchsia-800"></div>

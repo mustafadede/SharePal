@@ -10,7 +10,7 @@ function ListsSection() {
   const { myLists, pinnedLists } = useSelector((state) => state.myLists);
 
   const clickHandler = () => {
-    dispatch(modalActions.openModal("pinnedModal"));
+    dispatch(modalActions.openModal({ name: "pinnedModal" }));
   };
   let flag = 0;
   return (

@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import MyListModal from "../components/layout/MyListModal/MyListModal";
 import ModalSkeleton from "../components/layout/ModalSkeleton/ModalSkeleton";
 import AttachedFilmModal from "../components/layout/AttachedFilmModal/AttachedFilmModal";
+import SearchCardModal from "../components/layout/SearchPage/SearchCardModal";
 
 function RootLayout() {
   const { modalState, modalName } = useSelector((state) => state.modal);
@@ -31,6 +32,11 @@ function RootLayout() {
       {modalState && modalName === "attachedFilmModal" && (
         <ModalSkeleton>
           <AttachedFilmModal />
+        </ModalSkeleton>
+      )}
+      {modalState && modalName === "searchCardModal" && (
+        <ModalSkeleton>
+          <SearchCardModal />
         </ModalSkeleton>
       )}
       <Outlet />;
