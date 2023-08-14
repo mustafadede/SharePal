@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import FeedCardActionsSkeleton from "./FeedCardActions/FeedCardActionsSkeleton";
 import { useSelector } from "react-redux";
 
-function FeedAttachedCard({ data, index }) {
+function FeedAttachedCard({ data, index, attachedData }) {
   const postAction = useSelector((state) => state.postAction);
   return (
     <motion.div
@@ -22,8 +22,14 @@ function FeedAttachedCard({ data, index }) {
       <p className="my-2 text-slate-200">{data.text}</p>
       <button className="flex items-center justify-between w-full gap-4 p-2 transition-colors duration-300 border rounded-2xl border-slate-700 group hover:bg-cGradient2 hover:border-slate-600">
         <div className="flex items-center gap-4">
-          <img src={data.attachedFilm.photo} className="object-cover rounded-full w-14 h-14 grayscale group-hover:grayscale-0"></img>
-          <p className="text-slate-400 group-hover:text-slate-200">{data.attachedFilm.name}</p>
+          <img
+            src={`https://image.tmdb.org/t/p/w500/${attachedData.poster}`}
+            className="object-cover rounded-full w-14 h-14 grayscale group-hover:grayscale-0"
+          ></img>
+          <div className="flex gap-1">
+            <p className="text-slate-400 group-hover:text-slate-200">{attachedData.title}</p>
+            <p className="text-slate-400 group-hover:text-slate-200">({attachedData.releaseDate.slice(0, 4)})</p>
+          </div>
         </div>
         <BookmarkIcon className="w-6 h-6 text-slate-400 group-hover:text-slate-200" />
       </button>

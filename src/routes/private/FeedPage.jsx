@@ -13,6 +13,7 @@ import { motion } from "framer-motion";
 function FeedPage() {
   const { user } = useSelector((state) => state.user);
   const { post } = useSelector((state) => state.createPost);
+  const { modalHasData } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
   useEffect(() => {
     document.title = "SharePal | Feed";
@@ -47,9 +48,9 @@ function FeedPage() {
         <motion.div className="flex flex-col w-full px-6">
           <FeedActionBox />
           {post.map((data, index) => {
-            if (data.attachedFilm && !data.attachedPhoto) {
-              return <FeedCard key={index} isAttached={true} data={data} index={index} />;
-            } else if (data.attachedPhoto && !data.attachedFilm) {
+            if (modalHasData && !data.attachedPhoto) {
+              return <FeedCard key={index} isAttached={true} data={data} attachedData={modalHasData} index={index} />;
+            } else if (data.attachedPhoto && !modalHasData) {
               return <FeedCard key={index} isUpload={true} data={data} index={index} />;
             } else {
               return <FeedCard key={index} isComment={true} data={data} index={index} />;

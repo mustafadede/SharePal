@@ -11,11 +11,12 @@ const modalSlice = createSlice({
     openModal: (state, action) => {
       state.modalState = true;
       state.modalName = action.payload.name;
-      state.modalHasData = action.payload.data ? action.payload.data : false;
+      state.modalHasData = action.payload?.data ? action.payload.data : false;
     },
-    closeModal: (state) => {
+    closeModal: (state, action) => {
       state.modalState = false;
       state.modalName = "";
+      state.modalHasData = action.payload?.data ? action.payload.data : "";
     },
   },
 });

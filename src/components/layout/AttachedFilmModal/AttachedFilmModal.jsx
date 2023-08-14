@@ -16,6 +16,7 @@ function AttachedFilmModal() {
     setSearch(suggestion);
     useSearch(suggestion, setMovies);
   };
+
   return (
     <div className="p-4 w-[35rem] h-[27rem] bg-slate-900 rounded-2xl overflow-hidden">
       <ModalHeader title="Attach Film/Series" />
