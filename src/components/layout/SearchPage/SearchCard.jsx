@@ -3,14 +3,14 @@ import { motion } from "framer-motion";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { useDispatch } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
-function SearchCard({ title, poster, releaseDate, overview, vote }) {
+function SearchCard({ title, poster, releaseDate, overview, vote, backdrop }) {
   const dispatch = useDispatch();
   const handleClick = () => {
-    dispatch(modalActions.openModal({ name: "searchCardModal", data: { title, poster, releaseDate, overview, vote } }));
+    dispatch(modalActions.openModal({ name: "searchCardModal", data: { title, poster, releaseDate, overview, vote, backdrop } }));
   };
   return (
     <motion.div
-      className="relative w-48 h-64 transition-all cursor-pointer rounded-2xl hover:scale-105"
+      className="relative w-48 h-64 transition-all border-transparent cursor-pointer rounded-2xl hover:border hover:border-fuchsia-600"
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       onClick={handleClick}

@@ -55,6 +55,7 @@ function SearchPage() {
                     releaseDate={movie.release_date || movie.first_air_date || null}
                     overview={movie.overview}
                     vote={movie.vote_average || 0}
+                    backdrop={movie.backdrop_path || movie.poster_path || movie.profile_path || null}
                   />
                 ) : null
               )}
