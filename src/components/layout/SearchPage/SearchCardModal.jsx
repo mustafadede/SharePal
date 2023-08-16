@@ -3,6 +3,8 @@ import ModalHeader from "../ModalSkeleton/ModalHeader";
 import { useSelector } from "react-redux";
 import { BellIcon, Link2Icon, PlusIcon } from "@radix-ui/react-icons";
 import SearchCardButton from "./SearchCardButton";
+import { motion } from "framer-motion";
+
 function SearchCardModal() {
   const { title, poster, releaseDate, overview, vote, backdrop } = useSelector((state) => state.modal.modalHasData);
 
@@ -14,13 +16,17 @@ function SearchCardModal() {
       {/* Image & Backdrop Image & title & release date */}
       <div className="relative flex flex-row-reverse w-full h-[21rem]">
         {/* Image */}
-        <div className="absolute z-10 h-full top-12 w-52 right-20 drop-shadow-2xl">
+        <motion.div
+          className="absolute z-10 h-full top-12 w-52 right-20 drop-shadow-2xl"
+          initial={{ y: 0, opacity: 0 }}
+          animate={{ y: -5, opacity: 1 }}
+        >
           <img
             src={`https://image.tmdb.org/t/p/w500/${poster}`}
             className="w-full transition-all duration-300 border cursor-pointer drop-shadow-xl rounded-xl border-slate-400 hover:border-fuchsia-600"
             alt={poster}
           />
-        </div>
+        </motion.div>
         {/*Backdrop Image */}
         <div className="absolute top-0 right-0 w-full h-full overflow-hidden blur-md rounded-tr-2xl">
           <img src={`https://image.tmdb.org/t/p/w500/${backdrop}`} className="w-full scale-y-150" alt={poster} />
