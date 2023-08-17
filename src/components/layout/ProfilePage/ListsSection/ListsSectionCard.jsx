@@ -1,9 +1,18 @@
 import { DrawingPinFilledIcon } from "@radix-ui/react-icons";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { modalActions } from "../../../../store/modalSlice";
 
 function ListsSectionCard({ title, isPinned }) {
+  const dispatch = useDispatch();
+  const clickHandler = () => {
+    dispatch(modalActions.openModal({ name: "listModal", data: { title } }));
+  };
   return (
-    <button className="relative flex flex-col w-48 h-48 gap-2 p-2 transition-all hover:bg-slate-800 group rounded-2xl">
+    <button
+      className="relative flex flex-col w-48 h-48 gap-2 p-2 transition-all hover:bg-slate-800 group rounded-2xl"
+      onClick={clickHandler}
+    >
       {isPinned && <DrawingPinFilledIcon className="absolute ml-auto w-7 h-7 text-fuchsia-600 right-4 top-4" />}
       <img
         className="object-cover w-full h-full rounded-xl"

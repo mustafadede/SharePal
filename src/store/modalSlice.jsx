@@ -15,7 +15,6 @@ const modalSlice = createSlice({
     },
     closeModal: (state, action) => {
       state.modalState = false;
-      state.modalName = "";
       state.modalHasData = action.payload?.data ? action.payload.data : "";
     },
   },

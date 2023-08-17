@@ -13,7 +13,7 @@ function FeedActionBox() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const { attachedFilm, attachedPhoto, text } = useSelector((state) => state.createPost);
-  const { modalHasData } = useSelector((state) => state.modal);
+  const { modalHasData, modalName } = useSelector((state) => state.modal);
   const createPost = () => {
     if (text.length > 0 && text.length <= 280) {
       dispatch(
@@ -67,7 +67,7 @@ function FeedActionBox() {
           }
           onKeyDown={(e) => handlePost(e)}
         />
-        {modalHasData && (
+        {modalName === "attachedFilmModal" && modalHasData && (
           <motion.div
             className="flex items-center justify-between w-full px-4 py-2 mb-3 text-sm transition-all rounded-lg hover:bg-fuchsia-800 text-slate-300 bg-slate-800"
             initial={{ opacity: 0 }}

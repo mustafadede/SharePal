@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { MyListsActions } from "../../../store/myListsSlice";
 import { toast } from "react-toastify";
 
-function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = false }) {
+function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = false, clickHandler }) {
   const dispatch = useDispatch();
   const handlePin = (listNum) => {
     if (!isPinned) {
@@ -23,9 +23,10 @@ function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = fal
 
   return (
     <div
-      className={`flex items-center justify-between w-full h-10  overflow-hidden peer group ${
+      className={`flex items-center cursor-pointer justify-between w-full h-10  overflow-hidden group ${
         disabled ? "" : "hover:border-fuchsia-400 border-slate-200 border px-4 py-6 mb-4"
       } rounded-xl`}
+      onClick={() => clickHandler(id, title)}
     >
       <p className={` text-slate-200  ${disabled ? "text-md" : "group-hover:text-fuchsia-400 text-xl"}`}>{title}</p>
       <div className="flex items-center gap-2">

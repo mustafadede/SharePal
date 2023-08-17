@@ -6,6 +6,7 @@ import { MyListsActions } from "../../../store/myListsSlice";
 import { toast } from "react-toastify";
 import Suggestion from "../../common/Suggestion";
 import { createPinnedList } from "../../../firebase/firebaseActions";
+import { modalActions } from "../../../store/modalSlice";
 
 function MyListModal() {
   const [listname, setListname] = useState("");
@@ -42,6 +43,11 @@ function MyListModal() {
         createPinnedList({ id: Math.random().toString(36).substr(2, 9), title: suggestion, isPinned: false })
       );
     }
+  };
+
+  const clickHandler = (id, title) => {
+    dispatch(modalActions.closeModal());
+    dispatch(modalActions.openModal({ name: "listModal", data: { id, title } }));
   };
   return (
     <div className="bg-slate-900 rounded-2xl px-8 pt-4 overflow-hidden h-[30rem]">
@@ -80,7 +86,14 @@ function MyListModal() {
           {myLists.length === 0 && <p className="text-md text-slate-400">You have no lists yet.</p>}
           {myLists.length > 0 &&
             myLists.map((list, i) => (
-              <MyListsModalCard key={list.id} listNum={i} title={list.title} id={list.id} isPinned={list.isPinned} />
+              <MyListsModalCard
+                key={list.id}
+                listNum={i}
+                title={list.title}
+                id={list.id}
+                isPinned={list.isPinned}
+                clickHandler={clickHandler}
+              />
             ))}
         </div>
       </div>
