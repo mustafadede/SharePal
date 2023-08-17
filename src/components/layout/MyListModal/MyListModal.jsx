@@ -5,6 +5,7 @@ import MyListsModalCard from "./MyListsModalCard";
 import { MyListsActions } from "../../../store/myListsSlice";
 import { toast } from "react-toastify";
 import Suggestion from "../../common/Suggestion";
+import { createPinnedList } from "../../../firebase/firebaseActions";
 
 function MyListModal() {
   const [listname, setListname] = useState("");
@@ -17,7 +18,8 @@ function MyListModal() {
           id: Math.random().toString(36).substr(2, 9),
           title: listname,
           isPinned: false,
-        })
+        }),
+        createPinnedList({ id: Math.random().toString(36).substr(2, 9), title: listname, isPinned: false })
       );
     } else {
       toast.error("List name cannot be empty.");
@@ -36,7 +38,8 @@ function MyListModal() {
           id: Math.random().toString(36).substr(2, 9),
           title: suggestion,
           isPinned: false,
-        })
+        }),
+        createPinnedList({ id: Math.random().toString(36).substr(2, 9), title: suggestion, isPinned: false })
       );
     }
   };

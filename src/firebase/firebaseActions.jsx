@@ -150,4 +150,25 @@ const getAllPosts = async () => {
   }
   return allPosts;
 };
-export { createUserWithEmailAction, signInWithEmailAction, getCurrentUserData, updateCurrentUserData, createPostAction, getAllPosts };
+
+const createPinnedList = async (data) => {
+  try {
+    const userId = getAuth().currentUser.uid;
+    const newPinnedListRef = push(ref(database, `pinnedList/${userId}`));
+    set(newPinnedListRef, data);
+    return true;
+  } catch (error) {
+    console.error(error);
+    return toast("Something went wrong!");
+  }
+};
+
+export {
+  createUserWithEmailAction,
+  signInWithEmailAction,
+  getCurrentUserData,
+  updateCurrentUserData,
+  createPostAction,
+  getAllPosts,
+  createPinnedList,
+};
