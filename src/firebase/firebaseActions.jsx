@@ -23,6 +23,7 @@ const createUserWithEmailAction = async (data) => {
         followers: 0,
         email: data.email,
         quote: "",
+        topOne: "",
       });
       updateProfile(auth.currentUser, {
         displayName: data.name,
@@ -72,6 +73,7 @@ const getCurrentUserData = async (userId) => {
         followers: snapshot.val().followers,
         email: snapshot.val().email,
         quote: snapshot.val().quote,
+        topOne: snapshot.val().topOne,
       };
       return user;
     } else {
@@ -94,6 +96,7 @@ const updateCurrentUserData = async (userId, data) => {
         following: snapshot.val().following,
         followers: snapshot.val().followers,
         quote: data.quote,
+        topOne: data.topOne,
       });
       return true;
     } else {

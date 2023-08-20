@@ -61,7 +61,7 @@ function InfoCard({ user }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          Bates Motel
+          {user.topOne || "No data"}
         </motion.p>
       </div>
     </motion.div>

@@ -14,14 +14,16 @@ function AccountSettings() {
   const [nick, setNick] = useState(user.nick);
   const [email, setEmail] = useState(user.email);
   const [quote, setQuote] = useState(user.quote);
+  const [topOne, setTopOne] = useState(user.quote);
 
   const formHandler = () => {
-    if (nick === "" && email === "" && quote === "") return toast.error("You didn't change anything!");
-    dispatch(userActions.updateUser({ ...user, nick, email, quote }));
+    if (nick === "" && email === "" && quote === "" && topOne === "") return toast.error("You didn't change anything!");
+    dispatch(userActions.updateUser({ ...user, nick, email, quote, topOne }));
     const data = {
       nick,
       email,
       quote,
+      topOne,
     };
     updateCurrentUserData(localStorage.getItem("user"), data) && toast.success("Updated successfully!");
   };
@@ -73,6 +75,13 @@ function AccountSettings() {
           placeholder={`Quote (${user.quote})`}
           onChange={(e) => {
             setQuote(e.target.value);
+          }}
+        />
+        <input
+          className="w-full px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
+          placeholder={`Favorite in all time (${user.topOne})`}
+          onChange={(e) => {
+            setTopOne(e.target.value);
           }}
         />
         <p className="w-full my-2 text-xl text-slate-300">Pictures</p>

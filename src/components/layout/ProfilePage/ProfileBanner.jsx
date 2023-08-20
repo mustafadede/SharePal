@@ -40,7 +40,7 @@ function ProfileBanner({ user }) {
           {/*  Name section end */}
           {/* Quote section start */}
           <motion.p
-            className="relative text-lg italic font-semibold text-slate-400 top-2"
+            className="relative text-lg italic font-semibold w-96 text-slate-400 top-2"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
