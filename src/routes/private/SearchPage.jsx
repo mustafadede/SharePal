@@ -9,7 +9,10 @@ function SearchPage() {
   const [search, setSearch] = useState("");
   const [movies, setMovies] = useState("");
   const handleSearch = (e) => {
-    if (e.key === "Enter") {
+    if (search.startsWith("@")) {
+      console.log("User search");
+    }
+    if (e.key === "Enter" && !search.startsWith("@")) {
       useSearch(search, setMovies);
     }
   };

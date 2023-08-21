@@ -10,6 +10,7 @@ import LoginPage from "./public/LoginPage";
 import PrivateRoute from "./PrivateRoute";
 import SettingsPage from "./private/SettingsPage";
 import SearchPage from "./private/SearchPage";
+import ExplorePage from "./private/ExplorePage";
 const router = createHashRouter([
   {
     path: "/",
@@ -40,6 +41,14 @@ const router = createHashRouter([
         element: (
           <PrivateRoute>
             <ProfilePage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "explore",
+        element: (
+          <PrivateRoute>
+            <ExplorePage />
           </PrivateRoute>
         ),
       },

@@ -15,7 +15,7 @@ function ListsSection() {
   let flag = 0;
   return (
     <>
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-4">
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="flex flex-col gap-4">
         <motion.div className="flex flex-col flex-wrap justify-start w-full gap-4 p-4 h-fit bg-slate-900 rounded-2xl">
           {myLists.length === 0 && <EmptyCard title="You don't have any list. Do you wanna create ?" clickHandler={clickHandler} />}
           {myLists.length !== 0 && (

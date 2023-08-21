@@ -1,7 +1,7 @@
 import React from "react";
 import ModalHeader from "../ModalSkeleton/ModalHeader";
 import { useSelector } from "react-redux";
-import { BellIcon, Link2Icon, PlusIcon } from "@radix-ui/react-icons";
+import { BellIcon, Link1Icon, Link2Icon, PlusIcon } from "@radix-ui/react-icons";
 import SearchCardButton from "./SearchCardButton";
 import { motion } from "framer-motion";
 

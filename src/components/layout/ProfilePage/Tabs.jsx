@@ -2,7 +2,20 @@ import React from "react";
 import { motion } from "framer-motion";
 function Tabs({ tabs, activeTab, setActiveTab }) {
   return (
-    <div className="flex">
+    <motion.div
+      className="flex"
+      initial={{
+        opacity: 0,
+        y: -20,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+      transition={{
+        delay: 0.4,
+      }}
+    >
       <div className="flex justify-around w-full gap-4">
         {tabs.map((tab) => (
           <button
@@ -23,7 +36,7 @@ function Tabs({ tabs, activeTab, setActiveTab }) {
           </button>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }
 

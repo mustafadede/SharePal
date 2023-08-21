@@ -25,7 +25,7 @@ function PopularCard({ padding }) {
         return <PopularItem key={index} data={value} />;
       })}
       <p className="pt-4 text-lg transition-colors text-fuchsia-600 hover:text-slate-300">
-        <NavLink to={"/home"}>Show more</NavLink>
+        <NavLink to={"/explore"}>Show more</NavLink>
       </p>
     </div>
   );
