@@ -19,8 +19,15 @@ function MyListModal() {
           id: Math.random().toString(36).substr(2, 9),
           title: listname,
           isPinned: false,
+          list: [],
+          date: new Date().toLocaleDateString(),
         }),
-        createPinnedList({ id: Math.random().toString(36).substr(2, 9), title: listname, isPinned: false })
+        createPinnedList({
+          id: Math.random().toString(36).substr(2, 9),
+          title: listname,
+          isPinned: false,
+          date: new Date().toLocaleDateString(),
+        })
       );
     } else {
       toast.error("List name cannot be empty.");
@@ -39,15 +46,23 @@ function MyListModal() {
           id: Math.random().toString(36).substr(2, 9),
           title: suggestion,
           isPinned: false,
+          list: [],
+          date: new Date().toLocaleDateString(),
         }),
-        createPinnedList({ id: Math.random().toString(36).substr(2, 9), title: suggestion, isPinned: false })
+        createPinnedList({
+          id: Math.random().toString(36).substr(2, 9),
+          title: suggestion,
+          isPinned: false,
+          date: new Date().toLocaleDateString(),
+        })
       );
     }
   };
 
-  const clickHandler = (id, title) => {
+  const clickHandler = (id, title, list, date) => {
     dispatch(modalActions.closeModal());
-    dispatch(modalActions.openModal({ name: "listModal", data: { id, title } }));
+    dispatch(modalActions.openModal({ name: "listModal", data: { id, title, list, date } }));
+    console.log("listModal opened");
   };
   return (
     <div className="bg-slate-900 rounded-2xl px-8 pt-4 overflow-hidden h-[30rem]">
@@ -92,6 +107,8 @@ function MyListModal() {
                 title={list.title}
                 id={list.id}
                 isPinned={list.isPinned}
+                date={list.date}
+                list={list.list}
                 clickHandler={clickHandler}
               />
             ))}
