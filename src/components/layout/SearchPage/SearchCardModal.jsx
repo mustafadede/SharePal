@@ -1,13 +1,17 @@
 import React from "react";
 import ModalHeader from "../ModalSkeleton/ModalHeader";
-import { useSelector } from "react-redux";
-import { BellIcon, Link1Icon, Link2Icon, PlusIcon } from "@radix-ui/react-icons";
+import { useSelector, useDispatch } from "react-redux";
+import { BellIcon, Link2Icon, PlusIcon } from "@radix-ui/react-icons";
 import SearchCardButton from "./SearchCardButton";
 import { motion } from "framer-motion";
+import { modalActions } from "../../../store/modalSlice";
 
 function SearchCardModal() {
   const { title, poster, releaseDate, overview, vote, backdrop } = useSelector((state) => state.modal.modalHasData);
-
+  const dispatch = useDispatch();
+  const watchlistHandler = () => {
+    dispatch(modalActions.openModal({ name: "pinnedModal", data: { title, poster, releaseDate, vote, backdrop } }));
+  };
   return (
     <div className="bg-slate-900 w-[50rem] h-[37rem] rounded-2xl relative overflow-hidden overflow-y-scroll no-scrollbar">
       <div className="absolute top-0 z-20 w-full p-6">
@@ -46,6 +50,7 @@ function SearchCardModal() {
               <SearchCardButton
                 title={"Add to Watchlist"}
                 icon={<PlusIcon className="w-6 h-6 transition-all text-slate-400 group-hover:text-fuchsia-600" />}
+                clickHandler={watchlistHandler}
               />
               <SearchCardButton
                 title={"Make Attachment"}

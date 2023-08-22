@@ -60,7 +60,7 @@ function RootLayout() {
             <ListModal />
           </ModalSkeleton>
         )}
-        <Outlet />;
+        <Outlet />
       </div>
     </>
   );
