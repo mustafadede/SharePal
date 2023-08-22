@@ -3,8 +3,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MyListsActions } from "../../../store/myListsSlice";
 import { toast } from "react-toastify";
+import { modalActions } from "../../../store/modalSlice";
 
-function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = false, list, date, clickHandler }) {
+function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = false, list, date }) {
   const dispatch = useDispatch();
 
   const handlePin = (listNum) => {
@@ -22,6 +23,9 @@ function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = fal
     toast.success("List removed successfully!");
   };
 
+  const clickHandler = (id, title, list, date) => {
+    dispatch(modalActions.openModal({ name: "listModal", data: { id, title, list, date } }));
+  };
   return (
     <div
       className={`flex items-center cursor-pointer justify-between w-full h-10  overflow-hidden group ${

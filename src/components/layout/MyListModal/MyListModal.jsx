@@ -62,7 +62,6 @@ function MyListModal() {
   const clickHandler = (id, title, list, date) => {
     dispatch(modalActions.closeModal());
     dispatch(modalActions.openModal({ name: "listModal", data: { id, title, list, date } }));
-    console.log("listModal opened");
   };
   return (
     <div className="bg-slate-900 rounded-2xl px-8 pt-4 overflow-hidden h-[30rem]">

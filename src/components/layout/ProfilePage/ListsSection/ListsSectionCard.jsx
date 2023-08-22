@@ -3,10 +3,10 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { modalActions } from "../../../../store/modalSlice";
 
-function ListsSectionCard({ title, isPinned }) {
+function ListsSectionCard({ title, isPinned, data }) {
   const dispatch = useDispatch();
   const clickHandler = () => {
-    dispatch(modalActions.openModal({ name: "listModal", data: { title } }));
+    dispatch(modalActions.openModal({ name: "listModal", data: { ...data } }));
   };
   return (
     <button

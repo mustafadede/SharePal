@@ -9,7 +9,7 @@ function ListModal() {
       <ModalHeader title={modalHasData.title} />
       <div className="flex flex-col justify-center w-full py-2">
         <p className="text-lg text-slate-500 ">Creation Time: {modalHasData.date}</p>
-        {modalHasData.list.length === 0 && <p className="py-4 text-xl text-slate-600">Your list is empty.</p>}
+        {modalHasData.list?.length === 0 && <p className="py-4 text-xl text-slate-600">Your list is empty.</p>}
       </div>
     </div>
   );

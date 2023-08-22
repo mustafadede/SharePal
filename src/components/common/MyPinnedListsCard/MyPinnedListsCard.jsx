@@ -30,7 +30,18 @@ function MyPinnedListsCard() {
           {myLists.length !== 0 && pinnedLists.length === 0 && <p className="text-md text-slate-400">You have lists. Do you wanna pin ?</p>}
           {myLists.map((list, i) => {
             if (list.isPinned)
-              return <MyListsModalCard key={list.id} listNum={i} title={list.title} id={list.id} isPinned={list.isPinned} disabled />;
+              return (
+                <MyListsModalCard
+                  key={list.id}
+                  listNum={i}
+                  title={list.title}
+                  id={list.id}
+                  isPinned={list.isPinned}
+                  list={list.list}
+                  date={list.date}
+                  disabled
+                />
+              );
           })}
         </div>
       </motion.div>

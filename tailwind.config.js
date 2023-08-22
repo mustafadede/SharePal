@@ -39,6 +39,10 @@ export default {
             "background-size": "200% 200%",
             "background-position": "right center",
           },
+          "25%": {
+            "background-size": "200% 200%",
+            "background-position": "top center",
+          },
         },
         scrollDown: {
           "0%, 100%": {
