@@ -24,13 +24,13 @@ function LoginPage() {
     if (data.email && data.password && data.password.length >= 6) {
       signInWithEmailAction(data.email, data.password).then((res) => {
         if (res) {
-          toast("Giriş başarılı!");
+          toast("Logged in successfully!");
           navigate("/feed");
           dispatch(authActions.login(res.user.uid));
         }
       });
     } else {
-      toast("Lütfen bilgileri kontrol edin!");
+      toast("Please fill all the fields correctly!");
     }
   };
 

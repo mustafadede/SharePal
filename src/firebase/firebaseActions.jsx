@@ -34,13 +34,13 @@ const createUserWithEmailAction = async (data) => {
   } catch (error) {
     const errorCode = error.code;
     if (errorCode === "auth/email-already-in-use") {
-      return toast("Bu email zaten kullanılıyor!");
+      return toast("This email is already in use");
     }
     if (errorCode === "auth/wrong-password") {
-      return toast("Şifre hatalı!");
+      return toast("Password is wrong!");
     }
     if (errorCode === "auth/invalid-email") {
-      return toast("Email hatalı!");
+      return toast("Email is wrong!");
     }
   }
 };
@@ -52,13 +52,13 @@ const signInWithEmailAction = async (email, password) => {
   } catch (error) {
     const errorCode = error.code;
     if (error.code === "auth/user-not-found") {
-      toast("Böyle bir kullanıcı yok!");
+      toast("User not found!");
     }
     if (errorCode === "auth/wrong-password") {
-      return toast("Şifre hatalı!");
+      return toast("Password is wrong!");
     }
     if (errorCode === "auth/invalid-email") {
-      return toast("Email hatalı!");
+      return toast("Email is wrong!");
     }
   }
 };

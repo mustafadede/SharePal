@@ -24,13 +24,13 @@ function SignUpPage() {
 
   const submitHandler = (data) => {
     if (data.confirmPassword !== data.password) {
-      return toast("Şifreler eşleşmiyor!");
+      return toast("Passwords do not match!");
     }
     if (data.password && data.password.length >= 6) {
       createUserWithEmailAction(data).then((res) => {
         if (res) {
           navigate("/login");
-          toast("Kayıt işlemi başarılı! Lütfen giriş yapın.");
+          toast("Account created successfully!");
         }
       });
     }
