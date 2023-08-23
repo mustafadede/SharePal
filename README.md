@@ -7,4 +7,5 @@
 
 This is a Film/Movie social media app.
 If you want to dive deeper here is :
-- Figma: https://www.figma.com/file/Aj2NOVzUCGzkp1G5YzCnim/SharePal?type=whiteboard&t=Ggv7qDKmgEpDcZPE-1
+- For the design, thoughts, wireframing: [Figma](https://www.figma.com/file/Aj2NOVzUCGzkp1G5YzCnim/SharePal?type=whiteboard&t=Ggv7qDKmgEpDcZPE-1)
+- For the tracing features like a Kanban Board : [Trello](https://trello.com/invite/b/uEoQWrG3/ATTI988e741921e2d5ae415c5180903a57f23BF8B636/sharepal)
