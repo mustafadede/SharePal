@@ -5,6 +5,6 @@
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)
 
-## Disclaimer
-
-If you have a blank white page, you should add `/SharePal` in link.
+This is a Film/Movie social media app.
+If you want to dive deeper here is :
+- Figma: https://www.figma.com/file/Aj2NOVzUCGzkp1G5YzCnim/SharePal?type=whiteboard&t=Ggv7qDKmgEpDcZPE-1
