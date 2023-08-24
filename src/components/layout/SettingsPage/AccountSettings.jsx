@@ -14,7 +14,7 @@ function AccountSettings() {
   const [nick, setNick] = useState(user.nick);
   const [email, setEmail] = useState(user.email);
   const [quote, setQuote] = useState(user.quote);
-  const [topOne, setTopOne] = useState(user.quote);
+  const [topOne, setTopOne] = useState(user.topOne);
 
   const formHandler = () => {
     if (nick === "" && email === "" && quote === "" && topOne === "") return toast.error("You didn't change anything!");
