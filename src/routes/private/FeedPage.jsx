@@ -42,13 +42,13 @@ function FeedPage() {
           transition={{ delay: 0.1 }}
         >
           {user ? (
-            <ProfileCard nick={user.nick} following={user.following} followers={user.followers} quote={user.quote} />
+            <ProfileCard nick={user.nick} following={user.following} followers={user.followers} quote={user.quote} banner={user.banner} />
           ) : (
             <ProfileCard />
           )}
           <MyPinnedListsCard />
         </motion.div>
-        <motion.div className="flex flex-col w-full px-6">
+        <motion.div className="flex flex-col w-full xl:px-6">
           <FeedActionBox />
           {post.map((data, index) => {
             if (modalHasData && !data.attachedPhoto) {

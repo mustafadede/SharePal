@@ -9,8 +9,10 @@ import {
 import { auth, database, storage } from "./firebaseConfig";
 import { toast } from "react-toastify";
 import { child, get, getDatabase, push, ref, set } from "firebase/database";
+import { getDownloadURL, ref as sRef, uploadBytes } from "firebase/storage";
 
 const dbRef = ref(getDatabase());
+
 setPersistence(auth, browserSessionPersistence);
 
 const createUserWithEmailAction = async (data) => {
@@ -74,6 +76,7 @@ const getCurrentUserData = async (userId) => {
         email: snapshot.val().email,
         quote: snapshot.val().quote,
         topOne: snapshot.val().topOne,
+        banner: snapshot.val().banner,
       };
       return user;
     } else {
@@ -91,12 +94,13 @@ const updateCurrentUserData = async (userId, data) => {
     const snapshot = await get(child(dbRef, `users/${userId}`));
     if (snapshot.exists()) {
       await set(ref(database, `users/${userId}`), {
-        displayName: data.nick,
-        email: data.email,
+        displayName: data.nick || snapshot.val().displayName,
+        email: data.email || snapshot.val().email,
         following: snapshot.val().following,
         followers: snapshot.val().followers,
-        quote: data.quote,
-        topOne: data.topOne,
+        banner: data.banner || "",
+        quote: data.quote || snapshot.val().quote,
+        topOne: data.topOne || snapshot.val().topOne,
       });
       return true;
     } else {
@@ -166,6 +170,39 @@ const createPinnedList = async (data) => {
   }
 };
 
+const uploadProfilePhoto = async (file) => {
+  try {
+    const userId = getAuth().currentUser.uid;
+    const storageRef = sRef(storage, `profilePhotos/${userId}`);
+    uploadBytes(storageRef, file).then(() => {
+      getDownloadURL(storageRef).then((url) => {
+        updateProfile(auth.currentUser, { photoURL: url });
+        return toast("Uploaded successfully!");
+      });
+    });
+  } catch (error) {
+    console.error(error);
+    return toast("Something went wrong!");
+  }
+};
+
+const uploadBannerPhoto = async (file) => {
+  try {
+    const userId = getAuth().currentUser.uid;
+    const storageRef = sRef(storage, `bannerPhotos/${userId}`);
+    uploadBytes(storageRef, file).then(() => {
+      getDownloadURL(storageRef).then((url) => {
+        updateCurrentUserData(localStorage.getItem("user"), { banner: url }).then(() => {
+          return toast("Uploaded successfully!");
+        });
+      });
+    });
+  } catch (error) {
+    console.error(error);
+    return toast("Something went wrong!");
+  }
+};
+
 export {
   createUserWithEmailAction,
   signInWithEmailAction,
@@ -174,4 +211,6 @@ export {
   createPostAction,
   getAllPosts,
   createPinnedList,
+  uploadProfilePhoto,
+  uploadBannerPhoto,
 };

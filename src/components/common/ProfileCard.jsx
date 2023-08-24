@@ -1,17 +1,28 @@
+import { getAuth } from "firebase/auth";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 const ProfileCard = ({ nick = "-", username, following = "-", followers = "-", quote = "-" }) => {
+  const photo = getAuth().currentUser?.photoURL;
+  const { user } = useSelector((state) => state.user);
+  console.log(user);
   return (
     <div className="flex flex-col w-72 h-fit bg-slate-900 rounded-2xl">
       <div className="relative h-28">
-        <img
-          className="object-cover object-top w-full h-24 bg-slate-700 rounded-t-2xl opacity-90"
-          src="https://static01.nyt.com/images/2017/04/24/arts/24bates/24bates-videoSixteenByNineJumbo1600.jpg"
-        ></img>
-        <img
-          className="absolute object-cover w-20 h-20 transform -translate-x-1/2 rounded-full bg-fuchsia-600 top-11 left-1/2"
-          src="https://avatars.githubusercontent.com/u/95627279?v=4s"
-        ></img>
+        {!user?.banner && <div className="absolute object-cover object-top w-full h-24 bg-slate-700 rounded-t-2xl opacity-90"></div>}
+        {user?.banner && (
+          <img className="object-cover object-top w-full h-24 bg-slate-700 rounded-t-2xl opacity-90" src={user?.banner} alt="banner"></img>
+        )}
+        {photo && (
+          <img
+            className="absolute object-cover w-20 h-20 transform -translate-x-1/2 rounded-full bg-fuchsia-600 top-11 left-1/2"
+            src={photo}
+            alt="profile"
+          ></img>
+        )}
+        {!photo && (
+          <div className="absolute flex items-center justify-center w-20 h-20 transform -translate-x-1/2 rounded-full bg-fuchsia-600 top-11 left-1/2"></div>
+        )}
       </div>
       <div className="flex flex-col items-center justify-center pt-5">
         <p className="text-xl text-slate-200">{username}</p>

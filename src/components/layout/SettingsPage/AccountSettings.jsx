@@ -2,15 +2,14 @@ import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../../store/userSlice";
-import { updateCurrentUserData } from "../../../firebase/firebaseActions";
+import { updateCurrentUserData, uploadBannerPhoto, uploadProfilePhoto } from "../../../firebase/firebaseActions";
 import { toast } from "react-toastify";
+
 function AccountSettings() {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const photoRef = useRef(null);
   const bannerRef = useRef(null);
-  const [photo, setPhoto] = useState(null);
-  const [banner, setBanner] = useState(null);
   const [nick, setNick] = useState(user.nick);
   const [email, setEmail] = useState(user.email);
   const [quote, setQuote] = useState(user.quote);
@@ -28,12 +27,12 @@ function AccountSettings() {
     updateCurrentUserData(localStorage.getItem("user"), data) && toast.success("Updated successfully!");
   };
 
-  const handleProfileChange = (e) => {
-    setPhoto(e.target.files[0]);
+  const handleProfileChange = async (e) => {
+    await uploadProfilePhoto(e.target.files[0]);
   };
 
-  const handleBannerChange = (e) => {
-    setBanner(e.target.files[0]);
+  const handleBannerChange = async (e) => {
+    await uploadBannerPhoto(e.target.files[0]);
   };
 
   const handleUploadPhotoButtonClick = () => {
