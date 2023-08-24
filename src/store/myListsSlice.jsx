@@ -21,6 +21,9 @@ const myListsSlice = createSlice({
     deleteList: (state, action) => {
       state.myLists = state.myLists.filter((list) => list.id !== action.payload);
     },
+    addToList: (state, action) => {
+      state.myLists[action.payload.listNum].list.push(action.payload);
+    },
   },
 });
 

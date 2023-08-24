@@ -1,15 +1,16 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { PlusIcon } from "@radix-ui/react-icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
 function SearchCard({ title, poster, releaseDate, overview, vote, backdrop }) {
   const dispatch = useDispatch();
+  const { myLists } = useSelector((state) => state.myLists);
   const handleModal = () => {
     dispatch(modalActions.openModal({ name: "searchCardModal", data: { title, poster, releaseDate, overview, vote, backdrop } }));
   };
   const handleClick = () => {
-    dispatch(modalActions.openModal({ name: "pinnedModal", data: { title, poster, releaseDate, vote, backdrop } }));
+    dispatch(modalActions.openModal({ name: "pinnedModal", data: { title, poster, releaseDate, backdrop } }));
   };
   return (
     <motion.div
