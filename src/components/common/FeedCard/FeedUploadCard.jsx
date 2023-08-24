@@ -8,7 +8,7 @@ function FeedUploadCard({ data, index }) {
   const postAction = useSelector((state) => state.postAction);
   return (
     <motion.div
-      className="flex flex-col w-full p-4 my-4 bg-slate-900 rounded-xl"
+      className="flex flex-col w-full p-4 mb-4 bg-slate-900 rounded-xl"
       initial={{ opacity: 0, y: -20, transition: { duration: 2 } }}
       animate={{ opacity: 1, y: 0 }}
     >
@@ -19,7 +19,7 @@ function FeedUploadCard({ data, index }) {
           {/* <p className="text-sm text-slate-400">@{data.nick}</p> */}
         </div>
       </div>
-      <p className="py-4 text-slate-200">{data.text}</p>
+      <p className="py-4 text-slate-200">{data.text || data.content}</p>
       <img
         src={data.attachedPhoto}
         className="object-cover w-full transition-all duration-300 border h-96 rounded-xl bg-slate-800 border-slate-600 hover:border-fuchsia-600 hover:opacity-70"

@@ -7,7 +7,7 @@ function FeedCommentCard({ data, index }) {
   const postAction = useSelector((state) => state.postAction);
   return (
     <motion.div
-      className="flex flex-col w-full p-4 my-4 bg-slate-900 rounded-xl"
+      className="flex flex-col w-full p-4 mb-4 bg-slate-900 rounded-xl"
       initial={{ opacity: 0, y: -20, transition: { duration: 2 } }}
       animate={{ opacity: 1, y: 0 }}
     >
@@ -21,7 +21,7 @@ function FeedCommentCard({ data, index }) {
       </div>
       {/*Comment Card Top section: Profile Picture and Name end */}
       {/*Comment Card Middle Top section: Input start */}
-      <p className="py-4 text-slate-200">{data.text}</p>
+      <p className="py-4 text-slate-200">{data?.text || data.content}</p>
       {/*Comment Card Middle Top section: Input end */}
       {/*Comment Card Middle Bottom section: Stats start */}
       <div className="flex gap-2">

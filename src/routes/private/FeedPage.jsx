@@ -14,6 +14,7 @@ function FeedPage() {
   const { user } = useSelector((state) => state.user);
   const { post } = useSelector((state) => state.createPost);
   const { modalHasData } = useSelector((state) => state.modal);
+  const [posts, setPosts] = React.useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
     document.title = "SharePal | Feed";
@@ -21,6 +22,8 @@ function FeedPage() {
       try {
         const userData = await getCurrentUserData(localStorage.getItem("user"));
         userData && dispatch(userActions.updateUser(userData));
+        const response = await getAllPosts();
+        setPosts(response);
       } catch (error) {
         console.log(error);
       }
@@ -56,6 +59,17 @@ function FeedPage() {
               return <FeedCard key={index} isComment={true} data={data} index={index} />;
             }
           })}
+          {posts
+            .map((data, index) => {
+              if (data.attachedFilm) {
+                return <FeedCard key={index} isAttached={true} data={data} index={index} />;
+              } else if (data.attachedPhoto) {
+                return <FeedCard key={index} isUpload={true} data={data} index={index} />;
+              } else {
+                return <FeedCard key={index} isComment={true} data={data} index={index} />;
+              }
+            })
+            .reverse()}
         </motion.div>
         <motion.div
           className="hidden w-1/3 h-fit lg:flex sticky top-[4.7rem] justify-center"

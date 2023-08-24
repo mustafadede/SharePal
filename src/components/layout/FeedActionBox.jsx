@@ -32,8 +32,7 @@ function FeedActionBox() {
       dispatch(createPostActions.updateText(""));
       dispatch(createPostActions.updateAttachedFilm(null));
       dispatch(createPostActions.updateAttachedPhoto(null));
-      createPostAction({ text: text, attachedFilm: modalHasData ? modalHasData : attachedFilm, attachedPhoto: attachedPhoto }) &&
-        toast.success("Post created!");
+      createPostAction(text, modalHasData ? modalHasData : attachedFilm, attachedPhoto) && toast.success("Post created!");
     } else {
       toast.error("Post field must be between 1 and 280 characters!");
     }
@@ -50,7 +49,7 @@ function FeedActionBox() {
   return (
     <>
       <motion.div
-        className="w-full px-3 py-2 overflow-hidden rounded-lg h-fit bg-slate-900"
+        className="w-full px-3 py-2 mb-4 overflow-hidden rounded-lg h-fit bg-slate-900"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}

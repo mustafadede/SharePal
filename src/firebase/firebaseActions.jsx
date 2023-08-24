@@ -115,9 +115,9 @@ const createPostAction = async (text, attachedFilm, attachedPhoto) => {
     const newPostRef = push(ref(database, `posts/${userId}`));
     set(newPostRef, {
       nick: getAuth().currentUser.displayName,
-      content: text,
       attachedPhoto: attachedPhoto || null,
       attachedFilm: attachedFilm || null,
+      content: text,
       likes: 0,
       comments: 0,
       repost: 0,
@@ -142,8 +142,8 @@ const getAllPosts = async () => {
           postId: key,
           nick: value.nick,
           content: value.content,
-          attachedPhoto: value.content.attachedPhoto,
-          attachedFilm: value.content.attachedFilm,
+          attachedPhoto: value.attachedPhoto,
+          attachedFilm: value.attachedFilm,
           likes: value.likes,
           comments: value.comments,
           date: value.date,
