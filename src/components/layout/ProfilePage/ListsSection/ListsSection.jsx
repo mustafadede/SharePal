@@ -7,12 +7,12 @@ import ListsSectionCard from "./ListsSectionCard";
 
 function ListsSection() {
   const dispatch = useDispatch();
-  const { myLists, pinnedLists } = useSelector((state) => state.myLists);
+  const { myLists } = useSelector((state) => state.myLists);
 
   const clickHandler = () => {
     dispatch(modalActions.openModal({ name: "pinnedModal" }));
   };
-  let flag = 0;
+
   return (
     <>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="flex flex-col gap-4">
@@ -22,20 +22,17 @@ function ListsSection() {
             <>
               <p className="text-2xl text-white">Pinned Lists</p>
               <div className="flex flex-row flex-wrap xl:gap-4 2xl:gap-4">
-                {pinnedLists.length === 0 && <EmptyCard title="You don't have any Pinned List" clickHandler={clickHandler} />}
-                {pinnedLists.map((list) => {
-                  return <ListsSectionCard key={list.id} title={list.title} isPinned={list.isPinned} data={list} />;
+                {myLists.map((list) => {
+                  if (list.isPinned) return <ListsSectionCard key={list.id} title={list.title} isPinned={list.isPinned} data={list} />;
                 })}
               </div>
               <p className="text-2xl text-white">Lists</p>
               <div className="flex flex-row flex-wrap xl:gap-4 2xl:gap-4">
                 {myLists.map((list) => {
                   if (!list.isPinned) {
-                    flag++;
                     return <ListsSectionCard key={list.id} title={list.title} data={list} />;
                   }
                 })}
-                {flag === 0 && <EmptyCard title="You don't have any regular list" clickHandler={clickHandler} />}
               </div>
             </>
           )}

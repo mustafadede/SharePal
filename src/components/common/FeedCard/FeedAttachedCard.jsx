@@ -14,7 +14,8 @@ function FeedAttachedCard({ data, index, attachedData }) {
       animate={{ opacity: 1, y: 0 }}
     >
       <div className="flex gap-4">
-        <div className="w-12 h-12 rounded-full bg-fuchsia-600"></div>
+        {!data.photoURL && <div className="w-12 h-12 rounded-full bg-fuchsia-600"></div>}
+        {data.photoURL && <img className="w-12 h-12 rounded-full bg-fuchsia-600" src={data.photoURL}></img>}
         <div className="flex flex-col">
           <p className="text-md text-slate-200">@{data.nick}</p>
         </div>

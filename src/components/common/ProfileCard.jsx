@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 const ProfileCard = ({ nick = "-", username, following = "-", followers = "-", quote = "-" }) => {
   const photo = getAuth().currentUser?.photoURL;
   const { user } = useSelector((state) => state.user);
-  console.log(user);
+
   return (
     <div className="flex flex-col w-72 h-fit bg-slate-900 rounded-2xl">
       <div className="relative h-28">

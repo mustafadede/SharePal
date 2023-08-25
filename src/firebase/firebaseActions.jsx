@@ -98,7 +98,7 @@ const updateCurrentUserData = async (userId, data) => {
         email: data.email || snapshot.val().email,
         following: snapshot.val().following,
         followers: snapshot.val().followers,
-        banner: data.banner || "",
+        banner: data.banner || snapshot.val().banner,
         quote: data.quote || snapshot.val().quote,
         topOne: data.topOne || snapshot.val().topOne,
       });
@@ -113,12 +113,13 @@ const updateCurrentUserData = async (userId, data) => {
   }
 };
 
-const createPostAction = async (text, attachedFilm, attachedPhoto) => {
+const createPostAction = async (text, attachedFilm, attachedPhoto, nick) => {
   try {
     const userId = getAuth().currentUser.uid;
     const newPostRef = push(ref(database, `posts/${userId}`));
     set(newPostRef, {
-      nick: getAuth().currentUser.displayName,
+      photoURL: getAuth().currentUser.photoURL || null,
+      nick: nick,
       attachedPhoto: attachedPhoto || null,
       attachedFilm: attachedFilm || null,
       content: text,
@@ -143,6 +144,7 @@ const getAllPosts = async () => {
       const posts = childSnapshot.val();
       Object.entries(posts).forEach(([key, value]) => {
         allPosts.push({
+          photoURL: value.photoURL || null,
           postId: key,
           nick: value.nick,
           content: value.content,
@@ -158,6 +160,28 @@ const getAllPosts = async () => {
   return allPosts;
 };
 
+const getSelectedUserPosts = async (userId) => {
+  const selectedUserPosts = ref(database, `posts/${userId}`);
+  const snapshot = await get(selectedUserPosts);
+  const allPosts = [];
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      allPosts.push({
+        photoURL: getAuth().currentUser.photoURL,
+        nick: childSnapshot.val().nick,
+        content: childSnapshot.val().content,
+        attachedPhoto: childSnapshot.val().attachedPhoto,
+        attachedFilm: childSnapshot.val().attachedFilm,
+        likes: childSnapshot.val().likes,
+        comments: childSnapshot.val().comments,
+        repost: childSnapshot.val().repost,
+        date: childSnapshot.val().date,
+      });
+    });
+  }
+  return allPosts;
+};
+
 const createPinnedList = async (data) => {
   try {
     const userId = getAuth().currentUser.uid;
@@ -167,6 +191,50 @@ const createPinnedList = async (data) => {
   } catch (error) {
     console.error(error);
     return toast("Something went wrong!");
+  }
+};
+
+const getSelectedUserLists = async (userId) => {
+  const pinnedListsRef = ref(database, `pinnedList/${userId}`);
+  const snapshot = await get(pinnedListsRef);
+  const selectedUserLists = [];
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      selectedUserLists.push({
+        id: childSnapshot.val().id,
+        title: childSnapshot.val().title,
+        isPinned: childSnapshot.val().isPinned,
+        date: childSnapshot.val().date,
+        list: childSnapshot.val().list || [],
+      });
+    });
+  }
+  return selectedUserLists;
+};
+
+const updateSelectedUserLists = async (userId, data) => {
+  try {
+    const pinnedListsRef = ref(database, `pinnedList/${userId}`);
+    const snapshot = await get(pinnedListsRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().id === data.id) {
+          const listToUpdateRef = child(pinnedListsRef, childSnapshot.key);
+          update(listToUpdateRef, {
+            isPinned: data.isPinned || childSnapshot.val().isPinned,
+            list: data.list || childSnapshot.val().list,
+            title: data.title || childSnapshot.val().title,
+          });
+        }
+      });
+      return true;
+    } else {
+      console.log("No data available");
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
   }
 };
 
@@ -210,7 +278,10 @@ export {
   updateCurrentUserData,
   createPostAction,
   getAllPosts,
+  getSelectedUserPosts,
   createPinnedList,
+  getSelectedUserLists,
+  updateSelectedUserLists,
   uploadProfilePhoto,
   uploadBannerPhoto,
 };
