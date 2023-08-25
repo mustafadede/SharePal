@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-function InfoCard({ user }) {
+function InfoCard({ user = { followers: "Loading...", following: "Loading...", topOne: "Loading..." } }) {
   return (
     <motion.div
       className="flex items-center justify-around w-full h-24 bg-slate-900 rounded-2xl"

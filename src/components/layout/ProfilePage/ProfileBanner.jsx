@@ -3,9 +3,8 @@ import { motion } from "framer-motion";
 import { Pencil1Icon } from "@radix-ui/react-icons";
 import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
-import { useSelector } from "react-redux";
 
-function ProfileBanner({ user }) {
+function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banner: "" } }) {
   const photo = getAuth().currentUser?.photoURL;
   return (
     <motion.div
@@ -15,7 +14,7 @@ function ProfileBanner({ user }) {
       transition={{ delay: 0.2 }}
     >
       {/*  Banner start */}
-      <motion.img className="absolute object-cover w-full opacity-40 rounded-2xl" src={user.banner || ""}></motion.img>
+      <motion.img className="absolute object-cover w-full opacity-40 rounded-2xl" src={user.banner}></motion.img>
       {/*  Banner end */}
       <div className="relative flex items-center w-auto h-full gap-4 left-10">
         {/*  Profile picture start */}
@@ -51,13 +50,13 @@ function ProfileBanner({ user }) {
           {/*  Name section end */}
           {/* Quote section start */}
           <motion.p
-            className="relative text-lg italic font-semibold w-96 text-slate-400 top-2"
+            className="relative text-lg italic font-semibold lg:w-96 xl:w-[40rem] text-slate-400 top-2"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
             <svg
-              className="w-8 h-8 absolute text-slate-600 mb-4 right-[-28px] top-[-7px] transform opacity-40 -translate-y-2/4 -translate-x-2/4"
+              className="w-8 h-8 absolute text-slate-600 mb-4 right-0 top-[-7px] transform opacity-40 -translate-y-2/4 -translate-x-2/4"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"
