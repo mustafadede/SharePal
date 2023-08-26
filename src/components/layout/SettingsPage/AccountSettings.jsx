@@ -16,7 +16,10 @@ function AccountSettings() {
   const [topOne, setTopOne] = useState(user.topOne);
 
   const formHandler = () => {
-    if (nick === "" && email === "" && quote === "" && topOne === "") return toast.error("You didn't change anything!");
+    if (!nick && !email && !quote && !topOne) return toast.error("You didn't change anything!");
+    if (nick.length > 34) return toast.error("Nickname is too long! (max 34 characters)");
+    if (quote.length > 175) return toast.error("Quote is too long! (max 175 characters)");
+    if (email && !email.includes("@")) return toast.error("Email is invalid!");
     dispatch(userActions.updateUser({ ...user, nick, email, quote, topOne }));
     const data = {
       nick,
@@ -28,10 +31,12 @@ function AccountSettings() {
   };
 
   const handleProfileChange = async (e) => {
+    toast.info("Uploading...");
     await uploadProfilePhoto(e.target.files[0]);
   };
 
   const handleBannerChange = async (e) => {
+    toast.info("Uploading...");
     await uploadBannerPhoto(e.target.files[0]);
   };
 

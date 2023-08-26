@@ -25,7 +25,7 @@ function SettingsPage() {
 
   const handleSettingsBar = () => {
     if (selectedSection === "Account") {
-      return <AccountSettings user={user} />;
+      return <AccountSettings />;
     }
     if (selectedSection === "Privacy") {
       return <PrivacySettings />;

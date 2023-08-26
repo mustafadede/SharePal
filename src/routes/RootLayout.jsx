@@ -9,6 +9,7 @@ import AttachedFilmModal from "../components/layout/AttachedFilmModal/AttachedFi
 import SearchCardModal from "../components/layout/SearchPage/SearchCardModal";
 import ListModal from "../components/layout/MyListModal/ListModal/ListModal";
 import LabelInfo from "../components/layout/LabelInfo";
+import ShareModal from "../components/layout/ShareModal/ShareModal";
 
 function RootLayout() {
   const { modalState, modalName } = useSelector((state) => state.modal);
@@ -58,6 +59,11 @@ function RootLayout() {
         {modalState && modalName === "listModal" && (
           <ModalSkeleton>
             <ListModal />
+          </ModalSkeleton>
+        )}
+        {modalState && modalName === "shareModal" && (
+          <ModalSkeleton>
+            <ShareModal />
           </ModalSkeleton>
         )}
         <Outlet />

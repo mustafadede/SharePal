@@ -245,7 +245,7 @@ const uploadProfilePhoto = async (file) => {
     uploadBytes(storageRef, file).then(() => {
       getDownloadURL(storageRef).then((url) => {
         updateProfile(auth.currentUser, { photoURL: url });
-        return toast("Uploaded successfully!");
+        return toast.success("Uploaded successfully!");
       });
     });
   } catch (error) {
