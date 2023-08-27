@@ -8,7 +8,7 @@ import {
 } from "firebase/auth";
 import { auth, database, storage } from "./firebaseConfig";
 import { toast } from "react-toastify";
-import { child, get, getDatabase, push, ref, set } from "firebase/database";
+import { child, get, getDatabase, orderByValue, push, query, ref, set } from "firebase/database";
 import { getDownloadURL, ref as sRef, uploadBytes } from "firebase/storage";
 
 const dbRef = ref(getDatabase());
@@ -137,7 +137,9 @@ const createPostAction = async (text, attachedFilm, attachedPhoto, nick) => {
 
 const getAllPosts = async () => {
   const postsRef = ref(database, "posts");
-  const snapshot = await get(postsRef);
+  const sortedPostsRef = query(postsRef, orderByValue());
+  const snapshot = await get(sortedPostsRef);
+
   const allPosts = [];
   if (snapshot.exists()) {
     snapshot.forEach((childSnapshot) => {
@@ -157,7 +159,7 @@ const getAllPosts = async () => {
       });
     });
   }
-  return allPosts;
+  return allPosts.sort((a, b) => a.date - b.date);
 };
 
 const getSelectedUserPosts = async (userId) => {
