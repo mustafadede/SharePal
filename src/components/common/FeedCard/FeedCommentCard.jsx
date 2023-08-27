@@ -5,6 +5,12 @@ import FeedCardActionsSkeleton from "./FeedCardActions/FeedCardActionsSkeleton";
 import { useSelector } from "react-redux";
 function FeedCommentCard({ data, index }) {
   const postAction = useSelector((state) => state.postAction);
+  const day = new Date(data.date).getDate();
+  const month = new Date(data.date).getMonth() + 1;
+  const year = new Date(data.date).getFullYear();
+  const hour = new Date(data.date).getHours();
+  const minute = new Date(data.date).getMinutes();
+  const date = `${day}/${month}/${year} ${hour}:${minute}`;
   return (
     <motion.div
       className="flex flex-col w-full p-4 mb-4 bg-slate-900 rounded-xl"
@@ -14,10 +20,10 @@ function FeedCommentCard({ data, index }) {
       {/*Comment Card Top section: Profile Picture and Name start */}
       <div className="flex gap-4">
         {!data.photoURL && <div className="w-12 h-12 rounded-full bg-fuchsia-600"></div>}
-        {data.photoURL && <img className="w-12 h-12 rounded-full bg-fuchsia-600" src={data.photoURL}></img>}
+        {data.photoURL && <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" src={data.photoURL}></img>}
         <div className="flex flex-col">
           <p className="text-md text-slate-200">@{data.nick}</p>
-          {/* <p className="text-sm text-slate-400">@{data.nick}</p> */}
+          <p className="text-sm text-slate-400">{date}</p>
         </div>
       </div>
       {/*Comment Card Top section: Profile Picture and Name end */}
