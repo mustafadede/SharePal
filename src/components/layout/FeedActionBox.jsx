@@ -53,7 +53,7 @@ function FeedActionBox() {
         className="w-full px-3 py-2 mb-4 overflow-hidden rounded-lg h-fit bg-slate-900"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
+        transition={{ delay: 0.4 }}
       >
         <motion.textarea
           name="post"

@@ -35,7 +35,10 @@ function FeedPage() {
 
   return (
     <>
-      <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
+      <Navbar
+        isNotLoggedin={false}
+        additionalClasses="sticky top-0 bg-gradient-to-t from-cGradient2/70 to-cGradient2 backdrop-blur-[2px] z-30"
+      />
       <div className="flex mx-10 ">
         <motion.div
           className="hidden lg:w-1/4 h-fit lg:flex flex-col sticky top-[4.6rem] bg-cGradient2"
@@ -51,8 +54,8 @@ function FeedPage() {
           <MyPinnedListsCard />
         </motion.div>
         <motion.div className="flex flex-col w-full xl:px-6">
-          <FeedActionBox />
           <FeedTabs tabInfo={tab} tab={setTab} />
+          <FeedActionBox />
           {tab === 0 &&
             posts
               .map((data, index) => {
