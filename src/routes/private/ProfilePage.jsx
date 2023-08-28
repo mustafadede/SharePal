@@ -11,9 +11,11 @@ import ListsSection from "../../components/layout/ProfilePage/ListsSection/Lists
 import ActivitiesSection from "../../components/layout/ProfilePage/ActivitiesSection";
 import { getCurrentUserData } from "../../firebase/firebaseActions";
 import { userActions } from "../../store/userSlice";
+import StatsCard from "../../components/layout/ProfilePage/StatsCard";
 
 function ProfilePage() {
   const tabs = [
+    { id: 0, name: "Stats" },
     { id: 1, name: "Lists" },
     { id: 2, name: "Posts" },
     { id: 3, name: "Activities" },
@@ -40,6 +42,7 @@ function ProfilePage() {
           {user ? <ProfileBanner user={user} /> : <ProfileBanner />}
           {user ? <InfoCard user={user} /> : <InfoCard />}
           <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+          {activeTab === 0 && <StatsCard user={user} />}
           {activeTab === 1 && <ListsSection />}
           {activeTab === 2 && <PostsSection />}
           {activeTab === 3 && <ActivitiesSection />}

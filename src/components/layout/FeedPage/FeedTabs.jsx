@@ -4,8 +4,8 @@ function FeedTabs({ tabInfo, tab }) {
   return (
     <motion.div
       className="sticky flex items-center w-full h-12 mb-4 shadow-xl top-[4.5rem] backdrop-blur bg-slate-900/70 transition-all z-20 rounded-xl"
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ delay: 0.3 }}
     >
       <button

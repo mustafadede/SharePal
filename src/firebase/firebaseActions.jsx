@@ -26,6 +26,8 @@ const createUserWithEmailAction = async (data) => {
         email: data.email,
         quote: "",
         topOne: "",
+        currentlyWatching: "",
+        banner: "",
       });
       updateProfile(auth.currentUser, {
         displayName: data.name,
@@ -77,6 +79,7 @@ const getCurrentUserData = async (userId) => {
         quote: snapshot.val().quote,
         topOne: snapshot.val().topOne,
         banner: snapshot.val().banner,
+        currentlyWatching: snapshot.val().currentlyWatching || "",
       };
       return user;
     } else {
@@ -101,6 +104,7 @@ const updateCurrentUserData = async (userId, data) => {
         banner: data.banner || snapshot.val().banner,
         quote: data.quote || snapshot.val().quote,
         topOne: data.topOne || snapshot.val().topOne,
+        currentlyWatching: data.currentlyWatching || snapshot.val().currentlyWatching,
       });
       return true;
     } else {

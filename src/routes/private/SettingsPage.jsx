@@ -53,7 +53,7 @@ function SettingsPage() {
           <MyPinnedListsCard />
         </motion.div>
         <motion.div
-          className="sticky px-5 py-4 ml-4 top-[4.7rem] w-72 bg-slate-900 rounded-2xl h-[30rem]"
+          className="sticky px-5 py-4 ml-4 top-[4.7rem] w-72 bg-slate-900 rounded-2xl h-[31rem]"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}

@@ -1,16 +1,29 @@
 import React from "react";
 import ModalHeader from "../ModalSkeleton/ModalHeader";
 import { useSelector, useDispatch } from "react-redux";
-import { BellIcon, Link2Icon, PlusIcon } from "@radix-ui/react-icons";
+import { EyeOpenIcon, Link2Icon, PlusIcon } from "@radix-ui/react-icons";
 import SearchCardButton from "./SearchCardButton";
 import { motion } from "framer-motion";
 import { modalActions } from "../../../store/modalSlice";
+import { userActions } from "../../../store/userSlice";
+import { toast } from "react-toastify";
+import { updateCurrentUserData } from "../../../firebase/firebaseActions";
 
 function SearchCardModal() {
   const { title, poster, releaseDate, overview, vote, backdrop } = useSelector((state) => state.modal.modalHasData);
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const watchlistHandler = () => {
     dispatch(modalActions.openModal({ name: "pinnedModal", data: { title, poster, releaseDate, vote, backdrop } }));
+  };
+  const currentlyWatchingHandler = () => {
+    const data = {
+      currentlyWatching: { title, poster, releaseDate },
+    };
+    updateCurrentUserData(localStorage.getItem("user"), data).then(() => {
+      toast("Currently watching updated!");
+      dispatch(userActions.updateUser({ ...user, currentlyWatching: data }));
+    });
   };
   return (
     <div className="bg-slate-900 w-[50rem] h-[37rem] rounded-2xl relative overflow-hidden overflow-y-scroll no-scrollbar">
@@ -57,8 +70,9 @@ function SearchCardModal() {
                 icon={<Link2Icon className="w-6 h-6 transition-all text-slate-400 group-hover:text-fuchsia-600" />}
               />
               <SearchCardButton
-                title={"Set Reminder"}
-                icon={<BellIcon className="w-6 h-6 transition-all text-slate-400 group-hover:text-fuchsia-600" />}
+                title={"Set Currently Watching"}
+                icon={<EyeOpenIcon className="w-6 h-6 transition-all text-slate-400 group-hover:text-fuchsia-600" />}
+                clickHandler={currentlyWatchingHandler}
               />
             </div>
           </div>

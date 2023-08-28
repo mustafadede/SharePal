@@ -32,7 +32,7 @@ function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banne
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            src={photo || ""}
+            src={photo}
           ></motion.img>
         )}
         {/*  Profile picture end */}
@@ -45,7 +45,7 @@ function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banne
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            {user.nick || "Loading..."}
+            {user.nick}
           </motion.h1>
           {/*  Name section end */}
           {/* Quote section start */}
