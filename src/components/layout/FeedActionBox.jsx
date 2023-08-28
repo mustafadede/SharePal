@@ -106,6 +106,7 @@ function FeedActionBox() {
             onClickAction={() => {
               dispatch(createPostActions.updateAttachedPhoto("https://i.imgur.com/2xW3YzB.png"));
             }}
+            disabled={true}
           />
           <motion.button
             className="w-full p-2 text-lg transition-colors rounded-lg select-none h-100 bg-slate-600 hover:bg-fuchsia-800 text-cWhite"

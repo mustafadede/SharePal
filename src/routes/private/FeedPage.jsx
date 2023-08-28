@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/layout/Navbar";
 import ProfileCard from "../../components/common/ProfileCard";
 import PopularCard from "../../components/common/MostPopularCard/PopularCard";
@@ -9,12 +9,14 @@ import MyPinnedListsCard from "../../components/common/MyPinnedListsCard/MyPinne
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../store/userSlice";
 import { motion } from "framer-motion";
+import FeedTabs from "../../components/layout/FeedPage/FeedTabs";
 
 function FeedPage() {
   const { user } = useSelector((state) => state.user);
   const { post } = useSelector((state) => state.createPost);
   const { modalHasData } = useSelector((state) => state.modal);
-  const [posts, setPosts] = React.useState([]);
+  const [posts, setPosts] = useState([]);
+  const [tab, setTab] = useState(0);
   const dispatch = useDispatch();
   useEffect(() => {
     document.title = "SharePal | Feed";
@@ -50,26 +52,20 @@ function FeedPage() {
         </motion.div>
         <motion.div className="flex flex-col w-full xl:px-6">
           <FeedActionBox />
-          {post.map((data, index) => {
-            if (modalHasData && !data.attachedPhoto) {
-              return <FeedCard key={index} isAttached={true} data={data} attachedData={modalHasData} index={index} />;
-            } else if (data.attachedPhoto && !modalHasData) {
-              return <FeedCard key={index} isUpload={true} data={data} index={index} />;
-            } else {
-              return <FeedCard key={index} isComment={true} data={data} index={index} />;
-            }
-          })}
-          {posts
-            .map((data, index) => {
-              if (data.attachedFilm) {
-                return <FeedCard key={index} isAttached={true} data={data} index={index} />;
-              } else if (data.attachedPhoto) {
-                return <FeedCard key={index} isUpload={true} data={data} index={index} />;
-              } else {
-                return <FeedCard key={index} isComment={true} data={data} index={index} />;
-              }
-            })
-            .reverse()}
+          <FeedTabs tabInfo={tab} tab={setTab} />
+          {tab === 0 &&
+            posts
+              .map((data, index) => {
+                if (data.attachedFilm) {
+                  return <FeedCard key={index} isAttached={true} data={data} index={index} />;
+                } else if (data.attachedPhoto) {
+                  return <FeedCard key={index} isUpload={true} data={data} index={index} />;
+                } else {
+                  return <FeedCard key={index} isComment={true} data={data} index={index} />;
+                }
+              })
+              .reverse()}
+          {tab === 1 && <p className="w-full mt-1 text-xl text-center text-slate-400">You don't follow anything yet...</p>}
         </motion.div>
         <motion.div
           className="hidden w-1/3 h-fit lg:flex sticky top-[4.7rem] justify-center"
