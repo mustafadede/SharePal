@@ -16,7 +16,7 @@ function InfoCard({ user = { followers: "Loading...", following: "Loading...", t
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          {user.followers}
+          {user?.followers}
         </motion.p>
         <motion.p
           className="text-2xl 2xl:text-xl text-slate-300"
@@ -35,7 +35,7 @@ function InfoCard({ user = { followers: "Loading...", following: "Loading...", t
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          {user.following}
+          {user?.following}
         </motion.p>
         <motion.p
           className="text-2xl 2xl:text-xl text-slate-300"
@@ -62,7 +62,7 @@ function InfoCard({ user = { followers: "Loading...", following: "Loading...", t
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          {user.topOne || "No data"}
+          {user?.topOne || "No data"}
         </motion.p>
       </div>
     </motion.div>

@@ -14,6 +14,7 @@ import { userActions } from "../../store/userSlice";
 import StatsCard from "../../components/layout/ProfilePage/StatsCard";
 import { useParams } from "react-router-dom";
 import { profileActions } from "../../store/profileSlice";
+import UserProfileBanner from "../../components/layout/ProfilePage/UserProfileBanner";
 
 function ProfilePage() {
   const { username } = useParams();
@@ -55,14 +56,8 @@ function ProfilePage() {
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
       <div className="flex mx-10">
         <div className="flex flex-col w-full gap-4 mr-6 overflow-x-scroll">
-          {!username ? (
-            <ProfileBanner user={user} profile={true} />
-          ) : profileUser ? (
-            <ProfileBanner user={profileUser} profile={true} username />
-          ) : (
-            <ProfileBanner />
-          )}
-          {!username ? <InfoCard user={user} /> : profileUser ? <InfoCard user={profileUser} /> : <InfoCard />}
+          {username ? <UserProfileBanner user={profileUser} /> : <ProfileBanner user={user} />}
+          {username ? <InfoCard user={profileUser} /> : <InfoCard user={user} />}
           <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
           {activeTab === 0 && <StatsCard user={!username ? user : profileUser} />}
           {activeTab === 1 && <ListsSection />}
