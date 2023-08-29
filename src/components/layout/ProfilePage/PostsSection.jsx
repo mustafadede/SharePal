@@ -3,13 +3,19 @@ import { motion } from "framer-motion";
 import { getSelectedUserPosts } from "../../../firebase/firebaseActions";
 import FeedCard from "../../common/FeedCard";
 
-function PostsSection() {
+function PostsSection({ username, uid }) {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     setTimeout(() => {
-      getSelectedUserPosts(localStorage.getItem("user")).then((res) => {
-        setPosts(res);
-      });
+      if (!username) {
+        getSelectedUserPosts(localStorage.getItem("user")).then((res) => {
+          setPosts(res);
+        });
+      } else {
+        getSelectedUserPosts(uid).then((res) => {
+          setPosts(res);
+        });
+      }
     }, 500);
   }, []);
 

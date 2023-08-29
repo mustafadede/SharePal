@@ -3,9 +3,11 @@ import FeedCardButtons from "./Buttons/FeedCardButtons";
 import { motion } from "framer-motion";
 import FeedCardActionsSkeleton from "./FeedCardActions/FeedCardActionsSkeleton";
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 function FeedUploadCard({ data, index }) {
   const postAction = useSelector((state) => state.postAction);
+
   const day = new Date(data.date).getDate();
   const month = new Date(data.date).getMonth() + 1;
   const year = new Date(data.date).getFullYear();
@@ -22,9 +24,11 @@ function FeedUploadCard({ data, index }) {
         {!data.photoURL && <div className="w-12 h-12 rounded-full bg-fuchsia-600"></div>}
         {data.photoURL && <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" src={data.photoURL}></img>}
         <div className="flex flex-col">
-          <p className="transition-all duration-300 text-md text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600">
-            @{data.nick}
-          </p>
+          <NavLink to={`/profile/${data.nick}`}>
+            <p className="transition-all duration-300 text-md text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600">
+              @{data.nick}
+            </p>
+          </NavLink>
           <p className="text-sm text-slate-400">{date}</p>
         </div>
       </div>

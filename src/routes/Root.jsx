@@ -43,6 +43,7 @@ const router = createHashRouter([
             <ProfilePage />
           </PrivateRoute>
         ),
+        children: [{ path: ":username", element: <ProfilePage /> }],
       },
       {
         path: "explore",

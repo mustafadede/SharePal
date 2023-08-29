@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+
 function InfoCard({ user = { followers: "Loading...", following: "Loading...", topOne: "Loading..." } }) {
   return (
     <motion.div

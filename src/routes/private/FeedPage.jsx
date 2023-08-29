@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../store/userSlice";
 import { motion } from "framer-motion";
 import FeedTabs from "../../components/layout/FeedPage/FeedTabs";
+import { profileActions } from "../../store/profileSlice";
 
 function FeedPage() {
   const { user } = useSelector((state) => state.user);
@@ -30,6 +31,7 @@ function FeedPage() {
         console.log(error);
       }
     };
+    dispatch(profileActions.removeUser(null));
     getData();
   }, []);
 

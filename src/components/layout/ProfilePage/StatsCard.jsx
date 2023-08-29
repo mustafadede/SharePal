@@ -11,7 +11,7 @@ function StatsCard({ user }) {
 
   return (
     <motion.div className="flex items-center w-full h-fit" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex gap-6">
         <div className="flex flex-col justify-center gap-4 p-4 rounded-xl bg-slate-900">
           <div className="flex items-center justify-between gap-4">
             <p className="text-3xl font-bold text-slate-200">Currently Watching</p>

@@ -5,11 +5,13 @@ import createPostSlice from "./createPostSlice";
 import modalSlice from "./modalSlice";
 import myListsSlice from "./myListsSlice";
 import postActionSlice from "./postActionSlice";
+import profileSlice from "./profileSlice";
 
 const store = configureStore({
   reducer: {
     auth: authSlice,
     user: userSlice,
+    profile: profileSlice,
     createPost: createPostSlice,
     modal: modalSlice,
     myLists: myListsSlice,

@@ -109,7 +109,7 @@ function FeedActionBox() {
             disabled={true}
           />
           <motion.button
-            className="w-full p-2 text-lg transition-colors rounded-lg select-none h-100 bg-slate-600 hover:bg-fuchsia-800 text-cWhite"
+            className="w-full p-2 text-lg transition-colors duration-300 rounded-lg select-none h-100 bg-fuchsia-800 hover:bg-slate-700 text-cWhite"
             onClick={createPost}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}

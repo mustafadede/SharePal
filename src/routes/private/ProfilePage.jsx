@@ -9,11 +9,15 @@ import Tabs from "../../components/layout/ProfilePage/Tabs";
 import PostsSection from "../../components/layout/ProfilePage/PostsSection";
 import ListsSection from "../../components/layout/ProfilePage/ListsSection/ListsSection";
 import ActivitiesSection from "../../components/layout/ProfilePage/ActivitiesSection";
-import { getCurrentUserData } from "../../firebase/firebaseActions";
+import { getCurrentUserData, getProfilePhoto, getUserByTheUsername } from "../../firebase/firebaseActions";
 import { userActions } from "../../store/userSlice";
 import StatsCard from "../../components/layout/ProfilePage/StatsCard";
+import { useParams } from "react-router-dom";
+import { profileActions } from "../../store/profileSlice";
 
 function ProfilePage() {
+  const { username } = useParams();
+
   const tabs = [
     { id: 0, name: "Stats" },
     { id: 1, name: "Lists" },
@@ -21,17 +25,29 @@ function ProfilePage() {
     { id: 3, name: "Activities" },
   ];
   const [activeTab, setActiveTab] = useState(tabs[0].id);
-  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
+  const { user } = useSelector((state) => state.user);
+  const { profileUser } = useSelector((state) => state.profile);
   useEffect(() => {
     document.title = "SharePal | Profile";
-    const getData = async () => {
-      getCurrentUserData(localStorage.getItem("user")).then((userData) => {
-        dispatch(userActions.updateUser(userData));
-      });
-    };
-    getData();
+    if (!username) {
+      const getData = async () => {
+        getCurrentUserData(localStorage.getItem("user")).then((userData) => {
+          dispatch(userActions.updateUser(userData));
+        });
+      };
+      getData();
+    } else {
+      const getData = async () => {
+        getUserByTheUsername(username).then((userData) => {
+          getProfilePhoto(userData[0].uid).then((photo) => {
+            dispatch(profileActions.updateUser(...userData));
+            dispatch(profileActions.updateProfilePhoto(photo));
+          });
+        });
+      };
+      getData();
+    }
   }, []);
 
   return (
@@ -39,12 +55,18 @@ function ProfilePage() {
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
       <div className="flex mx-10">
         <div className="flex flex-col w-full gap-4 mr-6 overflow-x-scroll">
-          {user ? <ProfileBanner user={user} /> : <ProfileBanner />}
-          {user ? <InfoCard user={user} /> : <InfoCard />}
+          {!username ? (
+            <ProfileBanner user={user} profile={true} />
+          ) : profileUser ? (
+            <ProfileBanner user={profileUser} profile={true} username />
+          ) : (
+            <ProfileBanner />
+          )}
+          {!username ? <InfoCard user={user} /> : profileUser ? <InfoCard user={profileUser} /> : <InfoCard />}
           <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
-          {activeTab === 0 && <StatsCard user={user} />}
+          {activeTab === 0 && <StatsCard user={!username ? user : profileUser} />}
           {activeTab === 1 && <ListsSection />}
-          {activeTab === 2 && <PostsSection />}
+          {activeTab === 2 && <PostsSection username={username} uid={profileUser?.uid} />}
           {activeTab === 3 && <ActivitiesSection />}
         </div>
         <motion.div

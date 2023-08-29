@@ -4,8 +4,9 @@ import { Pencil1Icon } from "@radix-ui/react-icons";
 import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 
-function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banner: "" } }) {
-  const photo = getAuth().currentUser?.photoURL;
+function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banner: "" }, username }) {
+  const photo = !username ? getAuth().currentUser.photoURL : user.photoURL;
+
   return (
     <motion.div
       className="relative w-full h-64 overflow-hidden rounded-2xl bg-slate-900"
@@ -71,16 +72,20 @@ function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banne
       </div>
       {/*  Name, Quote end */}
       {/*  Edit button start */}
-      <Link to="/settings">
-        <motion.button
-          className="absolute p-2 text-lg transition-all bg-transparent border-2 rounded-lg border-slate-400 text-slate-400 right-5 top-5 hover:border-fuchsia-800 hover:bg-fuchsia-800 hover:text-cWhite"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          <Pencil1Icon />
-        </motion.button>
-      </Link>
+
+      {!username && (
+        <Link to="/settings">
+          <motion.button
+            className="absolute p-2 text-lg transition-all bg-transparent border-2 rounded-lg border-slate-400 text-slate-400 right-5 top-5 hover:border-fuchsia-800 hover:bg-fuchsia-800 hover:text-cWhite"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <Pencil1Icon />
+          </motion.button>
+        </Link>
+      )}
+
       {/*  Edit button end */}
     </motion.div>
   );

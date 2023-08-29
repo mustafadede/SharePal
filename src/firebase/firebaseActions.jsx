@@ -92,6 +92,48 @@ const getCurrentUserData = async (userId) => {
   }
 };
 
+const getProfilePhoto = async (uid) => {
+  try {
+    const photoRef = sRef(storage, `profilePhotos/${uid}`);
+    const photoUrl = await getDownloadURL(photoRef);
+    return photoUrl;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+const getUserByTheUsername = async (username) => {
+  try {
+    const snapshot = await get(child(dbRef, `users`));
+    if (snapshot.exists()) {
+      const user = [];
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().displayName === username) {
+          user.push({
+            uid: childSnapshot.key,
+            nick: childSnapshot.val().displayName,
+            following: childSnapshot.val().following,
+            followers: childSnapshot.val().followers,
+            email: childSnapshot.val().email,
+            quote: childSnapshot.val().quote,
+            topOne: childSnapshot.val().topOne,
+            banner: childSnapshot.val().banner,
+            currentlyWatching: childSnapshot.val().currentlyWatching || "",
+          });
+        }
+      });
+      return user;
+    } else {
+      console.log("No data available");
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 const updateCurrentUserData = async (userId, data) => {
   try {
     const snapshot = await get(child(dbRef, `users/${userId}`));
@@ -173,7 +215,7 @@ const getSelectedUserPosts = async (userId) => {
   if (snapshot.exists()) {
     snapshot.forEach((childSnapshot) => {
       allPosts.push({
-        photoURL: getAuth().currentUser.photoURL,
+        photoURL: childSnapshot.val().photoURL,
         nick: childSnapshot.val().nick,
         content: childSnapshot.val().content,
         attachedPhoto: childSnapshot.val().attachedPhoto,
@@ -281,6 +323,8 @@ export {
   createUserWithEmailAction,
   signInWithEmailAction,
   getCurrentUserData,
+  getProfilePhoto,
+  getUserByTheUsername,
   updateCurrentUserData,
   createPostAction,
   getAllPosts,
