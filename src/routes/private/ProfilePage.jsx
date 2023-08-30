@@ -59,8 +59,8 @@ function ProfilePage() {
           {username ? <UserProfileBanner user={profileUser} /> : <ProfileBanner user={user} />}
           {username ? <InfoCard user={profileUser} /> : <InfoCard user={user} />}
           <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
-          {activeTab === 0 && <StatsCard user={!username ? user : profileUser} />}
-          {activeTab === 1 && <ListsSection />}
+          {activeTab === 0 && <StatsCard user={!username ? user : profileUser} username={username} />}
+          {activeTab === 1 && <ListsSection username={username} />}
           {activeTab === 2 && <PostsSection username={username} uid={profileUser?.uid} />}
           {activeTab === 3 && <ActivitiesSection />}
         </div>
