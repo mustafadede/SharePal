@@ -14,7 +14,7 @@ function FeedAttachedCard({ data, index, attachedData }) {
   const year = new Date(data.date).getFullYear();
   const hour = new Date(data.date).getHours();
   const minute = new Date(data.date).getMinutes();
-  const date = `${day}/${month}/${year} ${hour}:${minute}`;
+  const date = `${day}/${month}/${year} ${hour}:${minute < 10 ? "0" + minute : minute}`;
   return (
     <motion.div
       className="flex flex-col w-full p-4 mb-4 bg-slate-900 rounded-xl"

@@ -6,6 +6,7 @@ import modalSlice from "./modalSlice";
 import myListsSlice from "./myListsSlice";
 import postActionSlice from "./postActionSlice";
 import profileSlice from "./profileSlice";
+import postsSlice from "./postsSlice";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     modal: modalSlice,
     myLists: myListsSlice,
     postAction: postActionSlice,
+    posts: postsSlice,
   },
 });
 

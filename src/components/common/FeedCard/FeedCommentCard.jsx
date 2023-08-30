@@ -12,7 +12,7 @@ function FeedCommentCard({ data, index }) {
   const year = new Date(data.date).getFullYear();
   const hour = new Date(data.date).getHours();
   const minute = new Date(data.date).getMinutes();
-  const date = `${day}/${month}/${year} ${hour}:${minute}`;
+  const date = `${day}/${month}/${year} ${hour}:${minute < 10 ? "0" + minute : minute}`;
 
   return (
     <motion.div

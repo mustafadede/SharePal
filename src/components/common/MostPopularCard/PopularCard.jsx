@@ -24,7 +24,7 @@ function PopularCard({ padding }) {
       {data.map((value, index) => {
         return <PopularItem key={index} data={value} />;
       })}
-      <p className="pt-4 text-lg transition-colors text-fuchsia-600 hover:text-slate-300">
+      <p className="pt-4 text-lg transition-colors text-fuchsia-400 hover:text-slate-300">
         <NavLink to={"/explore"}>Show more</NavLink>
       </p>
     </div>

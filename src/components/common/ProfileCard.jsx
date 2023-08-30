@@ -39,7 +39,7 @@ const ProfileCard = ({ nick = "-", username, following = "-", followers = "-", q
           <p className="text-sm text-slate-300">Following</p>
         </div>
       </div>
-      <p className="flex items-center justify-center py-4 text-lg text-purple-400 transition-colors hover:text-slate-300">
+      <p className="flex items-center justify-center py-4 text-lg transition-colors text-fuchsia-400 hover:text-slate-300">
         <NavLink to={"/profile"}>Go to Profile</NavLink>
       </p>
     </div>

@@ -11,12 +11,13 @@ import { userActions } from "../../store/userSlice";
 import { motion } from "framer-motion";
 import FeedTabs from "../../components/layout/FeedPage/FeedTabs";
 import { profileActions } from "../../store/profileSlice";
+import { postsActions } from "../../store/postsSlice";
+import { createPostActions } from "../../store/createPostSlice";
 
 function FeedPage() {
   const { user } = useSelector((state) => state.user);
-  const { post } = useSelector((state) => state.createPost);
-  const { modalHasData } = useSelector((state) => state.modal);
-  const [posts, setPosts] = useState([]);
+  const { posts, status } = useSelector((state) => state.posts);
+  const { post, postsLength } = useSelector((state) => state.createPost);
   const [tab, setTab] = useState(0);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -25,15 +26,17 @@ function FeedPage() {
       try {
         const userData = await getCurrentUserData(localStorage.getItem("user"));
         userData && dispatch(userActions.updateUser(userData));
+        dispatch(postsActions.updateStatus("loading"));
         const response = await getAllPosts();
-        setPosts(response);
+        dispatch(postsActions.updatePosts(response));
+        dispatch(postsActions.updateStatus("done"));
       } catch (error) {
         console.log(error);
       }
     };
     dispatch(profileActions.removeUser(null));
     getData();
-  }, []);
+  }, [post]);
 
   return (
     <>
@@ -58,7 +61,9 @@ function FeedPage() {
         <motion.div className="flex flex-col w-full xl:px-6">
           <FeedTabs tabInfo={tab} tab={setTab} />
           <FeedActionBox />
+          {tab === 0 && status === "loading" && <p className="w-full mt-1 text-xl text-center text-slate-400">Loading...</p>}
           {tab === 0 &&
+            status === "done" &&
             posts
               .map((data, index) => {
                 if (data.attachedFilm) {
@@ -70,6 +75,7 @@ function FeedPage() {
                 }
               })
               .reverse()}
+
           {tab === 1 && <p className="w-full mt-1 text-xl text-center text-slate-400">You don't follow anything yet...</p>}
         </motion.div>
         <motion.div
