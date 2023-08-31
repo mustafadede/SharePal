@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 
 function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banner: "" }, username }) {
-  const photo = username ? user.photoURL : getAuth().currentUser.photoURL;
+  const photo = username ? user.photoURL : getAuth().currentUser?.photoURL;
 
   return (
     <motion.div
@@ -15,7 +15,7 @@ function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banne
       transition={{ delay: 0.2 }}
     >
       {/*  Banner start */}
-      <motion.img className="absolute object-cover w-full opacity-40 rounded-2xl" src={user.banner}></motion.img>
+      <motion.img className="absolute object-cover w-full opacity-40 rounded-2xl" src={user?.banner}></motion.img>
       {/*  Banner end */}
       <div className="relative flex items-center w-auto h-full gap-4 left-10">
         {/*  Profile picture start */}
@@ -46,7 +46,7 @@ function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banne
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            {user.nick}
+            {user?.nick}
           </motion.h1>
           {/*  Name section end */}
           {/* Quote section start */}
@@ -65,7 +65,7 @@ function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banne
             >
               <path d="M6 0H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3H2a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3h-1a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Z" />
             </svg>
-            {user.quote}
+            {user?.quote}
           </motion.p>
           {/*  Quote section end */}
         </div>

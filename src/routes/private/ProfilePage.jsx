@@ -32,6 +32,7 @@ function ProfilePage() {
   const { profileUser } = useSelector((state) => state.profile);
   useEffect(() => {
     document.title = "SharePal | Profile";
+    window.scrollTo(0, 0);
     if (!username) {
       const getData = async () => {
         getCurrentUserData(localStorage.getItem("user")).then((userData) => {

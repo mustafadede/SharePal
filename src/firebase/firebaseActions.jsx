@@ -80,6 +80,7 @@ const getCurrentUserData = async (userId) => {
         topOne: snapshot.val().topOne,
         banner: snapshot.val().banner,
         currentlyWatching: snapshot.val().currentlyWatching || "",
+        photoURL: getAuth().currentUser.photoURL || snapshot.val().photoURL || "",
       };
       return user;
     } else {
@@ -134,6 +135,27 @@ const getUserByTheUsername = async (username) => {
   }
 };
 
+const getUserBySearch = async (username) => {
+  try {
+    const snapshot = await get(child(dbRef, `users`));
+    if (snapshot.exists()) {
+      const users = [];
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().displayName.toLowerCase().includes(username)) {
+          users.push(childSnapshot.val());
+        }
+      });
+      return users;
+    } else {
+      console.log("No data available");
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 const updateCurrentUserData = async (userId, data) => {
   try {
     const snapshot = await get(child(dbRef, `users/${userId}`));
@@ -146,7 +168,8 @@ const updateCurrentUserData = async (userId, data) => {
         banner: data.banner || snapshot.val().banner,
         quote: data.quote || snapshot.val().quote,
         topOne: data.topOne || snapshot.val().topOne,
-        currentlyWatching: data.currentlyWatching || snapshot.val().currentlyWatching,
+        currentlyWatching: data.currentlyWatching || snapshot.val().currentlyWatching || "",
+        photoURL: getAuth().currentUser.photoURL || snapshot.val().photoURL || null,
       });
       return true;
     } else {
@@ -325,6 +348,7 @@ export {
   getCurrentUserData,
   getProfilePhoto,
   getUserByTheUsername,
+  getUserBySearch,
   updateCurrentUserData,
   createPostAction,
   getAllPosts,

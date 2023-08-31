@@ -5,21 +5,30 @@ import PopularCard from "../../components/common/MostPopularCard/PopularCard";
 import SearchCard from "../../components/layout/SearchPage/SearchCard";
 import useSearch from "../../hooks/useSearch";
 import Suggestion from "../../components/common/Suggestion";
+import { getUserBySearch } from "../../firebase/firebaseActions";
+import SearchUserCard from "../../components/layout/SearchPage/SearchUserCard";
 function SearchPage() {
   const [search, setSearch] = useState("");
   const [movies, setMovies] = useState("");
+  const [users, setUsers] = useState([]);
   const handleSearch = (e) => {
-    if (search.startsWith("@")) {
-      console.log("User search");
+    if (e.key === "Enter" && search.startsWith("@")) {
+      setMovies("");
+      getUserBySearch(search.slice(1)).then((res) => {
+        setUsers(res);
+      });
     }
     if (e.key === "Enter" && !search.startsWith("@")) {
       useSearch(search, setMovies);
+      setUsers([]);
     }
   };
   const handleSuggestion = (suggestion) => {
+    setUsers([]);
     setSearch(suggestion);
     useSearch(suggestion, setMovies);
   };
+
   return (
     <>
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
@@ -62,7 +71,10 @@ function SearchPage() {
                   />
                 ) : null
               )}
-            {movies.length === 0 && <p className="text-2xl text-slate-600">No results found</p>}
+          </div>
+          <div className="flex flex-col w-full gap-7 mb-7">
+            {!users && !movies && <p className="text-2xl text-slate-600">✨ Not found anything ✨</p>}
+            {!movies && users.map((user) => <SearchUserCard key={user.displayName} user={user} />)}
           </div>
           {/* Search results end */}
         </div>
