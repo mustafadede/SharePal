@@ -9,26 +9,17 @@ function SearchUserCard({ user }) {
   const dispatch = useDispatch();
   const handleUserClick = () => {
     dispatch(profileActions.removeUser());
-    console.log(currentUser);
     user.displayName === currentUser?.nick ? navigate("/profile") : navigate(`/profile/${user.displayName}`);
   };
 
   return (
-    <button onClick={handleUserClick}>
-      <div className="flex flex-row items-center justify-between w-full p-4 bg-gray-900 rounded-md">
-        <div className="flex flex-row items-center gap-4">
-          {!user.photoURL && <div className="w-16 h-16 rounded-full bg-fuchsia-600"></div>}
-          {user.photoURL && <img className="object-cover w-16 h-16 rounded-full" src={user?.photoURL} alt="user" />}
-          <div className="flex flex-col items-start">
-            <h1 className="text-xl text-white">{user?.displayName}</h1>
-            <h1 className="text-sm text-gray-500">{user?.email}</h1>
-          </div>
+    <button onClick={handleUserClick} className="flex flex-row items-center justify-between w-full p-4 bg-gray-900 rounded-md">
+      <div className="flex flex-row items-center gap-4">
+        {!user.photoURL && <div className="w-16 h-16 rounded-full bg-fuchsia-600"></div>}
+        {user.photoURL && <img className="object-cover w-16 h-16 rounded-full" src={user?.photoURL} alt="user" />}
+        <div className="flex flex-col items-start">
+          <h1 className="text-xl text-white">{user?.displayName}</h1>
         </div>
-        {user.displayName !== currentUser?.nick ? (
-          <button className="px-4 py-2 text-sm font-semibold text-white transition-all rounded-md bg-slate-900 hover:bg-slate-800">
-            Follow
-          </button>
-        ) : null}
       </div>
     </button>
   );

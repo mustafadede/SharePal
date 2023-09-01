@@ -8,7 +8,7 @@ import { NavLink } from "react-router-dom";
 
 function FeedAttachedCard({ data, index, attachedData }) {
   const postAction = useSelector((state) => state.postAction);
-
+  const { user } = useSelector((state) => state.user);
   const day = new Date(data.date).getDate();
   const month = new Date(data.date).getMonth() + 1;
   const year = new Date(data.date).getFullYear();
@@ -25,7 +25,7 @@ function FeedAttachedCard({ data, index, attachedData }) {
         {!data.photoURL && <div className="w-12 h-12 rounded-full bg-fuchsia-600"></div>}
         {data.photoURL && <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" src={data.photoURL}></img>}
         <div className="flex flex-col">
-          <NavLink to={`/profile/${data.nick}`}>
+          <NavLink to={user.nick !== data.nick ? `/profile/${data.nick}` : "/profile"}>
             <p className="transition-all duration-300 text-md text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600">
               @{data.nick}
             </p>
@@ -40,7 +40,7 @@ function FeedAttachedCard({ data, index, attachedData }) {
             src={`https://image.tmdb.org/t/p/w500/${attachedData?.poster || data.attachedFilm.poster}`}
             className="object-cover rounded-full w-14 h-14 grayscale group-hover:grayscale-0"
           ></img>
-          <div className="flex gap-1">
+          <div className="flex items-center justify-center gap-1">
             <p className="text-slate-400 group-hover:text-slate-200">{attachedData?.title || data.attachedFilm.title}</p>
             <p className="text-slate-400 group-hover:text-slate-200">
               ({attachedData?.releaseDate.slice(0, 4) || data.attachedFilm.releaseDate.slice(0, 4)})
