@@ -41,7 +41,7 @@ function SearchPage() {
               <input
                 className="w-full py-2 text-2xl text-white transition-all bg-transparent border-b-2 outline-none focus-within:border-slate-900"
                 type="text"
-                placeholder="Search for a user or movie/series"
+                placeholder="Search for a movie/series or user with @"
                 onChange={(e) => setSearch(e.target.value)}
                 onKeyDown={(e) => handleSearch(e)}
               />
