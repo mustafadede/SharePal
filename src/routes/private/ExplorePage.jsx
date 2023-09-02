@@ -14,13 +14,42 @@ function ExplorePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
-          <h1 className="mb-4 text-3xl text-slate-200">Explore</h1>
+          <h1 className="mb-4 text-3xl text-slate-200">Upcoming</h1>
           <motion.div
             className="w-full h-32 bg-slate-900 rounded-2xl"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           ></motion.div>
+          <h2 className="my-4 text-2xl text-slate-200">Top 10 Movies</h2>
+          <motion.div
+            className="w-full h-32 bg-slate-900 rounded-2xl"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          ></motion.div>
+          <h2 className="my-4 text-2xl text-slate-200">Top 10 Series</h2>
+          <motion.div
+            className="w-full h-32 bg-slate-900 rounded-2xl"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          ></motion.div>
+          <h2 className="my-4 text-2xl text-slate-200">Top 10 Anime</h2>
+          <motion.div
+            className="w-full h-32 bg-slate-900 rounded-2xl"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          ></motion.div>
+          <h2 className="my-4 text-2xl text-slate-200">Top 10 Documentaries</h2>
+          <motion.div
+            className="w-full h-32 bg-slate-900 rounded-2xl"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          ></motion.div>
+          <h2 className="my-4 text-2xl text-slate-200">Users Lists</h2>
         </motion.div>
         {/* Most popular movies and series start */}
         <motion.div

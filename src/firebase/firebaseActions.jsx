@@ -137,12 +137,23 @@ const getUserByTheUsername = async (username) => {
 
 const getUserBySearch = async (username) => {
   try {
+    username = username.toLowerCase();
     const snapshot = await get(child(dbRef, `users`));
     if (snapshot.exists()) {
       const users = [];
       snapshot.forEach((childSnapshot) => {
         if (childSnapshot.val().displayName.toLowerCase().includes(username)) {
-          users.push(childSnapshot.val());
+          users.push({
+            uid: childSnapshot.key,
+            displayName: childSnapshot.val().displayName,
+            following: childSnapshot.val().following,
+            followers: childSnapshot.val().followers,
+            email: childSnapshot.val().email,
+            quote: childSnapshot.val().quote,
+            topOne: childSnapshot.val().topOne,
+            banner: childSnapshot.val().banner,
+            currentlyWatching: childSnapshot.val().currentlyWatching || "",
+          });
         }
       });
       return users;
