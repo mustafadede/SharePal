@@ -19,7 +19,7 @@ function FeedPage() {
   const { posts, status } = useSelector((state) => state.posts);
   const { post, postsLength } = useSelector((state) => state.createPost);
   const [tab, setTab] = useState(0);
-  const [notification, setNotification] = useState(true);
+  const [notification, setNotification] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     document.title = "SharePal | Feed";
