@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PrimaryButton from "../common/PrimaryButton";
 import { Link } from "react-router-dom";
 import SecondaryButton from "../common/SecondaryButton";
-import { ExitIcon, GearIcon, PersonIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import { ExitIcon, GearIcon, PersonIcon, MagnifyingGlassIcon, BellIcon } from "@radix-ui/react-icons";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +19,7 @@ const dropdownItems = [
   },
 ];
 
-function Navbar({ isNotLoggedin = true, additionalClasses = "" }) {
+function Navbar({ isNotLoggedin = true, additionalClasses = "", onClickHandler }) {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -48,20 +48,23 @@ function Navbar({ isNotLoggedin = true, additionalClasses = "" }) {
         ) : (
           <>
             <div className="flex items-center justify-center gap-4">
+              <button className="flex items-center justify-center rounded w-7 h-7" onClick={onClickHandler}>
+                <BellIcon className="w-10 h-10 md:w-6 md:h-6 text-cWhite hover:text-fuchsia-700 hover:transition-colors" />
+              </button>
               <Link to={"/search"}>
                 <button className="flex items-center justify-center rounded w-7 h-7">
-                  <MagnifyingGlassIcon className="w-10 h-10 md:w-6 md:h-6 text-cWhite hover:text-fuchsia-700 hover:transition-colors" />
+                  <MagnifyingGlassIcon className="w-10 h-10 md:w-7 md:h-7 text-cWhite hover:text-fuchsia-700 hover:transition-colors" />
                 </button>
               </Link>
               <Link to={"/profile"}>
                 <button className="flex items-center justify-center rounded w-7 h-7">
-                  <PersonIcon className="w-10 h-10 md:w-6 md:h-6 text-cWhite hover:text-fuchsia-700 hover:transition-colors" />
+                  <PersonIcon className="w-10 h-10 md:w-7 md:h-7 text-cWhite hover:text-fuchsia-700 hover:transition-colors" />
                 </button>
               </Link>
             </div>
             <div className="relative">
               <button onClick={() => setIsOpen(!isOpen)} className="flex items-center justify-center rounded w-7 h-7">
-                <GearIcon className="w-10 h-10 md:w-6 md:h-6 text-cWhite hover:text-fuchsia-700 hover:transition-colors" />
+                <GearIcon className="w-10 h-10 md:w-7 md:h-7 text-cWhite hover:text-fuchsia-700 hover:transition-colors" />
               </button>
               <div
                 className={`absolute text-center right-0 z-10 w-32 mt-2 origin-top-right bg-slate-900 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 ${
