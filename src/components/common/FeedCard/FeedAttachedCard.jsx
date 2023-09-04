@@ -3,18 +3,23 @@ import React from "react";
 import FeedCardButtons from "./Buttons/FeedCardButtons";
 import { motion } from "framer-motion";
 import FeedCardActionsSkeleton from "./FeedCardActions/FeedCardActionsSkeleton";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { modalActions } from "../../../store/modalSlice";
 
 function FeedAttachedCard({ data, index, attachedData }) {
   const postAction = useSelector((state) => state.postAction);
   const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const day = new Date(data.date).getDate();
   const month = new Date(data.date).getMonth() + 1;
   const year = new Date(data.date).getFullYear();
   const hour = new Date(data.date).getHours();
   const minute = new Date(data.date).getMinutes();
   const date = `${day}/${month}/${year} ${hour}:${minute < 10 ? "0" + minute : minute}`;
+  const onClickHandler = () => {
+    dispatch(modalActions.openModal({ name: "pinnedModal", data: data.attachedFilm }));
+  };
   return (
     <motion.div
       className="flex flex-col w-full p-4 mb-4 bg-slate-900 rounded-xl"
@@ -34,7 +39,7 @@ function FeedAttachedCard({ data, index, attachedData }) {
         </div>
       </div>
       <p className="my-2 text-slate-200">{data?.text || data.content}</p>
-      <button className="flex items-center justify-between w-full gap-4 p-2 transition-colors duration-300 border rounded-2xl border-slate-700 group hover:bg-cGradient2 hover:border-slate-600">
+      <div className="flex items-center justify-between w-full gap-4 p-2 transition-colors duration-300 border rounded-2xl border-slate-700 group hover:bg-cGradient2 hover:border-slate-600">
         <div className="flex items-center gap-4">
           <img
             src={`https://image.tmdb.org/t/p/w500/${attachedData?.poster || data.attachedFilm.poster}`}
@@ -47,8 +52,10 @@ function FeedAttachedCard({ data, index, attachedData }) {
             </p>
           </div>
         </div>
-        <BookmarkIcon className="w-6 h-6 text-slate-400 group-hover:text-slate-200" />
-      </button>
+        <button onClick={onClickHandler}>
+          <BookmarkIcon className="w-6 h-6 text-slate-400 group-hover:text-slate-200" />
+        </button>
+      </div>
       <div className="flex gap-2">
         <FeedCardActionsSkeleton action={"likes"} number={postAction.postLikesList[index]?.likes} data={data} />
         <FeedCardActionsSkeleton action={"comments"} number={postAction.postCommentsList[index]?.comments} data={data} />
