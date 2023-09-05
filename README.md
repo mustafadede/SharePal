@@ -5,7 +5,7 @@
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)
 
-This is a Film/Movie social media app with React, Redux Toolkit and Firebase.
+This is a Film/Movie social media app with React, Redux Toolkit and Firebase. You can share your thoughts in the feed with attachment, text or with a photo. Follow your friends, update your profile or profile status. (like currently watching) Explore upcoming films/series with explore page. Search and find users in the search page or films/series! 
 
 If you want to dive deeper here is :
 - For the design, thoughts, wireframing: [Figma](https://www.figma.com/file/Aj2NOVzUCGzkp1G5YzCnim/SharePal?type=whiteboard&t=Ggv7qDKmgEpDcZPE-1)
