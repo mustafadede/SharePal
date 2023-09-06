@@ -4,10 +4,10 @@ import { useDispatch } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
 import { toast } from "react-toastify";
 
-function AttachedCard({ title, poster, releaseDate }) {
+function AttachedCard({ title, poster, releaseDate, backdrop }) {
   const dispatch = useDispatch();
   const handleClick = () => {
-    dispatch(modalActions.closeModal({ data: { title, poster, releaseDate } })) && toast.success("Attached successfully!");
+    dispatch(modalActions.closeModal({ data: { title, poster, releaseDate, backdrop } })) && toast.success("Attached successfully!");
   };
   return (
     <div className="flex justify-between w-full h-32 p-2 group rounded-2xl">

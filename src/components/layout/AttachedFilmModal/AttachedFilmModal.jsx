@@ -43,6 +43,7 @@ function AttachedFilmModal() {
                 title={movie.title || movie.name}
                 poster={movie.poster_path || movie.profile_path || null}
                 releaseDate={movie.release_date || movie.first_air_date || null}
+                backdrop={movie.backdrop_path || movie.poster_path || movie.profile_path || null}
               />
             ) : null
           )}
