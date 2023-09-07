@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../components/layout/Navbar";
 import ProfileCard from "../../components/common/ProfileCard";
 import PopularCard from "../../components/common/MostPopularCard/PopularCard";
-import { getCurrentUserData, getAllPosts } from "../../firebase/firebaseActions";
+import { getCurrentUserData, getAllPosts, getSelectedUserLists } from "../../firebase/firebaseActions";
 import FeedActionBox from "../../components/layout/FeedActionBox";
 import FeedCard from "../../components/common/FeedCard";
 import MyPinnedListsCard from "../../components/common/MyPinnedListsCard/MyPinnedListsCard";
@@ -12,12 +12,12 @@ import { motion } from "framer-motion";
 import FeedTabs from "../../components/layout/FeedPage/FeedTabs";
 import { profileActions } from "../../store/profileSlice";
 import { postsActions } from "../../store/postsSlice";
-import { createPostActions } from "../../store/createPostSlice";
+import { MyListsActions } from "../../store/myListsSlice";
 
 function FeedPage() {
   const { user } = useSelector((state) => state.user);
   const { posts, status } = useSelector((state) => state.posts);
-  const { post, postsLength } = useSelector((state) => state.createPost);
+  const { post } = useSelector((state) => state.createPost);
   const [tab, setTab] = useState(0);
   const [notification, setNotification] = useState(false);
   const dispatch = useDispatch();
@@ -39,6 +39,11 @@ function FeedPage() {
     getData();
   }, [post]);
 
+  const getUserLists = async () => {
+    const res = await getSelectedUserLists(localStorage.getItem("user"));
+    dispatch(MyListsActions.setMyCoppiedList(res));
+  };
+  getUserLists();
   return (
     <>
       <Navbar

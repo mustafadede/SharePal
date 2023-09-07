@@ -92,7 +92,7 @@ function FeedActionBox() {
             </button>
           </motion.div>
         )}
-        <div className="flex w-full gap-2">
+        <div className="flex justify-end w-full gap-2">
           <FeedActionBoxButton
             icons={<Link2Icon className="h-6 transition-all w-fit text-slate-300" />}
             text="Attach Film/Series"
@@ -103,9 +103,9 @@ function FeedActionBox() {
           <FeedActionBoxButton
             icons={<CameraIcon className="h-6 transition-all w-fit text-slate-300" />}
             text="Upload Photo"
-            onClickAction={() => {
-              dispatch(createPostActions.updateAttachedPhoto("https://i.imgur.com/2xW3YzB.png"));
-            }}
+            // onClickAction={() => {
+            //   dispatch(createPostActions.updateAttachedPhoto("https://i.imgur.com/2xW3YzB.png"));
+            // }}
             disabled={true}
           />
           <motion.button

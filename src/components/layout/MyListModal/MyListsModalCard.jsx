@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { MyListsActions } from "../../../store/myListsSlice";
 import { toast } from "react-toastify";
 import { modalActions } from "../../../store/modalSlice";
+import { updateSelectedUserLists } from "../../../firebase/firebaseActions";
 
 function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = false, list, date }) {
   const dispatch = useDispatch();
@@ -12,8 +13,10 @@ function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = fal
     if (!isPinned) {
       dispatch(MyListsActions.setPinned(listNum));
       toast.success("List pinned successfully!");
+      updateSelectedUserLists(localStorage.getItem("user"), { isPinned: true, id });
     } else {
       dispatch(MyListsActions.setPinned(listNum));
+      updateSelectedUserLists(localStorage.getItem("user"), { isPinned: false, id });
       toast.error("List unpinned successfully!");
     }
   };

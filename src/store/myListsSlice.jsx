@@ -3,10 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 const myListsSlice = createSlice({
   name: "myLists",
   initialState: {
+    myCoppiedList: [],
     myLists: [],
     pinnedLists: [],
   },
   reducers: {
+    setMyCoppiedList: (state, action) => {
+      state.myCoppiedList = action.payload;
+      state.myLists = action.payload;
+    },
     setMyLists: (state, action) => {
       state.myLists.push(action.payload);
     },

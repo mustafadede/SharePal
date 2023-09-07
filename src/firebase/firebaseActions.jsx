@@ -8,7 +8,7 @@ import {
 } from "firebase/auth";
 import { auth, database, storage } from "./firebaseConfig";
 import { toast } from "react-toastify";
-import { child, get, getDatabase, orderByValue, push, query, ref, set } from "firebase/database";
+import { child, get, getDatabase, orderByValue, push, query, ref, set, update } from "firebase/database";
 import { getDownloadURL, ref as sRef, uploadBytes } from "firebase/storage";
 
 const dbRef = ref(getDatabase());
@@ -301,12 +301,9 @@ const updateSelectedUserLists = async (userId, data) => {
     if (snapshot.exists()) {
       snapshot.forEach((childSnapshot) => {
         if (childSnapshot.val().id === data.id) {
-          const listToUpdateRef = child(pinnedListsRef, childSnapshot.key);
-          update(listToUpdateRef, {
-            isPinned: data.isPinned || childSnapshot.val().isPinned,
-            list: data.list || childSnapshot.val().list,
-            title: data.title || childSnapshot.val().title,
-          });
+          const updates = {};
+          updates[`pinnedList/${userId}/${childSnapshot.key}`] = { ...childSnapshot.val(), ...data };
+          update(ref(database), updates);
         }
       });
       return true;

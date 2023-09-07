@@ -12,6 +12,7 @@ function MyListModal() {
   const [listname, setListname] = useState("");
   const dispatch = useDispatch();
   const { myLists } = useSelector((state) => state.myLists);
+
   const handleCreateList = () => {
     if (listname !== "") {
       dispatch(
@@ -63,6 +64,7 @@ function MyListModal() {
     dispatch(modalActions.closeModal());
     dispatch(modalActions.openModal({ name: "listModal", data: { id, title, list, date } }));
   };
+
   return (
     <div className="bg-slate-900 rounded-2xl px-8 pt-4 overflow-hidden h-[30rem]">
       <ModalHeader title="My Lists" />

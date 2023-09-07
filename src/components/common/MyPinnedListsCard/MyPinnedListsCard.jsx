@@ -6,7 +6,7 @@ import { modalActions } from "../../../store/modalSlice";
 import MyListsModalCard from "../../layout/MyListModal/MyListsModalCard";
 
 function MyPinnedListsCard() {
-  const { myLists, pinnedLists } = useSelector((state) => state.myLists);
+  const { myLists, pinnedLists, myCoppiedList } = useSelector((state) => state.myLists);
   const dispatch = useDispatch();
   const clickHandler = () => {
     dispatch(modalActions.openModal({ name: "pinnedModal" }));
@@ -26,7 +26,9 @@ function MyPinnedListsCard() {
           </button>
         </div>
         <div className="flex flex-col justify-center pt-2">
-          {myLists.length === 0 && <p className="text-md text-slate-400">You don't have any list. Do you wanna create ?</p>}
+          {myLists.length === 0 && myCoppiedList.length === 0 && (
+            <p className="text-md text-slate-400">You don't have any list. Do you wanna create ?</p>
+          )}
           {myLists.length !== 0 && pinnedLists.length === 0 && <p className="text-md text-slate-400">You have lists. Do you wanna pin ?</p>}
           {myLists.map((list, i) => {
             if (list.isPinned)
