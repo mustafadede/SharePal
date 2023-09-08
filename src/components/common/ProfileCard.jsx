@@ -1,8 +1,7 @@
 import { getAuth } from "firebase/auth";
-import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-const ProfileCard = ({ nick, username, following, followers, quote, banner }) => {
+const ProfileCard = ({ nick = "-", username, following = "-", followers = "-", quote = "-", banner }) => {
   const photo = getAuth().currentUser?.photoURL;
 
   return (

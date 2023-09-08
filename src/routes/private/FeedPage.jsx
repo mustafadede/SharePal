@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../components/layout/Navbar";
 import ProfileCard from "../../components/common/ProfileCard";
 import PopularCard from "../../components/common/MostPopularCard/PopularCard";
-import { getAllPosts, getSelectedUserLists, getSelectedUserPosts } from "../../firebase/firebaseActions";
+import { getAllPosts, getCurrentUserData, getSelectedUserLists, getSelectedUserPosts } from "../../firebase/firebaseActions";
 import FeedActionBox from "../../components/layout/FeedActionBox";
 import FeedCard from "../../components/common/FeedCard";
 import MyPinnedListsCard from "../../components/common/MyPinnedListsCard/MyPinnedListsCard";
@@ -12,6 +12,7 @@ import FeedTabs from "../../components/layout/FeedPage/FeedTabs";
 import { profileActions } from "../../store/profileSlice";
 import { postsActions } from "../../store/postsSlice";
 import { MyListsActions } from "../../store/myListsSlice";
+import { userActions } from "../../store/userSlice";
 
 function FeedPage() {
   const { posts, status } = useSelector((state) => state.posts);
@@ -25,6 +26,8 @@ function FeedPage() {
     document.title = "SharePal | Feed";
     const getData = async () => {
       try {
+        const userData = await getCurrentUserData(localStorage.getItem("user"));
+        userData && dispatch(userActions.updateUser(userData));
         if (tab === 0) {
           dispatch(postsActions.updateStatus("loading"));
           const response = await getAllPosts();
@@ -66,13 +69,17 @@ function FeedPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
-          <ProfileCard
-            nick={user?.nick}
-            following={user?.following}
-            followers={user?.followers}
-            quote={user?.quote}
-            banner={user?.banner}
-          />
+          {user ? (
+            <ProfileCard
+              nick={user?.nick}
+              following={user?.following}
+              followers={user?.followers}
+              quote={user?.quote}
+              banner={user?.banner}
+            />
+          ) : (
+            <ProfileCard />
+          )}
           <MyPinnedListsCard />
         </motion.div>
         <motion.div className="flex flex-col w-full xl:px-6">
