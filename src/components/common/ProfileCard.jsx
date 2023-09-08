@@ -2,16 +2,15 @@ import { getAuth } from "firebase/auth";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-const ProfileCard = ({ nick = "-", username, following = "-", followers = "-", quote = "-" }) => {
+const ProfileCard = ({ nick, username, following, followers, quote, banner }) => {
   const photo = getAuth().currentUser?.photoURL;
-  const { user } = useSelector((state) => state.user);
 
   return (
     <div className="flex flex-col w-72 h-fit bg-slate-900 rounded-2xl">
       <div className="relative h-28">
-        {!user?.banner && <div className="absolute object-cover object-top w-full h-24 bg-slate-700 rounded-t-2xl opacity-90"></div>}
-        {user?.banner && (
-          <img className="object-cover object-top w-full h-24 bg-slate-700 rounded-t-2xl opacity-90" src={user?.banner} alt="banner"></img>
+        {!banner && <div className="absolute object-cover object-top w-full h-24 bg-slate-700 rounded-t-2xl opacity-90"></div>}
+        {banner && (
+          <img className="object-cover object-top w-full h-24 bg-slate-700 rounded-t-2xl opacity-90" src={banner} alt="banner"></img>
         )}
         {photo && (
           <img

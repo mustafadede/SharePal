@@ -23,7 +23,7 @@ function FeedActionBox() {
           text: text,
           attachedFilm: modalHasData ? modalHasData : attachedFilm,
           attachedPhoto: attachedPhoto,
-          nick: user.nick,
+          nick: user?.nick,
           likes: 0,
           comments: 0,
           reposts: 0,
@@ -33,7 +33,7 @@ function FeedActionBox() {
       dispatch(createPostActions.updateText(""));
       dispatch(createPostActions.updateAttachedFilm(null));
       dispatch(createPostActions.updateAttachedPhoto(null));
-      createPostAction(text, modalHasData ? modalHasData : attachedFilm, attachedPhoto, user.nick) && toast.success("Post created!");
+      createPostAction(text, modalHasData ? modalHasData : attachedFilm, attachedPhoto, user?.nick) && toast.success("Post created!");
     } else {
       toast.error("Post field must be between 1 and 280 characters!");
     }

@@ -7,6 +7,7 @@ import { followingActions } from "./store/followingSlice";
 function App() {
   const dispatch = useDispatch();
   const getData = async () => {
+    if (!localStorage.getItem("user")) return;
     const userData = await getCurrentUserData(localStorage.getItem("user"));
     userData && dispatch(userActions.updateUser(userData));
     const followingData = await getSelectedUserFollowing(localStorage.getItem("user"));
