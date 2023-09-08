@@ -175,7 +175,7 @@ const updateCurrentUserData = async (userId, data) => {
         displayName: data.nick || snapshot.val().displayName,
         email: data.email || snapshot.val().email,
         following: data.following || snapshot.val().following,
-        followers: snapshot.val().followers,
+        followers: data.followers || snapshot.val().followers,
         banner: data.banner || snapshot.val().banner,
         quote: data.quote || snapshot.val().quote,
         topOne: data.topOne || snapshot.val().topOne,

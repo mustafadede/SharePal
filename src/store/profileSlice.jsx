@@ -5,6 +5,8 @@ const profileSlice = createSlice({
   initialState: {
     profileUser: {
       photoURL: "",
+      followers: 0,
+      following: 0,
     },
   },
   reducers: {
@@ -16,6 +18,12 @@ const profileSlice = createSlice({
     },
     updateProfilePhoto: (state, action) => {
       state.profileUser.photoURL = action.payload;
+    },
+    updateFollowers: (state, action) => {
+      state.profileUser.followers = action.payload;
+    },
+    updateFollowing: (state, action) => {
+      state.profileUser.following = action.payload;
     },
   },
 });
