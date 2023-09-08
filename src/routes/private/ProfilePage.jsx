@@ -59,7 +59,7 @@ function ProfilePage() {
       <div className="flex mx-10">
         <div className="flex flex-col w-full gap-4 mr-6 overflow-x-scroll">
           {username ? <UserProfileBanner user={profileUser} /> : <ProfileBanner user={user} />}
-          {username ? <UserActionButtons /> : null}
+          {username ? <UserActionButtons profileUser={profileUser} /> : null}
           {username ? <InfoCard user={profileUser} /> : <InfoCard user={user} />}
           <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
           {activeTab === 0 && <StatsCard user={!username ? user : profileUser} username={username} />}

@@ -38,7 +38,7 @@ function InfoCard({ user = { followers: "Loading...", following: "Loading...", t
           {user?.following}
         </motion.p>
         <motion.p
-          className="text-2xl 2xl:text-xl text-slate-300"
+          className="text-2xl cursor-pointer 2xl:text-xl text-slate-300 hover:underline hover:text-fuchsia-600"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}

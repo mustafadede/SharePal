@@ -7,6 +7,7 @@ import myListsSlice from "./myListsSlice";
 import postActionSlice from "./postActionSlice";
 import profileSlice from "./profileSlice";
 import postsSlice from "./postsSlice";
+import followingSlice from "./followingSlice";
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     myLists: myListsSlice,
     postAction: postActionSlice,
     posts: postsSlice,
+    following: followingSlice,
   },
 });
 

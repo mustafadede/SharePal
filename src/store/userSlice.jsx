@@ -12,6 +12,12 @@ const userSlice = createSlice({
     removeUser: (state) => {
       state.user = null;
     },
+    followUser: (state, action) => {
+      state.user.following = action.payload;
+    },
+    unfollowUser: (state, action) => {
+      state.user.following = action.payload;
+    },
   },
 });
 

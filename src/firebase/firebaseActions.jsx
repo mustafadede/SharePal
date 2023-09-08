@@ -174,7 +174,7 @@ const updateCurrentUserData = async (userId, data) => {
       await set(ref(database, `users/${userId}`), {
         displayName: data.nick || snapshot.val().displayName,
         email: data.email || snapshot.val().email,
-        following: snapshot.val().following,
+        following: data.following || snapshot.val().following,
         followers: snapshot.val().followers,
         banner: data.banner || snapshot.val().banner,
         quote: data.quote || snapshot.val().quote,
@@ -190,6 +190,61 @@ const updateCurrentUserData = async (userId, data) => {
   } catch (error) {
     console.error(error);
     return null;
+  }
+};
+
+const followUser = async (userId, data) => {
+  try {
+    const followingSnapshot = push(ref(database, `following/${userId}`));
+    const followersSnapshot = push(ref(database, `followers/${data.uid}`));
+    set(followingSnapshot, {
+      uid: data.uid,
+      date: Date.now(),
+    });
+    set(followersSnapshot, {
+      uid: userId,
+      date: Date.now(),
+    });
+    return true;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const getSelectedUserFollowing = async (userId) => {
+  const followingRef = ref(database, `following/${userId}`);
+  const snapshot = await get(followingRef);
+  const selectedUserFollowing = [];
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      selectedUserFollowing.push({
+        uid: childSnapshot.val().uid,
+        date: childSnapshot.val().date,
+      });
+    });
+  }
+  return selectedUserFollowing;
+};
+
+const unfollowUser = async (userId, data) => {
+  try {
+    const followingSnapshot = ref(database, `following/${userId}`);
+    const followersSnapshot = ref(database, `followers/${data.uid}`);
+    const followingSnapshotData = await get(followingSnapshot);
+    const followersSnapshotData = await get(followersSnapshot);
+    followersSnapshotData.forEach((childSnapshot) => {
+      if (childSnapshot.val().uids === userId) {
+        set(ref(database, `followers/${data.uid}/${childSnapshot.key}`), null);
+      }
+    });
+    followingSnapshotData.forEach((childSnapshot) => {
+      if (childSnapshot.val().uids === data.uid) {
+        set(ref(database, `following/${userId}/${childSnapshot.key}`), null);
+      }
+    });
+    return true;
+  } catch (error) {
+    console.error(error);
   }
 };
 
@@ -358,6 +413,9 @@ export {
   getUserByTheUsername,
   getUserBySearch,
   updateCurrentUserData,
+  followUser,
+  getSelectedUserFollowing,
+  unfollowUser,
   createPostAction,
   getAllPosts,
   getSelectedUserPosts,

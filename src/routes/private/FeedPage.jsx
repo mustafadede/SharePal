@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../components/layout/Navbar";
 import ProfileCard from "../../components/common/ProfileCard";
 import PopularCard from "../../components/common/MostPopularCard/PopularCard";
-import { getCurrentUserData, getAllPosts, getSelectedUserLists } from "../../firebase/firebaseActions";
+import { getAllPosts, getSelectedUserLists, getSelectedUserPosts } from "../../firebase/firebaseActions";
 import FeedActionBox from "../../components/layout/FeedActionBox";
 import FeedCard from "../../components/common/FeedCard";
 import MyPinnedListsCard from "../../components/common/MyPinnedListsCard/MyPinnedListsCard";
 import { useDispatch, useSelector } from "react-redux";
-import { userActions } from "../../store/userSlice";
 import { motion } from "framer-motion";
 import FeedTabs from "../../components/layout/FeedPage/FeedTabs";
 import { profileActions } from "../../store/profileSlice";
@@ -15,9 +14,10 @@ import { postsActions } from "../../store/postsSlice";
 import { MyListsActions } from "../../store/myListsSlice";
 
 function FeedPage() {
-  const { user } = useSelector((state) => state.user);
   const { posts, status } = useSelector((state) => state.posts);
   const { post } = useSelector((state) => state.createPost);
+  const { user } = useSelector((state) => state.user);
+  const { followingList } = useSelector((state) => state.following);
   const [tab, setTab] = useState(0);
   const [notification, setNotification] = useState(false);
   const dispatch = useDispatch();
@@ -25,19 +25,27 @@ function FeedPage() {
     document.title = "SharePal | Feed";
     const getData = async () => {
       try {
-        const userData = await getCurrentUserData(localStorage.getItem("user"));
-        userData && dispatch(userActions.updateUser(userData));
-        dispatch(postsActions.updateStatus("loading"));
-        const response = await getAllPosts();
-        dispatch(postsActions.updatePosts(response));
-        dispatch(postsActions.updateStatus("done"));
+        if (tab === 0) {
+          dispatch(postsActions.updateStatus("loading"));
+          const response = await getAllPosts();
+          dispatch(postsActions.updatePosts(response));
+          dispatch(postsActions.updateStatus("done"));
+        } else {
+          dispatch(postsActions.updateStatus("loading"));
+          followingList.map(async (user) => {
+            console.log(user.uid);
+            const response = await getSelectedUserPosts(user.uid);
+            dispatch(postsActions.updatePosts(response));
+          });
+          dispatch(postsActions.updateStatus("done"));
+        }
       } catch (error) {
         console.log(error);
       }
     };
     dispatch(profileActions.removeUser(null));
     getData();
-  }, [post]);
+  }, [tab, post]);
 
   const getUserLists = async () => {
     const res = await getSelectedUserLists(localStorage.getItem("user"));
