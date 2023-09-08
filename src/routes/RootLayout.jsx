@@ -10,6 +10,7 @@ import SearchCardModal from "../components/layout/SearchPage/SearchCardModal";
 import ListModal from "../components/layout/MyListModal/ListModal/ListModal";
 import LabelInfo from "../components/layout/LabelInfo";
 import ShareModal from "../components/layout/ShareModal/ShareModal";
+import FollowerModal from "../components/layout/FollowerModal/FollowerModal";
 
 function RootLayout() {
   const { modalState, modalName } = useSelector((state) => state.modal);
@@ -64,6 +65,11 @@ function RootLayout() {
         {modalState && modalName === "shareModal" && (
           <ModalSkeleton>
             <ShareModal />
+          </ModalSkeleton>
+        )}
+        {modalState && modalName === "followerModal" && (
+          <ModalSkeleton>
+            <FollowerModal />
           </ModalSkeleton>
         )}
         <Outlet />
