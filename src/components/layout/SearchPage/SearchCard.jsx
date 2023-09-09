@@ -3,11 +3,13 @@ import { motion } from "framer-motion";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
-function SearchCard({ title, poster, releaseDate, overview, vote, backdrop }) {
+function SearchCard({ title, poster, releaseDate, overview, vote, backdrop, genres, mediaType }) {
   const dispatch = useDispatch();
   const { myLists } = useSelector((state) => state.myLists);
   const handleModal = () => {
-    dispatch(modalActions.openModal({ name: "searchCardModal", data: { title, poster, releaseDate, overview, vote, backdrop } }));
+    dispatch(
+      modalActions.openModal({ name: "searchCardModal", data: { title, poster, releaseDate, overview, vote, backdrop, genres, mediaType } })
+    );
   };
   const handleClick = () => {
     dispatch(modalActions.openModal({ name: "pinnedModal", data: { title, poster, releaseDate, backdrop } }));

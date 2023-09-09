@@ -8,9 +8,9 @@ import { modalActions } from "../../../store/modalSlice";
 import { userActions } from "../../../store/userSlice";
 import { toast } from "react-toastify";
 import { updateCurrentUserData } from "../../../firebase/firebaseActions";
-
+import { movieGenresJSON, tvGenresJSON } from "../../../assets/genreData";
 function SearchCardModal() {
-  const { title, poster, releaseDate, overview, vote, backdrop } = useSelector((state) => state.modal.modalHasData);
+  const { title, poster, releaseDate, overview, vote, backdrop, genres, mediaType } = useSelector((state) => state.modal.modalHasData);
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const watchlistHandler = () => {
@@ -25,6 +25,13 @@ function SearchCardModal() {
       dispatch(userActions.updateUser({ ...user, currentlyWatching: data }));
     });
   };
+  genres.map((genre) => {
+    movieGenresJSON.map((movieGenre) => {
+      if (movieGenre.id === genre) {
+        console.log(movieGenre.name);
+      }
+    });
+  });
   return (
     <div className="bg-slate-900 w-[50rem] h-[37rem] rounded-2xl relative overflow-hidden overflow-y-scroll no-scrollbar">
       <div className="absolute top-0 z-20 w-full p-6">
@@ -49,9 +56,30 @@ function SearchCardModal() {
           <img src={`https://image.tmdb.org/t/p/w500/${backdrop}`} className="w-full scale-y-150" alt={poster} />
         </div>
         {/* Title & Release Date */}
-        <div className="absolute top-0 left-0 flex flex-col justify-center w-2/3 h-full gap-4 p-6">
-          <h1 className="mt-4 text-4xl text-slate-200">{title}</h1>
-          <h2 className="text-2xl text-fuchsia-600">{releaseDate && releaseDate.slice(0, 4)}</h2>
+        <div className="absolute top-0 left-0 flex flex-col justify-center w-2/3 h-full p-6">
+          <h1 className="mt-4 mb-3 text-4xl text-fuchsia-600">{title}</h1>
+          <h2 className="mb-2 text-2xl text-fuchsia-700">{releaseDate && releaseDate.slice(0, 4)}</h2>
+          <h3 className="px-3 text-xl border rounded-md w-fit border-fuchsia-700 text-fuchsia-800">
+            {mediaType === "movie" ? mediaType[0].toUpperCase() + mediaType.slice(1) : mediaType.toUpperCase()}
+          </h3>
+          <div className="relative flex flex-wrap gap-2 top-4">
+            {mediaType === "movie" &&
+              genres
+                .filter((genre) => movieGenresJSON.some((movieGenre) => movieGenre.id === genre))
+                .map((filteredGenre) => (
+                  <p key={filteredGenre} className="px-3 py-2 border rounded-lg text-md border-fuchsia-900 text-fuchsia-900">
+                    {movieGenresJSON.find((movieGenre) => movieGenre.id === filteredGenre).name}
+                  </p>
+                ))}
+            {mediaType === "tv" &&
+              genres
+                .filter((genre) => tvGenresJSON.some((tvGenre) => tvGenre.id === genre))
+                .map((filteredGenre) => (
+                  <p key={filteredGenre} className="px-3 py-2 border rounded-lg text-md border-fuchsia-900 text-fuchsia-900">
+                    {tvGenresJSON.find((tvGenre) => tvGenre.id === filteredGenre).name}
+                  </p>
+                ))}
+          </div>
         </div>
       </div>
       {/* Actions & Overview & Rating */}

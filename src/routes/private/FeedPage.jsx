@@ -36,7 +36,6 @@ function FeedPage() {
         } else {
           dispatch(postsActions.updateStatus("loading"));
           followingList.map(async (user) => {
-            console.log(user.uid);
             const response = await getSelectedUserPosts(user.uid);
             dispatch(postsActions.updatePosts(response));
           });

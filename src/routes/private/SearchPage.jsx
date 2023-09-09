@@ -59,7 +59,7 @@ function SearchPage() {
           <div className="flex flex-row flex-wrap w-full gap-7">
             {movies.length > 0 &&
               movies.map((movie) =>
-                movie.release_date || movie.first_air_date ? (
+                movie.release_date || (movie.first_air_date && movie.poster_path) ? (
                   <SearchCard
                     key={movie.id}
                     title={movie.title || movie.name}
@@ -68,6 +68,8 @@ function SearchPage() {
                     overview={movie.overview}
                     vote={movie.vote_average || 0}
                     backdrop={movie.backdrop_path || movie.poster_path || movie.profile_path || null}
+                    genres={movie.genre_ids}
+                    mediaType={movie.media_type}
                   />
                 ) : null
               )}
