@@ -135,6 +135,47 @@ const getUserByTheUsername = async (username) => {
   }
 };
 
+const getUserByTheIds = async (userId) => {
+  try {
+    const snapshot = await get(child(dbRef, `users/${userId}`));
+    if (snapshot.exists()) {
+      const user = {
+        uid: snapshot.key,
+        nick: snapshot.val().displayName,
+        banner: snapshot.val().banner,
+      };
+      return user;
+    } else {
+      console.log("No data available");
+      return null;
+    }
+  } catch (error) {
+    return null;
+  }
+};
+
+const getFollowersForUser = async (userId) => {
+  try {
+    const snapshot = await get(child(dbRef, `followers/${userId}`));
+    if (snapshot.exists()) {
+      const followers = [];
+      snapshot.forEach((childSnapshot) => {
+        followers.push({
+          uid: childSnapshot.val().uid,
+          date: childSnapshot.val().date,
+        });
+      });
+      return followers;
+    } else {
+      console.log("No data available");
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 const getUserBySearch = async (username) => {
   try {
     username = username.toLowerCase();
@@ -411,6 +452,8 @@ export {
   getCurrentUserData,
   getProfilePhoto,
   getUserByTheUsername,
+  getUserByTheIds,
+  getFollowersForUser,
   getUserBySearch,
   updateCurrentUserData,
   followUser,

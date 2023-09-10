@@ -25,13 +25,7 @@ function SearchCardModal() {
       dispatch(userActions.updateUser({ ...user, currentlyWatching: data }));
     });
   };
-  genres.map((genre) => {
-    movieGenresJSON.map((movieGenre) => {
-      if (movieGenre.id === genre) {
-        console.log(movieGenre.name);
-      }
-    });
-  });
+
   return (
     <div className="bg-slate-900 w-[50rem] h-[37rem] rounded-2xl relative overflow-hidden overflow-y-scroll no-scrollbar">
       <div className="absolute top-0 z-20 w-full p-6">
@@ -67,7 +61,7 @@ function SearchCardModal() {
               genres
                 .filter((genre) => movieGenresJSON.some((movieGenre) => movieGenre.id === genre))
                 .map((filteredGenre) => (
-                  <p key={filteredGenre} className="px-3 py-2 border rounded-lg text-md border-fuchsia-900 text-fuchsia-900">
+                  <p key={filteredGenre} className="px-3 py-2 text-sm border rounded-lg 2xl:text-md border-fuchsia-800 text-fuchsia-800">
                     {movieGenresJSON.find((movieGenre) => movieGenre.id === filteredGenre).name}
                   </p>
                 ))}
@@ -75,7 +69,7 @@ function SearchCardModal() {
               genres
                 .filter((genre) => tvGenresJSON.some((tvGenre) => tvGenre.id === genre))
                 .map((filteredGenre) => (
-                  <p key={filteredGenre} className="px-3 py-2 border rounded-lg text-md border-fuchsia-900 text-fuchsia-900">
+                  <p key={filteredGenre} className="px-3 py-2 text-sm border rounded-lg 2xl:text-md border-fuchsia-800 text-fuchsia-800">
                     {tvGenresJSON.find((tvGenre) => tvGenre.id === filteredGenre).name}
                   </p>
                 ))}

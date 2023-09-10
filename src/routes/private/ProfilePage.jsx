@@ -9,13 +9,21 @@ import Tabs from "../../components/layout/ProfilePage/Tabs";
 import PostsSection from "../../components/layout/ProfilePage/PostsSection";
 import ListsSection from "../../components/layout/ProfilePage/ListsSection/ListsSection";
 import ActivitiesSection from "../../components/layout/ProfilePage/ActivitiesSection";
-import { getCurrentUserData, getProfilePhoto, getUserByTheUsername } from "../../firebase/firebaseActions";
+import {
+  getCurrentUserData,
+  getFollowersForUser,
+  getProfilePhoto,
+  getSelectedUserFollowing,
+  getUserByTheUsername,
+} from "../../firebase/firebaseActions";
 import { userActions } from "../../store/userSlice";
 import StatsCard from "../../components/layout/ProfilePage/StatsCard";
 import { useParams } from "react-router-dom";
 import { profileActions } from "../../store/profileSlice";
 import UserProfileBanner from "../../components/layout/ProfilePage/UserProfileBanner";
 import UserActionButtons from "../../components/layout/ProfilePage/UserActionButtons";
+import { followingActions } from "../../store/followingSlice";
+import { followersActions } from "../../store/followersSlice";
 
 function ProfilePage() {
   const { username } = useParams();
@@ -37,6 +45,12 @@ function ProfilePage() {
       const getData = async () => {
         getCurrentUserData(localStorage.getItem("user")).then((userData) => {
           dispatch(userActions.updateUser(userData));
+        });
+        getSelectedUserFollowing(localStorage.getItem("user")).then((response) => {
+          dispatch(followingActions.initialFollowing(response));
+          getFollowersForUser(localStorage.getItem("user")).then((followers) => {
+            dispatch(followersActions.initialFollowers(followers));
+          });
         });
       };
       getData();
@@ -60,7 +74,7 @@ function ProfilePage() {
         <div className="flex flex-col w-full gap-4 mr-6 overflow-x-scroll">
           {username ? <UserProfileBanner user={profileUser} /> : <ProfileBanner user={user} />}
           {username ? <UserActionButtons profileUser={profileUser} /> : null}
-          {username ? <InfoCard user={profileUser} /> : <InfoCard user={user} />}
+          {username ? <InfoCard user={profileUser} /> : <InfoCard user={user} isCurrentUser />}
           <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
           {activeTab === 0 && <StatsCard user={!username ? user : profileUser} username={username} />}
           {activeTab === 1 && <ListsSection username={username} />}

@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../components/layout/Navbar";
 import ProfileCard from "../../components/common/ProfileCard";
 import PopularCard from "../../components/common/MostPopularCard/PopularCard";
-import { getAllPosts, getCurrentUserData, getSelectedUserLists, getSelectedUserPosts } from "../../firebase/firebaseActions";
+import {
+  getAllPosts,
+  getCurrentUserData,
+  getFollowersForUser,
+  getSelectedUserFollowing,
+  getSelectedUserLists,
+  getSelectedUserPosts,
+} from "../../firebase/firebaseActions";
 import FeedActionBox from "../../components/layout/FeedActionBox";
 import FeedCard from "../../components/common/FeedCard";
 import MyPinnedListsCard from "../../components/common/MyPinnedListsCard/MyPinnedListsCard";
@@ -13,6 +20,8 @@ import { profileActions } from "../../store/profileSlice";
 import { postsActions } from "../../store/postsSlice";
 import { MyListsActions } from "../../store/myListsSlice";
 import { userActions } from "../../store/userSlice";
+import { followingActions } from "../../store/followingSlice";
+import { followersActions } from "../../store/followersSlice";
 
 function FeedPage() {
   const { posts, status } = useSelector((state) => state.posts);
@@ -28,6 +37,10 @@ function FeedPage() {
       try {
         const userData = await getCurrentUserData(localStorage.getItem("user"));
         userData && dispatch(userActions.updateUser(userData));
+        const response = await getSelectedUserFollowing(localStorage.getItem("user"));
+        response && dispatch(followingActions.initialFollowing(response));
+        const followers = await getFollowersForUser(localStorage.getItem("user"));
+        followers && dispatch(followersActions.initialFollowers(followers));
         if (tab === 0) {
           dispatch(postsActions.updateStatus("loading"));
           const response = await getAllPosts();
@@ -35,10 +48,7 @@ function FeedPage() {
           dispatch(postsActions.updateStatus("done"));
         } else {
           dispatch(postsActions.updateStatus("loading"));
-          followingList.map(async (user) => {
-            const response = await getSelectedUserPosts(user.uid);
-            dispatch(postsActions.updatePosts(response));
-          });
+          followingList.map((user) => console.log(user));
           dispatch(postsActions.updateStatus("done"));
         }
       } catch (error) {

@@ -3,13 +3,13 @@ import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
 
-function InfoCard({ user = { followers: "Loading...", following: "Loading...", topOne: "Loading..." } }) {
+function InfoCard({ user = { followers: "Loading...", following: "Loading...", topOne: "Loading..." }, isCurrentUser = false }) {
   const dispatch = useDispatch();
   const handleFollowing = () => {
-    dispatch(modalActions.openModal({ name: "followerModal", data: { followType: "Following" } }));
+    isCurrentUser && dispatch(modalActions.openModal({ name: "followerModal", data: { followType: "Following" } }));
   };
   const handleFollowers = () => {
-    dispatch(modalActions.openModal({ name: "followerModal", data: { followType: "Followers" } }));
+    isCurrentUser && dispatch(modalActions.openModal({ name: "followerModal", data: { followType: "Followers" } }));
   };
   return (
     <motion.div
