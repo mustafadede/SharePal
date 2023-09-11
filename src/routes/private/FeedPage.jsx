@@ -27,7 +27,6 @@ function FeedPage() {
   const { posts, status } = useSelector((state) => state.posts);
   const { post } = useSelector((state) => state.createPost);
   const { user } = useSelector((state) => state.user);
-  const { followingList } = useSelector((state) => state.following);
   const [tab, setTab] = useState(0);
   const [notification, setNotification] = useState(false);
   const dispatch = useDispatch();
@@ -47,8 +46,8 @@ function FeedPage() {
           dispatch(postsActions.updatePosts(response));
           dispatch(postsActions.updateStatus("done"));
         } else {
+          dispatch(postsActions.updatePosts([]));
           dispatch(postsActions.updateStatus("loading"));
-          followingList.map((user) => console.log(user));
           dispatch(postsActions.updateStatus("done"));
         }
       } catch (error) {

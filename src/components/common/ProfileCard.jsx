@@ -1,8 +1,11 @@
 import { getAuth } from "firebase/auth";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 const ProfileCard = ({ nick = "-", username, following = "-", followers = "-", quote = "-", banner }) => {
   const photo = getAuth().currentUser?.photoURL;
+  const { followingList } = useSelector((state) => state.following);
+  const { followersLists } = useSelector((state) => state.followers);
 
   return (
     <div className="flex flex-col w-72 h-fit bg-slate-900 rounded-2xl">
@@ -29,11 +32,11 @@ const ProfileCard = ({ nick = "-", username, following = "-", followers = "-", q
       </div>
       <div className="flex justify-around pt-2 text-center">
         <div className="flex flex-col ">
-          <p className="text-lg text-slate-200">{followers}</p>
+          <p className="text-lg text-slate-200">{followersLists?.length}</p>
           <p className="text-sm text-slate-300">Followers</p>
         </div>
         <div className="flex flex-col">
-          <p className="text-lg text-slate-200">{following}</p>
+          <p className="text-lg text-slate-200">{followingList?.length}</p>
           <p className="text-sm text-slate-300">Following</p>
         </div>
       </div>

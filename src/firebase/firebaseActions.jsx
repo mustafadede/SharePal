@@ -274,12 +274,14 @@ const unfollowUser = async (userId, data) => {
     const followingSnapshotData = await get(followingSnapshot);
     const followersSnapshotData = await get(followersSnapshot);
     followersSnapshotData.forEach((childSnapshot) => {
-      if (childSnapshot.val().uids === userId) {
+      if (childSnapshot.val().uid === userId) {
+        console.log("hello");
         set(ref(database, `followers/${data.uid}/${childSnapshot.key}`), null);
       }
     });
     followingSnapshotData.forEach((childSnapshot) => {
-      if (childSnapshot.val().uids === data.uid) {
+      if (childSnapshot.val().uid === data.uid) {
+        console.log("hello");
         set(ref(database, `following/${userId}/${childSnapshot.key}`), null);
       }
     });

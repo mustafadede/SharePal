@@ -39,7 +39,7 @@ function FollowerModalCard({ identify, info }) {
         />
       ) : null}
       {data.photo ? (
-        <img src={`${data.photo}`} alt={data.nick} className="z-10 w-16 object-cover h-full rounded-xl" />
+        <img src={`${data.photo}`} alt={data.nick} className="z-10 object-cover w-16 h-full rounded-xl" />
       ) : (
         <div className="z-10 w-16 h-full rounded-xl bg-fuchsia-700"></div>
       )}

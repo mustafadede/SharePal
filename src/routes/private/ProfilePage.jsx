@@ -27,7 +27,6 @@ import { followersActions } from "../../store/followersSlice";
 
 function ProfilePage() {
   const { username } = useParams();
-
   const tabs = [
     { id: 0, name: "Stats" },
     { id: 1, name: "Lists" },
