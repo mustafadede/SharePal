@@ -99,7 +99,6 @@ const getProfilePhoto = async (uid) => {
     const photoUrl = await getDownloadURL(photoRef);
     return photoUrl;
   } catch (error) {
-    console.log(error);
     return null;
   }
 };

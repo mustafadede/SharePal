@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { profileActions } from "../../../store/profileSlice";
+import { getProfilePhoto } from "../../../firebase/firebaseActions";
 
 function SearchUserCard({ user }) {
+  const [photoURL, setPhotoURL] = useState(null);
   const { user: currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -11,7 +13,11 @@ function SearchUserCard({ user }) {
     dispatch(profileActions.removeUser());
     user.displayName === currentUser?.nick ? navigate("/profile") : navigate(`/profile/${user.displayName}`);
   };
-
+  const getPhoto = async () => {
+    const photo = await getProfilePhoto(user.uid);
+    setPhotoURL(photo);
+  };
+  getPhoto();
   return (
     <button
       onClick={handleUserClick}
@@ -25,8 +31,8 @@ function SearchUserCard({ user }) {
         />
       ) : null}
       <div className="z-10 flex flex-row items-center gap-4 p-4">
-        {!user.photoURL && <div className="w-16 h-16 rounded-full bg-fuchsia-600"></div>}
-        {user.photoURL && <img className="object-cover w-16 h-16 rounded-full" src={user?.photoURL} alt="user" />}
+        {!photoURL && <div className="w-16 h-16 rounded-full bg-fuchsia-600"></div>}
+        {photoURL && <img className="object-cover w-16 h-16 rounded-full" src={photoURL} alt="user" />}
         <div className="flex flex-col items-start">
           <h1 className="text-xl text-white">{user?.displayName}</h1>
           {user.banner ? (
