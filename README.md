@@ -10,8 +10,8 @@ This is a Film/Movie social media app with React, Redux Toolkit and Firebase. Yo
 If you want to dive deeper here is :
 - For the design, thoughts, wireframing: [Figma](https://www.figma.com/file/Aj2NOVzUCGzkp1G5YzCnim/SharePal?type=whiteboard&t=Ggv7qDKmgEpDcZPE-1)
 
- ![image](https://github.com/mustafadede/SharePal/assets/95627279/86f749bd-4934-497e-b633-defb27bf2dd9)
- 
+![chrome_QiXRw1qb5v](https://github.com/mustafadede/SharePal/assets/95627279/eb9f08a5-e052-4e03-9b2f-cee0c925cbce)
+
 - For the tracing features like a Kanban Board : [Trello](https://trello.com/invite/b/uEoQWrG3/ATTI988e741921e2d5ae415c5180903a57f23BF8B636/sharepal)
 
-![image](https://github.com/mustafadede/SharePal/assets/95627279/d11f53f4-5c8e-4df2-9774-9de19786cd14)
+![image](https://github.com/mustafadede/SharePal/assets/95627279/9f2c5d5d-6fdc-4615-b14a-9ffb9fe2be73)
