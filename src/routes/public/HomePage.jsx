@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import video from "../../assets/video-playback.webm";
 import Navbar from "../../components/layout/Navbar";
 import { useNavigate } from "react-router-dom";
+import AttachCardsSection from "../../components/layout/HomePage/AttachCardsSection";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -86,6 +87,7 @@ function HomePage() {
               <video src={video} autoPlay loop muted height="100%" className="object-cover h-full"></video>
             </motion.div>
           </motion.div>
+          <AttachCardsSection />
         </motion.div>
       </AnimatePresence>
     </>
