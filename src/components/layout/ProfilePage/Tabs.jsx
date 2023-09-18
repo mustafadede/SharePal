@@ -21,7 +21,7 @@ function Tabs({ tabs, activeTab, setActiveTab }) {
           <button
             onClick={() => setActiveTab(tab.id)}
             key={tab.id}
-            className="relative z-10 flex items-center justify-center w-full h-12 px-4 text-xl font-medium text-center transition-all duration-500 bg-transparent outline-none select-none 2xl:text-2xl rounded-2xl"
+            className="relative z-10 flex items-center justify-center w-full h-12 px-4 font-medium text-center transition-all duration-500 bg-transparent outline-none select-none sm:text-md md:text-xl 2xl:text-2xl rounded-2xl"
           >
             {activeTab === tab.id && (
               <motion.div layoutId="selected" className="absolute inset-0 top-0 left-0 bg-fuchsia-800 rounded-2xl" />

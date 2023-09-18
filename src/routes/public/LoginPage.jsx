@@ -62,7 +62,7 @@ function LoginPage() {
               <video src={video} autoPlay loop muted height="100%" className="object-cover h-full "></video>
             </motion.div>
           </motion.div>
-          <motion.div className="md:w-1/2 max-h-[calc(100vh-16vh)] mx-10 overflow-hidden rounded-3xl ">
+          <motion.div className="md:w-1/2 max-h-[calc(100vh-16vh)] mx-10">
             <motion.form className="flex flex-col items-center justify-center w-full h-96 md:h-full" onSubmit={handleSubmit(submitHandler)}>
               <h1 className="mb-10 text-5xl font-bold text-center text-cWhite">Log In</h1>
               <motion.input
@@ -77,11 +77,15 @@ function LoginPage() {
                 <motion.input
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
-                  className={onClassDefiner(errors.password) + " w-full"}
+                  className={onClassDefiner(errors.password)}
                   {...register("password", { required: true, minLength: 6 })}
                   aria-invalid={errors.password ? true : false}
                 />
-                <button type="button" className="absolute top-6 right-20 2xl:right-24 text-slate-400" onClick={handleShowPasword}>
+                <button
+                  type="button"
+                  className="absolute select-none top-6 md:right-14 xl:right-24 2xl:right-24 right-4 text-slate-400"
+                  onClick={handleShowPasword}
+                >
                   {showPassword ? <EyeOpenIcon className="w-6 h-6" /> : <EyeClosedIcon className="w-6 h-6" />}
                 </button>
               </div>

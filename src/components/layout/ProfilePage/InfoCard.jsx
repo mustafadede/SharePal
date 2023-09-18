@@ -20,7 +20,7 @@ function InfoCard({ user = { followers: "Loading...", following: "Loading...", t
     >
       <div className="flex flex-col items-center">
         <motion.p
-          className="text-2xl 2xl:text-xl text-slate-300"
+          className="sm:text-xl md:text-2xl 2xl:text-xl text-slate-300"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
@@ -28,7 +28,7 @@ function InfoCard({ user = { followers: "Loading...", following: "Loading...", t
           {user?.followers}
         </motion.p>
         <motion.button
-          className="text-2xl 2xl:text-xl text-slate-300 hover:underline hover:text-fuchsia-600"
+          className="sm:text-lg md:text-2xl 2xl:text-xl text-slate-300 hover:underline hover:text-fuchsia-600"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
@@ -37,10 +37,10 @@ function InfoCard({ user = { followers: "Loading...", following: "Loading...", t
           Followers
         </motion.button>
       </div>
-      <p className="text-2xl border-l border-slate-600 h-14"></p>
+      <p className="border-l sm:text-lg md:text-2xl border-slate-600 h-14"></p>
       <div className="flex flex-col items-center">
         <motion.p
-          className="text-2xl 2xl:text-xl text-slate-300"
+          className="sm:text-xl md:text-2xl 2xl:text-xl text-slate-300"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
@@ -48,7 +48,7 @@ function InfoCard({ user = { followers: "Loading...", following: "Loading...", t
           {user?.following}
         </motion.p>
         <motion.button
-          className="text-2xl cursor-pointer 2xl:text-xl text-slate-300 hover:underline hover:text-fuchsia-600"
+          className="cursor-pointer sm:text-lg md:text-2xl 2xl:text-xl text-slate-300 hover:underline hover:text-fuchsia-600"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
@@ -57,10 +57,10 @@ function InfoCard({ user = { followers: "Loading...", following: "Loading...", t
           Following
         </motion.button>
       </div>
-      <p className="text-2xl border-l border-slate-600 h-14"></p>
+      <p className="border-l sm:text-lg md:text-2xl border-slate-600 h-14"></p>
       <div className="flex flex-col items-center">
         <motion.p
-          className="text-2xl 2xl:text-xl text-fuchsia-600"
+          className="sm:text-lg md:text-2xl 2xl:text-xl text-fuchsia-600"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
@@ -68,7 +68,7 @@ function InfoCard({ user = { followers: "Loading...", following: "Loading...", t
           #1
         </motion.p>
         <motion.p
-          className="text-2xl 2xl:text-xl text-slate-200"
+          className="sm:text-lg md:text-2xl 2xl:text-xl text-slate-200"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}

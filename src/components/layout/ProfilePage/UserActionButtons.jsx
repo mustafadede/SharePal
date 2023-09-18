@@ -38,7 +38,7 @@ function UserActionButtons({ profileUser }) {
       transition={{ delay: 0.4 }}
     >
       <button
-        className="flex items-center justify-center w-1/3 h-12 transition-all bg-fuchsia-800 rounded-2xl hover:bg-slate-900"
+        className="flex items-center justify-center w-full h-12 transition-all md:w-1/3 bg-fuchsia-800 rounded-2xl hover:bg-slate-900"
         onClick={onClickHandler}
       >
         {followingList.find((user) => user.uid === profileUser?.uid) ? (

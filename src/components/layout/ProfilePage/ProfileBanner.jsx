@@ -9,19 +9,19 @@ function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banne
 
   return (
     <motion.div
-      className="relative w-full h-64 overflow-hidden rounded-2xl bg-slate-900"
+      className="relative w-full overflow-hidden h-52 md:h-64 rounded-2xl bg-slate-900"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
     >
       {/*  Banner start */}
-      <motion.img className="absolute object-cover w-full opacity-40 rounded-2xl" src={user?.banner}></motion.img>
+      <motion.img className="absolute object-cover w-full h-full opacity-40 rounded-2xl" src={user?.banner}></motion.img>
       {/*  Banner end */}
-      <div className="relative flex items-center w-auto h-full gap-4 left-10">
+      <div className="relative flex items-center justify-center w-auto h-full gap-7 md:gap-4 xl:left-10">
         {/*  Profile picture start */}
         {!photo && (
           <motion.div
-            className="w-40 h-40 rounded-full bg-fuchsia-600"
+            className="w-24 h-24 rounded-full md:w-40 md:h-40 bg-fuchsia-600"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
@@ -29,7 +29,7 @@ function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banne
         )}
         {photo && (
           <motion.img
-            className="object-cover w-40 h-40 rounded-full bg-fuchsia-600"
+            className="object-cover w-24 h-24 rounded-full md:w-40 md:h-40 bg-fuchsia-600"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
@@ -41,7 +41,7 @@ function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banne
         <div>
           {/*  Name section start */}
           <motion.h1
-            className="text-4xl text-white"
+            className="text-2xl text-white md:text-4xl"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
@@ -51,7 +51,7 @@ function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banne
           {/*  Name section end */}
           {/* Quote section start */}
           <motion.p
-            className="relative text-lg italic font-semibold lg:w-96 xl:w-[40rem] text-slate-400 top-2"
+            className="relative text-sm md:text-lg italic font-semibold w-32 lg:w-96 xl:w-[40rem] text-slate-400 top-2"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
