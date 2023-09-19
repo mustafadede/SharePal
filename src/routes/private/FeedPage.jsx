@@ -70,7 +70,7 @@ function FeedPage() {
         additionalClasses="sticky top-0 bg-gradient-to-t from-cGradient2/70 to-cGradient2 backdrop-blur-[2px] z-30"
         onClickHandler={() => setNotification(!notification)}
       />
-      <div className="flex mx-10 ">
+      <div className="flex mx-5 md:mx-10">
         <motion.div
           className="hidden lg:w-1/4 h-fit lg:flex flex-col sticky top-[4.6rem] bg-cGradient2"
           initial={{ opacity: 0, y: -20 }}

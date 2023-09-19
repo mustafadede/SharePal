@@ -32,8 +32,8 @@ function SearchPage() {
   return (
     <>
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
-      <div className="flex mx-10">
-        <div className="flex flex-col w-full pr-6">
+      <div className="flex mx-5 md:mx-10">
+        <div className="flex flex-col w-full md:pr-6">
           {/* Search title and input start */}
           <motion.div className="sticky flex w-full pb-4 " initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
             <div className="w-full">

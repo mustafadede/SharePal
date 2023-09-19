@@ -38,7 +38,7 @@ function SettingsPage() {
   return (
     <>
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
-      <div className="flex mx-10">
+      <div className="flex flex-col mx-5 lg:flex-row md:mx-10">
         <motion.div
           className="hidden lg:w-1/4 h-fit lg:flex flex-col sticky top-[4.7rem] bg-cGradient2"
           initial={{ opacity: 0, y: -20 }}
@@ -53,13 +53,13 @@ function SettingsPage() {
           <MyPinnedListsCard />
         </motion.div>
         <motion.div
-          className="sticky px-5 py-4 ml-4 top-[4.7rem] w-72 bg-slate-900 rounded-2xl h-[31rem]"
+          className="lg:sticky px-5 py-4 lg:ml-4 top-[4.7rem] w-full lg:w-72 bg-slate-900 rounded-2xl h-fit lg:h-[31rem]"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
           <h1 className="mb-4 text-3xl text-slate-200">Settings</h1>
-          <div className="flex flex-col">
+          <div className="flex lg:flex-col">
             <SettingsButton title="Account" handleSelection={handleSelection} />
             <SettingsButton title="Privacy" handleSelection={handleSelection} />
             <SettingsButton title="Theme" handleSelection={handleSelection} />

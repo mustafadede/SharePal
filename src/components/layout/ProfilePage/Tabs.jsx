@@ -16,7 +16,7 @@ function Tabs({ tabs, activeTab, setActiveTab }) {
         delay: 0.4,
       }}
     >
-      <div className="flex justify-around w-full gap-4">
+      <div className="flex justify-around w-full gap-1 md:gap-4">
         {tabs.map((tab) => (
           <button
             onClick={() => setActiveTab(tab.id)}

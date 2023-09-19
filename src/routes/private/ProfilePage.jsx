@@ -69,8 +69,8 @@ function ProfilePage() {
   return (
     <>
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
-      <div className="flex mx-10">
-        <div className="flex flex-col w-full gap-4 mr-6">
+      <div className="flex mx-5 md:mx-10">
+        <div className="flex flex-col w-full gap-4 lg:mr-6">
           {username ? <UserProfileBanner user={profileUser} /> : <ProfileBanner user={user} />}
           {username ? <UserActionButtons profileUser={profileUser} /> : null}
           {username ? <InfoCard user={profileUser} /> : <InfoCard user={user} isCurrentUser />}

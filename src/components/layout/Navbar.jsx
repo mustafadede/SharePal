@@ -33,7 +33,7 @@ function Navbar({ isNotLoggedin = true, additionalClasses = "", onClickHandler }
   };
 
   return (
-    <nav className={`flex flex-wrap items-center justify-between py-4 mx-10 ${additionalClasses}`}>
+    <nav className={`flex flex-wrap items-center justify-between py-4 mx-5 md:mx-10 ${additionalClasses}`}>
       <div className="flex items-center flex-shrink-0 md:mr-6 bg-gradient-to-r from-cDarkerPurple to-pink-500 bg-clip-text animate-text">
         <button onClick={handleNavigation}>
           <span className="text-4xl font-bold tracking-tight text-transparent cursor-pointer select-none">SharePal</span>
