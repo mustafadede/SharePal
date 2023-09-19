@@ -18,7 +18,7 @@ function AttachedFilmModal() {
   };
 
   return (
-    <div className="p-4 w-[35rem] h-[27rem] bg-slate-900 rounded-2xl overflow-hidden">
+    <div className="p-4 w-80 md:w-[35rem] h-[35rem] md:h-[27rem] bg-slate-900 rounded-2xl overflow-hidden">
       <ModalHeader title="Attach Film/Series" />
       <input
         className="w-full h-10 mt-4 text-lg bg-transparent border-b-2 outline-none text-cWhite border-b-slate-400"
