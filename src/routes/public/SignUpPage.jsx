@@ -120,7 +120,7 @@ function SignUpPage() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                   />
-                  <div className="flex w-[26rem] gap-4">
+                  <div className="flex w-64 md:w-[26rem] gap-4">
                     <button
                       type="submit"
                       className="w-full py-2 mt-2 text-xl rounded-lg md:w-3/4 bg-slate-800 text-cWhite"
@@ -167,7 +167,7 @@ function SignUpPage() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                   />
-                  <div className="flex w-[26rem] gap-4">
+                  <div className="flex w-64 md:w-[26rem] gap-4">
                     <button
                       type="submit"
                       className="w-full py-2 mt-2 text-xl rounded-lg md:w-3/4 bg-slate-800 text-cWhite"
