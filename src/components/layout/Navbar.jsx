@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PrimaryButton from "../common/PrimaryButton";
 import { Link } from "react-router-dom";
 import SecondaryButton from "../common/SecondaryButton";
-import { ExitIcon, GearIcon, PersonIcon, MagnifyingGlassIcon, BellIcon } from "@radix-ui/react-icons";
+import { ExitIcon, GearIcon, PersonIcon, MagnifyingGlassIcon, BellIcon, LightningBoltIcon } from "@radix-ui/react-icons";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,12 @@ import { authActions } from "../../store/authSlice";
 const dropdownItems = [
   {
     key: 2,
+    title: "Explore",
+    icon: <GearIcon className="w-6 h-6" />,
+    whereTo: "/explore",
+  },
+  {
+    key: 3,
     title: "Settings",
     icon: <GearIcon className="w-6 h-6" />,
     whereTo: "/settings",
@@ -72,6 +78,15 @@ function Navbar({ isNotLoggedin = true, additionalClasses = "", onClickHandler }
                 }`}
               >
                 <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                  <Link to={"/explore"}>
+                    <button
+                      className="flex w-full h-full gap-4 px-4 py-2 text-sm lg:hidden text-cWhite hover:text-fuchsia-700 hover:transition-colors"
+                      role="menuitem"
+                    >
+                      <LightningBoltIcon className="w-6 h-6" />
+                      Explore
+                    </button>
+                  </Link>
                   <Link to={"/settings"}>
                     <button
                       className="flex w-full h-full gap-4 px-4 py-2 text-sm text-cWhite hover:text-fuchsia-700 hover:transition-colors"

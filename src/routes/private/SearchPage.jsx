@@ -28,7 +28,6 @@ function SearchPage() {
     setSearch(suggestion);
     useSearch(suggestion, setMovies);
   };
-
   return (
     <>
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />

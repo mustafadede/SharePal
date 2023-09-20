@@ -10,7 +10,9 @@ import { toast } from "react-toastify";
 import { updateCurrentUserData } from "../../../firebase/firebaseActions";
 import { movieGenresJSON, tvGenresJSON } from "../../../assets/genreData";
 function SearchCardModal() {
-  const { title, poster, releaseDate, overview, vote, backdrop, genres, mediaType } = useSelector((state) => state.modal.modalHasData);
+  const { title, poster, releaseDate, overview, vote, backdrop, genres, mediaType, upcoming } = useSelector(
+    (state) => state.modal.modalHasData
+  );
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const watchlistHandler = () => {
@@ -52,7 +54,7 @@ function SearchCardModal() {
         {/* Title & Release Date */}
         <div className="absolute top-0 left-0 flex flex-col justify-center w-2/3 h-full p-6">
           <h1 className="mt-4 mb-3 text-4xl text-fuchsia-600">{title}</h1>
-          <h2 className="mb-2 text-2xl text-fuchsia-700">{releaseDate && releaseDate.slice(0, 4)}</h2>
+          <h2 className="mb-2 text-2xl text-fuchsia-700">{upcoming ? releaseDate : releaseDate.slice(0, 4)}</h2>
           <h3 className="px-3 text-xl border rounded-md w-fit border-fuchsia-700 text-fuchsia-800">
             {mediaType === "movie" ? mediaType[0].toUpperCase() + mediaType.slice(1) : mediaType.toUpperCase()}
           </h3>

@@ -3,12 +3,15 @@ import { motion } from "framer-motion";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
-function SearchCard({ title, poster, releaseDate, overview, vote, backdrop, genres, mediaType }) {
+function SearchCard({ title, poster, releaseDate, overview, vote, backdrop, genres, mediaType, upcoming }) {
   const dispatch = useDispatch();
   const { myLists } = useSelector((state) => state.myLists);
   const handleModal = () => {
     dispatch(
-      modalActions.openModal({ name: "searchCardModal", data: { title, poster, releaseDate, overview, vote, backdrop, genres, mediaType } })
+      modalActions.openModal({
+        name: "searchCardModal",
+        data: { title, poster, releaseDate, overview, vote, backdrop, genres, mediaType, upcoming },
+      })
     );
   };
   const handleClick = () => {

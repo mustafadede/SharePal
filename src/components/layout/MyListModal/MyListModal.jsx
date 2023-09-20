@@ -66,7 +66,7 @@ function MyListModal() {
   };
 
   return (
-    <div className="bg-slate-900 rounded-2xl px-4 md:px-8 pt-4 overflow-hidden w-[24rem] md:w-[35rem] h-[35rem] md:h-[25rem]">
+    <div className="bg-slate-900 rounded-2xl px-4 md:px-8 pt-4 overflow-hidden w-[24rem] md:w-[35rem] h-[35rem] md:h-[27rem]">
       <ModalHeader title="My Lists" />
       <div className="flex flex-col justify-center py-4 pt-4">
         {/** Create List section start */}
@@ -97,7 +97,7 @@ function MyListModal() {
           handleSuggestion={handleSuggestion}
         />
         {/** My Lists section start */}
-        <div className="h-64 overflow-scroll no-scrollbar">
+        <div className="overflow-scroll  h-80 md:h-56 no-scrollbar">
           {/** My Lists map */}
           {myLists.length === 0 && <p className="text-md text-slate-400">You have no lists yet.</p>}
           {myLists.length > 0 &&
