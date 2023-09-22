@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
-function SearchCard({ title, poster, releaseDate, overview, vote, backdrop, genres, mediaType, upcoming }) {
+function SearchCard({ title, poster, releaseDate, overview, vote, backdrop, genres, mediaType, upcoming, page }) {
   const dispatch = useDispatch();
   const { myLists } = useSelector((state) => state.myLists);
   const handleModal = () => {
@@ -19,7 +19,11 @@ function SearchCard({ title, poster, releaseDate, overview, vote, backdrop, genr
   };
   return (
     <motion.div
-      className="relative w-[11.5rem] h-64 transition-all border-transparent cursor-pointer rounded-2xl hover:border hover:border-fuchsia-600"
+      className={
+        page === "explore"
+          ? "relative w-full h-72 transition-all border-transparent cursor-pointer rounded-2xl hover:border hover:border-fuchsia-600"
+          : "relative w-[11.5rem] h-64 transition-all border-transparent cursor-pointer rounded-2xl hover:border hover:border-fuchsia-600"
+      }
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
     >

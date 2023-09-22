@@ -14,7 +14,7 @@ function MyPinnedListsCard() {
   return (
     <>
       <motion.div
-        className="p-4 mt-4 w-72 h-fit bg-slate-900 rounded-2xl"
+        className="w-full p-4 mt-4 h-fit bg-slate-900 rounded-2xl"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}

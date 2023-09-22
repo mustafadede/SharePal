@@ -1,71 +1,59 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SearchCard from "../layout/SearchPage/SearchCard";
-
-import { motion } from "framer-motion";
 import "swiper/css";
-import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
 
 function Slider({ data, header, dataClassName }) {
   return (
-    <motion.div
-      className={`flex flex-col w-full md:w-[43rem] lg:w-[37.5rem] xl:w-[56rem] 2xl:w-[69.5rem] h-full mt-4 gap-2 overflow-hidden overflow-x-auto no-scrollbar ${dataClassName}`}
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.3 }}
-    >
+    <div className="w-full">
       <h1 className="mb-4 text-3xl text-fuchsia-200">{header}</h1>
-      <div className={`${dataClassName}`}>
+      <div className={`${dataClassName} w-full cursor-grab`}>
         <Swiper
-          className={`${dataClassName}`}
+          className={`${dataClassName} w-full`}
           style={{
             height: "100%",
             "--swiper-navigation-color": "#A021B1",
           }}
-          slidesPerView={1}
-          rewind={true}
-          keyboard={{
-            enabled: true,
-          }}
-          loop={true}
-          navigation={true}
-          modules={[Navigation]}
+          slidesPerView={3}
+          spaceBetween={30}
           breakpoints={{
             320: {
               width: 320,
-              spaceBetween: 120,
+              spaceBetween: 10,
               slidesPerView: 2,
             },
             500: {
-              width: 500,
-              slidesPerView: 3,
-            },
-            640: {
-              width: 640,
               slidesPerView: 3,
               spaceBetween: 20,
             },
+            640: {
+              slidesPerView: 3,
+              spaceBetween: 30,
+            },
             768: {
               width: 768,
-              spaceBetween: 100,
               slidesPerView: 4,
+              spaceBetween: 40,
             },
             1024: {
               width: 1024,
               slidesPerView: 5,
+              spaceBetween: 50,
             },
             1280: {
               width: 1280,
-              slidesPerView: 6,
+              slidesPerView: 5,
+              spaceBetween: 40,
             },
             1536: {
               width: 1536,
-              slidesPerView: 7,
+              slidesPerView: 6,
+              spaceBetween: 40,
             },
             1792: {
               width: 1792,
-              slidesPerView: 8,
+              slidesPerView: 7,
+              spaceBetween: 70,
             },
           }}
         >
@@ -82,13 +70,14 @@ function Slider({ data, header, dataClassName }) {
                   backdrop={movie.backdrop_path || movie.poster_path || movie.profile_path || null}
                   genres={movie.genre_ids}
                   mediaType="movie"
+                  page="explore"
                 />
               </SwiperSlide>
             ) : null
           )}
         </Swiper>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

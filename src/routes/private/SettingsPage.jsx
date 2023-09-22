@@ -16,6 +16,7 @@ function SettingsPage() {
 
   useEffect(() => {
     document.title = "SharePal | Settings";
+    window.scrollTo(0, 0);
     if (localStorage.getItem("user") === null) navigate("/login");
   }, []);
 
