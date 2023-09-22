@@ -373,6 +373,27 @@ const createPinnedList = async (data) => {
   }
 };
 
+const removePinnedList = async (id) => {
+  try {
+    const userId = getAuth().currentUser.uid;
+    const pinnedListRef = ref(database, `pinnedList/${userId}`);
+    const snapshot = await get(pinnedListRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().id === id) {
+          set(ref(database, `pinnedList/${userId}/${childSnapshot.key}`), null);
+        }
+      });
+      return true;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    return toast("Something went wrong!");
+  }
+};
+
 const getSelectedUserLists = async (userId) => {
   const pinnedListsRef = ref(database, `pinnedList/${userId}`);
   const snapshot = await get(pinnedListsRef);
@@ -464,6 +485,7 @@ export {
   getAllPosts,
   getSelectedUserPosts,
   createPinnedList,
+  removePinnedList,
   getSelectedUserLists,
   updateSelectedUserLists,
   uploadProfilePhoto,

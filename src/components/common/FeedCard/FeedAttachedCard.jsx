@@ -19,7 +19,6 @@ function FeedAttachedCard({ data, index, attachedData }) {
   const minute = new Date(data.date).getMinutes();
   const date = `${day}/${month}/${year} ${hour}:${minute < 10 ? "0" + minute : minute}`;
   const onClickHandler = () => {
-    console.log(data.attachedFilm);
     dispatch(modalActions.openModal({ name: "pinnedModal", data: data.attachedFilm }));
     setBookmarked(!bookmarked);
   };

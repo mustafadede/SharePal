@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { MyListsActions } from "../../../store/myListsSlice";
 import { toast } from "react-toastify";
 import { modalActions } from "../../../store/modalSlice";
-import { updateSelectedUserLists } from "../../../firebase/firebaseActions";
+import { removePinnedList, updateSelectedUserLists } from "../../../firebase/firebaseActions";
 
 function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = false, list, date }) {
   const dispatch = useDispatch();
@@ -23,6 +23,7 @@ function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = fal
 
   const handleRemove = (id) => {
     dispatch(MyListsActions.deleteList(id));
+    removePinnedList(id);
     toast.success("List removed successfully!");
   };
 
