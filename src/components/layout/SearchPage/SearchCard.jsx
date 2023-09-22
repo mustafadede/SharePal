@@ -19,7 +19,7 @@ function SearchCard({ title, poster, releaseDate, overview, vote, backdrop, genr
   };
   return (
     <motion.div
-      className="relative w-48 h-64 transition-all border-transparent cursor-pointer rounded-2xl hover:border hover:border-fuchsia-600"
+      className="relative w-[11.5rem] h-64 transition-all border-transparent cursor-pointer rounded-2xl hover:border hover:border-fuchsia-600"
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
     >
