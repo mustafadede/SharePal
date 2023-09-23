@@ -22,6 +22,15 @@ function FeedAttachedCard({ data, index, attachedData }) {
     dispatch(modalActions.openModal({ name: "pinnedModal", data: data.attachedFilm }));
     setBookmarked(!bookmarked);
   };
+
+  const handleSpoiler = (e) => {
+    if (e.target.classList.contains("blur-sm")) {
+      e.target.classList.remove("blur-sm");
+    } else {
+      e.target.classList.add("blur-sm");
+    }
+  };
+
   return (
     <motion.div
       className="flex flex-col w-full p-4 mb-4 bg-slate-900 rounded-xl"
@@ -40,7 +49,12 @@ function FeedAttachedCard({ data, index, attachedData }) {
           <p className="text-xs text-slate-400">{date}</p>
         </div>
       </div>
-      <p className="my-2 text-slate-200">{data?.text || data.content}</p>
+      {data.spoiler && (
+        <p className={"py-4 text-slate-200 cursor-pointer duration-150 transition-all  blur-sm select-none"} onClick={handleSpoiler}>
+          {data.text || data.content}
+        </p>
+      )}
+      {!data.spoiler && <p className="py-4 text-slate-200">{data.text || data.content}</p>}
       <div className="flex items-center justify-between w-full gap-4 p-2 transition-all duration-700 border rounded-2xl border-slate-700 group hover:bg-cGradient2 hover:border-slate-600">
         <div className="flex items-center gap-4">
           <img

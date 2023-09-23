@@ -8,6 +8,7 @@ const createPostSlice = createSlice({
     attachedFilm: null,
     attachedPhoto: null,
     postsLength: -1,
+    spoiler: false,
   },
   reducers: {
     updateText: (state, action) => {
@@ -16,8 +17,8 @@ const createPostSlice = createSlice({
     updateAttachedFilm: (state, action) => {
       state.attachedFilm = action.payload;
     },
-    updateAttachedPhoto: (state, action) => {
-      state.attachedPhoto = action.payload;
+    updateSpoiler: (state, action) => {
+      state.spoiler = action.payload;
     },
     updatePost: (state, action) => {
       state.postsLength++;

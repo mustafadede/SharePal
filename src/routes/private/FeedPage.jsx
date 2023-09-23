@@ -107,8 +107,8 @@ function FeedPage() {
                   .map((data, index) => {
                     if (data.attachedFilm) {
                       return <FeedCard key={index} isAttached={true} data={data} index={index} />;
-                    } else if (data.attachedPhoto) {
-                      return <FeedCard key={index} isUpload={true} data={data} index={index} />;
+                    } else if (data.spoiler) {
+                      return <FeedCard key={index} isSpoiler={true} data={data} index={index} />;
                     } else {
                       return <FeedCard key={index} isComment={true} data={data} index={index} />;
                     }

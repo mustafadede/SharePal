@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../components/layout/Navbar";
 import PopularCard from "../../components/common/MostPopularCard/PopularCard";
 import { motion } from "framer-motion";
-import SearchCard from "../../components/layout/SearchPage/SearchCard";
 import useUpcoming from "../../hooks/useUpcoming";
 import useTop10 from "../../hooks/useTop10";
 import Slider from "../../components/common/Slider";

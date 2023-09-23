@@ -290,14 +290,14 @@ const unfollowUser = async (userId, data) => {
   }
 };
 
-const createPostAction = async (text, attachedFilm, attachedPhoto, nick) => {
+const createPostAction = async (text, attachedFilm, spoiler, nick) => {
   try {
     const userId = getAuth().currentUser.uid;
     const newPostRef = push(ref(database, `posts/${userId}`));
     set(newPostRef, {
       photoURL: getAuth().currentUser.photoURL || null,
       nick: nick,
-      attachedPhoto: attachedPhoto || null,
+      spoiler: spoiler || null,
       attachedFilm: attachedFilm || null,
       content: text,
       likes: 0,
@@ -327,7 +327,7 @@ const getAllPosts = async () => {
           postId: key,
           nick: value.nick,
           content: value.content,
-          attachedPhoto: value.attachedPhoto,
+          spoiler: value.spoiler,
           attachedFilm: value.attachedFilm,
           likes: value.likes,
           comments: value.comments,
@@ -349,7 +349,7 @@ const getSelectedUserPosts = async (userId) => {
         photoURL: childSnapshot.val().photoURL,
         nick: childSnapshot.val().nick,
         content: childSnapshot.val().content,
-        attachedPhoto: childSnapshot.val().attachedPhoto,
+        spoiler: childSnapshot.val().spoiler,
         attachedFilm: childSnapshot.val().attachedFilm,
         likes: childSnapshot.val().likes,
         comments: childSnapshot.val().comments,

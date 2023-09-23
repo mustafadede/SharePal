@@ -1,5 +1,5 @@
 import React from "react";
-import { Link2Icon, CameraIcon, Cross1Icon } from "@radix-ui/react-icons";
+import { Link2Icon, Cross1Icon, LockOpen1Icon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
 import FeedActionBoxButton from "../common/FeedActionBoxButton";
 import { toast } from "react-toastify";
@@ -12,7 +12,7 @@ import { modalActions } from "../../store/modalSlice";
 function FeedActionBox() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
-  const { attachedFilm, attachedPhoto, text } = useSelector((state) => state.createPost);
+  const { attachedFilm, spoiler, text } = useSelector((state) => state.createPost);
   const { modalHasData, modalName } = useSelector((state) => state.modal);
   const createPost = () => {
     if (text.length > 0 && text.length <= 280) {
@@ -22,7 +22,7 @@ function FeedActionBox() {
           id: getAuth().currentUser.uid,
           text: text,
           attachedFilm: modalHasData ? modalHasData : attachedFilm,
-          attachedPhoto: attachedPhoto,
+          spoiler: spoiler,
           nick: user?.nick,
           likes: 0,
           comments: 0,
@@ -32,8 +32,8 @@ function FeedActionBox() {
       );
       dispatch(createPostActions.updateText(""));
       dispatch(createPostActions.updateAttachedFilm(null));
-      dispatch(createPostActions.updateAttachedPhoto(null));
-      createPostAction(text, modalHasData ? modalHasData : attachedFilm, attachedPhoto, user?.nick) && toast.success("Post created!");
+      dispatch(createPostActions.updateSpoiler(null));
+      createPostAction(text, modalHasData ? modalHasData : attachedFilm, spoiler, user?.nick) && toast.success("Post created!");
     } else {
       toast.error("Post field must be between 1 and 280 characters!");
     }
@@ -101,12 +101,11 @@ function FeedActionBox() {
             }}
           />
           <FeedActionBoxButton
-            icons={<CameraIcon className="h-6 transition-all w-fit text-slate-300" />}
-            text="Upload Photo"
-            // onClickAction={() => {
-            //   dispatch(createPostActions.updateAttachedPhoto("https://i.imgur.com/2xW3YzB.png"));
-            // }}
-            disabled={true}
+            icons={<LockOpen1Icon className="h-6 transition-all w-fit text-slate-300" />}
+            text="Sshhh! Spoiler!"
+            onClickAction={() => {
+              dispatch(createPostActions.updateSpoiler(true));
+            }}
           />
           <motion.button
             className="w-full p-2 text-lg transition-colors duration-300 rounded-lg select-none h-100 bg-fuchsia-800 hover:bg-slate-700 text-cWhite"
