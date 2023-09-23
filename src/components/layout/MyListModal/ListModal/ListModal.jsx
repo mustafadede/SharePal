@@ -12,12 +12,12 @@ function ListModal() {
       <div className="flex flex-col justify-center w-full py-2">
         <div className="flex flex-col justify-between md:flex-row">
           <p className="text-lg text-slate-500 ">Creation Time: {modalHasData.date}</p>
-          <p className="text-lg text-slate-500 ">Total Items: {Object.keys(modalHasData.list).length}</p>
+          <p className="text-lg text-slate-500 ">Total Items: {modalHasData.list ? Object.keys(modalHasData.list)?.length : 0}</p>
         </div>
         <div className="pb-4 overflow-scroll h-80 no-scrollbar">
-          {modalHasData.list?.length === 0 && <p className="py-4 text-xl text-slate-600">Your list is empty.</p>}
-          {modalHasData &&
-            Object.values(modalHasData.list).map((item, index) => {
+          {!modalHasData.list && <p className="py-4 text-xl text-slate-600">Your list is empty.</p>}
+          {modalHasData.list &&
+            Object.keys(modalHasData.list)?.map((item, index) => {
               return (
                 <ListModalCard
                   key={index}
