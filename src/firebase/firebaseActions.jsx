@@ -383,11 +383,11 @@ const updatePinnedList = async (data) => {
         if (childSnapshot.val().id === data.id) {
           const newChildRef = push(ref(database, `pinnedList/${userId}/${childSnapshot.key}/list`));
           set(newChildRef, {
-            id: data.id,
-            title: data.title,
-            poster: data.poster,
-            releaseDate: data.releaseDate,
-            backdrop: data.backdrop,
+            id: data?.id,
+            title: data?.title,
+            poster: data?.poster,
+            releaseDate: data?.releaseDate,
+            backdrop: data?.backdrop,
           });
         }
       });

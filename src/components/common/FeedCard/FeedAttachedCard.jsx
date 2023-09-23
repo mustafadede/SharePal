@@ -6,11 +6,13 @@ import FeedCardActionsSkeleton from "./FeedCardActions/FeedCardActionsSkeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { modalActions } from "../../../store/modalSlice";
+import { updatePinnedList } from "../../../firebase/firebaseActions";
 
 function FeedAttachedCard({ data, index, attachedData }) {
   const [bookmarked, setBookmarked] = useState(false);
   const postAction = useSelector((state) => state.postAction);
   const { user } = useSelector((state) => state.user);
+  const { myLists } = useSelector((state) => state.myLists);
   const dispatch = useDispatch();
   const day = new Date(data.date).getDate();
   const month = new Date(data.date).getMonth() + 1;
@@ -70,13 +72,13 @@ function FeedAttachedCard({ data, index, attachedData }) {
             </p>
           </div>
         </div>
-        <button onClick={onClickHandler}>
+        {/* <button onClick={onClickHandler}>
           {!bookmarked ? (
             <BookmarkIcon className="w-6 h-6 transition-all duration-700 text-slate-400 group-hover:text-slate-200" />
           ) : (
             <BookmarkFilledIcon className="w-6 h-6 transition-all duration-700 text-fuchsia-600" />
           )}
-        </button>
+        </button> */}
       </div>
       <div className="flex gap-2">
         <FeedCardActionsSkeleton action={"likes"} number={postAction.postLikesList[index]?.likes} data={data} />
