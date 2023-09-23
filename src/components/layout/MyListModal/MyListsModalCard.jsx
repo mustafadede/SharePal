@@ -5,11 +5,13 @@ import { MyListsActions } from "../../../store/myListsSlice";
 import { toast } from "react-toastify";
 import { modalActions } from "../../../store/modalSlice";
 import { removePinnedList, updatePinnedList, updateSelectedUserLists } from "../../../firebase/firebaseActions";
+import { useNavigate } from "react-router-dom";
 
 function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = false, list, date }) {
   const dispatch = useDispatch();
   const { modalHasData } = useSelector((state) => state.modal);
   const { myLists } = useSelector((state) => state.myLists);
+  const navigate = useNavigate();
   const handlePin = (listNum) => {
     if (!isPinned) {
       dispatch(MyListsActions.setPinned(listNum));
@@ -42,7 +44,9 @@ function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = fal
         backdrop: modalHasData.backdrop,
       }) && toast.success("Movie added successfully!");
     } else {
-      return;
+      navigate("/search");
+      dispatch(modalActions.closeModal());
+      toast.error("Please select a movie/series first.");
     }
   };
   return (
