@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
-function SearchCard({ title, poster, releaseDate, overview, vote, backdrop, genres, mediaType, upcoming, page }) {
+function SearchCard({ id, title, poster, releaseDate, overview, vote, backdrop, genres, mediaType, upcoming, page }) {
   const dispatch = useDispatch();
   const { myLists } = useSelector((state) => state.myLists);
   const handleModal = () => {

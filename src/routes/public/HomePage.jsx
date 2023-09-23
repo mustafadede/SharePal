@@ -87,7 +87,6 @@ function HomePage() {
               <video src={video} autoPlay loop muted height="100%" className="object-cover h-full"></video>
             </motion.div>
           </motion.div>
-          <AttachCardsSection />
         </motion.div>
       </AnimatePresence>
     </>

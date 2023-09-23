@@ -2,11 +2,9 @@ import React from "react";
 import FeedCardButtons from "./Buttons/FeedCardButtons";
 import { motion } from "framer-motion";
 import FeedCardActionsSkeleton from "./FeedCardActions/FeedCardActionsSkeleton";
-import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-function FeedSpoilerCard({ data, index }) {
-  const postAction = useSelector((state) => state.postAction);
+function FeedSpoilerCard({ data }) {
   const day = new Date(data.date).getDate();
   const month = new Date(data.date).getMonth() + 1;
   const year = new Date(data.date).getFullYear();
@@ -43,9 +41,9 @@ function FeedSpoilerCard({ data, index }) {
         {data.text || data.content}
       </p>
       <div className="flex gap-2">
-        <FeedCardActionsSkeleton action={"likes"} number={postAction.postLikesList[index]?.likes} data={data} />
-        <FeedCardActionsSkeleton action={"comments"} number={postAction.postCommentsList[index]?.likes} data={data} />
-        <FeedCardActionsSkeleton action={"reposts"} number={postAction.postRepostsList[index]?.reposts} data={data} />
+        <FeedCardActionsSkeleton action={"likes"} number={data.likes} data={data} />
+        <FeedCardActionsSkeleton action={"comments"} number={data.comments} data={data} />
+        <FeedCardActionsSkeleton action={"reposts"} number={data.repost} data={data} />
       </div>
       <FeedCardButtons data={data} />
     </motion.div>

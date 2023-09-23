@@ -373,6 +373,34 @@ const createPinnedList = async (data) => {
   }
 };
 
+const updatePinnedList = async (data) => {
+  try {
+    const userId = getAuth().currentUser.uid;
+    const pinnedListRef = ref(database, `pinnedList/${userId}`);
+    const snapshot = await get(pinnedListRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().id === data.id) {
+          const newChildRef = push(ref(database, `pinnedList/${userId}/${childSnapshot.key}/list`));
+          set(newChildRef, {
+            id: data.id,
+            title: data.title,
+            poster: data.poster,
+            releaseDate: data.releaseDate,
+            backdrop: data.backdrop,
+          });
+        }
+      });
+      return true;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    return toast("Something went wrong!");
+  }
+};
+
 const removePinnedList = async (id) => {
   try {
     const userId = getAuth().currentUser.uid;
@@ -405,7 +433,7 @@ const getSelectedUserLists = async (userId) => {
         title: childSnapshot.val().title,
         isPinned: childSnapshot.val().isPinned,
         date: childSnapshot.val().date,
-        list: childSnapshot.val().list || [],
+        list: childSnapshot.val().list,
       });
     });
   }
@@ -485,6 +513,7 @@ export {
   getAllPosts,
   getSelectedUserPosts,
   createPinnedList,
+  updatePinnedList,
   removePinnedList,
   getSelectedUserLists,
   updateSelectedUserLists,

@@ -94,14 +94,14 @@ function FeedActionBox() {
         )}
         <div className="flex justify-end w-full gap-2">
           <FeedActionBoxButton
-            icons={<Link2Icon className="h-6 transition-all w-fit text-slate-300" />}
+            icons={<Link2Icon className="w-6 h-6 transition-all text-slate-300" />}
             text="Attach Film/Series"
             onClickAction={() => {
               handleAttachedFilm();
             }}
           />
           <FeedActionBoxButton
-            icons={<LockOpen1Icon className="h-6 transition-all w-fit text-slate-300" />}
+            icons={<LockOpen1Icon className="w-6 h-6 transition-all text-slate-300" />}
             text="Sshhh! Spoiler!"
             onClickAction={() => {
               dispatch(createPostActions.updateSpoiler(true));

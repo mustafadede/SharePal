@@ -61,6 +61,7 @@ function SearchPage() {
                 movie.release_date || (movie.first_air_date && movie.poster_path) ? (
                   <SearchCard
                     key={movie.id}
+                    id={movie.id}
                     title={movie.title || movie.name}
                     poster={movie.poster_path || movie.profile_path || null}
                     releaseDate={movie.release_date || movie.first_air_date || null}

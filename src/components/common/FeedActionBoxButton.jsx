@@ -3,11 +3,7 @@ import { motion } from "framer-motion";
 function FeedActionBoxButton({ icons, text, onClickAction, disabled }) {
   return (
     <motion.button
-      className={
-        disabled
-          ? "cursor-not-allowed flex items-center h-12 px-4 transition-all rounded-lg w-100 hover:bg-slate-800"
-          : "flex items-center h-12 px-4 transition-all rounded-lg w-100 hover:bg-slate-800"
-      }
+      className={"flex items-center h-12 px-4 transition-all rounded-lg w-100 hover:bg-slate-800"}
       onClick={onClickAction}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}

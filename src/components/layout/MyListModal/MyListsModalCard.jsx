@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { MyListsActions } from "../../../store/myListsSlice";
 import { toast } from "react-toastify";
 import { modalActions } from "../../../store/modalSlice";
-import { removePinnedList, updateSelectedUserLists } from "../../../firebase/firebaseActions";
+import { removePinnedList, updatePinnedList, updateSelectedUserLists } from "../../../firebase/firebaseActions";
 
 function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = false, list, date }) {
   const dispatch = useDispatch();
   const { modalHasData } = useSelector((state) => state.modal);
+  const { myLists } = useSelector((state) => state.myLists);
   const handlePin = (listNum) => {
     if (!isPinned) {
       dispatch(MyListsActions.setPinned(listNum));
@@ -28,22 +29,18 @@ function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = fal
   };
 
   const clickHandler = (id, title, list, date) => {
-    dispatch(modalActions.openModal({ name: "listModal", data: { id, title, list, date } }));
+    dispatch(modalActions.openModal({ name: "listModal", data: { id, title, list, date, listId: myLists[listNum].id } }));
   };
 
   const addHandler = () => {
     if (modalHasData.releaseDate) {
-      dispatch(
-        MyListsActions.addToList({
-          id: modalHasData.id,
-          title: modalHasData.title,
-          poster: modalHasData.poster,
-          releaseDate: modalHasData.releaseDate,
-          backdrop: modalHasData.backdrop,
-          listNum,
-        })
-      );
-      toast.success("Movie added successfully!");
+      updatePinnedList({
+        id: myLists[listNum].id,
+        title: modalHasData.title,
+        poster: modalHasData.poster,
+        releaseDate: modalHasData.releaseDate,
+        backdrop: modalHasData.backdrop,
+      }) && toast.success("Movie added successfully!");
     } else {
       return;
     }
