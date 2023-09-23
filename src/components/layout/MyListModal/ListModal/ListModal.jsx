@@ -17,7 +17,7 @@ function ListModal() {
         <div className="pb-4 overflow-scroll h-80 no-scrollbar">
           {!modalHasData.list && <p className="py-4 text-xl text-slate-600">Your list is empty.</p>}
           {modalHasData.list &&
-            Object.keys(modalHasData.list)?.map((item, index) => {
+            Object.values(modalHasData.list)?.map((item, index) => {
               return (
                 <ListModalCard
                   key={index}
