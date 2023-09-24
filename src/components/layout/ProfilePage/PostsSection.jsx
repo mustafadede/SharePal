@@ -18,7 +18,6 @@ function PostsSection({ username, uid }) {
       }
     }, 500);
   }, []);
-  console.log(posts);
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full overflow-y-scroll no-scrollbar">
       {username && posts.length === 0 && <p className="text-2xl text-slate-400">This user doesn't have any post.</p>}

@@ -24,7 +24,6 @@ function ListsSection({ username, userUID }) {
       getData();
     }
   }, []);
-  console.log(pinnedLists);
   return (
     <>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="flex flex-col gap-4">

@@ -3,6 +3,7 @@ import FeedCardButtons from "./Buttons/FeedCardButtons";
 import { motion } from "framer-motion";
 import FeedCardActionsSkeleton from "./FeedCardActions/FeedCardActionsSkeleton";
 import { NavLink } from "react-router-dom";
+import { LockClosedIcon } from "@radix-ui/react-icons";
 
 function FeedSpoilerCard({ data }) {
   const day = new Date(data.date).getDate();
@@ -25,16 +26,22 @@ function FeedSpoilerCard({ data }) {
       initial={{ opacity: 0, y: -20, transition: { duration: 2 } }}
       animate={{ opacity: 1, y: 0 }}
     >
-      <div className="flex gap-4">
-        {!data.photoURL && <div className="w-12 h-12 rounded-full bg-fuchsia-600"></div>}
-        {data.photoURL && <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" src={data.photoURL}></img>}
-        <div className="flex flex-col">
-          <NavLink to={`/profile/${data.nick}`}>
-            <p className="transition-all duration-300 text-md text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600">
-              @{data.nick}
-            </p>
-          </NavLink>
-          <p className="text-sm text-slate-400">{date}</p>
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex gap-4">
+          {!data.photoURL && <div className="w-12 h-12 rounded-full bg-fuchsia-600"></div>}
+          {data.photoURL && <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" src={data.photoURL}></img>}
+          <div className="flex flex-col">
+            <NavLink to={`/profile/${data.nick}`}>
+              <p className="transition-all duration-300 text-md text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600">
+                @{data.nick}
+              </p>
+            </NavLink>
+            <p className="text-sm text-slate-400">{date}</p>
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <LockClosedIcon className="w-4 h-4 text-slate-200" />
+          <p className="text-sm text-slate-400">Spoiler!</p>
         </div>
       </div>
       <p className="py-4 transition-all duration-150 cursor-pointer select-none text-slate-200 blur-sm" onClick={handleSpoiler}>
