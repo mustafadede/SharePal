@@ -1,15 +1,34 @@
-function PopularItem(data) {
+import { modalActions } from "../../../store/modalSlice";
+
+function PopularItem({ data, dispatch }) {
+  const handleClick = () => {
+    dispatch(
+      modalActions.openModal({
+        name: "searchCardModal",
+        data: {
+          id: data.id,
+          title: data.original_title || data.original_name,
+          poster: data.poster_path,
+          releaseDate: data.release_date || data.first_air_date,
+          overview: data.overview,
+          vote: data.vote_average,
+          backdrop: data.backdrop_path,
+          genres: data.genre_ids,
+          mediaType: data.media_type,
+          upcoming: data.upcoming,
+        },
+      })
+    );
+  };
   return (
-    <div className="py-2 mt-4 cursor-pointer group">
+    <button className="py-2 mt-4 text-left cursor-pointer group" onClick={handleClick}>
       <div>
         <p className="pb-1 transition-colors xl:text-lg lg:text-md text-fuchsia-600 group-hover:text-slate-300">
-          {data.data.original_title || data.data.original_name}
+          {data.original_title || data.original_name}
         </p>
-        <p className="text-sm transition-colors text-slate-600 group-hover:text-slate-700">
-          {data.data.release_date || data.data.first_air_date}
-        </p>
+        <p className="text-sm transition-colors text-slate-600 group-hover:text-slate-700">{data.release_date || data.first_air_date}</p>
       </div>
-    </div>
+    </button>
   );
 }
 

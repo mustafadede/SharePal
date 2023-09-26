@@ -1,6 +1,8 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 import "swiper/css";
+import "swiper/css/navigation";
 import Images from "../layout/SearchPage/Images";
 
 function ImagesSlider({ data, header, dataClassName }) {
@@ -14,6 +16,8 @@ function ImagesSlider({ data, header, dataClassName }) {
             height: "100%",
             "--swiper-navigation-color": "#A021B1",
           }}
+          modules={[Navigation]}
+          navigation
           slidesPerView={3}
           spaceBetween={30}
           breakpoints={{
