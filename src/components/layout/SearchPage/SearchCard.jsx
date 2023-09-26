@@ -5,13 +5,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
 function SearchCard({ id, title, poster, releaseDate, overview, vote, backdrop, genres, mediaType, upcoming, page }) {
   const dispatch = useDispatch();
+  const { modalState } = useSelector((state) => state.modal);
   const handleModal = () => {
-    dispatch(
-      modalActions.openModal({
-        name: "searchCardModal",
-        data: { id, title, poster, releaseDate, overview, vote, backdrop, genres, mediaType, upcoming },
-      })
-    );
+    if (!modalState) {
+      dispatch(
+        modalActions.openModal({
+          name: "searchCardModal",
+          data: { id, title, poster, releaseDate, overview, vote, backdrop, genres, mediaType, upcoming },
+        })
+      );
+    } else {
+      dispatch(modalActions.closeModal());
+      setTimeout(() => {
+        dispatch(
+          modalActions.openModal({
+            name: "searchCardModal",
+            data: { id, title, poster, releaseDate, overview, vote, backdrop, genres, mediaType, upcoming },
+          })
+        );
+      }, 100);
+    }
   };
 
   const handleClick = () => {

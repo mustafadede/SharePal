@@ -32,7 +32,6 @@ function SearchCardModal() {
       setProviders(data?.US);
     });
   }, []);
-
   const watchlistHandler = () => {
     dispatch(modalActions.openModal({ name: "pinnedModal", data: { title, poster, releaseDate, vote, backdrop } }));
   };

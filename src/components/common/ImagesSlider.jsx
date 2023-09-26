@@ -7,7 +7,7 @@ import Images from "../layout/SearchPage/Images";
 
 function ImagesSlider({ data, header, dataClassName }) {
   return (
-    <div className="w-full">
+    <div className="w-full select-none">
       <h1 className="mb-4 text-3xl text-fuchsia-200">{header}</h1>
       <div className={`${dataClassName} w-full cursor-grab`}>
         <Swiper

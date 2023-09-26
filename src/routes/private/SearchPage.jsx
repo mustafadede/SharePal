@@ -28,6 +28,7 @@ function SearchPage() {
     setSearch(suggestion);
     useSearch(suggestion, setMovies);
   };
+
   return (
     <>
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
@@ -73,6 +74,7 @@ function SearchPage() {
                   />
                 ) : null
               )}
+            {movies.length === 0 && <p className="text-2xl text-slate-600">✨ Search something ✨</p>}
           </div>
           <div className="flex flex-col w-full gap-7 mb-7">
             {!users && !movies && <p className="text-2xl text-slate-600">✨ Not found anything ✨</p>}
