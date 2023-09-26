@@ -33,7 +33,7 @@ function ExplorePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <Slider data={upcoming.results} header="Upcoming" dataClassName="upcoming" />
+            <Slider data={upcoming.results} sliderType="movie" header="Upcoming" dataClassName="upcoming" />
           </motion.div>
           <motion.div
             className={`flex flex-col w-full h-full mt-4 gap-2 overflow-hidden overflow-x-auto no-scrollbar`}
@@ -41,7 +41,7 @@ function ExplorePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <Slider data={top10Movies} header="Top 10 Movies" dataClassName="topMovies" />
+            <Slider data={top10Movies} sliderType="movie" header="Top 10 Movies" dataClassName="topMovies" />
           </motion.div>
           <motion.div
             className={`flex flex-col h-full mt-4 gap-2 overflow-hidden overflow-x-auto no-scrollbar`}
@@ -49,7 +49,7 @@ function ExplorePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <Slider data={top10Series} header="Top 10 Series" dataClassName="topSeries" />
+            <Slider data={top10Series} sliderType="tv" header="Top 10 Series" dataClassName="topSeries" />
           </motion.div>
           <h2 className="my-4 text-2xl text-slate-200">Users Lists</h2>
         </motion.div>

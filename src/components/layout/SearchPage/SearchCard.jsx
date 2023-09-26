@@ -1,19 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
 function SearchCard({ id, title, poster, releaseDate, overview, vote, backdrop, genres, mediaType, upcoming, page }) {
   const dispatch = useDispatch();
-  const { myLists } = useSelector((state) => state.myLists);
   const handleModal = () => {
     dispatch(
       modalActions.openModal({
         name: "searchCardModal",
-        data: { title, poster, releaseDate, overview, vote, backdrop, genres, mediaType, upcoming },
+        data: { id, title, poster, releaseDate, overview, vote, backdrop, genres, mediaType, upcoming },
       })
     );
   };
+
   const handleClick = () => {
     dispatch(modalActions.openModal({ name: "pinnedModal", data: { title, poster, releaseDate, backdrop } }));
   };
@@ -27,12 +27,6 @@ function SearchCard({ id, title, poster, releaseDate, overview, vote, backdrop, 
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
     >
-      {poster === null && (
-        <div
-          className="absolute flex items-center justify-center w-full h-full rounded-2xl bg-gradient-to-t from-transparent to-fuchsia-800"
-          onClick={handleModal}
-        ></div>
-      )}
       {poster && (
         <img
           className="object-cover w-full h-full brightness-50 rounded-2xl"

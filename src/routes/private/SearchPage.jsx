@@ -58,7 +58,7 @@ function SearchPage() {
           <div className="flex flex-row flex-wrap justify-start w-full gap-10">
             {movies.length > 0 &&
               movies.map((movie) =>
-                movie.release_date || (movie.first_air_date && movie.poster_path) ? (
+                movie.poster_path ? (
                   <SearchCard
                     key={movie.id}
                     id={movie.id}

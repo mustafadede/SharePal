@@ -18,7 +18,6 @@ function MyListModal() {
       const res = await getSelectedUserLists(localStorage.getItem("user"));
       dispatch(MyListsActions.setMyCoppiedList(res));
     };
-    console.log("MyListModal.jsx: getUserLists() called");
     getUserLists();
   }, []);
 

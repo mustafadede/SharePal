@@ -1,9 +1,9 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SearchCard from "../layout/SearchPage/SearchCard";
 import "swiper/css";
+import Images from "../layout/SearchPage/Images";
 
-function Slider({ data, header, dataClassName, sliderType }) {
+function ImagesSlider({ data, header, dataClassName }) {
   return (
     <div className="w-full">
       <h1 className="mb-4 text-3xl text-fuchsia-200">{header}</h1>
@@ -57,29 +57,16 @@ function Slider({ data, header, dataClassName, sliderType }) {
             },
           }}
         >
-          {data?.map((movie) =>
-            movie.release_date || (movie.first_air_date && movie.poster_path) ? (
-              <SwiperSlide key={movie.id}>
-                <SearchCard
-                  key={movie.id}
-                  title={movie.title || movie.name}
-                  poster={movie.poster_path || movie.profile_path || null}
-                  releaseDate={movie.release_date || movie.first_air_date || null}
-                  overview={movie.overview}
-                  vote={movie.vote_average || 0}
-                  backdrop={movie.backdrop_path || movie.poster_path || movie.profile_path || null}
-                  genres={movie.genre_ids}
-                  mediaType={sliderType || movie.media_type}
-                  page="explore"
-                  id={movie.id}
-                />
+          {(data.backdrops?.length > 0 &&
+            data.backdrops?.map((image, i) => (
+              <SwiperSlide key={i}>
+                <Images path={image} />
               </SwiperSlide>
-            ) : null
-          )}
+            ))) || <p className="mt-4 text-lg text-slate-600">No image content found.</p>}
         </Swiper>
       </div>
     </div>
   );
 }
 
-export default Slider;
+export default ImagesSlider;

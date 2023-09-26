@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ModalHeader from "../ModalSkeleton/ModalHeader";
 import { useSelector, useDispatch } from "react-redux";
 import { EyeOpenIcon, Link2Icon, PlusIcon } from "@radix-ui/react-icons";
@@ -9,12 +9,33 @@ import { userActions } from "../../../store/userSlice";
 import { toast } from "react-toastify";
 import { updateCurrentUserData } from "../../../firebase/firebaseActions";
 import { movieGenresJSON, tvGenresJSON } from "../../../assets/genreData";
+import useSimilar from "../../../hooks/useSimilar";
+import Slider from "../../common/Slider";
+import useImages from "../../../hooks/useImages";
+import ImagesSlider from "../../common/ImagesSlider";
+import useProvider from "../../../hooks/useProvider";
+
 function SearchCardModal() {
-  const { title, poster, releaseDate, overview, vote, backdrop, genres, mediaType, upcoming } = useSelector(
+  const { id, title, poster, releaseDate, overview, vote, backdrop, genres, mediaType, upcoming } = useSelector(
     (state) => state.modal.modalHasData
   );
+  const [similar, setSimilar] = useState([]);
+  const [images, setImages] = useState([]);
+  const [providers, setProviders] = useState([]);
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  useEffect(() => {
+    useSimilar(id, mediaType).then((data) => {
+      setSimilar(data);
+    });
+    useImages(id, mediaType).then((data) => {
+      setImages(data);
+    });
+    useProvider(id, mediaType).then((data) => {
+      setProviders(data?.US);
+    });
+  }, []);
+
   const watchlistHandler = () => {
     dispatch(modalActions.openModal({ name: "pinnedModal", data: { title, poster, releaseDate, vote, backdrop } }));
   };
@@ -27,7 +48,6 @@ function SearchCardModal() {
       dispatch(userActions.updateUser({ ...user, currentlyWatching: data }));
     });
   };
-
   return (
     <div className="bg-slate-900 w-[50rem] h-[37rem] rounded-2xl relative overflow-hidden overflow-y-scroll no-scrollbar">
       <div className="absolute top-0 z-20 w-full p-6">
@@ -56,7 +76,7 @@ function SearchCardModal() {
           <h1 className="mt-4 mb-3 text-4xl text-fuchsia-600">{title}</h1>
           <h2 className="mb-2 text-2xl text-fuchsia-700">{upcoming ? releaseDate : releaseDate.slice(0, 4)}</h2>
           <h3 className="px-3 text-xl border rounded-md w-fit border-fuchsia-700 text-fuchsia-800">
-            {mediaType === "movie" ? mediaType[0].toUpperCase() + mediaType.slice(1) : mediaType.toUpperCase()}
+            {mediaType === "movie" ? mediaType[0].toUpperCase() + mediaType.slice(1) : mediaType?.toUpperCase()}
           </h3>
           <div className="relative flex flex-wrap gap-2 top-4">
             {mediaType === "movie" &&
@@ -109,9 +129,44 @@ function SearchCardModal() {
           </div>
         </div>
       </div>
-      <div className="w-2/3 p-6">
-        <h3 className="text-4xl text-slate-200">Overview</h3>
-        <p className="text-slate-300">{overview}</p>
+      <div className="flex w-full p-6">
+        <div className="w-2/3 pr-4">
+          <h3 className="text-4xl text-slate-200">Overview</h3>
+          <p className="text-slate-300">{overview}</p>
+        </div>
+        <div className="w-1/3">
+          {providers?.flatrate?.length ? (
+            <div className="mt-4">
+              <h3 className="pb-2 text-4xl text-slate-200">Providers</h3>
+              <div className="flex flex-wrap gap-2">
+                {providers?.flatrate?.map((provider) => (
+                  <img
+                    key={provider.provider_id}
+                    src={`https://image.tmdb.org/t/p/w500/${provider.logo_path}`}
+                    className="w-12 h-12 transition-all duration-300 border cursor-pointer drop-shadow-xl rounded-xl border-slate-400 hover:border-fuchsia-600"
+                    alt={provider.provider_name}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : null}
+        </div>
+      </div>
+      <div className="flex flex-col gap-4 p-6">
+        <h1 className="text-4xl text-slate-200">Images</h1>
+        {images ? (
+          <ImagesSlider data={images} dataClassName="images" />
+        ) : (
+          <p className="mt-4 text-lg text-slate-600">No image content found.</p>
+        )}
+      </div>
+      <div className="flex flex-col gap-4 p-6">
+        <h1 className="text-4xl text-slate-200">Recommendations</h1>
+        {similar?.length ? (
+          <Slider data={similar} dataClassName="similar" />
+        ) : (
+          <p className="mt-4 text-lg text-slate-600">No recommended content found.</p>
+        )}
       </div>
     </div>
   );
