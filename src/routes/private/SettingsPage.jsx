@@ -54,7 +54,7 @@ function SettingsPage() {
           <MyPinnedListsCard />
         </motion.div>
         <motion.div
-          className="lg:sticky px-5 py-4 lg:ml-4 top-[4.7rem] w-full lg:w-72 bg-slate-900 rounded-2xl h-fit lg:h-[31rem]"
+          className="lg:sticky px-5 mb-4 py-4 lg:ml-4 top-[4.7rem] w-full lg:w-72 bg-slate-900 rounded-2xl h-fit lg:h-[31rem]"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}

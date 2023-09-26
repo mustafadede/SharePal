@@ -210,6 +210,8 @@ const getUserBySearch = async (username) => {
 const updateCurrentUserData = async (userId, data) => {
   try {
     const snapshot = await get(child(dbRef, `users/${userId}`));
+    const postsRef = ref(database, `posts/${userId}`);
+    const snapshotPosts = await get(postsRef);
     if (snapshot.exists()) {
       await set(ref(database, `users/${userId}`), {
         displayName: data.nick || snapshot.val().displayName,
@@ -222,6 +224,14 @@ const updateCurrentUserData = async (userId, data) => {
         currentlyWatching: data.currentlyWatching || snapshot.val().currentlyWatching || "",
         photoURL: getAuth().currentUser.photoURL || snapshot.val().photoURL || null,
       });
+      if (snapshotPosts.exists()) {
+        snapshotPosts.forEach((childSnapshot) => {
+          update(ref(database, `posts/${userId}/${childSnapshot.key}`), {
+            ...childSnapshot.val(),
+            nick: data.nick || snapshot.val().displayName,
+          });
+        });
+      }
       return true;
     } else {
       console.log("No data available");
@@ -466,10 +476,21 @@ const updateSelectedUserLists = async (userId, data) => {
 const uploadProfilePhoto = async (file) => {
   try {
     const userId = getAuth().currentUser.uid;
+    const postsRef = ref(database, `posts/${userId}`);
+    const snapshot = await get(postsRef);
     const storageRef = sRef(storage, `profilePhotos/${userId}`);
     uploadBytes(storageRef, file).then(() => {
       getDownloadURL(storageRef).then((url) => {
         updateProfile(auth.currentUser, { photoURL: url });
+        if (snapshot.exists()) {
+          snapshot.forEach((childSnapshot) => {
+            console.log(childSnapshot.key);
+            update(ref(database, `posts/${userId}/${childSnapshot.key}`), {
+              ...childSnapshot.val(),
+              photoURL: url,
+            });
+          });
+        }
         return toast.success("Uploaded successfully!");
       });
     });
