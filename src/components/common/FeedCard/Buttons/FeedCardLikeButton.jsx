@@ -2,29 +2,41 @@ import React, { useState } from "react";
 import { HeartIcon, HeartFilledIcon } from "@radix-ui/react-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { postActionActions } from "../../../../store/postActionSlice";
-import { updateSelectedPost } from "../../../../firebase/firebaseActions";
+import { createSelectedUserPostLikeLists, removeSelectedUserPostLikeLists, updateSelectedPost } from "../../../../firebase/firebaseActions";
+import { getAuth } from "firebase/auth";
 function FeedCardLikeButton({ data }) {
   const [isLiked, setIsLiked] = useState(false);
   const dispatch = useDispatch();
   const likes = useSelector((state) => state.postAction.postLikesList);
-
+  const { nick, banner } = useSelector((state) => state.user.user);
   const handleLike = () => {
     setIsLiked(!isLiked);
-    // if (!isLiked) {
-    //   updateSelectedPost(data.userId, data.postId, { likes: data.likes + 1 });
-    //   dispatch(postActionActions.addPostToLikesList({ id: data.postId, userId: data.userId }));
-    // } else {
-    //   data.likes > 0 && updateSelectedPost(data.userId, data.postId, { likes: data.likes - 1 });
-    // }
+    if (!isLiked) {
+      updateSelectedPost(data.userId, data.postId, { likes: data.likes + 1 });
+      createSelectedUserPostLikeLists([
+        {
+          id: data.userId,
+          date: new Date().toISOString(),
+          postId: data.postId,
+        },
+      ]);
+      dispatch(postActionActions.addPostToLikesList({ id: data.postId, userId: data.userId }));
+    } else {
+      updateSelectedPost(data.userId, data.postId, { likes: data.likes - 1 });
+      removeSelectedUserPostLikeLists(data.userId, data.postId, {
+        id: getAuth().currentUser.uid,
+      });
+      dispatch(postActionActions.removePostFromLikesList(data.postId));
+    }
   };
 
-  // useState(() => {
-  //   const checkIfLiked = () => {
-  //     const isLiked = likes.find((like) => like.id === data.postId && like.userId === data.userId);
-  //     isLiked && setIsLiked(true);
-  //   };
-  //   checkIfLiked();
-  // }, []);
+  useState(() => {
+    // const checkIfLiked = () => {
+    //   const isLiked = likes.find((like) => like.id === data.postId && like.userId === data.userId);
+    //   isLiked && setIsLiked(true);
+    // };
+    // checkIfLiked();
+  }, []);
 
   return (
     <button className="flex items-center gap-2" onClick={handleLike}>

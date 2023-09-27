@@ -30,9 +30,6 @@ function FeedActionBox() {
           date: new Date().toISOString(),
         })
       );
-      dispatch(createPostActions.updateText(""));
-      dispatch(createPostActions.updateAttachedFilm(null));
-      dispatch(createPostActions.updateSpoiler(null));
       createPostAction(text, modalHasData ? modalHasData : attachedFilm, spoiler, user?.nick) && toast.success("Post created!");
     } else {
       toast.error("Post field must be between 1 and 280 characters!");
@@ -62,9 +59,9 @@ function FeedActionBox() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          onChange={(e) =>
-            e.target.value.length > 0 && e.target.value.length <= 280 && dispatch(createPostActions.updateText(e.target.value))
-          }
+          onChange={(e) => {
+            e.target.value.length > 0 && e.target.value.length <= 280 && dispatch(createPostActions.updateText(e.target.value));
+          }}
           onKeyDown={(e) => handlePost(e)}
         />
         {modalName === "attachedFilmModal" && modalHasData && (

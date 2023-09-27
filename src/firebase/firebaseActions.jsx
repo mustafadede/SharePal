@@ -312,8 +312,11 @@ const createPostAction = async (text, attachedFilm, spoiler, nick) => {
       attachedFilm: attachedFilm || null,
       content: text,
       likes: 0,
+      likesList: [],
       comments: 0,
+      commentsList: [],
       repost: 0,
+      repostList: [],
       date: Date.now(),
     });
     return true;
@@ -368,6 +371,59 @@ const updateSelectedPost = async (userId, postId, data) => {
       console.log("No data available");
       return null;
     }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+const getAllSelectedUserPostLikeLists = async () => {
+  const userId = getAuth().currentUser.uid;
+  const postsRef = ref(database, `likesList/${userId}`);
+  const snapshot = await get(postsRef);
+  const allPosts = [];
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      const posts = childSnapshot.val();
+      Object.entries(posts).forEach(([key, value]) => {
+        allPosts.push({
+          id: key,
+          userId: childSnapshot.key,
+          nick: value.nick,
+          photoURL: value.photoURL,
+          bannerURL: value.bannerURL,
+          date: value.date,
+        });
+      });
+    });
+  }
+  return allPosts;
+};
+
+const createSelectedUserPostLikeLists = async (data) => {
+  try {
+    const userId = getAuth().currentUser.uid;
+    const postsRef = push(ref(database, `likesList/${userId}/`));
+    set(postsRef, ...data);
+    return true;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+const removeSelectedUserPostLikeLists = async (userId, postId, data) => {
+  try {
+    const postsRef = ref(database, `likesList/${userId}/${postId}/`);
+    const snapshot = await get(postsRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().userId === data.id) {
+          set(ref(database, `likesList/${userId}/${postId}/${childSnapshot.key}`), null);
+        }
+      });
+    }
+    return true;
   } catch (error) {
     console.error(error);
     return null;
@@ -565,6 +621,8 @@ export {
   removePinnedList,
   getSelectedUserLists,
   updateSelectedUserLists,
+  createSelectedUserPostLikeLists,
+  removeSelectedUserPostLikeLists,
   uploadProfilePhoto,
   uploadBannerPhoto,
 };
