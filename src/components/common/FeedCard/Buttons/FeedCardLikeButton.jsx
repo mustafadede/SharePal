@@ -2,17 +2,29 @@ import React, { useState } from "react";
 import { HeartIcon, HeartFilledIcon } from "@radix-ui/react-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { postActionActions } from "../../../../store/postActionSlice";
+import { updateSelectedPost } from "../../../../firebase/firebaseActions";
 function FeedCardLikeButton({ data }) {
   const [isLiked, setIsLiked] = useState(false);
   const dispatch = useDispatch();
+  const likes = useSelector((state) => state.postAction.postLikesList);
+
   const handleLike = () => {
     setIsLiked(!isLiked);
-    if (!isLiked) {
-      dispatch(postActionActions.addPostToLikesList({ ...data, isLiked: true, likes: data.likes + 1 }));
-    } else {
-      dispatch(postActionActions.removePostFromLikesList(data.id));
-    }
+    // if (!isLiked) {
+    //   updateSelectedPost(data.userId, data.postId, { likes: data.likes + 1 });
+    //   dispatch(postActionActions.addPostToLikesList({ id: data.postId, userId: data.userId }));
+    // } else {
+    //   data.likes > 0 && updateSelectedPost(data.userId, data.postId, { likes: data.likes - 1 });
+    // }
   };
+
+  // useState(() => {
+  //   const checkIfLiked = () => {
+  //     const isLiked = likes.find((like) => like.id === data.postId && like.userId === data.userId);
+  //     isLiked && setIsLiked(true);
+  //   };
+  //   checkIfLiked();
+  // }, []);
 
   return (
     <button className="flex items-center gap-2" onClick={handleLike}>

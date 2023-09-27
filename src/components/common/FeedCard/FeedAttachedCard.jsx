@@ -103,9 +103,9 @@ function FeedAttachedCard({ data, index, attachedData }) {
         </button> */}
       </div>
       <div className="flex gap-2">
-        <FeedCardActionsSkeleton action={"likes"} number={postAction.postLikesList[index]?.likes} data={data} />
-        <FeedCardActionsSkeleton action={"comments"} number={postAction.postCommentsList[index]?.comments} data={data} />
-        <FeedCardActionsSkeleton action={"reposts"} number={postAction.postRepostsList[index]?.reposts} data={data} />
+        <FeedCardActionsSkeleton action={"likes"} number={data.likes} data={data} />
+        <FeedCardActionsSkeleton action={"comments"} number={data.comments} data={data} />
+        <FeedCardActionsSkeleton action={"reposts"} number={data.reposts} data={data} />
       </div>
       <FeedCardButtons data={data} />
     </motion.div>

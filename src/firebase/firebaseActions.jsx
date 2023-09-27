@@ -305,6 +305,7 @@ const createPostAction = async (text, attachedFilm, spoiler, nick) => {
     const userId = getAuth().currentUser.uid;
     const newPostRef = push(ref(database, `posts/${userId}`));
     set(newPostRef, {
+      userId: userId,
       photoURL: getAuth().currentUser.photoURL || null,
       nick: nick,
       spoiler: spoiler || null,
@@ -342,11 +343,35 @@ const getAllPosts = async () => {
           likes: value.likes,
           comments: value.comments,
           date: value.date,
+          userId: value.userId,
         });
       });
     });
   }
   return allPosts.sort((a, b) => a.date - b.date);
+};
+
+const updateSelectedPost = async (userId, postId, data) => {
+  try {
+    const postsRef = ref(database, `posts/${userId}/`);
+    const snapshot = await get(postsRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.key === postId) {
+          const updates = {};
+          updates[`posts/${userId}/${childSnapshot.key}`] = { ...childSnapshot.val(), ...data };
+          update(ref(database), updates);
+        }
+      });
+      return true;
+    } else {
+      console.log("No data available");
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };
 
 const getSelectedUserPosts = async (userId) => {
@@ -365,6 +390,7 @@ const getSelectedUserPosts = async (userId) => {
         comments: childSnapshot.val().comments,
         repost: childSnapshot.val().repost,
         date: childSnapshot.val().date,
+        userId: childSnapshot.val().userId,
       });
     });
   }
@@ -532,6 +558,7 @@ export {
   unfollowUser,
   createPostAction,
   getAllPosts,
+  updateSelectedPost,
   getSelectedUserPosts,
   createPinnedList,
   updatePinnedList,
