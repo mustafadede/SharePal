@@ -43,6 +43,7 @@ function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = fal
         releaseDate: modalHasData.releaseDate,
         backdrop: modalHasData.backdrop,
       }) && toast.success("Movie added successfully!");
+      dispatch(modalActions.closeModal());
     } else {
       navigate("/search");
       dispatch(modalActions.closeModal());

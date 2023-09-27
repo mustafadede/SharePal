@@ -377,23 +377,16 @@ const updateSelectedPost = async (userId, postId, data) => {
   }
 };
 
-const getAllSelectedUserPostLikeLists = async () => {
-  const userId = getAuth().currentUser.uid;
+const getAllSelectedUserPostLikeLists = async (userId) => {
   const postsRef = ref(database, `likesList/${userId}`);
   const snapshot = await get(postsRef);
   const allPosts = [];
   if (snapshot.exists()) {
     snapshot.forEach((childSnapshot) => {
-      const posts = childSnapshot.val();
-      Object.entries(posts).forEach(([key, value]) => {
-        allPosts.push({
-          id: key,
-          userId: childSnapshot.key,
-          nick: value.nick,
-          photoURL: value.photoURL,
-          bannerURL: value.bannerURL,
-          date: value.date,
-        });
+      allPosts.push({
+        date: childSnapshot.val().date,
+        id: childSnapshot.val().id,
+        postId: childSnapshot.val().postId,
       });
     });
   }
@@ -428,6 +421,27 @@ const removeSelectedUserPostLikeLists = async (userId, postId, data) => {
     console.error(error);
     return null;
   }
+};
+
+const getSpecificPost = async (userId, postId) => {
+  const postsRef = ref(database, `posts/${userId}/${postId}`);
+  const snapshot = await get(postsRef);
+  const post = [];
+  if (snapshot.exists()) {
+    post.push({
+      attachedFilm: snapshot.val()?.attachedFilm,
+      comments: snapshot.val().comments,
+      content: snapshot.val().content,
+      date: snapshot.val().date,
+      likes: snapshot.val().likes,
+      nick: snapshot.val().nick,
+      photoURL: snapshot.val().photoURL,
+      repost: snapshot.val().repost,
+      spoiler: snapshot.val()?.spoiler,
+      userId: snapshot.val().userId,
+    });
+  }
+  return post;
 };
 
 const getSelectedUserPosts = async (userId) => {
@@ -615,12 +629,14 @@ export {
   createPostAction,
   getAllPosts,
   updateSelectedPost,
+  getSpecificPost,
   getSelectedUserPosts,
   createPinnedList,
   updatePinnedList,
   removePinnedList,
   getSelectedUserLists,
   updateSelectedUserLists,
+  getAllSelectedUserPostLikeLists,
   createSelectedUserPostLikeLists,
   removeSelectedUserPostLikeLists,
   uploadProfilePhoto,

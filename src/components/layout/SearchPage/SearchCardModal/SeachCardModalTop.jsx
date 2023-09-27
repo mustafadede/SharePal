@@ -18,7 +18,7 @@ function SeachCardModalTop({ poster, backdrop, title, releaseDate, genres, media
       </motion.div>
       {/*Backdrop Image */}
       <div className="absolute top-0 right-0 w-full h-full overflow-hidden brightness-75 blur-md rounded-tr-2xl">
-        <img src={`https://image.tmdb.org/t/p/w500/${backdrop}`} className="w-full scale-y-150" alt={poster} />
+        <img src={`https://image.tmdb.org/t/p/w500/${backdrop}`} className="w-full h-full scale-y-150" alt={poster} />
       </div>
       {/* Title & Release Date */}
       <div className="absolute top-0 left-0 flex flex-col justify-center w-2/3 h-full p-6">

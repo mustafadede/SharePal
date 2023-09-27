@@ -78,7 +78,7 @@ function ProfilePage() {
           {activeTab === 0 && <StatsCard user={!username ? user : profileUser} username={username} />}
           {activeTab === 1 && <ListsSection username={username} userUID={profileUser?.uid} />}
           {activeTab === 2 && <PostsSection username={username} uid={profileUser?.uid} />}
-          {activeTab === 3 && <ActivitiesSection />}
+          {activeTab === 3 && <ActivitiesSection username={username} uid={profileUser?.uid} />}
         </div>
         <motion.div
           className="hidden w-fit h-fit lg:flex sticky top-[4.7rem] justify-center"

@@ -8,7 +8,6 @@ function FeedCardLikeButton({ data }) {
   const [isLiked, setIsLiked] = useState(false);
   const dispatch = useDispatch();
   const likes = useSelector((state) => state.postAction.postLikesList);
-  const { nick, banner } = useSelector((state) => state.user.user);
   const handleLike = () => {
     setIsLiked(!isLiked);
     if (!isLiked) {

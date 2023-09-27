@@ -28,7 +28,7 @@ function SearchCard({ id, title, poster, releaseDate, overview, vote, backdrop, 
   };
 
   const handleClick = () => {
-    dispatch(modalActions.openModal({ name: "pinnedModal", data: { title, poster, releaseDate, backdrop } }));
+    dispatch(modalActions.openModal({ name: "pinnedModal", data: { movieId: id, mediaType, title, poster, releaseDate, backdrop } }));
   };
   return (
     <motion.div
