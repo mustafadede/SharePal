@@ -24,6 +24,7 @@ import UserProfileBanner from "../../components/layout/ProfilePage/UserProfileBa
 import UserActionButtons from "../../components/layout/ProfilePage/UserActionButtons";
 import { followingActions } from "../../store/followingSlice";
 import { followersActions } from "../../store/followersSlice";
+import { modalActions } from "../../store/modalSlice";
 
 function ProfilePage() {
   const { username } = useParams();
@@ -38,6 +39,7 @@ function ProfilePage() {
   const { user } = useSelector((state) => state.user);
   const { profileUser } = useSelector((state) => state.profile);
   useEffect(() => {
+    dispatch(modalActions.closeModal());
     document.title = "SharePal | Profile";
     window.scrollTo(0, 0);
     if (!username) {

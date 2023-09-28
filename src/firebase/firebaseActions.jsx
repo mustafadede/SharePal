@@ -355,6 +355,23 @@ const getAllPosts = async () => {
   return allPosts.sort((a, b) => a.date - b.date);
 };
 
+const deleteSelectedPost = async (userId, postId) => {
+  try {
+    const postsRef = ref(database, `posts/${userId}/${postId}`);
+    const snapshot = await get(postsRef);
+    if (snapshot.exists()) {
+      set(ref(database, `posts/${userId}/${postId}`), null);
+      return true;
+    } else {
+      console.log("No data available");
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 const updateSelectedPost = async (userId, postId, data) => {
   try {
     const postsRef = ref(database, `posts/${userId}/`);
@@ -408,12 +425,13 @@ const createSelectedUserPostLikeLists = async (data) => {
 
 const removeSelectedUserPostLikeLists = async (userId, postId, data) => {
   try {
-    const postsRef = ref(database, `likesList/${userId}/${postId}/`);
+    const postsRef = ref(database, `likesList/${userId}/`);
     const snapshot = await get(postsRef);
     if (snapshot.exists()) {
       snapshot.forEach((childSnapshot) => {
-        if (childSnapshot.val().userId === data.id) {
-          set(ref(database, `likesList/${userId}/${postId}/${childSnapshot.key}`), null);
+        console.log(childSnapshot.val().id === data.id);
+        if (childSnapshot.val().id === data.id) {
+          set(ref(database, `likesList/${userId}/${childSnapshot.key}`), null);
         }
       });
     }
@@ -436,6 +454,7 @@ const getSpecificPost = async (userId, postId) => {
       date: snapshot.val().date,
       likes: snapshot.val().likes,
       nick: snapshot.val().nick,
+      likesList: snapshot.val().likesList,
       photoURL: snapshot.val().photoURL,
       repost: snapshot.val().repost,
       spoiler: snapshot.val()?.spoiler,
@@ -629,6 +648,7 @@ export {
   unfollowUser,
   createPostAction,
   getAllPosts,
+  deleteSelectedPost,
   updateSelectedPost,
   getSpecificPost,
   getSelectedUserPosts,
