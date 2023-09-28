@@ -26,8 +26,14 @@ function ActivitiesSection({ username, uid }) {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full overflow-y-scroll no-scrollbar">
-      {username && activities.length === 0 && <p className="text-2xl text-slate-400">This user doesn't have any activity.</p>}
-      {!username && activities.length === 0 && <p className="text-2xl text-slate-400">You don't have any activity.</p>}
+      {username && activities.length === 0 && (
+        <p className="w-full p-4 mt-1 text-xl text-center text-slate-400 bg-slate-900 rounded-2xl h-fit">
+          This user doesn't have any activity.
+        </p>
+      )}
+      {!username && activities.length === 0 && (
+        <p className="w-full p-4 mt-1 text-xl text-center text-slate-400 bg-slate-900 rounded-2xl h-fit">You don't have any activity.</p>
+      )}
       {activities
         .map((data, index) => {
           if (data[0].attachedFilm) {

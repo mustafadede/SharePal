@@ -8,7 +8,7 @@ import { Cross1Icon, DotsHorizontalIcon, Pencil1Icon } from "@radix-ui/react-ico
 
 function FeedCommentCard({ data, index }) {
   const [settings, setSettings] = useState(false);
-  const user = useSelector((state) => state.user.user.nick);
+  const user = useSelector((state) => state.user.user?.nick);
   const postAction = useSelector((state) => state.postAction);
   const day = new Date(data.date).getDate();
   const month = new Date(data.date).getMonth() + 1;

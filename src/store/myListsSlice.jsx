@@ -6,6 +6,7 @@ const myListsSlice = createSlice({
     myCoppiedList: [],
     myLists: [],
     pinnedLists: [],
+    status: null,
   },
   reducers: {
     setMyCoppiedList: (state, action) => {
@@ -28,6 +29,9 @@ const myListsSlice = createSlice({
     },
     addToList: (state, action) => {
       state.myLists[action.payload.listNum].list.push(action.payload);
+    },
+    updateStatus: (state, action) => {
+      state.status = action.payload;
     },
   },
 });

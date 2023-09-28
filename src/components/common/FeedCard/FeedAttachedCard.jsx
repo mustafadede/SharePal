@@ -11,7 +11,7 @@ import { updatePinnedList } from "../../../firebase/firebaseActions";
 function FeedAttachedCard({ data, attachedData }) {
   const [settings, setSettings] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
-  const user = useSelector((state) => state.user.user.nick);
+  const user = useSelector((state) => state.user.user?.nick);
   const dispatch = useDispatch();
   const day = new Date(data.date).getDate();
   const month = new Date(data.date).getMonth() + 1;

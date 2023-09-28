@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 
 function FeedSpoilerCard({ data }) {
   const [settings, setSettings] = useState(false);
-  const user = useSelector((state) => state.user.user.nick);
+  const user = useSelector((state) => state.user.user?.nick);
   const day = new Date(data.date).getDate();
   const month = new Date(data.date).getMonth() + 1;
   const year = new Date(data.date).getFullYear();

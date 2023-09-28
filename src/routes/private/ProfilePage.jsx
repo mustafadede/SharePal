@@ -78,7 +78,7 @@ function ProfilePage() {
           {username ? <InfoCard user={profileUser} /> : <InfoCard user={user} isCurrentUser />}
           <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
           {activeTab === 0 && <StatsCard user={!username ? user : profileUser} username={username} />}
-          {activeTab === 1 && <ListsSection username={username} userUID={profileUser?.uid} />}
+          {activeTab === 1 && <ListsSection username={username} uid={profileUser?.uid} />}
           {activeTab === 2 && <PostsSection username={username} uid={profileUser?.uid} />}
           {activeTab === 3 && <ActivitiesSection username={username} uid={profileUser?.uid} />}
         </div>
