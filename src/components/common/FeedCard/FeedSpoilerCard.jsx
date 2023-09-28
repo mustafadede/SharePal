@@ -4,8 +4,10 @@ import { motion } from "framer-motion";
 import FeedCardActionsSkeleton from "./FeedCardActions/FeedCardActionsSkeleton";
 import { NavLink } from "react-router-dom";
 import { LockClosedIcon } from "@radix-ui/react-icons";
+import { useSelector } from "react-redux";
 
 function FeedSpoilerCard({ data }) {
+  const user = useSelector((state) => state.user.user.nick);
   const day = new Date(data.date).getDate();
   const month = new Date(data.date).getMonth() + 1;
   const year = new Date(data.date).getFullYear();
@@ -20,6 +22,7 @@ function FeedSpoilerCard({ data }) {
       e.target.classList.add("blur-sm");
     }
   };
+  console.log(data.nick === user);
   return (
     <motion.div
       className="flex flex-col w-full p-4 mb-4 bg-slate-900 rounded-xl"
@@ -31,7 +34,7 @@ function FeedSpoilerCard({ data }) {
           {!data.photoURL && <div className="w-12 h-12 rounded-full bg-fuchsia-600"></div>}
           {data.photoURL && <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" src={data.photoURL}></img>}
           <div className="flex flex-col">
-            <NavLink to={`/profile/${data.nick}`}>
+            <NavLink to={data.nick === user ? `/profile` : `/profile/${data.nick}`}>
               <p className="transition-all duration-300 text-md text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600">
                 @{data.nick}
               </p>

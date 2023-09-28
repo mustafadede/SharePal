@@ -11,6 +11,7 @@ import ListModal from "../components/layout/MyListModal/ListModal/ListModal";
 import LabelInfo from "../components/layout/LabelInfo";
 import ShareModal from "../components/layout/ShareModal/ShareModal";
 import FollowerModal from "../components/layout/FollowerModal/FollowerModal";
+import FeedCardActionModal from "../components/layout/FeedCardActionModal/FeedCardActionModal";
 
 function RootLayout() {
   const { modalState, modalName } = useSelector((state) => state.modal);
@@ -70,6 +71,11 @@ function RootLayout() {
         {modalState && modalName === "followerModal" && (
           <ModalSkeleton>
             <FollowerModal />
+          </ModalSkeleton>
+        )}
+        {modalState && modalName === "likesModal" && (
+          <ModalSkeleton>
+            <FeedCardActionModal />
           </ModalSkeleton>
         )}
         <Outlet />

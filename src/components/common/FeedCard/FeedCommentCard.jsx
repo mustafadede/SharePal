@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 function FeedCommentCard({ data, index }) {
+  const user = useSelector((state) => state.user.user.nick);
   const postAction = useSelector((state) => state.postAction);
   const day = new Date(data.date).getDate();
   const month = new Date(data.date).getMonth() + 1;
@@ -25,7 +26,7 @@ function FeedCommentCard({ data, index }) {
         {!data.photoURL && <div className="w-12 h-12 rounded-full bg-fuchsia-600"></div>}
         {data.photoURL && <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" src={data.photoURL}></img>}
         <div className="flex flex-col">
-          <NavLink to={`/profile/${data.nick}`}>
+          <NavLink to={data.nick === user ? `/profile` : `/profile/${data.nick}`}>
             <p className="transition-all duration-300 text-md text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600">
               @{data.nick}
             </p>

@@ -1,17 +1,11 @@
 import React, { useState } from "react";
 import { LoopIcon } from "@radix-ui/react-icons";
-import { postActionActions } from "../../../../store/postActionSlice";
 import { useDispatch } from "react-redux";
 function FeedCardRepostButton({ data }) {
   const [isReposted, setIsReposted] = useState(false);
   const dispatch = useDispatch();
   const handleRepost = () => {
     setIsReposted(!isReposted);
-    if (!isReposted) {
-      dispatch(postActionActions.updatePostToRepostList({ ...data, isReposted: !isReposted, reposts: data.reposts + 1 }));
-    } else {
-      dispatch(postActionActions.removePostFromRepostList(data.id));
-    }
   };
   return (
     <button className="flex items-center gap-2" onClick={handleRepost}>

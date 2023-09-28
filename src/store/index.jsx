@@ -4,7 +4,6 @@ import userSlice from "./userSlice";
 import createPostSlice from "./createPostSlice";
 import modalSlice from "./modalSlice";
 import myListsSlice from "./myListsSlice";
-import postActionSlice from "./postActionSlice";
 import profileSlice from "./profileSlice";
 import postsSlice from "./postsSlice";
 import followingSlice from "./followingSlice";
@@ -18,7 +17,6 @@ const store = configureStore({
     createPost: createPostSlice,
     modal: modalSlice,
     myLists: myListsSlice,
-    postAction: postActionSlice,
     posts: postsSlice,
     following: followingSlice,
     followers: followersSlice,

@@ -8,11 +8,9 @@ import { NavLink } from "react-router-dom";
 import { modalActions } from "../../../store/modalSlice";
 import { updatePinnedList } from "../../../firebase/firebaseActions";
 
-function FeedAttachedCard({ data, index, attachedData }) {
+function FeedAttachedCard({ data, attachedData }) {
   const [bookmarked, setBookmarked] = useState(false);
-  const postAction = useSelector((state) => state.postAction);
-  const { user } = useSelector((state) => state.user);
-  const { myLists } = useSelector((state) => state.myLists);
+  const user = useSelector((state) => state.user.user.nick);
   const dispatch = useDispatch();
   const day = new Date(data.date).getDate();
   const month = new Date(data.date).getMonth() + 1;
@@ -20,10 +18,10 @@ function FeedAttachedCard({ data, index, attachedData }) {
   const hour = new Date(data.date).getHours();
   const minute = new Date(data.date).getMinutes();
   const date = `${day}/${month}/${year} ${hour}:${minute < 10 ? "0" + minute : minute}`;
-  const onClickHandler = () => {
-    dispatch(modalActions.openModal({ name: "pinnedModal", data: data.attachedFilm }));
-    setBookmarked(!bookmarked);
-  };
+  // const onClickHandler = () => {
+  //   dispatch(modalActions.openModal({ name: "pinnedModal", data: data.attachedFilm }));
+  //   setBookmarked(!bookmarked);
+  // };
 
   const handleSpoiler = (e) => {
     if (e.target.classList.contains("blur-sm")) {
@@ -44,7 +42,7 @@ function FeedAttachedCard({ data, index, attachedData }) {
           {!data.photoURL && <div className="w-12 h-12 rounded-full bg-fuchsia-600"></div>}
           {data.photoURL && <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" src={data.photoURL}></img>}
           <div className="flex flex-col">
-            <NavLink to={user?.nick !== data.nick ? `/profile/${data.nick}` : "/profile"}>
+            <NavLink to={data.nick === user ? `/profile` : `/profile/${data.nick}`}>
               <p className="transition-all duration-300 text-md text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600">
                 @{data.nick}
               </p>
@@ -59,7 +57,7 @@ function FeedAttachedCard({ data, index, attachedData }) {
             {!data.photoURL && <div className="w-12 h-12 rounded-full bg-fuchsia-600"></div>}
             {data.photoURL && <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" src={data.photoURL}></img>}
             <div className="flex flex-col">
-              <NavLink to={`/profile/${data.nick}`}>
+              <NavLink to={data.nick === user ? `/profile` : `/profile/${data.nick}`}>
                 <p className="transition-all duration-300 text-md text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600">
                   @{data.nick}
                 </p>

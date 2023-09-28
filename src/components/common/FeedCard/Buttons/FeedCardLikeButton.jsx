@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { HeartIcon, HeartFilledIcon } from "@radix-ui/react-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { postActionActions } from "../../../../store/postActionSlice";
 import { createSelectedUserPostLikeLists, removeSelectedUserPostLikeLists, updateSelectedPost } from "../../../../firebase/firebaseActions";
 import { getAuth } from "firebase/auth";
 function FeedCardLikeButton({ data }) {
   const [isLiked, setIsLiked] = useState(false);
   const dispatch = useDispatch();
-  const likes = useSelector((state) => state.postAction.postLikesList);
+
   const handleLike = () => {
     setIsLiked(!isLiked);
     if (!isLiked) {
-      updateSelectedPost(data.userId, data.postId, { likes: data.likes + 1 });
+      updateSelectedPost(data.userId, data.postId, {
+        likes: data.likes + 1,
+        likesList: data.likesList ? [...data.likesList, getAuth().currentUser.uid] : [getAuth().currentUser.uid],
+      });
       createSelectedUserPostLikeLists([
         {
           id: data.userId,
@@ -19,22 +21,22 @@ function FeedCardLikeButton({ data }) {
           postId: data.postId,
         },
       ]);
-      dispatch(postActionActions.addPostToLikesList({ id: data.postId, userId: data.userId }));
     } else {
-      updateSelectedPost(data.userId, data.postId, { likes: data.likes - 1 });
+      updateSelectedPost(data.userId, data.postId, {
+        likes: data.likes - 1,
+        likeList: data.likeList.filter((id) => id !== getAuth().currentUser.uid),
+      });
       removeSelectedUserPostLikeLists(data.userId, data.postId, {
         id: getAuth().currentUser.uid,
       });
-      dispatch(postActionActions.removePostFromLikesList(data.postId));
     }
   };
 
   useState(() => {
-    // const checkIfLiked = () => {
-    //   const isLiked = likes.find((like) => like.id === data.postId && like.userId === data.userId);
-    //   isLiked && setIsLiked(true);
-    // };
-    // checkIfLiked();
+    const checkIfLiked = () => {
+      data.likesList?.find((id) => id === getAuth().currentUser.uid) && setIsLiked(true);
+    };
+    checkIfLiked();
   }, []);
 
   return (

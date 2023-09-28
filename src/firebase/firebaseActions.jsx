@@ -343,10 +343,11 @@ const getAllPosts = async () => {
           content: value.content,
           spoiler: value.spoiler,
           attachedFilm: value.attachedFilm,
+          likesList: value.likesList || null,
           likes: value.likes,
           comments: value.comments,
           date: value.date,
-          userId: value.userId,
+          userId: value.userId.trim(),
         });
       });
     });

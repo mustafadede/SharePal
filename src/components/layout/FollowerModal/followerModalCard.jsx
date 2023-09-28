@@ -26,8 +26,20 @@ function FollowerModalCard({ identify, info }) {
         });
       });
     };
+    const getLikesData = async () => {
+      getUserByTheIds(info).then((res) => {
+        getProfilePhoto(info).then((photo) => {
+          const data = {
+            ...res,
+            photo,
+          };
+          setData(data);
+        });
+      });
+    };
     identify === "Following" && getFollowingData();
     identify === "Followers" && getFollowersData();
+    identify === "likes" && getLikesData(info);
   }, []);
   return (
     <div className="relative flex items-center w-full h-24 gap-4 my-2 cursor-pointer group rounded-2xl">

@@ -74,10 +74,9 @@ function SearchPage() {
                   />
                 ) : null
               )}
-            {movies.length === 0 && <p className="text-2xl text-slate-600">✨ Search something ✨</p>}
+            {movies.length === 0 && users.length === 0 && <p className="text-2xl text-slate-600">✨ Search something ✨</p>}
           </div>
           <div className="flex flex-col w-full gap-7 mb-7">
-            {!users && !movies && <p className="text-2xl text-slate-600">✨ Not found anything ✨</p>}
             {!movies && users.map((user) => <SearchUserCard key={user.displayName} user={user} />)}
           </div>
           {/* Search results end */}
