@@ -6,6 +6,7 @@ import {
   getAllPosts,
   getCurrentUserData,
   getFollowersForUser,
+  getNotifications,
   getSelectedUserFollowing,
   getSelectedUserLists,
   getSelectedUserPosts,
@@ -22,6 +23,7 @@ import { MyListsActions } from "../../store/myListsSlice";
 import { userActions } from "../../store/userSlice";
 import { followingActions } from "../../store/followingSlice";
 import { followersActions } from "../../store/followersSlice";
+import { notificationActions } from "../../store/notificationSlice";
 
 function FeedPage() {
   const { posts, status } = useSelector((state) => state.posts);
@@ -40,6 +42,8 @@ function FeedPage() {
         response && dispatch(followingActions.initialFollowing(response));
         const followers = await getFollowersForUser(localStorage.getItem("user"));
         followers && dispatch(followersActions.initialFollowers(followers));
+        const notifications = await getNotifications(localStorage.getItem("user"));
+        notifications && dispatch(notificationActions.setNotification(notifications)) && dispatch(notificationActions.updateStatus("done"));
         if (tab === 0) {
           dispatch(postsActions.updateStatus("loading"));
           const response = await getAllPosts();
@@ -68,7 +72,6 @@ function FeedPage() {
       <Navbar
         isNotLoggedin={false}
         additionalClasses="sticky top-0 bg-gradient-to-t from-cGradient2/70 to-cGradient2 backdrop-blur-[2px] z-30"
-        onClickHandler={() => setNotification(!notification)}
       />
       <div className="flex mx-5 lg:gap-4 xl:gap-0 md:mx-10">
         <motion.div
@@ -93,30 +96,21 @@ function FeedPage() {
         <motion.div className="flex flex-col w-full xl:px-6">
           <FeedTabs tabInfo={tab} tab={setTab} />
           <FeedActionBox />
-          {notification && (
-            <div className="w-full h-screen">
-              <p className="w-full mt-1 text-xl text-center text-slate-400">You don't have any notification yet...</p>
-            </div>
-          )}
-          {!notification && (
-            <>
-              {tab === 0 && status === "loading" && <p className="w-full mt-1 text-xl text-center text-slate-400">Loading...</p>}
-              {tab === 0 &&
-                status === "done" &&
-                posts
-                  .map((data, index) => {
-                    if (data.attachedFilm) {
-                      return <FeedCard key={index} isAttached={true} data={data} index={index} />;
-                    } else if (data.spoiler) {
-                      return <FeedCard key={index} isSpoiler={true} data={data} index={index} />;
-                    } else {
-                      return <FeedCard key={index} isComment={true} data={data} index={index} />;
-                    }
-                  })
-                  .reverse()}
-              {tab === 1 && <p className="w-full mt-1 text-xl text-center text-slate-400">You don't follow anything yet...</p>}
-            </>
-          )}
+          {tab === 0 && status === "loading" && <p className="w-full mt-1 text-xl text-center text-slate-400">Loading...</p>}
+          {tab === 0 &&
+            status === "done" &&
+            posts
+              .map((data, index) => {
+                if (data.attachedFilm) {
+                  return <FeedCard key={index} isAttached={true} data={data} index={index} />;
+                } else if (data.spoiler) {
+                  return <FeedCard key={index} isSpoiler={true} data={data} index={index} />;
+                } else {
+                  return <FeedCard key={index} isComment={true} data={data} index={index} />;
+                }
+              })
+              .reverse()}
+          {tab === 1 && <p className="w-full mt-1 text-xl text-center text-slate-400">You don't follow anything yet...</p>}
         </motion.div>
         <motion.div
           className="hidden w-1/3 h-fit lg:flex sticky top-[4.7rem] justify-center"

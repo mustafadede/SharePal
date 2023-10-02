@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { followUser, unfollowUser, updateCurrentUserData } from "../../../firebase/firebaseActions";
+import { createNotification, followUser, unfollowUser, updateCurrentUserData } from "../../../firebase/firebaseActions";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { followingActions } from "../../../store/followingSlice";
@@ -28,6 +28,16 @@ function UserActionButtons({ profileUser }) {
       await updateCurrentUserData(profileUser.uid, { followers: profileUser.followers + 1 });
       await followUser(localStorage.getItem("user"), { following: followingList.length, uid: profileUser.uid });
       toast.success(`You are now following ${profileUser.nick}`);
+      const date = new Date().toISOString();
+      createNotification(profileUser.uid, {
+        from: {
+          uid: localStorage.getItem("user"),
+          nick: user.nick,
+          photo: user.photoURL,
+        },
+        date: date,
+        type: "follow",
+      });
     }
   };
   return (

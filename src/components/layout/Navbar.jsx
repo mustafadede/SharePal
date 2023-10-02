@@ -7,8 +7,10 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/authSlice";
+import { getNotifications } from "../../firebase/firebaseActions";
+import { notificationActions } from "../../store/notificationSlice";
 
 const dropdownItems = [
   {
@@ -27,7 +29,9 @@ const dropdownItems = [
 
 function Navbar({ isNotLoggedin = true, additionalClasses = "", onClickHandler }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [notify, setNotify] = useState(false);
   const dispatch = useDispatch();
+  const { notificationList } = useSelector((state) => state.notification);
   const navigate = useNavigate();
 
   const handleNavigation = () => {
@@ -37,6 +41,22 @@ function Navbar({ isNotLoggedin = true, additionalClasses = "", onClickHandler }
       navigate("/feed");
     }
   };
+
+  useState(() => {
+    if (localStorage.getItem("user")) {
+      getNotifications(localStorage.getItem("user")).then((notifications) => {
+        !notifications &&
+          dispatch(notificationActions.updateStatus("error")) &&
+          localStorage.setItem("notifications", JSON.stringify(false));
+        notifications && dispatch(notificationActions.setNotification(notifications));
+        notifications && localStorage.getItem("lookUpDate") && setNotify(false);
+        notifications && !localStorage.getItem("lookUpDate") && setNotify(true);
+      });
+    }
+    return () => {
+      setNotify(false);
+    };
+  }, []);
 
   return (
     <nav className={`flex flex-wrap items-center justify-between py-4 mx-5 md:mx-10 ${additionalClasses}`}>
@@ -54,9 +74,14 @@ function Navbar({ isNotLoggedin = true, additionalClasses = "", onClickHandler }
         ) : (
           <>
             <div className="flex items-center justify-center gap-4">
-              <button className="flex items-center justify-center rounded w-7 h-7" onClick={onClickHandler}>
-                <BellIcon className="w-10 h-10 md:w-6 md:h-6 text-cWhite hover:text-fuchsia-700 hover:transition-colors" />
-              </button>
+              <Link to={"/notifications"}>
+                <button className="relative flex items-center justify-center rounded w-7 h-7" onClick={onClickHandler}>
+                  <BellIcon className="w-10 h-10 md:w-6 md:h-6 text-cWhite hover:text-fuchsia-700 hover:transition-colors" />
+                  {notify && (
+                    <div className="absolute flex items-center justify-center w-2 h-2 text-xs text-center rounded-full text-cWhite bg-fuchsia-700 -top-0 -right-0"></div>
+                  )}
+                </button>
+              </Link>
               <Link to={"/search"}>
                 <button className="flex items-center justify-center rounded w-7 h-7">
                   <MagnifyingGlassIcon className="w-10 h-10 md:w-7 md:h-7 text-cWhite hover:text-fuchsia-700 hover:transition-colors" />
@@ -100,6 +125,8 @@ function Navbar({ isNotLoggedin = true, additionalClasses = "", onClickHandler }
                     onClick={() =>
                       signOut(auth)
                         .then(() => {
+                          dispatch(notificationActions.setNotification([]));
+                          localStorage.removeItem("lookUpDate");
                           dispatch(authActions.logout());
                           return navigate("/login");
                         })

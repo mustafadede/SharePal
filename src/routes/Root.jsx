@@ -11,6 +11,7 @@ import PrivateRoute from "./PrivateRoute";
 import SettingsPage from "./private/SettingsPage";
 import SearchPage from "./private/SearchPage";
 import ExplorePage from "./private/ExplorePage";
+import NotificationsPage from "./private/NotificationsPage";
 const router = createHashRouter([
   {
     path: "/",
@@ -44,6 +45,14 @@ const router = createHashRouter([
           </PrivateRoute>
         ),
         children: [{ path: ":username", element: <ProfilePage /> }],
+      },
+      {
+        path: "notifications",
+        element: (
+          <PrivateRoute>
+            <NotificationsPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "explore",

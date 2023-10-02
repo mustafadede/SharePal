@@ -8,6 +8,7 @@ import profileSlice from "./profileSlice";
 import postsSlice from "./postsSlice";
 import followingSlice from "./followingSlice";
 import followersSlice from "./followersSlice";
+import notificationSlice from "./notificationSlice";
 
 const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ const store = configureStore({
     createPost: createPostSlice,
     modal: modalSlice,
     myLists: myListsSlice,
+    notification: notificationSlice,
     posts: postsSlice,
     following: followingSlice,
     followers: followersSlice,

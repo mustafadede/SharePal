@@ -487,6 +487,44 @@ const getSelectedUserPosts = async (userId) => {
   return allPosts;
 };
 
+const getNotifications = async (uid) => {
+  const notificationsRef = ref(database, `notifications/${uid}`);
+  const snapshot = await get(notificationsRef);
+  const notifications = [];
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      notifications.push({
+        from: childSnapshot.val().from,
+        date: childSnapshot.val().date,
+        type: childSnapshot.val().type,
+      });
+    });
+  } else {
+    return null;
+  }
+  return notifications;
+};
+
+const createNotification = async (uid, data) => {
+  console.log(data);
+  try {
+    const newNotificationRef = push(ref(database, `notifications/${uid}`));
+    set(newNotificationRef, {
+      from: {
+        uid: data.from.uid,
+        nick: data.from.nick,
+        photo: data.from.photo,
+      },
+      date: data.date,
+      type: data.type,
+    });
+    return true;
+  } catch (error) {
+    console.error(error);
+    return toast("Something went wrong!");
+  }
+};
+
 const createPinnedList = async (data) => {
   try {
     const userId = getAuth().currentUser.uid;
@@ -652,6 +690,8 @@ export {
   updateSelectedPost,
   getSpecificPost,
   getSelectedUserPosts,
+  getNotifications,
+  createNotification,
   createPinnedList,
   updatePinnedList,
   removePinnedList,
