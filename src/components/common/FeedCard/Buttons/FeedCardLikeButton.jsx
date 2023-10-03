@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import { HeartIcon, HeartFilledIcon } from "@radix-ui/react-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { createSelectedUserPostLikeLists, removeSelectedUserPostLikeLists, updateSelectedPost } from "../../../../firebase/firebaseActions";
+import {
+  createNotification,
+  createSelectedUserPostLikeLists,
+  removeSelectedUserPostLikeLists,
+  updateSelectedPost,
+} from "../../../../firebase/firebaseActions";
 import { getAuth } from "firebase/auth";
 function FeedCardLikeButton({ data }) {
   const [isLiked, setIsLiked] = useState(false);
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
 
   const handleLike = () => {
     setIsLiked(!isLiked);
@@ -22,7 +28,18 @@ function FeedCardLikeButton({ data }) {
             date: new Date().toISOString(),
             postId: data.postId,
           },
-        ]);
+        ]).then(() => {
+          createNotification(data.userId, {
+            from: {
+              uid: localStorage.getItem("user"),
+              nick: user.nick,
+              photo: user.photoURL,
+              postId: data.postId,
+            },
+            date: new Date().toISOString(),
+            type: "like",
+          });
+        });
       });
     } else {
       updateSelectedPost(data.userId, data.postId, {

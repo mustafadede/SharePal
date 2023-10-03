@@ -20,6 +20,7 @@ import { followingActions } from "../../store/followingSlice";
 import { userActions } from "../../store/userSlice";
 import { MyListsActions } from "../../store/myListsSlice";
 import { notificationActions } from "../../store/notificationSlice";
+import NotificationLikeCard from "../../components/common/NotificationCard/NotificationLikeCard";
 
 function NotificationsPage() {
   const { user } = useSelector((state) => state.user);
@@ -104,17 +105,31 @@ function NotificationsPage() {
             </motion.h1>
           )}
           {status === "done" &&
-            notificationList?.map((notification, index) => {
-              if (notification?.type === "follow")
-                return (
-                  <NotificationFollowCard
-                    key={index}
-                    nick={notification.from?.nick}
-                    photoURL={notification.from?.photo}
-                    date={notification?.date}
-                  />
-                );
-            })}
+            notificationList
+              ?.map((notification, index) => {
+                if (notification?.type === "follow") {
+                  return (
+                    <NotificationFollowCard
+                      key={index}
+                      nick={notification.from?.nick}
+                      photoURL={notification.from?.photo}
+                      date={notification?.date}
+                    />
+                  );
+                }
+                if (notification?.type === "like") {
+                  return (
+                    <NotificationLikeCard
+                      key={index}
+                      nick={notification.from?.nick}
+                      postId={notification.from?.postId}
+                      photoURL={notification.from?.photo}
+                      date={notification?.date}
+                    />
+                  );
+                }
+              })
+              .reverse()}
         </motion.div>
         <motion.div
           className="hidden w-1/3 h-fit lg:flex sticky top-[4.7rem] justify-center"

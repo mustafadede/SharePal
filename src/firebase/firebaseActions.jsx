@@ -487,6 +487,27 @@ const getSelectedUserPosts = async (userId) => {
   return allPosts;
 };
 
+const getSelectedUserPost = async (userId, postId) => {
+  const selectedUserPosts = ref(database, `posts/${userId}/${postId}`);
+  const snapshot = await get(selectedUserPosts);
+  const post = [];
+  if (snapshot.exists()) {
+    post.push({
+      photoURL: snapshot.val().photoURL,
+      nick: snapshot.val().nick,
+      content: snapshot.val().content,
+      spoiler: snapshot.val().spoiler,
+      attachedFilm: snapshot.val().attachedFilm,
+      likes: snapshot.val().likes,
+      comments: snapshot.val().comments,
+      repost: snapshot.val().repost,
+      date: snapshot.val().date,
+      userId: snapshot.val().userId,
+    });
+  }
+  return post;
+};
+
 const getNotifications = async (uid) => {
   const notificationsRef = ref(database, `notifications/${uid}`);
   const snapshot = await get(notificationsRef);
@@ -514,6 +535,7 @@ const createNotification = async (uid, data) => {
         uid: data.from.uid,
         nick: data.from.nick,
         photo: data.from.photo,
+        postId: data.from?.postId || null,
       },
       date: data.date,
       type: data.type,
@@ -690,6 +712,7 @@ export {
   updateSelectedPost,
   getSpecificPost,
   getSelectedUserPosts,
+  getSelectedUserPost,
   getNotifications,
   createNotification,
   createPinnedList,
