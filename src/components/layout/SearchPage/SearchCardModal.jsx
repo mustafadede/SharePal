@@ -46,7 +46,7 @@ function SearchCardModal() {
   };
 
   return (
-    <div className="bg-slate-900 w-[50rem] h-[37rem] rounded-2xl relative overflow-hidden overflow-y-scroll no-scrollbar">
+    <div className="bg-slate-900 w-96 h-[38rem] md:w-[45rem] lg:w-[50rem] md:h-[37rem] rounded-2xl relative overflow-hidden overflow-y-scroll no-scrollbar">
       <div className="absolute top-0 z-20 w-full p-6">
         <ModalHeader title="Information" />
       </div>

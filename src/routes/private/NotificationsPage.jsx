@@ -26,6 +26,7 @@ function NotificationsPage() {
   const { notificationList, status } = useSelector((state) => state.notification);
   const dispatch = useDispatch();
   useEffect(() => {
+    window.scrollTo(0, 0);
     localStorage.setItem("lookUpDate", JSON.stringify(new Date().toISOString()));
     const getNotificationsData = async () => {
       if (notificationList.length === 0) {

@@ -19,7 +19,7 @@ function Slider({ data, header, dataClassName, sliderType }) {
           breakpoints={{
             320: {
               width: 320,
-              spaceBetween: 10,
+              spaceBetween: 80,
               slidesPerView: 2,
             },
             500: {
@@ -70,7 +70,6 @@ function Slider({ data, header, dataClassName, sliderType }) {
                   backdrop={movie.backdrop_path || movie.poster_path || movie.profile_path || null}
                   genres={movie.genre_ids}
                   mediaType={sliderType || movie.media_type}
-                  page="explore"
                   id={movie.id}
                 />
               </SwiperSlide>

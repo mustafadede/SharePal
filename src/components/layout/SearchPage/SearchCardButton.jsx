@@ -7,7 +7,7 @@ function SearchCardButton({ title, icon, clickHandler }) {
       onClick={clickHandler}
     >
       {icon}
-      <p className="transition-all text-slate-400 group-hover:text-fuchsia-600">{title}</p>
+      <p className="transition-all hidden md:block text-slate-400 group-hover:text-fuchsia-600">{title}</p>
     </button>
   );
 }
