@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { modalActions } from "../../../store/modalSlice";
 import { updatePinnedList } from "../../../firebase/firebaseActions";
+import ActionDetailsCard from "../ActionDetailsCard";
 
 function FeedAttachedCard({ data, attachedData, notification }) {
   const [settings, setSettings] = useState(false);
@@ -132,20 +133,21 @@ function FeedAttachedCard({ data, attachedData, notification }) {
         {!notification && <FeedCardButtons data={data} />}
       </motion.div>
       {!notification && settings && (
-        <motion.div
-          className="flex w-full gap-2 p-2 mb-4 bg-slate-900 rounded-xl"
-          initial={{ opacity: 0, y: -20, transition: { duration: 7 } }}
-          animate={{ opacity: 1, y: 0, transition: { duration: 0.2 } }}
-        >
-          <button className="flex items-center w-full px-4 py-2 text-sm text-left text-slate-200 rounded-xl hover:bg-slate-800">
-            <Pencil1Icon className="w-5 h-5 mr-2" />
-            Edit
-          </button>
-          <button className="flex items-center w-full px-4 py-2 text-sm text-left bg-fuchsia-800/20 text-slate-200 rounded-xl hover:bg-slate-800">
-            <Cross1Icon className="w-5 h-5 mr-2" />
-            Delete
-          </button>
-        </motion.div>
+        <ActionDetailsCard
+          haveBorder={false}
+          icon1={
+            <button className="flex items-center w-full px-4 py-2 text-sm text-left transition-all text-slate-200 rounded-xl hover:bg-slate-800">
+              <Pencil1Icon className="w-5 h-5 mr-2" />
+              Edit
+            </button>
+          }
+          icon2={
+            <button className="flex items-center w-full px-4 py-2 text-sm text-left transition-all bg-fuchsia-800/20 text-slate-200 rounded-xl hover:bg-slate-800">
+              <Cross1Icon className="w-5 h-5 mr-2" />
+              Delete
+            </button>
+          }
+        />
       )}
     </div>
   );

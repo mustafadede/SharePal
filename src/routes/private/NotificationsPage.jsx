@@ -101,7 +101,7 @@ function NotificationsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              Try more {user.nick}. Follow more people. Follow the rabbit hole.
+              Try more {user?.nick}. Follow more people. Follow the rabbit hole.
             </motion.h1>
           )}
           {status === "done" &&

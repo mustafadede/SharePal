@@ -14,7 +14,11 @@ function FollowerModal() {
         {modalHasData.followType === "Following" &&
           followingList.map((item) => <FollowerModalCard identify={modalHasData.followType} key={item.date} info={item} />)}
         {modalHasData.followType === "Followers" &&
-          followersLists.map((item) => <FollowerModalCard identify={modalHasData.followType} key={item.date} info={item} />)}
+          followersLists?.map((item) => <FollowerModalCard identify={modalHasData.followType} key={item.date} info={item} />)}
+        {modalHasData.followType === "Followers" && (!followersLists || followersLists?.lenght === 0) && (
+          <p className="text-2xl text-slate-600">No followers</p>
+        )}
+        {modalHasData.followType === "Following" && followersLists?.lenght === 0 && <p className="text-2xl text-slate-600">No following</p>}
       </div>
     </div>
   );
