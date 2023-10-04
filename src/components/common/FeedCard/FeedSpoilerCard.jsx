@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import { Cross1Icon, DotsHorizontalIcon, LockClosedIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import { useSelector } from "react-redux";
 
-function FeedSpoilerCard({ data }) {
+function FeedSpoilerCard({ data, notification }) {
   const [settings, setSettings] = useState(false);
   const user = useSelector((state) => state.user.user?.nick);
   const day = new Date(data.date).getDate();
@@ -49,7 +49,7 @@ function FeedSpoilerCard({ data }) {
                 <LockClosedIcon className="w-4 h-4 text-slate-200" />
                 <p className="text-sm text-slate-400">Spoiler!</p>
               </div>
-              {data.nick === user && (
+              {!notification && data.nick === user && (
                 <div className="flex flex-col">
                   <button onClick={() => setSettings(!settings)}>
                     <DotsHorizontalIcon className="w-6 h-6 transition-colors text-slate-400 hover:text-slate-200" />
@@ -62,12 +62,14 @@ function FeedSpoilerCard({ data }) {
         <p className="py-4 transition-all duration-150 cursor-pointer select-none text-slate-200 blur-sm" onClick={handleSpoiler}>
           {data.text || data.content}
         </p>
-        <div className="flex gap-2">
-          <FeedCardActionsSkeleton action={"likes"} number={data.likes} data={data} />
-          <FeedCardActionsSkeleton action={"comments"} number={data.comments} data={data} />
-          <FeedCardActionsSkeleton action={"reposts"} number={data.repost} data={data} />
-        </div>
-        <FeedCardButtons data={data} />
+        {!notification && (
+          <div className="flex gap-2">
+            <FeedCardActionsSkeleton action={"likes"} number={data.likes} data={data} />
+            <FeedCardActionsSkeleton action={"comments"} number={data.comments} data={data} />
+            <FeedCardActionsSkeleton action={"reposts"} number={data.repost} data={data} />
+          </div>
+        )}
+        {!notification && <FeedCardButtons data={data} />}
       </motion.div>
       {settings && (
         <motion.div

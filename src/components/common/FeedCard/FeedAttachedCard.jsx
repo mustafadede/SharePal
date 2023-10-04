@@ -8,7 +8,7 @@ import { NavLink } from "react-router-dom";
 import { modalActions } from "../../../store/modalSlice";
 import { updatePinnedList } from "../../../firebase/firebaseActions";
 
-function FeedAttachedCard({ data, attachedData }) {
+function FeedAttachedCard({ data, attachedData, notification }) {
   const [settings, setSettings] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
   const user = useSelector((state) => state.user.user?.nick);
@@ -53,7 +53,7 @@ function FeedAttachedCard({ data, attachedData }) {
                 <p className="text-xs text-slate-400">{date}</p>
               </div>
             </div>
-            {data.nick === user && (
+            {!notification && data.nick === user && (
               <div className="flex flex-col">
                 <button onClick={() => setSettings(!settings)}>
                   <DotsHorizontalIcon className="w-6 h-6 transition-colors text-slate-400 hover:text-slate-200" />
@@ -82,7 +82,7 @@ function FeedAttachedCard({ data, attachedData }) {
                   <LockClosedIcon className="w-4 h-4 text-slate-200" />
                   <p className="text-sm text-slate-400">Spoiler!</p>
                 </div>
-                {data.nick === user && (
+                {!notification && data.nick === user && (
                   <div className="flex flex-col">
                     <button onClick={() => setSettings(!settings)}>
                       <DotsHorizontalIcon className="w-6 h-6 transition-colors text-slate-400 hover:text-slate-200" />
@@ -122,14 +122,16 @@ function FeedAttachedCard({ data, attachedData }) {
           )}
         </button> */}
         </div>
-        <div className="flex gap-2">
-          <FeedCardActionsSkeleton action={"likes"} number={data.likes} data={data} />
-          <FeedCardActionsSkeleton action={"comments"} number={data.comments} data={data} />
-          <FeedCardActionsSkeleton action={"reposts"} number={data.reposts} data={data} />
-        </div>
-        <FeedCardButtons data={data} />
+        {!notification && (
+          <div className="flex gap-2">
+            <FeedCardActionsSkeleton action={"likes"} number={data.likes} data={data} />
+            <FeedCardActionsSkeleton action={"comments"} number={data.comments} data={data} />
+            <FeedCardActionsSkeleton action={"reposts"} number={data.reposts} data={data} />
+          </div>
+        )}
+        {!notification && <FeedCardButtons data={data} />}
       </motion.div>
-      {settings && (
+      {!notification && settings && (
         <motion.div
           className="flex w-full gap-2 p-2 mb-4 bg-slate-900 rounded-xl"
           initial={{ opacity: 0, y: -20, transition: { duration: 7 } }}

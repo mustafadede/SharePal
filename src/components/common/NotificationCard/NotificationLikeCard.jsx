@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ChevronDownIcon, HeartIcon, PersonIcon } from "@radix-ui/react-icons";
 import { getSelectedUserPost } from "../../../firebase/firebaseActions";
-import FeedCard from "../FeedCard/";
+import FeedCard from "../FeedCard";
 
 function NotificationLikeCard({ nick, photoURL, date, postId }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,10 +40,10 @@ function NotificationLikeCard({ nick, photoURL, date, postId }) {
             <motion.p className="text-sm text-slate-400">{newDate}</motion.p>
           </motion.div>
         </div>
-        <div className="flex gap-4 items-center">
+        <div className="flex items-center gap-4">
           <HeartIcon className="w-6 h-6 text-slate-200" />
           <button
-            className="flex items-center justify-center w-7 h-7 rounded-full bg-slate-800 hover:bg-fuchsia-700 transition-all"
+            className="flex items-center justify-center transition-all rounded-full w-7 h-7 bg-slate-800 hover:bg-fuchsia-700"
             onClick={() => setIsOpen(!isOpen)}
           >
             <ChevronDownIcon className="w-6 h-6 text-slate-200" />
@@ -54,11 +54,11 @@ function NotificationLikeCard({ nick, photoURL, date, postId }) {
         post &&
         post.map((data, index) => {
           if (data.attachedFilm) {
-            return <FeedCard key={index} isAttached={true} data={data} index={index} />;
+            return <FeedCard key={index} isAttached={true} data={data} notification={true} index={index} />;
           } else if (data.spoiler) {
-            return <FeedCard key={index} isSpoiler={true} data={data} index={index} />;
+            return <FeedCard key={index} isSpoiler={true} data={data} notification={true} index={index} />;
           } else {
-            return <FeedCard key={index} isComment={true} data={data} index={index} />;
+            return <FeedCard key={index} isComment={true} data={data} notification={true} index={index} />;
           }
         })}
     </div>

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Cross1Icon, DotsHorizontalIcon, Pencil1Icon } from "@radix-ui/react-icons";
 
-function FeedCommentCard({ data, index }) {
+function FeedCommentCard({ data, index, notification }) {
   const [settings, setSettings] = useState(false);
   const user = useSelector((state) => state.user.user?.nick);
   const postAction = useSelector((state) => state.postAction);
@@ -38,7 +38,7 @@ function FeedCommentCard({ data, index }) {
               <p className="text-sm text-slate-400">{date}</p>
             </div>
           </div>
-          {data.nick === user && (
+          {!notification && data.nick === user && (
             <div className="flex flex-col">
               <button onClick={() => setSettings(!settings)}>
                 <DotsHorizontalIcon className="w-6 h-6 transition-colors text-slate-400 hover:text-slate-200" />
@@ -51,14 +51,16 @@ function FeedCommentCard({ data, index }) {
         <p className="py-4 text-slate-200">{data?.text || data.content}</p>
         {/*Comment Card Middle Top section: Input end */}
         {/*Comment Card Middle Bottom section: Stats start */}
-        <div className="flex gap-2">
-          <FeedCardActionsSkeleton action={"likes"} number={data.likes} data={data} />
-          <FeedCardActionsSkeleton action={"comments"} number={data.comments} data={data} />
-          <FeedCardActionsSkeleton action={"reposts"} number={data.reposts} data={data} />
-        </div>
+        {!notification && (
+          <div className="flex gap-2">
+            <FeedCardActionsSkeleton action={"likes"} number={data.likes} data={data} />
+            <FeedCardActionsSkeleton action={"comments"} number={data.comments} data={data} />
+            <FeedCardActionsSkeleton action={"reposts"} number={data.reposts} data={data} />
+          </div>
+        )}
         {/*Comment Card Middle Bottom section: Stats end */}
         {/*Comment Card Bottom section: Buttons starts */}
-        <FeedCardButtons data={data} />
+        {!notification && <FeedCardButtons data={data} />}
         {/*Comment Card Bottom section: Buttons end */}
       </motion.div>
       {settings && (
