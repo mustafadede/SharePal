@@ -6,11 +6,11 @@ import ListModalCard from "./ListModalCard";
 function ListModal() {
   const { modalHasData } = useSelector((state) => state.modal);
   const [search, setSearch] = useState("");
-  let findIndexForSearchItem;
+  const [findIndexForSearchItem, setFindIndexForSearchItem] = useState(null);
   useState(() => {
     if (!modalHasData.username) {
-      findIndexForSearchItem = Object.values(modalHasData.list)?.findIndex((item) =>
-        item.title.toLowerCase().includes(search.toLowerCase())
+      setFindIndexForSearchItem(
+        Object.values(modalHasData.list)?.findIndex((item) => item.title.toLowerCase().includes(search.toLowerCase()))
       );
     }
   }, [modalHasData.username === null]);
@@ -38,6 +38,8 @@ function ListModal() {
                 <ListModalCard
                   key={index}
                   id={Object.keys(modalHasData.list)[index]}
+                  listId={modalHasData.id}
+                  findIndex={null}
                   title={item.title}
                   poster={item.poster}
                   releaseDate={item.releaseDate}
@@ -54,7 +56,7 @@ function ListModal() {
                   <ListModalCard
                     key={index}
                     id={Object.keys(modalHasData.list)[findIndexForSearchItem]}
-                    listId={modalHasData.listId}
+                    listId={modalHasData.id}
                     findIndex={findIndexForSearchItem}
                     title={item.title}
                     poster={item.poster}

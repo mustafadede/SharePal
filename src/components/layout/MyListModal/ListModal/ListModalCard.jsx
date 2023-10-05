@@ -1,16 +1,20 @@
 import React, { useState } from "react";
-import { Cross1Icon, ShuffleIcon } from "@radix-ui/react-icons";
+import { Cross1Icon, InfoCircledIcon, ShuffleIcon } from "@radix-ui/react-icons";
 import ActionDetailsCard from "../../../common/ActionDetailsCard";
 import { deleteSelectedUserListsItem } from "../../../../firebase/firebaseActions";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { MyListsActions } from "../../../../store/myListsSlice";
+import useSearchWithYear from "../../../../hooks/useSearchWithYear";
+import { modalActions } from "../../../../store/modalSlice";
 
-function ListModalCard({ id, listId = null, findIndex = null, title, poster, releaseDate, backdrop, username }) {
+function ListModalCard({ id, listId, findIndex, title, poster, releaseDate, backdrop, username }) {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
 
   const deleteHandler = () => {
+    console.log(id, listId, findIndex);
+    // TODO :MAKE THIS WORK
     dispatch(MyListsActions.deleteListItem({ listId: listId, id: id, findIndex: findIndex }));
     // deleteSelectedUserListsItem(localStorage.getItem("user"), id).then((res) => {
     //   if (res) {
@@ -19,6 +23,29 @@ function ListModalCard({ id, listId = null, findIndex = null, title, poster, rel
     // });
   };
 
+  const movieInfoHandler = () => {
+    useSearchWithYear(title, releaseDate).then((data) => {
+      if (data) {
+        dispatch(
+          modalActions.openModal({
+            name: "searchCardModal",
+            data: {
+              id: data.id,
+              title: data.original_title || data.original_name,
+              poster: data.poster_path,
+              releaseDate: data.release_date || data.first_air_date,
+              overview: data.overview,
+              vote: data.vote_average,
+              backdrop: data.backdrop_path,
+              genres: data.genre_ids,
+              mediaType: data.media_type,
+              upcoming: data.upcoming,
+            },
+          })
+        );
+      }
+    });
+  };
   return (
     <div>
       <button
@@ -57,6 +84,15 @@ function ListModalCard({ id, listId = null, findIndex = null, title, poster, rel
             </button>
           }
           icon2={
+            <button
+              className="flex items-center w-full px-4 py-2 text-sm text-left transition-all text-slate-200 rounded-xl hover:bg-slate-800"
+              onClick={movieInfoHandler}
+            >
+              <InfoCircledIcon className="w-5 h-5 mr-2" />
+              Details
+            </button>
+          }
+          icon3={
             <button
               className="flex items-center w-full px-4 py-2 text-sm text-left transition-all bg-fuchsia-800/20 text-slate-200 rounded-xl hover:bg-slate-800"
               onClick={deleteHandler}
