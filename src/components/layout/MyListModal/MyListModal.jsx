@@ -16,7 +16,7 @@ function MyListModal() {
   useEffect(() => {
     const getUserLists = async () => {
       const res = await getSelectedUserLists(localStorage.getItem("user"));
-      dispatch(MyListsActions.setMyCoppiedList(res));
+      dispatch(MyListsActions.initilizeList(res));
     };
     getUserLists();
   }, []);

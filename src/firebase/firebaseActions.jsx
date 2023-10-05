@@ -659,6 +659,29 @@ const updateSelectedUserLists = async (userId, data) => {
   }
 };
 
+const deleteSelectedUserListsItem = async (userId, itemId) => {
+  try {
+    console.log(userId, itemId);
+    const pinnedListsRef = ref(database, `pinnedList/${userId}`);
+    const snapshot = await get(pinnedListsRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().list[itemId]) {
+          set(ref(database, `pinnedList/${userId}/${childSnapshot.key}/list/${itemId}`), null);
+        }
+      });
+
+      return true;
+    } else {
+      console.log("No data available");
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 const uploadProfilePhoto = async (file) => {
   try {
     const userId = getAuth().currentUser.uid;
@@ -733,6 +756,7 @@ export {
   getAllSelectedUserPostLikeLists,
   createSelectedUserPostLikeLists,
   removeSelectedUserPostLikeLists,
+  deleteSelectedUserListsItem,
   uploadProfilePhoto,
   uploadBannerPhoto,
 };

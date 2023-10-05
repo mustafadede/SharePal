@@ -31,7 +31,7 @@ function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = fal
   };
 
   const clickHandler = (id, title, list, date) => {
-    dispatch(modalActions.openModal({ name: "listModal", data: { id, title, list, date, listId: myLists[listNum].id } }));
+    dispatch(modalActions.openModal({ name: "listModal", data: { id, title, list, date } }));
   };
 
   const addHandler = () => {

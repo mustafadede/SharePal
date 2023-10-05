@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ModalHeader from "../../ModalSkeleton/ModalHeader";
 import ListModalCard from "./ListModalCard";
 
 function ListModal() {
   const { modalHasData } = useSelector((state) => state.modal);
   const [search, setSearch] = useState("");
+  let findIndexForSearchItem;
+  useState(() => {
+    if (!modalHasData.username) {
+      findIndexForSearchItem = Object.values(modalHasData.list)?.findIndex((item) =>
+        item.title.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+  }, [modalHasData.username === null]);
 
   return (
     <div className="bg-slate-900 rounded-2xl px-8 pt-4 overflow-hidden w-[25rem] md:w-[35rem] h-[28rem] md:h-[30rem]">
@@ -29,10 +37,12 @@ function ListModal() {
               return (
                 <ListModalCard
                   key={index}
+                  id={Object.keys(modalHasData.list)[index]}
                   title={item.title}
                   poster={item.poster}
                   releaseDate={item.releaseDate}
                   backdrop={item.backdrop}
+                  username={modalHasData.username}
                 />
               );
             })}
@@ -43,10 +53,14 @@ function ListModal() {
                 return (
                   <ListModalCard
                     key={index}
+                    id={Object.keys(modalHasData.list)[findIndexForSearchItem]}
+                    listId={modalHasData.listId}
+                    findIndex={findIndexForSearchItem}
                     title={item.title}
                     poster={item.poster}
                     releaseDate={item.releaseDate}
                     backdrop={item.backdrop}
+                    username={modalHasData.username}
                   />
                 );
               })}

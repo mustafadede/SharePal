@@ -27,7 +27,7 @@ function ListsSection({ username, uid }) {
       const getData = async () => {
         dispatch(MyListsActions.updateStatus("loading"));
         getSelectedUserLists(localStorage.getItem("user")).then((lists) => {
-          dispatch(MyListsActions.setMyCoppiedList(lists)) && dispatch(MyListsActions.updateStatus("done"));
+          dispatch(MyListsActions.initilizeList(lists)) && dispatch(MyListsActions.updateStatus("done"));
         });
       };
       getData();
@@ -63,14 +63,15 @@ function ListsSection({ username, uid }) {
               <p className="text-2xl text-white">Pinned Lists</p>
               <div className="flex flex-row flex-wrap xl:gap-4 2xl:gap-4">
                 {userList.map((list) => {
-                  if (list.isPinned) return <ListsSectionCard key={list.id} title={list.title} isPinned={list.isPinned} data={list} />;
+                  if (list.isPinned)
+                    return <ListsSectionCard key={list.id} title={list.title} isPinned={list.isPinned} data={list} username={username} />;
                 })}
               </div>
               <p className="text-2xl text-white">Lists</p>
               <div className="flex flex-row flex-wrap xl:gap-4 2xl:gap-4">
                 {userList.map((list) => {
                   if (!list.isPinned) {
-                    return <ListsSectionCard key={list.id} title={list.title} data={list} />;
+                    return <ListsSectionCard key={list.id} title={list.title} data={list} username={username} />;
                   }
                 })}
               </div>

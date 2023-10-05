@@ -1,9 +1,24 @@
 import React, { useState } from "react";
 import { Cross1Icon, ShuffleIcon } from "@radix-ui/react-icons";
 import ActionDetailsCard from "../../../common/ActionDetailsCard";
+import { deleteSelectedUserListsItem } from "../../../../firebase/firebaseActions";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { MyListsActions } from "../../../../store/myListsSlice";
 
-function ListModalCard({ title, poster, releaseDate, backdrop }) {
+function ListModalCard({ id, listId = null, findIndex = null, title, poster, releaseDate, backdrop, username }) {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  const deleteHandler = () => {
+    dispatch(MyListsActions.deleteListItem({ listId: listId, id: id, findIndex: findIndex }));
+    // deleteSelectedUserListsItem(localStorage.getItem("user"), id).then((res) => {
+    //   if (res) {
+    //     dispatch(MyListsActions.deleteListItem(id)) && toast.success("Item deleted successfully!");
+    //   }
+    // });
+  };
+
   return (
     <div>
       <button
@@ -33,7 +48,7 @@ function ListModalCard({ title, poster, releaseDate, backdrop }) {
           <p className="z-10 text-lg text-slate-400">({releaseDate?.slice(0, 4)})</p>
         </div>
       </button>
-      {isOpen && (
+      {isOpen && !username && (
         <ActionDetailsCard
           icon1={
             <button className="flex items-center w-full px-4 py-2 text-sm text-left transition-all text-slate-200 rounded-xl hover:bg-slate-800">
@@ -42,7 +57,10 @@ function ListModalCard({ title, poster, releaseDate, backdrop }) {
             </button>
           }
           icon2={
-            <button className="flex items-center w-full px-4 py-2 text-sm text-left transition-all bg-fuchsia-800/20 text-slate-200 rounded-xl hover:bg-slate-800">
+            <button
+              className="flex items-center w-full px-4 py-2 text-sm text-left transition-all bg-fuchsia-800/20 text-slate-200 rounded-xl hover:bg-slate-800"
+              onClick={deleteHandler}
+            >
               <Cross1Icon className="w-5 h-5 mr-2" />
               Delete
             </button>
