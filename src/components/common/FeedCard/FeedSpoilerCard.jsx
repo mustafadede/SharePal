@@ -4,12 +4,16 @@ import { motion } from "framer-motion";
 import FeedCardActionsSkeleton from "./FeedCardActions/FeedCardActionsSkeleton";
 import { NavLink } from "react-router-dom";
 import { Cross1Icon, DotsHorizontalIcon, LockClosedIcon, Pencil1Icon } from "@radix-ui/react-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ActionDetailsCard from "../ActionDetailsCard";
+import { postsActions } from "../../../store/postsSlice";
+import { deleteSelectedPost } from "../../../firebase/firebaseActions";
+import { toast } from "react-toastify";
 
 function FeedSpoilerCard({ data, notification }) {
   const [settings, setSettings] = useState(false);
   const user = useSelector((state) => state.user.user?.nick);
+  const dispatch = useDispatch();
   const day = new Date(data.date).getDate();
   const month = new Date(data.date).getMonth() + 1;
   const year = new Date(data.date).getFullYear();
@@ -23,6 +27,14 @@ function FeedSpoilerCard({ data, notification }) {
     } else {
       e.target.classList.add("blur-sm");
     }
+  };
+
+  const deleteHandler = () => {
+    deleteSelectedPost(localStorage.getItem("user"), data.postId).then((res) => {
+      if (res) {
+        dispatch(postsActions.deletePost(data.postId)) && toast.success("Post deleted successfully");
+      }
+    });
   };
   return (
     <div className="flex flex-col w-full">
@@ -82,7 +94,10 @@ function FeedSpoilerCard({ data, notification }) {
             </button>
           }
           icon2={
-            <button className="flex items-center w-full px-4 py-2 text-sm text-left transition-all bg-fuchsia-800/20 text-slate-200 rounded-xl hover:bg-slate-800">
+            <button
+              className="flex items-center w-full px-4 py-2 text-sm text-left transition-all bg-fuchsia-800/20 text-slate-200 rounded-xl hover:bg-slate-800"
+              onClick={deleteHandler}
+            >
               <Cross1Icon className="w-5 h-5 mr-2" />
               Delete
             </button>

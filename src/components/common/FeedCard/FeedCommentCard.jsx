@@ -2,13 +2,17 @@ import React, { useState } from "react";
 import FeedCardButtons from "./Buttons/FeedCardButtons";
 import { motion } from "framer-motion";
 import FeedCardActionsSkeleton from "./FeedCardActions/FeedCardActionsSkeleton";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Cross1Icon, DotsHorizontalIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import ActionDetailsCard from "../ActionDetailsCard";
+import { postsActions } from "../../../store/postsSlice";
+import { deleteSelectedPost } from "../../../firebase/firebaseActions";
+import { toast } from "react-toastify";
 
-function FeedCommentCard({ data, index, notification }) {
+function FeedCommentCard({ data, notification }) {
   const [settings, setSettings] = useState(false);
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user?.nick);
   const postAction = useSelector((state) => state.postAction);
   const day = new Date(data.date).getDate();
@@ -17,6 +21,12 @@ function FeedCommentCard({ data, index, notification }) {
   const hour = new Date(data.date).getHours();
   const minute = new Date(data.date).getMinutes();
   const date = `${day}/${month}/${year} ${hour}:${minute < 10 ? "0" + minute : minute}`;
+
+  const deleteHandler = () => {
+    deleteSelectedPost(localStorage.getItem("user"), data.postId).then(() => {
+      dispatch(postsActions.deletePost(data.postId)) && toast.success("Post deleted successfully");
+    });
+  };
 
   return (
     <div className="flex flex-col w-full">
@@ -74,7 +84,10 @@ function FeedCommentCard({ data, index, notification }) {
             </button>
           }
           icon2={
-            <button className="flex items-center w-full px-4 py-2 text-sm text-left transition-all bg-fuchsia-800/20 text-slate-200 rounded-xl hover:bg-slate-800">
+            <button
+              className="flex items-center w-full px-4 py-2 text-sm text-left transition-all bg-fuchsia-800/20 text-slate-200 rounded-xl hover:bg-slate-800"
+              onClick={deleteHandler}
+            >
               <Cross1Icon className="w-5 h-5 mr-2" />
               Delete
             </button>

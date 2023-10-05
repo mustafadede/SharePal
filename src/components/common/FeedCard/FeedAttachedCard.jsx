@@ -6,8 +6,10 @@ import FeedCardActionsSkeleton from "./FeedCardActions/FeedCardActionsSkeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { modalActions } from "../../../store/modalSlice";
-import { updatePinnedList } from "../../../firebase/firebaseActions";
+import { deleteSelectedPost, updatePinnedList } from "../../../firebase/firebaseActions";
 import ActionDetailsCard from "../ActionDetailsCard";
+import { toast } from "react-toastify";
+import { postsActions } from "../../../store/postsSlice";
 
 function FeedAttachedCard({ data, attachedData, notification }) {
   const [settings, setSettings] = useState(false);
@@ -31,6 +33,12 @@ function FeedAttachedCard({ data, attachedData, notification }) {
     } else {
       e.target.classList.add("blur-sm");
     }
+  };
+
+  const deleteHandler = () => {
+    deleteSelectedPost(localStorage.getItem("user"), data.postId).then(() => {
+      dispatch(postsActions.deletePost(data.postId)) && toast.success("Post deleted successfully");
+    });
   };
 
   return (
@@ -142,7 +150,10 @@ function FeedAttachedCard({ data, attachedData, notification }) {
             </button>
           }
           icon2={
-            <button className="flex items-center w-full px-4 py-2 text-sm text-left transition-all bg-fuchsia-800/20 text-slate-200 rounded-xl hover:bg-slate-800">
+            <button
+              className="flex items-center w-full px-4 py-2 text-sm text-left transition-all bg-fuchsia-800/20 text-slate-200 rounded-xl hover:bg-slate-800"
+              onClick={deleteHandler}
+            >
               <Cross1Icon className="w-5 h-5 mr-2" />
               Delete
             </button>
