@@ -45,6 +45,26 @@ function SearchCardModal() {
     });
   };
 
+  const bestMovieInYearHandler = () => {
+    const data = {
+      bestMovieYear: { title, poster, releaseDate },
+    };
+    updateCurrentUserData(localStorage.getItem("user"), data).then(() => {
+      toast("Best movie updated!");
+      dispatch(userActions.updateUser({ ...user, bestMovieYear: data }));
+    });
+  };
+
+  const bestSeriesInYearHandler = () => {
+    const data = {
+      bestSeriesYear: { title, poster, releaseDate },
+    };
+    updateCurrentUserData(localStorage.getItem("user"), data).then(() => {
+      toast("Best series updated!");
+      dispatch(userActions.updateUser({ ...user, bestSeriesYear: data }));
+    });
+  };
+
   return (
     <div className="bg-slate-900 w-96 h-[38rem] md:w-[45rem] lg:w-[50rem] md:h-[37rem] rounded-2xl relative overflow-hidden overflow-y-scroll no-scrollbar">
       <div className="absolute top-0 z-20 w-full p-6">
@@ -67,6 +87,8 @@ function SearchCardModal() {
         providers={providers}
         watchlistHandler={watchlistHandler}
         currentlyWatchingHandler={currentlyWatchingHandler}
+        bestMovieHandler={bestMovieInYearHandler}
+        bestSeriesHandler={bestSeriesInYearHandler}
       />
       <SearchCardModalBottom images={images} similar={similar} />
     </div>

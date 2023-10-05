@@ -27,6 +27,8 @@ const createUserWithEmailAction = async (data) => {
         quote: "",
         topOne: "",
         currentlyWatching: "",
+        bestMovieYear: "",
+        bestSeriesYear: "",
         banner: "",
       });
       updateProfile(auth.currentUser, {
@@ -80,6 +82,8 @@ const getCurrentUserData = async (userId) => {
         topOne: snapshot.val().topOne,
         banner: snapshot.val().banner,
         currentlyWatching: snapshot.val().currentlyWatching || "",
+        bestMovieYear: snapshot.val().bestMovieYear || "",
+        bestSeriesYear: snapshot.val().bestSeriesYear || "",
         photoURL: getAuth().currentUser.photoURL || snapshot.val().photoURL || "",
       };
       return user;
@@ -120,6 +124,8 @@ const getUserByTheUsername = async (username) => {
             topOne: childSnapshot.val().topOne,
             banner: childSnapshot.val().banner,
             currentlyWatching: childSnapshot.val().currentlyWatching || "",
+            bestMovieYear: childSnapshot.val().bestMovieYear || "",
+            bestSeriesYear: childSnapshot.val().bestSeriesYear || "",
           });
         }
       });
@@ -193,6 +199,8 @@ const getUserBySearch = async (username) => {
             topOne: childSnapshot.val().topOne,
             banner: childSnapshot.val().banner,
             currentlyWatching: childSnapshot.val().currentlyWatching || "",
+            bestMovieYear: childSnapshot.val().bestMovieYear || "",
+            bestSeriesYear: childSnapshot.val().bestSeriesYear || "",
           });
         }
       });
@@ -222,6 +230,8 @@ const updateCurrentUserData = async (userId, data) => {
         quote: data.quote || snapshot.val().quote,
         topOne: data.topOne || snapshot.val().topOne,
         currentlyWatching: data.currentlyWatching || snapshot.val().currentlyWatching || "",
+        bestMovieYear: data.bestMovieYear || snapshot.val().bestMovieYear || "",
+        bestSeriesYear: data.bestSeriesYear || snapshot.val().bestSeriesYear || "",
         photoURL: getAuth().currentUser.photoURL || snapshot.val().photoURL || null,
       });
       if (snapshotPosts.exists()) {
