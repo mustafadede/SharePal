@@ -3,15 +3,18 @@ import Navbar from "../../components/layout/Navbar";
 import PopularCard from "../../components/common/MostPopularCard/PopularCard";
 import { motion } from "framer-motion";
 import useUpcoming from "../../hooks/useUpcoming";
+import useNowPlaying from "../../hooks/useNowPlaying";
 import useTop10 from "../../hooks/useTop10";
 import Slider from "../../components/common/Slider";
 
 function ExplorePage() {
+  const [nowPlaying, setNowPlaying] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
   const [top10Movies, setTop10Movies] = useState([]);
   const [top10Series, setTop10Series] = useState([]);
   useEffect(() => {
     window.scrollTo(0, 0);
+    useNowPlaying(setNowPlaying);
     useUpcoming(setUpcoming);
     useTop10("series", setTop10Series);
     useTop10("movies", setTop10Movies);
@@ -27,6 +30,14 @@ function ExplorePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
+          <motion.div
+            className={`flex flex-col md:hidden h-full mt-4 gap-2 overflow-hidden overflow-x-auto no-scrollbar`}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            <Slider data={nowPlaying.results} sliderType="movie" header="Now Playing" dataClassName="topSeries" />
+          </motion.div>
           <motion.div
             className={`flex flex-col w-full h-full mt-4 gap-2`}
             initial={{ opacity: 0, y: -20 }}

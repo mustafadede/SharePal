@@ -35,7 +35,7 @@ function SearchCard({ id, title, poster, releaseDate, overview, vote, backdrop, 
       className={
         page === "explore"
           ? "relative w-full h-72 transition-all border-transparent cursor-pointer rounded-2xl hover:border hover:border-fuchsia-600"
-          : "relative w-[11.5rem] h-64 transition-all border-transparent cursor-pointer rounded-2xl hover:border hover:border-fuchsia-600"
+          : "relative w-[11rem] h-64 transition-all border-transparent cursor-pointer rounded-2xl hover:border hover:border-fuchsia-600"
       }
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}

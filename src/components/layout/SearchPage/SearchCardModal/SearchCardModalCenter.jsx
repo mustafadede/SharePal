@@ -80,7 +80,7 @@ function SearchCardModalCenter({
                   />
                 }
                 clickHandler={watchedHandler}
-                haveAdded={watched ? wantToWatch : clickAction2}
+                haveAdded={watched ? watched : clickAction2}
               />
             </div>
           </div>

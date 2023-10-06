@@ -11,7 +11,7 @@ function WatchedComponent() {
         {" "}
         {watchedList?.length > 0 ? watchedList?.length + " user watched this" : "People's watched"}
       </h3>
-      <div className="flex flex-wrap gap-2 mt-2 mb-2 md:mt-0 md:mb-0">
+      <div className="flex flex-wrap justify-center gap-2 mb-2 md:justify-start yt-2 md:mt-0 md:mb-0">
         {watchedList?.length > 0 ? (
           watchedList.map((item, i) => {
             return (

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 function WantToWatchComponent() {
-  const [data, setData] = useState([]);
   const { modalHasData } = useSelector((state) => state.modal);
   const { wantToWatchList } = useSelector((state) => state.wantToWatch);
 
@@ -11,7 +10,7 @@ function WantToWatchComponent() {
       <h3 className="pb-1 mt-4 overflow-hidden text-xl md:mt-0 h-fit text-slate-200">
         {wantToWatchList?.length > 0 ? wantToWatchList?.length + " user want to watch this" : "People's want to watch"}
       </h3>
-      <div className="flex flex-wrap gap-2 mt-2 mb-2 md:mt-0 md:mb-0">
+      <div className="flex flex-wrap justify-center gap-2 mt-2 mb-2 md:justify-start md:mt-0 md:mb-0">
         {wantToWatchList?.length > 0 ? (
           wantToWatchList.map((item, i) => {
             return (

@@ -56,7 +56,7 @@ function SearchPage() {
             {/* Search title and input end */}
           </motion.div>
           {/* Search results start */}
-          <div className="flex flex-row flex-wrap justify-start w-full gap-2 lg:gap-10">
+          <div className="flex flex-row flex-wrap justify-center w-full gap-2 md:justify-start lg:gap-10">
             {movies.length > 0 &&
               movies.map((movie) =>
                 movie.poster_path ? (

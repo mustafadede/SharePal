@@ -1,4 +1,4 @@
-const useNowPlaying = async () => {
+const useNowPlaying = async (setNowPlaying) => {
   const response = await fetch("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1", {
     headers: {
       accept: "application/json",
@@ -6,7 +6,7 @@ const useNowPlaying = async () => {
     },
   });
   const data = await response.json();
-  return data;
+  setNowPlaying(data);
 };
 
 export default useNowPlaying;
