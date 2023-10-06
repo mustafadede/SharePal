@@ -13,7 +13,7 @@ function StatsCard({ user, username }) {
     <motion.div className="flex items-center w-full h-fit" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
       <div className="flex flex-col w-full gap-6 lg:flex-row">
         <CurrentlyWatching username={username} user={user} navigate={navigate} />
-        <div className="flex flex-row w-full gap-6 lg:w-1/2 lg:flex-col">
+        <div className="flex flex-row w-full gap-6 lg:flex-col">
           <FavMovieThisYear username={username} user={user} navigate={navigate} />
           <FavSeriesThisYear username={username} user={user} navigate={navigate} />
         </div>

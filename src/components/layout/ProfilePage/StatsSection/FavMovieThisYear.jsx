@@ -9,7 +9,7 @@ function FavMovieThisYear({ username, user, navigate }) {
   return (
     <div className="flex flex-col w-full gap-4 p-4 h-fit rounded-xl bg-slate-900">
       <div className="flex items-center justify-between w-full gap-4">
-        <p className="w-full text-3xl font-bold text-slate-200">IMHO, {yearIndicator} Best Film!</p>
+        <p className="w-full text-xl font-bold md:text-3xl text-slate-200">IMHO, {yearIndicator} Best Film!</p>
         {!username && (
           <button
             className="flex items-center justify-center w-8 h-full translate text-slate-400 hover:text-fuchsia-700"
@@ -22,7 +22,7 @@ function FavMovieThisYear({ username, user, navigate }) {
       {user?.bestMovieYear ? (
         <div className="flex items-center gap-4 w-fit">
           <img
-            className="object-cover w-24 h-full md:w-16 rounded-2xl"
+            className="object-cover w-16 h-full rounded-2xl"
             src={`https://image.tmdb.org/t/p/w500/${user.bestMovieYear?.poster}`}
             alt={user.bestMovieYear?.title}
           />

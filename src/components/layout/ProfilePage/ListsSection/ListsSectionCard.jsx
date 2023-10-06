@@ -13,7 +13,7 @@ function ListsSectionCard({ title, isPinned, data, username = null }) {
       className="relative flex items-center justify-between w-full gap-2 p-2 transition-all border border-transparent md:w-48 h-fit hover:border-slate-600 group rounded-2xl"
       onClick={clickHandler}
     >
-      <p className="text-xl transition-all text-slate-200 2xl:text-2xl group-hover:text-fuchsia-600">{title}</p>
+      <p className="text-xl transition-all text-start text-slate-200 2xl:text-2xl group-hover:text-fuchsia-600">{title}</p>
       {isPinned && <DrawingPinFilledIcon className="w-7 h-7 text-fuchsia-600 right-4 top-4" />}
     </button>
   );

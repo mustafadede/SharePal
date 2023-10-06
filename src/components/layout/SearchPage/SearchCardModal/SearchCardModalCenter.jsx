@@ -1,10 +1,12 @@
 import React from "react";
 import SearchCardButton from "../SearchCardButton";
-import { BookmarkFilledIcon, BookmarkIcon, EyeOpenIcon, HeartFilledIcon, Link2Icon, PlusIcon, StarFilledIcon } from "@radix-ui/react-icons";
+import { BookmarkFilledIcon, BookmarkIcon, EyeOpenIcon, Link2Icon, PlusIcon, StarFilledIcon } from "@radix-ui/react-icons";
 import WantToWatchComponent from "../../../common/WantToWatchComponent";
 import WatchedComponent from "../../../common/WatchedComponent";
 
 function SearchCardModalCenter({
+  mediaType,
+  releaseDate,
   vote,
   overview,
   providers,
@@ -19,6 +21,8 @@ function SearchCardModalCenter({
   clickAction1,
   clickAction2,
 }) {
+  const yearIndicator = new Date().getFullYear();
+  console.log(releaseDate?.slice(0, 4) == yearIndicator);
   return (
     <div>
       <div className="relative flex justify-center gap-2 px-6 py-4 text-center md:justify-start md:text-left top-6">
@@ -40,16 +44,19 @@ function SearchCardModalCenter({
                 icon={<EyeOpenIcon className="w-6 h-6 transition-all text-slate-400 group-hover:text-fuchsia-600" />}
                 clickHandler={currentlyWatchingHandler}
               />
-              <SearchCardButton
-                title={"Best Movie in This Year"}
-                icon={<HeartFilledIcon className="w-6 h-6 transition-all text-slate-400 group-hover:text-fuchsia-600" />}
-                clickHandler={bestMovieHandler}
-              />
-              <SearchCardButton
-                title={"Best Series in This Year"}
-                icon={<StarFilledIcon className="w-6 h-6 transition-all text-slate-400 group-hover:text-fuchsia-600" />}
-                clickHandler={bestSeriesHandler}
-              />
+              {mediaType === "movie" && releaseDate?.slice(0, 4) == yearIndicator ? (
+                <SearchCardButton
+                  title={"Best Movie in This Year"}
+                  icon={<StarFilledIcon className="w-6 h-6 transition-all text-slate-400 group-hover:text-fuchsia-600" />}
+                  clickHandler={bestMovieHandler}
+                />
+              ) : releaseDate?.slice(0, 4) == yearIndicator ? (
+                <SearchCardButton
+                  title={"Best Series in This Year"}
+                  icon={<StarFilledIcon className="w-6 h-6 transition-all text-slate-400 group-hover:text-fuchsia-600" />}
+                  clickHandler={bestSeriesHandler}
+                />
+              ) : null}
               <SearchCardButton
                 title={"Want to watch"}
                 icon={

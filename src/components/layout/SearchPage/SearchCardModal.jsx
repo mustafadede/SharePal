@@ -149,6 +149,8 @@ function SearchCardModal() {
       />
       {/* Actions & Overview & Rating */}
       <SearchCardModalCenter
+        mediaType={mediaType}
+        releaseDate={releaseDate}
         vote={vote}
         overview={overview}
         providers={providers}
