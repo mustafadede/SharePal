@@ -9,7 +9,7 @@ function ListModal() {
   const [findIndexForSearchItem, setFindIndexForSearchItem] = useState(null);
   useState(() => {
     modalHasData.username
-      ? setFindIndexForSearchItem(modalHasData.list?.findIndex((item) => item.title.toLowerCase().includes(search.toLowerCase())))
+      ? setFindIndexForSearchItem(Array(modalHasData.list)?.findIndex((item) => item?.title?.toLowerCase().includes(search.toLowerCase())))
       : null;
   }, [modalHasData.username]);
 

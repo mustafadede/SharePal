@@ -103,6 +103,19 @@ function ListModalCard({ id, listId, findIndex, title, poster, releaseDate, back
           }
         />
       )}
+      {isOpen && username && (
+        <ActionDetailsCard
+          icon2={
+            <button
+              className="flex items-center w-full px-4 py-2 text-sm text-left transition-all text-slate-200 rounded-xl hover:bg-slate-800"
+              onClick={movieInfoHandler}
+            >
+              <InfoCircledIcon className="w-5 h-5 mr-2" />
+              Details
+            </button>
+          }
+        />
+      )}
     </div>
   );
 }
