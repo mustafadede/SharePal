@@ -726,6 +726,64 @@ const uploadBannerPhoto = async (file) => {
   }
 };
 
+const updateWantToWatch = async (data) => {
+  try {
+    const userId = getAuth().currentUser.uid;
+    const newWantToWatchRef = push(ref(database, `wanttowatch/${userId}`));
+    set(newWantToWatchRef, data);
+    return true;
+  } catch (error) {
+    console.error(error);
+    return toast("Something went wrong!");
+  }
+};
+
+const updateWatched = async (data) => {
+  try {
+    const userId = getAuth().currentUser.uid;
+    const newWatchedRef = push(ref(database, `watched/${userId}`));
+    set(newWatchedRef, data);
+    return true;
+  } catch (error) {
+    console.error(error);
+    return toast("Something went wrong!");
+  }
+};
+
+const getSelectedUserWantToWatch = async (userId) => {
+  const wantToWatchRef = ref(database, `wanttowatch/${userId}`);
+  const snapshot = await get(wantToWatchRef);
+  const selectedUserWantToWatch = [];
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      selectedUserWantToWatch.push({
+        id: childSnapshot.val().id,
+        mediaType: childSnapshot.val().mediaType,
+        name: childSnapshot.val().name,
+        photoURL: childSnapshot.val().photoURL,
+      });
+    });
+  }
+  return selectedUserWantToWatch;
+};
+
+const getSelectedUserWatched = async (userId) => {
+  const watchedRef = ref(database, `watched/${userId}`);
+  const snapshot = await get(watchedRef);
+  const selectedUserWatched = [];
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      selectedUserWatched.push({
+        id: childSnapshot.val().id,
+        mediaType: childSnapshot.val().mediaType,
+        name: childSnapshot.val().name,
+        photoURL: childSnapshot.val().photoURL,
+      });
+    });
+  }
+  return selectedUserWatched;
+};
+
 export {
   createUserWithEmailAction,
   signInWithEmailAction,
@@ -759,4 +817,8 @@ export {
   deleteSelectedUserListsItem,
   uploadProfilePhoto,
   uploadBannerPhoto,
+  updateWantToWatch,
+  updateWatched,
+  getSelectedUserWantToWatch,
+  getSelectedUserWatched,
 };

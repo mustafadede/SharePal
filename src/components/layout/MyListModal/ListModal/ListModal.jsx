@@ -8,12 +8,10 @@ function ListModal() {
   const [search, setSearch] = useState("");
   const [findIndexForSearchItem, setFindIndexForSearchItem] = useState(null);
   useState(() => {
-    if (!modalHasData.username) {
-      setFindIndexForSearchItem(
-        Object.values(modalHasData.list)?.findIndex((item) => item.title.toLowerCase().includes(search.toLowerCase()))
-      );
-    }
-  }, [modalHasData.username === null]);
+    modalHasData.username
+      ? setFindIndexForSearchItem(modalHasData.list?.findIndex((item) => item.title.toLowerCase().includes(search.toLowerCase())))
+      : null;
+  }, [modalHasData.username]);
 
   return (
     <div className="bg-slate-900 rounded-2xl px-8 pt-4 overflow-hidden w-[25rem] md:w-[35rem] h-[28rem] md:h-[30rem]">

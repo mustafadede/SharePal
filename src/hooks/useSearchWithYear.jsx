@@ -7,12 +7,10 @@ const useSearchWithYear = async (title, year) => {
         Authorization: `Bearer ${import.meta.env.VITE_REACT_APP_ACCESS_TOKEN}`,
       },
     });
-    console.log("hello");
     const data = await response.json();
     const filteredData = data.results.filter((item) =>
       item.release_date?.includes(year) ? item : item.first_air_date?.includes(year) ? item : null
     );
-    console.log(filteredData[0]);
     return filteredData[0];
   } catch (err) {
     console.log(err);

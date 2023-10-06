@@ -23,27 +23,26 @@ function Slider({ data, header, dataClassName, sliderType }) {
               slidesPerView: 2,
             },
             500: {
+              width: 500,
               slidesPerView: 3,
-              spaceBetween: 20,
+              spaceBetween: 60,
             },
             640: {
               slidesPerView: 3,
               spaceBetween: 30,
             },
             768: {
-              width: 768,
-              slidesPerView: 4,
-              spaceBetween: 40,
+              slidesPerView: 3,
+              spaceBetween: 20,
             },
             1024: {
               width: 1024,
               slidesPerView: 5,
-              spaceBetween: 50,
+              spaceBetween: 30,
             },
             1280: {
-              width: 1280,
-              slidesPerView: 5,
-              spaceBetween: 40,
+              width: 1180,
+              slidesPerView: 6,
             },
             1536: {
               width: 1536,

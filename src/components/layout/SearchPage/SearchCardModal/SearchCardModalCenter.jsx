@@ -1,6 +1,8 @@
 import React from "react";
 import SearchCardButton from "../SearchCardButton";
-import { EyeOpenIcon, HeartFilledIcon, Link2Icon, PlusIcon, StarFilledIcon } from "@radix-ui/react-icons";
+import { BookmarkFilledIcon, BookmarkIcon, EyeOpenIcon, HeartFilledIcon, Link2Icon, PlusIcon, StarFilledIcon } from "@radix-ui/react-icons";
+import WantToWatchComponent from "../../../common/WantToWatchComponent";
+import WatchedComponent from "../../../common/WatchedComponent";
 
 function SearchCardModalCenter({
   vote,
@@ -10,14 +12,20 @@ function SearchCardModalCenter({
   currentlyWatchingHandler,
   bestMovieHandler,
   bestSeriesHandler,
+  wantToWatchHandler,
+  watchedHandler,
+  wantToWatch,
+  watched,
+  clickAction1,
+  clickAction2,
 }) {
   return (
     <div>
       <div className="relative flex justify-center gap-2 px-6 py-4 text-center md:justify-start md:text-left top-6">
-        <div className="flex flex-col-reverse gap-4 md:flex-row">
-          <div className=" w-full md:w-[30rem]">
-            <h2 className="mb-3 text-3xl text-slate-200">Actions</h2>
-            <div className="flex flex-wrap gap-2 mb-2 md:mb-0">
+        <div className="flex flex-col gap-4 md:flex-row">
+          <div className=" w-full md:min-w-[28rem] md:max-w-[30rem]">
+            <h2 className="mb-2 text-3xl text-slate-200">Actions</h2>
+            <div className="flex flex-wrap justify-center gap-2 md:mb-0 md:justify-start">
               <SearchCardButton
                 title={"Add to Watchlist"}
                 icon={<PlusIcon className="w-6 h-6 transition-all text-slate-400 group-hover:text-fuchsia-600" />}
@@ -42,14 +50,50 @@ function SearchCardModalCenter({
                 icon={<StarFilledIcon className="w-6 h-6 transition-all text-slate-400 group-hover:text-fuchsia-600" />}
                 clickHandler={bestSeriesHandler}
               />
+              <SearchCardButton
+                title={"Want to watch"}
+                icon={
+                  <BookmarkIcon
+                    className={
+                      wantToWatch
+                        ? "w-6 h-6 transition-all text-fuchsia-600"
+                        : clickAction1
+                        ? "w-6 h-6 transition-all text-fuchsia-600"
+                        : "w-6 h-6 transition-all text-slate-400 group-hover:text-fuchsia-600"
+                    }
+                  />
+                }
+                clickHandler={wantToWatchHandler}
+                haveAdded={wantToWatch ? wantToWatch : clickAction1}
+              />
+              <SearchCardButton
+                title={"Watched"}
+                icon={
+                  <BookmarkFilledIcon
+                    className={
+                      watched
+                        ? "w-6 h-6 transition-all text-fuchsia-600"
+                        : clickAction2
+                        ? "w-6 h-6 transition-all text-fuchsia-600"
+                        : "w-6 h-6 transition-all text-slate-400 group-hover:text-fuchsia-600"
+                    }
+                  />
+                }
+                clickHandler={watchedHandler}
+                haveAdded={watched ? wantToWatch : clickAction2}
+              />
             </div>
           </div>
           <div className="flex flex-col items-center md:items-start">
-            <h3 className="pb-2 text-3xl text-slate-200">Rating</h3>
-            <div className="flex">
-              <p className="text-3xl text-slate-400">{vote.toString().slice(0, 3) + "/"}</p>
-              <p className="text-3xl text-slate-400"> 10</p>
+            <div className="max-w-xs h-fit">
+              <h3 className="pb-2 text-3xl text-slate-200">Rating</h3>
+              <div className="flex">
+                <p className="text-3xl text-slate-400">{vote.toString().slice(0, 3) + "/"}</p>
+                <p className="text-3xl text-slate-400"> 10</p>
+              </div>
             </div>
+            <WantToWatchComponent />
+            <WatchedComponent />
           </div>
         </div>
       </div>

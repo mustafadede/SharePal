@@ -9,6 +9,8 @@ import postsSlice from "./postsSlice";
 import followingSlice from "./followingSlice";
 import followersSlice from "./followersSlice";
 import notificationSlice from "./notificationSlice";
+import wantToWatchSlice from "./wantToWatchSlice";
+import watchedSlice from "./watchedSlice";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +22,8 @@ const store = configureStore({
     myLists: myListsSlice,
     notification: notificationSlice,
     posts: postsSlice,
+    wantToWatch: wantToWatchSlice,
+    watched: watchedSlice,
     following: followingSlice,
     followers: followersSlice,
   },
