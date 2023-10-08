@@ -7,6 +7,8 @@ const profileSlice = createSlice({
       photoURL: "",
       followers: 0,
       following: 0,
+      totalSeries: 0,
+      totalFilms: 0,
     },
   },
   reducers: {
@@ -24,6 +26,12 @@ const profileSlice = createSlice({
     },
     updateFollowing: (state, action) => {
       state.profileUser.following = action.payload;
+    },
+    updateTotalSeries: (state, action) => {
+      state.profileUser.totalSeries = action.payload;
+    },
+    updateTotalFilms: (state, action) => {
+      state.profileUser.totalFilms = action.payload;
     },
   },
 });

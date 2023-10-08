@@ -18,6 +18,12 @@ const userSlice = createSlice({
     unfollowUser: (state, action) => {
       state.user.following = action.payload;
     },
+    userTotalSeries: (state, action) => {
+      state.user.totalSeries = action.payload;
+    },
+    userTotalFilms: (state, action) => {
+      state.user.totalFilms = action.payload;
+    },
   },
 });
 

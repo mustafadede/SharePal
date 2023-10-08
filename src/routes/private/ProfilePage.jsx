@@ -14,6 +14,7 @@ import {
   getFollowersForUser,
   getProfilePhoto,
   getSelectedUserFollowing,
+  getSelectedUserWatched,
   getUserByTheUsername,
 } from "../../firebase/firebaseActions";
 import { userActions } from "../../store/userSlice";
@@ -53,6 +54,14 @@ function ProfilePage() {
             dispatch(followersActions.initialFollowers(followers));
           });
         });
+        getSelectedUserWatched(localStorage.getItem("user")).then((res) => {
+          const filteredTVData = res?.filter((item) => item.mediaType === "tv");
+          dispatch(userActions.userTotalSeries(filteredTVData.length));
+        });
+        getSelectedUserWatched(localStorage.getItem("user")).then((res) => {
+          const filteredMovieData = res?.filter((item) => item.mediaType === "movie");
+          dispatch(userActions.userTotalFilms(filteredMovieData.length));
+        });
       };
       getData();
     } else {
@@ -61,6 +70,14 @@ function ProfilePage() {
           getProfilePhoto(userData[0].uid).then((photo) => {
             dispatch(profileActions.updateUser(...userData));
             dispatch(profileActions.updateProfilePhoto(photo));
+            getSelectedUserWatched(userData[0].uid).then((res) => {
+              const filteredTVData = res?.filter((item) => item.mediaType === "tv");
+              dispatch(profileActions.updateTotalSeries(filteredTVData.length));
+            });
+            getSelectedUserWatched(userData[0].uid).then((res) => {
+              const filteredMovieData = res?.filter((item) => item.mediaType === "movie");
+              dispatch(profileActions.updateTotalFilms(filteredMovieData.length));
+            });
           });
         });
       };

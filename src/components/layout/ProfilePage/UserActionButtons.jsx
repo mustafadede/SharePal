@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { createNotification, followUser, unfollowUser, updateCurrentUserData } from "../../../firebase/firebaseActions";
+import {
+  createNotification,
+  followUser,
+  getFollowersForUser,
+  unfollowUser,
+  updateCurrentUserData,
+} from "../../../firebase/firebaseActions";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { followingActions } from "../../../store/followingSlice";
@@ -11,6 +17,14 @@ function UserActionButtons({ profileUser }) {
   const { user } = useSelector((state) => state.user);
   const { followingList } = useSelector((state) => state.following);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    getFollowersForUser(localStorage.getItem("user")).then((followers) => {
+      console.log(followers);
+      dispatch(followingActions.initialFollowing(followers));
+    });
+  }, []);
+
   const onClickHandler = async () => {
     if (followingList.some((user) => user.uid === profileUser?.uid)) {
       dispatch(followingActions.removeFollowing(profileUser.uid));

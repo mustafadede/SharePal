@@ -6,7 +6,7 @@ function CurrentlyWatching({ username, user, navigate }) {
     navigate("/search");
   };
   return (
-    <div className="flex flex-col w-full gap-4 p-4 lg:w-1/2 h-fit rounded-xl bg-slate-900">
+    <div className="flex flex-col w-full gap-4 p-4 h-fit rounded-xl bg-slate-900">
       <div className="flex items-center justify-between w-full gap-4">
         <p className="w-full text-3xl font-bold md:w-72 text-slate-200">Currently Watching</p>
         {!username && (
