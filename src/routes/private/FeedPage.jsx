@@ -110,7 +110,7 @@ function FeedPage() {
                 }
               })
               .reverse()}
-          {tab === 1 && <p className="w-full mt-1 text-xl text-center text-slate-400">You don't follow anything yet...</p>}
+          {tab === 1 && <p className="w-full mt-1 text-xl text-center text-slate-400">Coming soon...</p>}
         </motion.div>
         <motion.div
           className="hidden w-1/3 h-fit lg:flex sticky top-[4.7rem] justify-center"

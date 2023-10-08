@@ -8,6 +8,7 @@ import {
   updateSelectedPost,
 } from "../../../../firebase/firebaseActions";
 import { getAuth } from "firebase/auth";
+import { postsActions } from "../../../../store/postsSlice";
 function FeedCardLikeButton({ data }) {
   const [isLiked, setIsLiked] = useState(false);
   const dispatch = useDispatch();
@@ -29,6 +30,15 @@ function FeedCardLikeButton({ data }) {
             postId: data.postId,
           },
         ]).then(() => {
+          dispatch(
+            postsActions.updateLike({
+              postId: data.postId,
+              likes: data.likes + 1,
+              likesList: data.likesList
+                ? [...data.likesList, { id: getAuth().currentUser.uid, nick: getAuth().currentUser.displayName }]
+                : [{ id: getAuth().currentUser.uid, nick: getAuth().currentUser.displayName }],
+            })
+          );
           createNotification(data.userId, {
             from: {
               uid: localStorage.getItem("user"),
@@ -46,7 +56,13 @@ function FeedCardLikeButton({ data }) {
         likes: data.likes - 1,
         likesList: data.likesList?.filter((val) => val.id !== getAuth().currentUser.uid),
       }).then(() => {
-        console.log("remove");
+        dispatch(
+          postsActions.updateLike({
+            postId: data.postId,
+            likes: data.likes - 1,
+            likesList: data.likesList?.filter((val) => val.id !== getAuth().currentUser.uid),
+          })
+        );
         removeSelectedUserPostLikeLists(data.userId, data.postId, {
           id: getAuth().currentUser.uid,
         });
