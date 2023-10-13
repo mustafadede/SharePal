@@ -17,7 +17,6 @@ function FeedCardLikeButton({ data }) {
   const handleLike = () => {
     setIsLiked(!isLiked);
     if (!isLiked) {
-      console.log(data.likes);
       dispatch(
         postsActions.updateLike({
           postId: data.postId,
@@ -27,35 +26,34 @@ function FeedCardLikeButton({ data }) {
             : [{ id: getAuth().currentUser.uid, nick: getAuth().currentUser.displayName }],
         })
       );
-      // updateSelectedPost(data.userId, data.postId, {
-      //   likes: data.likes + 1,
-      //   likesList: data.likesList
-      //     ? [...data.likesList, { id: getAuth().currentUser.uid, nick: getAuth().currentUser.displayName }]
-      //     : [{ id: getAuth().currentUser.uid, nick: getAuth().currentUser.displayName }],
-      // }).then(() => {
-      //   createSelectedUserPostLikeLists([
-      //     {
-      //       id: data.userId,
-      //       date: new Date().toISOString(),
-      //       postId: data.postId,
-      //     },
-      //   ]).then(() => {
-      //     if (data.userId !== getAuth().currentUser.uid) {
-      //       createNotification(data.userId, {
-      //         from: {
-      //           uid: localStorage.getItem("user"),
-      //           nick: user.nick,
-      //           photo: user.photoURL,
-      //           postId: data.postId,
-      //         },
-      //         date: new Date().toISOString(),
-      //         type: "like",
-      //       });
-      //     }
-      //   });
-      // });
+      updateSelectedPost(data.userId, data.postId, {
+        likes: data.likes + 1,
+        likesList: data.likesList
+          ? [...data.likesList, { id: getAuth().currentUser.uid, nick: getAuth().currentUser.displayName }]
+          : [{ id: getAuth().currentUser.uid, nick: getAuth().currentUser.displayName }],
+      }).then(() => {
+        createSelectedUserPostLikeLists([
+          {
+            id: data.userId,
+            date: new Date().toISOString(),
+            postId: data.postId,
+          },
+        ]).then(() => {
+          if (data.userId !== getAuth().currentUser.uid) {
+            createNotification(data.userId, {
+              from: {
+                uid: localStorage.getItem("user"),
+                nick: user.nick,
+                photo: user.photoURL,
+                postId: data.postId,
+              },
+              date: new Date().toISOString(),
+              type: "like",
+            });
+          }
+        });
+      });
     } else {
-      console.log(data.likes);
       dispatch(
         postsActions.updateLike({
           postId: data.postId,
@@ -63,14 +61,14 @@ function FeedCardLikeButton({ data }) {
           likesList: data.likesList?.filter((val) => val.id !== getAuth().currentUser.uid),
         })
       );
-      // updateSelectedPost(data.userId, data.postId, {
-      //   likes: data.likes - 1,
-      //   likesList: data.likesList?.filter((val) => val.id !== getAuth().currentUser.uid),
-      // }).then(() => {
-      //   removeSelectedUserPostLikeLists(data.userId, data.postId, {
-      //     id: getAuth().currentUser.uid,
-      //   });
-      // });
+      updateSelectedPost(data.userId, data.postId, {
+        likes: data.likes - 1,
+        likesList: data.likesList?.filter((val) => val.id !== getAuth().currentUser.uid),
+      }).then(() => {
+        removeSelectedUserPostLikeLists(data.userId, data.postId, {
+          id: getAuth().currentUser.uid,
+        });
+      });
     }
   };
 

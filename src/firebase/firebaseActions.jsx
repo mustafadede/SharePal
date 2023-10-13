@@ -66,6 +66,7 @@ const signInWithEmailAction = async (email, password) => {
     if (errorCode === "auth/invalid-email") {
       return toast("Email is wrong!");
     }
+    return false;
   }
 };
 

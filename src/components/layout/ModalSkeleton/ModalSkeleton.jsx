@@ -38,6 +38,7 @@ function ModalSkeleton(props) {
   const dispatch = useDispatch();
   const closeModal = () => {
     dispatch(modalActions.closeModal());
+    console.clear();
   };
 
   return <>{createPortal(<ModalOverlay closeModal={closeModal}>{props.children}</ModalOverlay>, portalElement)}</>;

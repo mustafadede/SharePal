@@ -19,6 +19,7 @@ import SearchCardModalCenter from "./SearchCardModal/SearchCardModalCenter";
 import SearchCardModalBottom from "./SearchCardModal/SearchCardModalBottom";
 import { wantToWatchActions } from "../../../store/wantToWatchSlice";
 import { watchedActions } from "../../../store/watchedSlice";
+import useTrailer from "../../../hooks/useTrailer";
 
 function SearchCardModal() {
   const { id, title, poster, releaseDate, overview, vote, backdrop, genres, mediaType, upcoming } = useSelector(
@@ -31,6 +32,7 @@ function SearchCardModal() {
   const [providers, setProviders] = useState([]);
   const [wantToWatch, setWantToWatch] = useState(false);
   const [watched, setWatched] = useState(false);
+  const [trailerID, setTrailerID] = useState("");
   const { user } = useSelector((state) => state.user);
   const { followingList } = useSelector((state) => state.following);
   const dispatch = useDispatch();
@@ -46,6 +48,10 @@ function SearchCardModal() {
     });
     useProvider(id, mediaType).then((data) => {
       setProviders(data?.US);
+    });
+
+    useTrailer(id, mediaType).then((data) => {
+      setTrailerID(data[0]?.key);
     });
 
     getSelectedUserWantToWatch(localStorage.getItem("user")).then((res) => {
@@ -153,6 +159,7 @@ function SearchCardModal() {
         releaseDate={releaseDate}
         vote={vote}
         overview={overview}
+        trailerID={trailerID}
         providers={providers}
         watchlistHandler={watchlistHandler}
         currentlyWatchingHandler={currentlyWatchingHandler}

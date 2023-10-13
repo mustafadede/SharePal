@@ -23,7 +23,7 @@ function LoginPage() {
   const submitHandler = (data) => {
     if (data.email && data.password && data.password.length >= 6) {
       signInWithEmailAction(data.email, data.password).then((res) => {
-        if (res) {
+        if (res.operationType === "signIn") {
           toast("Logged in successfully!");
           navigate("/feed");
           dispatch(authActions.login(res.user.uid));

@@ -3,12 +3,14 @@ import SearchCardButton from "../SearchCardButton";
 import { BookmarkFilledIcon, BookmarkIcon, EyeOpenIcon, Link2Icon, PlusIcon, StarFilledIcon } from "@radix-ui/react-icons";
 import WantToWatchComponent from "../../../common/WantToWatchComponent";
 import WatchedComponent from "../../../common/WatchedComponent";
+import Trailer from "../../../common/Trailer";
 
 function SearchCardModalCenter({
   mediaType,
   releaseDate,
   vote,
   overview,
+  trailerID,
   providers,
   watchlistHandler,
   currentlyWatchingHandler,
@@ -106,12 +108,14 @@ function SearchCardModalCenter({
       </div>
       <div className="flex flex-col w-full p-6 text-center md:flex-row md:text-left">
         <div className="w-full md:w-2/3 md:pr-4">
-          <h3 className="mb-2 text-4xl md:text-2xl text-slate-200">Overview</h3>
+          <h3 className="mb-2 text-2xl md:text-4xl text-slate-200">Overview</h3>
           <p className="text-md md:text-lg text-slate-300">{overview}</p>
+          <h3 className="pb-2 mt-4 mb-2 text-2xl md:text-4xl text-slate-200">Trailer</h3>
+          <Trailer trailerID={trailerID} />
         </div>
         <div className="w-full md:w-1/3">
           {providers?.flatrate?.length ? (
-            <div className="mt-4">
+            <div className="mt-4 ">
               <h3 className="pb-2 mb-4 text-4xl text-slate-200 md:mb-0">Providers</h3>
               <div className="flex flex-wrap justify-center gap-4 md:justify-start md:gap-2">
                 {providers?.flatrate?.map((provider) => (
