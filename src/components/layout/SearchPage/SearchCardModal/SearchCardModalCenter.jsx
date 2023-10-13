@@ -22,7 +22,7 @@ function SearchCardModalCenter({
   clickAction2,
 }) {
   const yearIndicator = new Date().getFullYear();
-  console.log(releaseDate?.slice(0, 4) == yearIndicator);
+
   return (
     <div>
       <div className="relative flex justify-center gap-2 px-6 py-4 text-center md:justify-start md:text-left top-6">

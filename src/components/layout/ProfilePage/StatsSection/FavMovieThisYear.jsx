@@ -1,5 +1,6 @@
 import { PlusIcon } from "@radix-ui/react-icons";
 import React from "react";
+import FilmStats from "../../../common/FilmStats";
 
 function FavMovieThisYear({ username, user, navigate }) {
   const yearIndicator = new Date().getFullYear();
@@ -20,17 +21,7 @@ function FavMovieThisYear({ username, user, navigate }) {
         )}
       </div>
       {user?.bestMovieYear ? (
-        <div className="flex items-center gap-4 w-fit">
-          <img
-            className="object-cover w-16 h-full rounded-2xl"
-            src={`https://image.tmdb.org/t/p/w500/${user.bestMovieYear?.poster}`}
-            alt={user.bestMovieYear?.title}
-          />
-          <div className="flex flex-col items-start justify-center gap-1">
-            <p className="text-sm font-semibold transition-all md:text-xl text-cWhite">{user.bestMovieYear?.title || "Loading"}</p>
-            <p className="transition-all text-md text-slate-400">({user.bestMovieYear?.releaseDate?.slice(0, 4) || "Loading"})</p>
-          </div>
-        </div>
+        <FilmStats poster={user.bestMovieYear?.poster} title={user.bestMovieYear?.title} releaseDate={user.bestMovieYear?.releaseDate} />
       ) : (
         <p className="transition-all text-md md:text-xl text-slate-400">There is no best movie this year.</p>
       )}
