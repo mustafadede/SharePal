@@ -20,7 +20,6 @@ function UserActionButtons({ profileUser }) {
 
   useEffect(() => {
     getFollowersForUser(localStorage.getItem("user")).then((followers) => {
-      console.log(followers);
       dispatch(followingActions.initialFollowing(followers));
     });
   }, []);

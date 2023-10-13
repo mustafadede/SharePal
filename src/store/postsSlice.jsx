@@ -23,6 +23,11 @@ const postsSlice = createSlice({
       state.posts[index].likes = action.payload.likes;
       state.posts[index].likesList = action.payload.likesList;
     },
+    repostPost: (state, action) => {
+      const index = state.posts.findIndex((post) => post.postId === action.payload.postId);
+      state.posts[index].repost = action.payload.repost;
+      state.posts[index].repostsList = action.payload.repostsList;
+    },
   },
 });
 

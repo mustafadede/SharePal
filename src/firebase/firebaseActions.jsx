@@ -356,6 +356,9 @@ const getAllPosts = async () => {
           likesList: value.likesList || null,
           likes: value.likes,
           comments: value.comments,
+          commentsList: value.commentsList || null,
+          repost: value.repost,
+          repostsList: value.repostsList || null,
           date: value.date,
           userId: value.userId.trim(),
         });
@@ -439,9 +442,38 @@ const removeSelectedUserPostLikeLists = async (userId, postId, data) => {
     const snapshot = await get(postsRef);
     if (snapshot.exists()) {
       snapshot.forEach((childSnapshot) => {
-        console.log(childSnapshot.val().id === data.id);
         if (childSnapshot.val().id === data.id) {
           set(ref(database, `likesList/${userId}/${childSnapshot.key}`), null);
+        }
+      });
+    }
+    return true;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+const createSelectedUserPostRepostsLists = async (data) => {
+  try {
+    const userId = getAuth().currentUser.uid;
+    const postsRef = push(ref(database, `repostsList/${userId}/`));
+    set(postsRef, ...data);
+    return true;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+const removeSelectedUserPostRepostsLists = async (userId, postId, data) => {
+  try {
+    const postsRef = ref(database, `repostsList/${userId}/`);
+    const snapshot = await get(postsRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().id === data.id) {
+          set(ref(database, `repostsList/${userId}/${childSnapshot.key}`), null);
         }
       });
     }
@@ -537,7 +569,6 @@ const getNotifications = async (uid) => {
 };
 
 const createNotification = async (uid, data) => {
-  console.log(data);
   try {
     const newNotificationRef = push(ref(database, `notifications/${uid}`));
     set(newNotificationRef, {
@@ -814,6 +845,8 @@ export {
   getAllSelectedUserPostLikeLists,
   createSelectedUserPostLikeLists,
   removeSelectedUserPostLikeLists,
+  createSelectedUserPostRepostsLists,
+  removeSelectedUserPostRepostsLists,
   deleteSelectedUserListsItem,
   uploadProfilePhoto,
   uploadBannerPhoto,

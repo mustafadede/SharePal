@@ -14,7 +14,6 @@ function FeedCommentCard({ data, notification }) {
   const [settings, setSettings] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user?.nick);
-  const postAction = useSelector((state) => state.postAction);
   const day = new Date(data.date).getDate();
   const month = new Date(data.date).getMonth() + 1;
   const year = new Date(data.date).getFullYear();

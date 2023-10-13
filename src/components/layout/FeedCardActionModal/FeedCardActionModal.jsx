@@ -14,7 +14,7 @@ function FeedCardActionModal() {
         ))}
         {!modalHasData.ids && (
           <div className="flex w-full h-full">
-            <p className="text-lg text-slate-600">No likes yet</p>
+            <p className="text-lg text-slate-600">No {modalHasData.title.charAt(0).toLowerCase() + modalHasData.title.slice(1)} yet</p>
           </div>
         )}
       </div>

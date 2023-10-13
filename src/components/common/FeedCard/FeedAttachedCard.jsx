@@ -140,7 +140,7 @@ function FeedAttachedCard({ data, attachedData, notification }) {
           <div className="flex gap-2">
             <FeedCardActionsSkeleton action={"likes"} number={data.likes} data={data} />
             <FeedCardActionsSkeleton action={"comments"} number={data.comments} data={data} />
-            <FeedCardActionsSkeleton action={"reposts"} number={data.reposts} data={data} />
+            <FeedCardActionsSkeleton action={"reposts"} number={data.repost} data={data} />
           </div>
         )}
         {!notification && <FeedCardButtons data={data} />}
