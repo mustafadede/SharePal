@@ -94,7 +94,7 @@ function FeedPage() {
           <MyPinnedListsCard />
         </motion.div>
         <motion.div className="flex flex-col w-full xl:px-6">
-          <FeedTabs tabInfo={tab} tab={setTab} />
+          <FeedTabs tabInfo={tab} tab={setTab} info="feed" />
           <FeedActionBox />
           {tab === 0 && status === "loading" && <p className="w-full mt-1 text-xl text-center text-slate-400">Loading...</p>}
           {tab === 0 &&
