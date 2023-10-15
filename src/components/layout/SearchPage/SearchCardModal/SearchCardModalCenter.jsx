@@ -112,6 +112,23 @@ function SearchCardModalCenter({
                 haveAdded={unfinished ? unfinished : clickAction3}
               />
             </div>
+            <div className="w-full">
+              {providers?.flatrate?.length ? (
+                <div className="mt-4 ">
+                  <h3 className="pb-2 mb-4 text-4xl text-slate-200 md:mb-0">Providers</h3>
+                  <div className="flex flex-wrap justify-center gap-4 md:justify-start md:gap-2">
+                    {providers?.flatrate?.map((provider) => (
+                      <img
+                        key={provider.provider_id}
+                        src={`https://image.tmdb.org/t/p/w500/${provider.logo_path}`}
+                        className="w-12 h-12 transition-all duration-300 border cursor-pointer drop-shadow-xl rounded-xl border-slate-400 hover:border-fuchsia-600"
+                        alt={provider.provider_name}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </div>
           </div>
           <div className="flex flex-col items-center gap-4 md:items-start">
             <div className="max-w-xs h-fit">
@@ -136,23 +153,6 @@ function SearchCardModalCenter({
         </div>
         <h3 className="pb-2 mt-4 mb-2 text-2xl md:text-4xl text-slate-200">Trailer</h3>
         <Trailer trailerID={trailerID} />
-        <div className="w-full md:w-1/3">
-          {providers?.flatrate?.length ? (
-            <div className="mt-4 ">
-              <h3 className="pb-2 mb-4 text-4xl text-slate-200 md:mb-0">Providers</h3>
-              <div className="flex flex-wrap justify-center gap-4 md:justify-start md:gap-2">
-                {providers?.flatrate?.map((provider) => (
-                  <img
-                    key={provider.provider_id}
-                    src={`https://image.tmdb.org/t/p/w500/${provider.logo_path}`}
-                    className="w-12 h-12 transition-all duration-300 border cursor-pointer drop-shadow-xl rounded-xl border-slate-400 hover:border-fuchsia-600"
-                    alt={provider.provider_name}
-                  />
-                ))}
-              </div>
-            </div>
-          ) : null}
-        </div>
       </div>
     </div>
   );
