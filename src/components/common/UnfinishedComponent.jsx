@@ -2,17 +2,17 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-function WatchedComponent() {
+function UnfinishedComponent() {
   const { modalHasData } = useSelector((state) => state.modal);
-  const { watchedList } = useSelector((state) => state.watched);
+  const { unfinishedList } = useSelector((state) => state.unfinished);
   return (
     <div>
       <h3 className="pb-1 mt-4 overflow-hidden text-xl md:mt-0 h-fit text-slate-200">
-        {watchedList?.length > 0 ? watchedList?.length + " user watched this 🥳" : "People's watched 🥳"}
+        {unfinishedList?.length > 0 ? unfinishedList?.length + " user unfinished this and bored 😔" : "People's unfinished and bored 😔"}
       </h3>
       <div className="flex flex-wrap justify-center gap-2 mb-2 md:justify-start yt-2 md:mt-0 md:mb-0">
-        {watchedList?.length > 0 ? (
-          watchedList.map((item, i) => {
+        {unfinishedList?.length > 0 ? (
+          unfinishedList.map((item, i) => {
             return (
               <Link to={`/profile/${item?.name}`} key={i}>
                 <img src={item?.photoURL} className="object-cover w-12 h-12 rounded-full" alt={item?.name} />;
@@ -21,7 +21,7 @@ function WatchedComponent() {
           })
         ) : (
           <p className="text-slate-600">
-            None of your followings discover this
+            None of your followings finished this
             {modalHasData.mediaType === "tv" ? modalHasData.mediaType.toUpperCase() + " Show" : " " + modalHasData.mediaType}.
           </p>
         )}
@@ -30,4 +30,4 @@ function WatchedComponent() {
   );
 }
 
-export default WatchedComponent;
+export default UnfinishedComponent;

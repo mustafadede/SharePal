@@ -770,6 +770,25 @@ const updateWantToWatch = async (data) => {
   }
 };
 
+const deleteWantToWatch = async (data) => {
+  try {
+    const userId = getAuth().currentUser.uid;
+    const newWantToWatchRef = ref(database, `wanttowatch/${userId}`);
+    const snapshot = await get(newWantToWatchRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().id === data.id) {
+          set(ref(database, `wanttowatch/${userId}/${childSnapshot.key}`), null);
+        }
+      });
+    }
+    return true;
+  } catch (error) {
+    console.error(error);
+    return toast("Something went wrong!");
+  }
+};
+
 const updateWatched = async (data) => {
   try {
     const userId = getAuth().currentUser.uid;
@@ -779,6 +798,36 @@ const updateWatched = async (data) => {
   } catch (error) {
     console.error(error);
     return toast("Something went wrong!");
+  }
+};
+
+const deleteWatched = async (data) => {
+  try {
+    const userId = getAuth().currentUser.uid;
+    const WatchedRef = ref(database, `watched/${userId}`);
+    const snapshot = await get(WatchedRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().id === data.id) {
+          set(ref(database, `watched/${userId}/${childSnapshot.key}`), null);
+        }
+      });
+    }
+
+    return true;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const createUnfinished = async (data) => {
+  try {
+    const userId = getAuth().currentUser.uid;
+    const newWatchedRef = push(ref(database, `unfinished/${userId}`));
+    set(newWatchedRef, data);
+    return true;
+  } catch (error) {
+    console.error(error);
   }
 };
 
@@ -814,6 +863,23 @@ const getSelectedUserWatched = async (userId) => {
     });
   }
   return selectedUserWatched;
+};
+
+const getSelectedUserUnfinished = async (userId) => {
+  const unfinishedRef = ref(database, `unfinished/${userId}`);
+  const snapshot = await get(unfinishedRef);
+  const selectedUserUnfinished = [];
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      selectedUserUnfinished.push({
+        id: childSnapshot.val().id,
+        mediaType: childSnapshot.val().mediaType,
+        name: childSnapshot.val().name,
+        photoURL: childSnapshot.val().photoURL,
+      });
+    });
+  }
+  return selectedUserUnfinished;
 };
 
 export {
@@ -852,7 +918,11 @@ export {
   uploadProfilePhoto,
   uploadBannerPhoto,
   updateWantToWatch,
+  deleteWantToWatch,
   updateWatched,
+  deleteWatched,
+  createUnfinished,
   getSelectedUserWantToWatch,
   getSelectedUserWatched,
+  getSelectedUserUnfinished,
 };

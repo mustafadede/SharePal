@@ -1,9 +1,10 @@
 import React from "react";
 import SearchCardButton from "../SearchCardButton";
-import { BookmarkFilledIcon, BookmarkIcon, EyeOpenIcon, Link2Icon, PlusIcon, StarFilledIcon } from "@radix-ui/react-icons";
+import { BookmarkFilledIcon, BookmarkIcon, EyeOpenIcon, Link2Icon, PauseIcon, PlusIcon, StarFilledIcon } from "@radix-ui/react-icons";
 import WantToWatchComponent from "../../../common/WantToWatchComponent";
 import WatchedComponent from "../../../common/WatchedComponent";
 import Trailer from "../../../common/Trailer";
+import UnfinishedComponent from "../../../common/UnfinishedComponent";
 
 function SearchCardModalCenter({
   mediaType,
@@ -18,10 +19,13 @@ function SearchCardModalCenter({
   bestSeriesHandler,
   wantToWatchHandler,
   watchedHandler,
+  unfinishedHandler,
   wantToWatch,
   watched,
+  unfinished,
   clickAction1,
   clickAction2,
+  clickAction3,
 }) {
   const yearIndicator = new Date().getFullYear();
 
@@ -91,9 +95,25 @@ function SearchCardModalCenter({
                 clickHandler={watchedHandler}
                 haveAdded={watched ? watched : clickAction2}
               />
+              <SearchCardButton
+                title={"Unfinished"}
+                icon={
+                  <PauseIcon
+                    className={
+                      unfinished
+                        ? "w-6 h-6 transition-all text-fuchsia-600"
+                        : clickAction3
+                        ? "w-6 h-6 transition-all text-fuchsia-600"
+                        : "w-6 h-6 transition-all text-slate-400 group-hover:text-fuchsia-600"
+                    }
+                  />
+                }
+                clickHandler={unfinishedHandler}
+                haveAdded={unfinished ? unfinished : clickAction3}
+              />
             </div>
           </div>
-          <div className="flex flex-col items-center md:items-start">
+          <div className="flex flex-col items-center gap-4 md:items-start">
             <div className="max-w-xs h-fit">
               <h3 className="pb-2 text-3xl text-slate-200">Rating</h3>
               <div className="flex">
@@ -106,13 +126,16 @@ function SearchCardModalCenter({
           </div>
         </div>
       </div>
-      <div className="flex flex-col w-full p-6 text-center md:flex-row md:text-left">
-        <div className="w-full md:w-2/3 md:pr-4">
-          <h3 className="mb-2 text-2xl md:text-4xl text-slate-200">Overview</h3>
-          <p className="text-md md:text-lg text-slate-300">{overview}</p>
-          <h3 className="pb-2 mt-4 mb-2 text-2xl md:text-4xl text-slate-200">Trailer</h3>
-          <Trailer trailerID={trailerID} />
+      <div className="flex flex-col w-full p-6 text-center md:flex-col md:text-left">
+        <div className="flex flex-col-reverse md:gap-4 md:flex-row md:pr-4">
+          <div className="flex flex-col w-full md:w-[39rem]">
+            <h3 className="mb-2 text-2xl md:text-4xl text-slate-200">Overview</h3>
+            <p className="text-md md:text-lg text-slate-300">{overview}</p>
+          </div>
+          <UnfinishedComponent />
         </div>
+        <h3 className="pb-2 mt-4 mb-2 text-2xl md:text-4xl text-slate-200">Trailer</h3>
+        <Trailer trailerID={trailerID} />
         <div className="w-full md:w-1/3">
           {providers?.flatrate?.length ? (
             <div className="mt-4 ">
