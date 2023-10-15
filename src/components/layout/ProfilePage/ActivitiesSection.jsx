@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { getAllSelectedUserPostLikeLists, getSpecificPost } from "../../../firebase/firebaseActions";
+import { getAllSelectedUserPostLikeLists, getAllSelectedUserPostRepostsLists, getSpecificPost } from "../../../firebase/firebaseActions";
 import FeedCard from "../../common/FeedCard";
 import Tabs from "./Tabs";
 import FeedTabs from "../FeedPage/FeedTabs";
@@ -12,9 +12,17 @@ function ActivitiesSection({ username, uid }) {
   useEffect(() => {
     if (username) {
       getAllSelectedUserPostLikeLists(uid).then((result) => {
+        console.log(result, uid);
         result.forEach((value) => {
           getSpecificPost(value.id.trim(), value.postId).then((res) => {
             res.length > 0 ? setLikes((prev) => [...prev, res]) : null;
+          });
+        });
+      });
+      getAllSelectedUserPostRepostsLists(uid).then((result) => {
+        result.forEach((value) => {
+          getSpecificPost(value.id.trim(), value.postId).then((res) => {
+            res.length > 0 ? setReposts((prev) => [...prev, res]) : null;
           });
         });
       });
@@ -23,6 +31,13 @@ function ActivitiesSection({ username, uid }) {
         result.forEach((value) => {
           getSpecificPost(value.id.trim(), value.postId).then((res) => {
             res.length > 0 ? setLikes((prev) => [...prev, res]) : null;
+          });
+        });
+      });
+      getAllSelectedUserPostRepostsLists(localStorage.getItem("user")).then((result) => {
+        result.forEach((value) => {
+          getSpecificPost(value.id.trim(), value.postId).then((res) => {
+            res.length > 0 ? setReposts((prev) => [...prev, res]) : null;
           });
         });
       });
@@ -58,6 +73,19 @@ function ActivitiesSection({ username, uid }) {
       )}
       {tab === 0 && likes.length > 0
         ? likes
+            .map((data, index) => {
+              if (data[0].attachedFilm) {
+                return <FeedCard key={index} isAttached={true} data={data[0]} index={index} />;
+              } else if (data[0].spoiler) {
+                return <FeedCard key={index} isSpoiler={true} data={data[0]} index={index} />;
+              } else {
+                return <FeedCard key={index} isComment={true} data={data[0]} index={index} />;
+              }
+            })
+            .reverse()
+        : null}
+      {tab === 2 && reposts.length > 0
+        ? reposts
             .map((data, index) => {
               if (data[0].attachedFilm) {
                 return <FeedCard key={index} isAttached={true} data={data[0]} index={index} />;

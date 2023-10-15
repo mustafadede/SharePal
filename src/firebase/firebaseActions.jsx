@@ -455,6 +455,22 @@ const removeSelectedUserPostLikeLists = async (userId, postId, data) => {
   }
 };
 
+const getAllSelectedUserPostRepostsLists = async (userId) => {
+  const postsRef = ref(database, `repostsList/${userId}`);
+  const snapshot = await get(postsRef);
+  const allPosts = [];
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      allPosts.push({
+        date: childSnapshot.val().date,
+        id: childSnapshot.val().id,
+        postId: childSnapshot.val().postId,
+      });
+    });
+  }
+  return allPosts;
+};
+
 const createSelectedUserPostRepostsLists = async (data) => {
   try {
     const userId = getAuth().currentUser.uid;
@@ -912,6 +928,7 @@ export {
   getAllSelectedUserPostLikeLists,
   createSelectedUserPostLikeLists,
   removeSelectedUserPostLikeLists,
+  getAllSelectedUserPostRepostsLists,
   createSelectedUserPostRepostsLists,
   removeSelectedUserPostRepostsLists,
   deleteSelectedUserListsItem,
