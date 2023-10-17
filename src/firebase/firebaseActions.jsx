@@ -216,6 +216,39 @@ const getUserBySearch = async (username) => {
   }
 };
 
+const getUsers = async () => {
+  try {
+    const userId = getAuth().currentUser.uid;
+    const snapshot = await get(child(dbRef, `users`));
+    if (snapshot.exists()) {
+      const users = [];
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.key !== userId) {
+          users.push({
+            uid: childSnapshot.key,
+            displayName: childSnapshot.val().displayName,
+            following: childSnapshot.val().following,
+            followers: childSnapshot.val().followers,
+            email: childSnapshot.val().email,
+            quote: childSnapshot.val().quote,
+            topOne: childSnapshot.val().topOne,
+            banner: childSnapshot.val().banner,
+            currentlyWatching: childSnapshot.val().currentlyWatching || "",
+            bestMovieYear: childSnapshot.val().bestMovieYear || "",
+            bestSeriesYear: childSnapshot.val().bestSeriesYear || "",
+          });
+        }
+      });
+      return users;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 const updateCurrentUserData = async (userId, data) => {
   try {
     const snapshot = await get(child(dbRef, `users/${userId}`));
@@ -921,6 +954,7 @@ export {
   getUserByTheIds,
   getFollowersForUser,
   getUserBySearch,
+  getUsers,
   updateCurrentUserData,
   followUser,
   getSelectedUserFollowing,

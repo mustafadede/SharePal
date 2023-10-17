@@ -45,7 +45,7 @@ function FollowerModalCard({ identify, info }) {
     identify === "likes" && getLikesData(info);
   }, []);
   return (
-    <Link to={data.nick === user ? `/profile` : `/profile/${data.nick}`}>
+    <Link to={data.nick === user ? `/profile` : `/user/${data.nick}`}>
       <div className="relative flex items-center w-full h-24 gap-4 my-2 cursor-pointer group rounded-2xl">
         {data.banner ? (
           <img

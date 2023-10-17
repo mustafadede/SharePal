@@ -29,7 +29,7 @@ function NotificationLikeCard({ nick, photoURL, date, postId }) {
           <motion.div className="flex flex-col items-start justify-center">
             <motion.p className="flex gap-1 text-base text-cWhite text-slate-20">
               <Link
-                to={`/profile/${nick}`}
+                to={`/user/${nick}`}
                 className="text-base transition-all duration-300 text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600"
               >
                 <motion.span className="font-bold text-fuchsia-600 ">{nick}</motion.span>

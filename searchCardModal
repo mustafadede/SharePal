@@ -1,0 +1,956 @@
+[33mcommit b5ac4fdf9c0c6188c4cb0d8a56365bbee9cd25e2[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Oct 17 16:30:39 2023 +0300
+
+    MyListSlicer deleteListItem | setSelectedList | addListtem created
+
+[33mcommit 414e59a64d84020969ad4ab2673761d53d44cc2e[m
+Author: Mustafa DEDE <95627279+mustafadede@users.noreply.github.com>
+Date:   Mon Oct 16 02:09:06 2023 +0300
+
+    Update README.md
+
+[33mcommit 1c0c5a5912fffd94f8752439de2e51da710f4cc1[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Oct 16 02:02:57 2023 +0300
+
+    Profile activity section reposts added
+
+[33mcommit 81f0d62271654cfe4d093b91fec7020baf0617c4[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Oct 16 01:46:06 2023 +0300
+
+    SearchCardModal improvement
+
+[33mcommit 8e759c50f2710fbd299f81253db508dafee9f7dd[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Oct 16 01:35:07 2023 +0300
+
+    Unfinished action added
+
+[33mcommit d86103430a0a58a41a924b8c768564d8303adfca[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sat Oct 14 23:10:48 2023 +0300
+
+    Profile activities section improvements
+
+[33mcommit 5dcd342895d7393e17ccd0e0ed47573017cc2df1[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Oct 13 18:57:01 2023 +0300
+
+    SearchCardModal Trailer section added
+
+[33mcommit 4fdfa4b8d11546ad7404efa1d93cb733672c01f4[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Oct 13 16:35:10 2023 +0300
+
+    Profile page stats section improvements
+
+[33mcommit 74592576664d952724561de8a3ac36b9243bdeb6[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Oct 13 15:45:29 2023 +0300
+
+    Repost action created
+
+[33mcommit cbc0ae670125a9cb5e3a058aa3d531a93df3ffba[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sun Oct 8 15:39:04 2023 +0300
+
+    Posts Slice like action created
+
+[33mcommit cfc6fe2db1c05022c07a3c585c0f68b76075de05[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sun Oct 8 15:07:23 2023 +0300
+
+    Profile Page Stats extended | Feed Card attachment improvement
+
+[33mcommit 7b3125f0955463ebb44479014940dcda0aea0053[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sat Oct 7 00:45:50 2023 +0300
+
+    SearchCardModalYearAction improved | Profile page design improved
+
+[33mcommit c9c89d17630260482fe96b12033529c8c8f48e21[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Oct 6 23:28:59 2023 +0300
+
+    ListModal issue fixed | LıstModal functionality enhanced
+
+[33mcommit a6a0325457ccd26438ec018aa35f14a5e8706214[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Oct 6 18:30:28 2023 +0300
+
+    Search page and search card design improved
+
+[33mcommit c3b47fafd06491770511ed4c12305bfd81b76226[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Oct 6 17:58:41 2023 +0300
+
+    SearchCardModal actions extended | Watched and wantToWatch action created | List Modal Objects null issue fixed
+
+[33mcommit 34fc260b1e34c503070f7ff71e79d6f74c71a16e[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Oct 5 20:06:03 2023 +0300
+
+    listModal details added
+
+[33mcommit d167c321efab6429f74a569fa7ee8bb580aa6b40[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Oct 5 17:26:12 2023 +0300
+
+    ListModal user profile details fixed
+
+[33mcommit 5e2943efa6fbc3d35d86caeaed50645bf6610aaf[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Oct 5 11:50:27 2023 +0300
+
+    Post Deletion Action
+
+[33mcommit 6e69255f95a998a0c0032493a823937aa5adeab1[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Oct 5 11:17:39 2023 +0300
+
+    Stats best movie|series added
+
+[33mcommit 665825e9b322ec8eb9910da6ad2cd6896ebb4693[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Wed Oct 4 23:57:59 2023 +0300
+
+    Created ActionDetails component | Notification page improved
+
+[33mcommit cb7d4a4b4cb26e53bafbcae317a58d2b30c63b7a[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Wed Oct 4 17:35:18 2023 +0300
+
+    Notification Page Feed Card improvement
+
+[33mcommit 242a377c794b3d0e124165043de4c643764cbb26[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Oct 3 18:32:24 2023 +0300
+
+    Notification Page like component added
+
+[33mcommit 7aff009ae033c9118842c7ca8423221cd0196d71[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Oct 3 15:40:30 2023 +0300
+
+    SearchCardModal responsive created | Notification Page improved
+
+[33mcommit c7347b07150f044f2714275bcc261e8a3dce9a91[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Oct 3 00:17:54 2023 +0300
+
+    Notification Page created | Firebase getNotification and createNotification created | notification slicer created
+
+[33mcommit 91fb426c88d68e4a215f2733637f660053f17f88[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Sep 29 00:41:16 2023 +0300
+
+    Profile Lists Section fixed
+
+[33mcommit 08e205ec99ee5fb2c987cf6a427f851d308784b0[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Sep 28 23:42:11 2023 +0300
+
+    Feed Card like action fixed | Feed Card Edit buttons created | LikesList User redirection created
+
+[33mcommit a3313c03250820fe9e1cb60051ab600357670ebc[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Sep 28 15:56:33 2023 +0300
+
+    Feed Card like action improvement | likesModal created | Feed Card links fixed
+
+[33mcommit bb4696e92ad3241f2cf4ae53a84236b9e4054a9a[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Sep 28 01:40:01 2023 +0300
+
+    Profile page Activities section created
+
+[33mcommit 81cf7af1f362089b038838304e3303f30011a575[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Wed Sep 27 23:59:24 2023 +0300
+
+    SelectedUserLikeList created
+
+[33mcommit 19dbb41143af531046160477d5fe9a235daff66f[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Wed Sep 27 03:52:47 2023 +0300
+
+    FirebaseActions improved
+
+[33mcommit 0893d0c3771a834b6e7a700ff87bb08a6e77de85[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Wed Sep 27 02:07:48 2023 +0300
+
+    Recommendation fixed
+
+[33mcommit b62bf838008e75c043153ed84bebdfb7be3af3df[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Sep 26 23:46:37 2023 +0300
+
+    SearcCard page organized | Popular Component improvement
+
+[33mcommit 465c3c526d253c1d8f31dab6ff30c0dd62bcbe41[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Sep 26 22:33:49 2023 +0300
+
+    Providers, Images and recommendations created | Image Slider created | SearchCard Modal improvement
+
+[33mcommit d2e56bc73763358c97f0b73f9184987852f257dc[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Sep 26 15:55:55 2023 +0300
+
+    Settings page when profile photo or nick changes now posts  too | my lists modal improvement
+
+[33mcommit e2cd55e2c9b7bec0eb167c6bfdd5cdb115bb2007[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sun Sep 24 09:05:10 2023 +0300
+
+    ListModal search created
+
+[33mcommit 138cc8b6f758d55ff63b374d9d9b57a73d0bad6b[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sun Sep 24 04:03:30 2023 +0300
+
+    UI improvement | console.log deletion
+
+[33mcommit 4706335206d375fb783308cce74faa1ea8830e14[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sun Sep 24 01:00:41 2023 +0300
+
+    MyListModalCard addHandler navigate created
+
+[33mcommit 87d50868b461c9e4e4416da40cc13ab58dd3e900[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sun Sep 24 00:46:20 2023 +0300
+
+    FeedAttachedCard bookmark commented | ListModal UI fixed
+
+[33mcommit d48710c7f0af0c2bf4fd0de34aae2e7743bfe00b[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sun Sep 24 00:18:52 2023 +0300
+
+    ListModal Object.keys | .values fixed
+
+[33mcommit e7e8fb3c2a049c98b9441f84e33a7a1152486127[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sun Sep 24 00:03:59 2023 +0300
+
+    ListModal errors fixed
+
+[33mcommit 4e16b1185bca741ea8000fe684b4b1ff33f0c363[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sat Sep 23 23:33:06 2023 +0300
+
+    Spoiler improvement | UpdatePinnedList firebase action created
+
+[33mcommit 7f88dfba3095fd72a027031690590d0524286fc0[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sat Sep 23 03:56:20 2023 +0300
+
+    Spoiler feature created
+
+[33mcommit b363b3786e9144cfb5e8a2d87cb297ab6e99225d[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sat Sep 23 02:29:20 2023 +0300
+
+    UI improvement
+
+[33mcommit 4402bf8e4a16206297f4da306336aaa614c4f6ac[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sat Sep 23 01:27:40 2023 +0300
+
+    Settings Page banner fixed | Account/Theme/Privacy ui fixed
+
+[33mcommit 2c9328671eaf05a0f6c6dd869d462eb90841d619[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sat Sep 23 00:57:33 2023 +0300
+
+    Address bar color change | search responsive fixed
+
+[33mcommit 344734cc0434618560bca1791a3aec5c3c12df48[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Sep 22 21:39:10 2023 +0300
+
+    Address bar color change in mobile users v2
+
+[33mcommit d426e714bbbf16d5019d2d8a0d3a7c910ed3ccac[m
+Merge: 8e82c94 629f845
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Sep 22 21:35:05 2023 +0300
+
+    Merge branch 'main' of https://github.com/mustafadede/SharePal
+
+[33mcommit 8e82c948e2335e4cb6d640b02b1cc6abac50ad4e[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Sep 22 21:34:03 2023 +0300
+
+    Address bar color change in mobile users
+
+[33mcommit 629f8453f7955e02ae1a5dc02077943404842392[m
+Merge: ebd8d3b 71c8fcc
+Author: Mustafa DEDE <95627279+mustafadede@users.noreply.github.com>
+Date:   Fri Sep 22 21:25:42 2023 +0300
+
+    Merge pull request #1 from mustafadede/dependabot/npm_and_yarn/protobufjs-6.11.4
+    
+    Bump protobufjs from 6.11.3 to 6.11.4
+
+[33mcommit 71c8fccb42d548138573bff50b88222f89fd8b61[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Fri Sep 22 18:24:57 2023 +0000
+
+    Bump protobufjs from 6.11.3 to 6.11.4
+    
+    Bumps [protobufjs](https://github.com/protobufjs/protobuf.js) from 6.11.3 to 6.11.4.
+    - [Release notes](https://github.com/protobufjs/protobuf.js/releases)
+    - [Changelog](https://github.com/protobufjs/protobuf.js/blob/master/CHANGELOG.md)
+    - [Commits](https://github.com/protobufjs/protobuf.js/commits)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: protobufjs
+      dependency-type: indirect
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+[33mcommit ebd8d3bfa3f49d958e85b33c7bb3d31c5428183c[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Sep 22 21:20:04 2023 +0300
+
+    Swiper implementation for Explore Page
+
+[33mcommit 0c39578a072e3b9f302e6102338322a31c63c438[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Wed Sep 20 23:17:33 2023 +0300
+
+    SignUp page buttons responsive fixed
+
+[33mcommit 079fa75e7c85cf728cc5efa2010fc31dd3ec33ff[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Wed Sep 20 23:00:02 2023 +0300
+
+    List/MyLists/ responsive fixed | Explore page skeleton created | Hooks created
+
+[33mcommit 7975936c33546f958e8c7a022493dceebd33a1d8[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Wed Sep 20 01:06:20 2023 +0300
+
+    Attached/MyList  Modal responsive design created
+
+[33mcommit dce069f624983909d2673c9b514dcaf242303c9a[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Sep 19 19:38:33 2023 +0300
+
+    Settings/Profile/Search/Feed/Navbar responsive design changes
+
+[33mcommit f81b3b02d9fbd2fe7f65c52bb612c76cac1e1acf[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Sep 18 13:49:18 2023 +0300
+
+    Responsive design implementation
+
+[33mcommit df04bc1606aa59dd5d9f746216c7b30b89b3e8f4[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Sep 18 12:24:43 2023 +0300
+
+    Profile Page Posts added
+
+[33mcommit 7bc4ae2a9aecc052462e812c10eb80a16ba25195[m
+Author: Mustafa DEDE <95627279+mustafadede@users.noreply.github.com>
+Date:   Thu Sep 14 13:06:41 2023 +0300
+
+    Update README.md
+
+[33mcommit 5ad3f80b74c312a9a7115f0bb74f6cda92890465[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Sep 12 21:12:46 2023 +0300
+
+    Search user photo implemented
+
+[33mcommit a7b03765c09ebd43286332aa5a613e13a811078c[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Sep 11 18:21:10 2023 +0300
+
+    Unfollow function fixed
+
+[33mcommit 99b6e5b33224140e94c003b855ee865c83357ded[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sun Sep 10 19:00:10 2023 +0300
+
+    Info Card followers & following function is done
+
+[33mcommit f6faf938b6e58fb22bbc9585249c02388ce52fca[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sat Sep 9 15:03:53 2023 +0300
+
+    SearchCardModal genres added
+
+[33mcommit ffa54074ea7f70afa265461a807fe01ed4dfe7c6[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Sep 8 16:04:54 2023 +0300
+
+    FollowerModal created
+
+[33mcommit 7022edddeffcc870a0985aa32a191d2e23ee4a30[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Sep 8 15:32:56 2023 +0300
+
+    followers functionality is done
+
+[33mcommit 106eec7a2e94a5bb7cb095030e1e243e169d4121[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Sep 8 14:37:29 2023 +0300
+
+    firebase permission denied user fixed
+
+[33mcommit 581223c2a5e149796d710829fdd8b32823860940[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Sep 8 14:17:26 2023 +0300
+
+    Settings Page account section reaload is done
+
+[33mcommit 0c50f5fe8155ed48e983525776c9f50f686a4c73[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Sep 8 13:38:02 2023 +0300
+
+    User profile following is done || user slice and following slice moved in App.jsx
+
+[33mcommit 83f20209e54226c52588d09003668736653454f7[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Sep 7 17:41:05 2023 +0300
+
+    pinnedLists and mylists database functionality created
+
+[33mcommit 3559c6aa216dda4fb5d6268ab87445b79f1d569f[m
+Merge: a9438ce 24fcce9
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Wed Sep 6 15:38:27 2023 +0300
+
+    Merge branch 'main' of https://github.com/mustafadede/SharePal
+
+[33mcommit a9438ce398457b2932bfbba0abe8f0e3d4dad2eb[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Wed Sep 6 15:35:38 2023 +0300
+
+    Bookmark functiondone
+
+[33mcommit 24fcce91de3cf3e89685efdd524bbe8c9a5b35db[m
+Author: Mustafa DEDE <95627279+mustafadede@users.noreply.github.com>
+Date:   Tue Sep 5 22:14:47 2023 +0300
+
+    Update README.md
+
+[33mcommit 7514e47d120260af2a2c6158ea69ba7efe39a18b[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Sep 4 20:44:51 2023 +0300
+
+    Bookmark function created
+
+[33mcommit 3ce36499f41a5eb07e72843c6fe4fb7cea0c5b06[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sun Sep 3 20:56:41 2023 +0300
+
+    usestate fixed
+
+[33mcommit 78b7a0a0bc452fbd3bc698b30a26ff5af6b64715[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sun Sep 3 18:01:20 2023 +0300
+
+    Notification created | Feed Page notification created
+
+[33mcommit eb22afad22a39efed43ea40b35c4d0d025477197[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sat Sep 2 13:28:23 2023 +0300
+
+    Explore Page structure created | Search Page users card banner and quote added
+
+[33mcommit 29e5e57407c9646a99a46681596d2cdb090631c9[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Sep 1 22:22:53 2023 +0300
+
+    Search Page input placeholder changed
+
+[33mcommit 150c6817c0914193fcc5c42200aee7a3a53e45f5[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Sep 1 22:11:30 2023 +0300
+
+    Profile page navigation improvement
+
+[33mcommit 9b4b138f68fa8fc6530d523eb4fea7d0f8baa5bc[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Aug 31 21:24:04 2023 +0300
+
+    Seach user compoinent created | Search User improvement
+
+[33mcommit 857f00d1303b7919f1e904826252d19dcf6a7b2b[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Wed Aug 30 18:34:45 2023 +0300
+
+    Feed Page posts redux improved | Post Cards dates fixed | Userr Profile action buttuns created
+
+[33mcommit bc69a5fb24d11fdf002d36207628cdf6aeb86830[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Wed Aug 30 15:25:27 2023 +0300
+
+    Profile pages UI improvement
+
+[33mcommit 96b53d95e4e88e1183ce40a7b3b2d24cb19015e9[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Aug 29 18:56:19 2023 +0300
+
+    Dynamic profile fixed
+
+[33mcommit 186bb18c9922e23c9bcf659f11e7e2a9eaca45b8[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Aug 29 17:11:04 2023 +0300
+
+    Profile Page imporovement | ProfileSlicer created | Dynamic Profile route created | FeedActionBox button color changed
+
+[33mcommit adeac84cf9bda1523d41b3306862f20596fc5f61[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Aug 28 22:31:27 2023 +0300
+
+    Stats added in Profile Page | Currently added || Slice updated | FirebaseActions updated
+
+[33mcommit eb5d236f916541b5afc22581a67ad5f55c471487[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Aug 28 18:29:23 2023 +0300
+
+    Feed Page UI updated
+
+[33mcommit ae341fa587058835ebd031a7f318f07189d67c91[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Aug 28 16:43:39 2023 +0300
+
+    Feed Tabs UI fixed
+
+[33mcommit 806fd813c882d70a15fe7ce76dc4ce02b7336451[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Aug 28 15:58:37 2023 +0300
+
+    Feed Tabs created
+
+[33mcommit ad3d5af4a6e7026db5e6592323ca84a6deee3676[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sun Aug 27 14:12:04 2023 +0300
+
+    Feed Cards modified | Feed sorting is done
+
+[33mcommit e219c96e5e0fac2214de2e9a494fe1428da2ca2c[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sun Aug 27 12:48:24 2023 +0300
+
+    Profile Lists Card ui changed | Feed Cards improvement
+
+[33mcommit afb6b48abb2eab09d3d901f4f867f61dd849f11b[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sat Aug 26 13:57:04 2023 +0300
+
+    Feed Cards Share button created | Share Modal created | Account Settings improvement
+
+[33mcommit 9690579156e611c5e78aa8b1ee50a71a7bbf7791[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Aug 25 20:02:16 2023 +0300
+
+    Profile Page improvement
+
+[33mcommit 25cd3e7069e02acfed81dc82722608f735d73dae[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Aug 25 16:59:34 2023 +0300
+
+    Feed Cards Profile pic update | Profile Page Posts section updated | Lists section fixed | Account Settings fixed | Firebase Actions created
+
+[33mcommit 4f30c71f52d67a2905aeed9442b4a85354f29fe1[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Aug 24 13:22:32 2023 +0300
+
+    Profile Picture/Banner upload functionality created
+
+[33mcommit f9ce4d021985de2269383e8e596b0646ac232f6c[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Aug 24 08:10:34 2023 +0300
+
+    MyList Modal functionality created/redux
+
+[33mcommit f82051dc152a69536913410d8d567170b058a6f3[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Aug 24 06:27:59 2023 +0300
+
+    Account Settings Input fixed
+
+[33mcommit 70b4089b857cefdeeb1ac3b1bb6645ff48753474[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Aug 24 04:08:10 2023 +0300
+
+    created fetch all the posts in the Feed Page
+
+[33mcommit aef7a3bc745d52502bb970662639823ff5389aa8[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Aug 24 02:07:19 2023 +0300
+
+    Sign up page form stepper created
+
+[33mcommit 196e0d44d63d3e3d92c55654d22cfde1fa8c18ed[m
+Author: Mustafa DEDE <95627279+mustafadede@users.noreply.github.com>
+Date:   Thu Aug 24 00:13:50 2023 +0300
+
+    Update README.md
+
+[33mcommit 61275c467ace4c39c3274ce0b52e9ddb8b88362b[m
+Author: Mustafa DEDE <95627279+mustafadede@users.noreply.github.com>
+Date:   Thu Aug 24 00:05:25 2023 +0300
+
+    Update README.md
+
+[33mcommit 4a7892cf5502ef698a417937303add38e60457d2[m
+Author: Mustafa DEDE <95627279+mustafadede@users.noreply.github.com>
+Date:   Wed Aug 23 23:59:14 2023 +0300
+
+    Update README.md
+
+[33mcommit 88ba93e927c26733e2a8399efcf95571edb441fd[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Aug 22 23:01:20 2023 +0300
+
+    Search Cards functionality created | Search Card Modal watchlist function created | Outlet comma deletion lol
+
+[33mcommit 7a40b936f0e72ba195df0ca93e6b7ce38e8fe74a[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Aug 22 16:07:33 2023 +0300
+
+    MyPinnedList improvement | Profile Page Lists section fixed
+
+[33mcommit 798d390dcfaefe1ca5e1e9e1b7d23f822cf319e4[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Aug 22 15:10:48 2023 +0300
+
+    LabelInfo created | Toast infos changed
+
+[33mcommit 78f03528cc1c481b04e0126327cc3697b87dbeb4[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Aug 22 14:06:17 2023 +0300
+
+    MyList modal fixed | List Modal improvement
+
+[33mcommit c0d53d9cd5397b2cb9924ee5d506895db6208f4d[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Aug 21 22:39:57 2023 +0300
+
+    Explore Page created | Profile page animations improvement | Search Page user search initialized
+
+[33mcommit c9cd208e7ea22887e8185c8a0a6a09401dfd75ba[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sun Aug 20 21:57:02 2023 +0300
+
+    In Profile and settings favorite film/series created
+
+[33mcommit a85bd7a6dcc67900f710a8a0b7b9a6a4dc2c9563[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Aug 17 22:32:56 2023 +0300
+
+    Created List Card component
+
+[33mcommit d955f2c66e57405050ae020938147a039c37e6ff[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Aug 17 21:53:38 2023 +0300
+
+    Firebase Pinned List creation added
+
+[33mcommit 825f6a87819489693726d144ed0f0145692691f3[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Wed Aug 16 13:02:36 2023 +0300
+
+    Feed Action Box attachment indicator created
+
+[33mcommit 8f8796616003611ef987aac3a01bb0b311ae4bf6[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Aug 15 22:27:46 2023 +0300
+
+    Search Modal UI update
+
+[33mcommit 4dcf6e5b131fd26adcaa5b70ae68a68f3a2f41ed[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Aug 14 21:24:15 2023 +0300
+
+    Attached Modal functionality created | Attched Post improvement
+
+[33mcommit 25e7c705c6201cdf65f0484c896b45eb3cd17931[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Aug 14 18:43:49 2023 +0300
+
+    Search Card Modal Created | ModalSlicer improvement
+
+[33mcommit 7e7f4569ae8a589a7e7f1bb4f6f58cba1dddb209[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Aug 14 14:52:14 2023 +0300
+
+    Profile Lists Section improvement
+
+[33mcommit c4bfe203a6ca978ec2460a03fe8abb74a45b9089[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Aug 14 13:54:20 2023 +0300
+
+    ModalSlicer improvement | Attach film/series Modal created and
+
+[33mcommit 9bedf86178250e810a2c1f08c53e4ce21b8211d3[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sat Aug 12 20:52:14 2023 +0300
+
+    Account Settings Name/Quote/Email functionality | Profile Page Banner error fixed
+
+[33mcommit 5ad8c37261460cdfb4cd41d4fe29a3fbd14a6f1b[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sat Aug 12 16:47:38 2023 +0300
+
+    Profile Page Lists Section improvement
+
+[33mcommit 721aeee78412fabe8f53502a3a053a7109e1836b[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sat Aug 12 15:37:33 2023 +0300
+
+    Profile Page Sections created | Lists Section created
+
+[33mcommit e6d5d5a566f358706efed24ad0e4bef11292fa99[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Aug 11 13:56:04 2023 +0300
+
+    User Auth improvement
+
+[33mcommit 59828390bdd85bbe107cbe689bda66f2d9b85790[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Aug 11 13:48:37 2023 +0300
+
+    Search Suggestion added | postActionSlicer created | Profile Edit Button redirection
+
+[33mcommit f59ae13557ca5803c6ed74af9748f7b27d718ab7[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Aug 10 15:39:09 2023 +0300
+
+    components file organization | pinned lists button fixed
+
+[33mcommit 0d140b366a8fbcdb3cdf1ae1c6bedfb552a3a0f9[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Aug 10 15:11:42 2023 +0300
+
+    My Lists Modal improvements | creating mylists slice
+
+[33mcommit 0e9d3ae50cfb827ce9f690998044369c8642c0d3[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Wed Aug 9 14:32:44 2023 +0300
+
+    Modal Skeleton created | MyList name changed | MyPinnedList Modal created | Connected with Redux
+
+[33mcommit 7ff48e7077700663878af48dff87887346e70e90[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Aug 8 23:46:38 2023 +0300
+
+    UI improvement
+
+[33mcommit afd32ebdd11fe8ad11cc99274c4060ebb134b1b6[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Aug 8 19:19:43 2023 +0300
+
+    SearchCard created | Search page input functionality update
+
+[33mcommit eb2a4fe75e59939ecfec308e59a8c77ec63ab425[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Aug 8 16:20:42 2023 +0300
+
+    profile page redux implementation | search page created
+
+[33mcommit fae3fb4360b799b77dce9f239defb4abed63d987[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Aug 8 13:04:54 2023 +0300
+
+    profile page created
+
+[33mcommit ab0441954eaacce0d2743bdcf3562828a46f1fa8[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Aug 7 21:37:10 2023 +0300
+
+    FeedCards actions fixed | settings animation created
+
+[33mcommit 36be7017b6e31f8eafda903221ba38bdbcf7354c[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Aug 7 21:22:39 2023 +0300
+
+    FeedPage animation2
+
+[33mcommit 4045a0b17dbbb242e6b06181aef9707e2c4fe622[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Aug 7 21:19:34 2023 +0300
+
+    FeedPage animation
+
+[33mcommit bfed1902c56fd66217a5950d9b7ae158ed59b0f9[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Aug 7 18:52:03 2023 +0300
+
+    Feed Card title fixed
+
+[33mcommit 49c34c8e241907ba339a966eb1f4b6e35c8850f5[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Aug 7 18:47:50 2023 +0300
+
+    Search Page & Settings Page Account created
+
+[33mcommit 93476ba812a24e2508ec6721e2e10658ab348768[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Aug 7 14:07:00 2023 +0300
+
+    Settings page skeleton created
+
+[33mcommit e553d005e227948f3f7308af3d69ce2af2385baf[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Aug 1 19:00:32 2023 +0300
+
+    Feed Cards motion added
+
+[33mcommit 1e7861cba7b981a9207fc3756c17f312c89d38c8[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Aug 1 18:55:12 2023 +0300
+
+    createPostSlicer created and also firebase create post action created
+
+[33mcommit 2e03f79b828ca0858879b03d14ac347193a20fb3[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Jul 31 00:01:58 2023 +0300
+
+    creating redux slices/navbar search & profıle button created/Private route created
+
+[33mcommit 6f8bd5c1c7c770da3ed7b6afaab455125452fa6b[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sat Jul 29 15:23:58 2023 +0300
+
+    HashRouter implementation
+
+[33mcommit b363d0ad60d02740b1b9e93ea32df99275f1e986[m
+Merge: cccb412 bb59c6a
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sat Jul 29 00:12:43 2023 +0300
+
+    Merge branch 'main' of https://github.com/mustafadede/SharePal
+
+[33mcommit cccb412da153c3f0c618629b2bc405024070815e[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sat Jul 29 00:11:55 2023 +0300
+
+    PopularCard names fixed
+
+[33mcommit bb59c6a28013ecc2cccd434ad853a13f69ec42c7[m
+Author: Mustafa DEDE <95627279+mustafadede@users.noreply.github.com>
+Date:   Fri Jul 28 23:32:03 2023 +0300
+
+    Update main.yml
+
+[33mcommit 32cb5b6fdd874befc52dabbf8472265a796fe2ad[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Fri Jul 28 23:20:43 2023 +0300
+
+    firebaseConfig fix
+
+[33mcommit 3aadd3fcbf0417b9ff7480424988f65cde1ae2eb[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Wed Jul 26 16:34:10 2023 +0300
+
+    MyListCard import fixed
+
+[33mcommit bab52b52346def6b7387ee873212bfb2122ed029[m
+Merge: f112e29 312ee91
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Wed Jul 26 16:27:50 2023 +0300
+
+    Merge branch 'main' of https://github.com/mustafadede/SharePal
+
+[33mcommit f112e29ca96ac0deb6d433736ab5648e3d107c52[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Wed Jul 26 16:27:29 2023 +0300
+
+    MyListsCard created in the Feed section
+
+[33mcommit f9e3365c3911938c1e49d69c164f3287b338748f[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Wed Jul 26 15:47:25 2023 +0300
+
+    Feed Card compoenent buttons added / FeedUploadCard created
+
+[33mcommit 312ee911bd428dafe5be6ce93e704545a14abbaf[m
+Author: Mustafa DEDE <95627279+mustafadede@users.noreply.github.com>
+Date:   Mon Jul 24 20:05:29 2023 +0300
+
+    Delete vite.config.js.timestamp-1689701732878-aaed956ab305.mjs
+
+[33mcommit 6a5b13218742da3d3b8b0c3d02b24e553c950759[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Sun Jul 23 22:39:16 2023 +0300
+
+    Feed middle section cards and components added
+
+[33mcommit b7666d2fc7e7e7878b5ef3d7c5ca004e14cf9ae5[m
+Merge: bf6f398 5f03858
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Jul 20 21:18:53 2023 +0300
+
+    Merge branch 'main' of https://github.com/mustafadede/SharePal
+
+[33mcommit bf6f398dc090e2f034f9ab9b3e3363307afc6da2[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Jul 20 21:18:19 2023 +0300
+
+    react hook form implementation / firebase database creattion
+
+[33mcommit 5f03858fceaa939adb17fef07a36e183866002cd[m
+Author: Mustafa DEDE <95627279+mustafadede@users.noreply.github.com>
+Date:   Thu Jul 20 11:39:18 2023 +0300
+
+    Update main.yml
+
+[33mcommit e7d970324e605ef0a835cfe9087a4fdab08e289a[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Jul 20 11:34:16 2023 +0300
+
+    navbar bg changes
+
+[33mcommit 62e9bf0164089bcb31fba0d7b757d7e6fc0f3f45[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Jul 20 11:29:49 2023 +0300
+
+    scrollbar bg change
+
+[33mcommit b579a14563e8f4ab5af7f18104d23b92b8de9818[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Thu Jul 20 11:07:31 2023 +0300
+
+    feed/popularCard/ProfileCard created
+
+[33mcommit 2cdb1179862b6bac8207d2b7c6aa5924beae81db[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Wed Jul 19 21:38:53 2023 +0300
+
+    auth is done
+
+[33mcommit 0d102ec67b8bfd65ea2ef264c7adace340476191[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Wed Jul 19 18:37:47 2023 +0300
+
+    sign in / log in page done
+
+[33mcommit 1b6cae68252f94243b74544f29c90c6b57638215[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Tue Jul 18 23:13:46 2023 +0300
+
+    sign up / home content created
+
+[33mcommit 27e0dcca124a3f57ac9c7d8f5da764efe42f3b77[m
+Author: Mustafa DEDE <95627279+mustafadede@users.noreply.github.com>
+Date:   Mon Jul 17 23:45:57 2023 +0300
+
+    Create main.yml
+
+[33mcommit 5668fa70fc92fd5a0b87f2e1dbf9401957f5f84d[m
+Author: mustafadede <mustafa.dede.0016@gmail.com>
+Date:   Mon Jul 17 23:40:21 2023 +0300
+
+    first commit

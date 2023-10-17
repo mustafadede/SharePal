@@ -11,7 +11,7 @@ function SearchUserCard({ user }) {
   const dispatch = useDispatch();
   const handleUserClick = () => {
     dispatch(profileActions.removeUser());
-    user.displayName === currentUser?.nick ? navigate("/profile") : navigate(`/profile/${user.displayName}`);
+    user.displayName === currentUser?.nick ? navigate("/profile") : navigate(`/user/${user.displayName}`);
   };
   const getPhoto = async () => {
     const photo = await getProfilePhoto(user.uid);

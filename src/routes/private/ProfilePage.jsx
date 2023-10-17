@@ -9,95 +9,61 @@ import Tabs from "../../components/layout/ProfilePage/Tabs";
 import PostsSection from "../../components/layout/ProfilePage/PostsSection";
 import ListsSection from "../../components/layout/ProfilePage/ListsSection/ListsSection";
 import ActivitiesSection from "../../components/layout/ProfilePage/ActivitiesSection";
-import {
-  getCurrentUserData,
-  getFollowersForUser,
-  getProfilePhoto,
-  getSelectedUserFollowing,
-  getSelectedUserWatched,
-  getUserByTheUsername,
-} from "../../firebase/firebaseActions";
+import { getCurrentUserData, getFollowersForUser, getSelectedUserFollowing, getSelectedUserWatched } from "../../firebase/firebaseActions";
 import { userActions } from "../../store/userSlice";
 import StatsCard from "../../components/layout/ProfilePage/StatsCard";
-import { useParams } from "react-router-dom";
-import { profileActions } from "../../store/profileSlice";
-import UserProfileBanner from "../../components/layout/ProfilePage/UserProfileBanner";
-import UserActionButtons from "../../components/layout/ProfilePage/UserActionButtons";
 import { followingActions } from "../../store/followingSlice";
 import { followersActions } from "../../store/followersSlice";
 import { modalActions } from "../../store/modalSlice";
 
 function ProfilePage() {
-  const { username } = useParams();
   const tabs = [
     { id: 0, name: "Stats" },
     { id: 1, name: "Lists" },
     { id: 2, name: "Posts" },
     { id: 3, name: "Activities" },
   ];
-  const [activeTab, setActiveTab] = useState(tabs[0].id);
+  const [activeTab, setActiveTab] = useState(0);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
-  const { profileUser } = useSelector((state) => state.profile);
+
   useEffect(() => {
-    dispatch(modalActions.closeModal());
     document.title = "SharePal | Profile";
     window.scrollTo(0, 0);
-    if (!username) {
-      const getData = async () => {
-        getCurrentUserData(localStorage.getItem("user")).then((userData) => {
-          dispatch(userActions.updateUser(userData));
+    const getData = async () => {
+      getCurrentUserData(localStorage.getItem("user")).then((userData) => {
+        dispatch(userActions.updateUser(userData));
+      });
+      getSelectedUserFollowing(localStorage.getItem("user")).then((response) => {
+        dispatch(followingActions.initialFollowing(response));
+        getFollowersForUser(localStorage.getItem("user")).then((followers) => {
+          dispatch(followersActions.initialFollowers(followers));
         });
-        getSelectedUserFollowing(localStorage.getItem("user")).then((response) => {
-          dispatch(followingActions.initialFollowing(response));
-          getFollowersForUser(localStorage.getItem("user")).then((followers) => {
-            dispatch(followersActions.initialFollowers(followers));
-          });
-        });
-        getSelectedUserWatched(localStorage.getItem("user")).then((res) => {
-          const filteredTVData = res?.filter((item) => item.mediaType === "tv");
-          dispatch(userActions.userTotalSeries(filteredTVData.length));
-        });
-        getSelectedUserWatched(localStorage.getItem("user")).then((res) => {
-          const filteredMovieData = res?.filter((item) => item.mediaType === "movie");
-          dispatch(userActions.userTotalFilms(filteredMovieData.length));
-        });
-      };
-      getData();
-    } else {
-      const getData = async () => {
-        getUserByTheUsername(username).then((userData) => {
-          getProfilePhoto(userData[0].uid).then((photo) => {
-            dispatch(profileActions.updateUser(...userData));
-            dispatch(profileActions.updateProfilePhoto(photo));
-            getSelectedUserWatched(userData[0].uid).then((res) => {
-              const filteredTVData = res?.filter((item) => item.mediaType === "tv");
-              dispatch(profileActions.updateTotalSeries(filteredTVData.length));
-            });
-            getSelectedUserWatched(userData[0].uid).then((res) => {
-              const filteredMovieData = res?.filter((item) => item.mediaType === "movie");
-              dispatch(profileActions.updateTotalFilms(filteredMovieData.length));
-            });
-          });
-        });
-      };
-      getData();
-    }
+      });
+      getSelectedUserWatched(localStorage.getItem("user")).then((res) => {
+        const filteredTVData = res?.filter((item) => item.mediaType === "tv");
+        dispatch(userActions.userTotalSeries(filteredTVData.length));
+      });
+      getSelectedUserWatched(localStorage.getItem("user")).then((res) => {
+        const filteredMovieData = res?.filter((item) => item.mediaType === "movie");
+        dispatch(userActions.userTotalFilms(filteredMovieData.length));
+      });
+    };
+    getData();
   }, []);
-
+  dispatch(modalActions.closeModal());
   return (
     <>
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
       <div className="flex mx-5 md:mx-10">
         <div className="flex flex-col w-full gap-4 mb-6 lg:mr-6">
-          {username ? <UserProfileBanner user={profileUser} /> : <ProfileBanner user={user} />}
-          {username ? <UserActionButtons profileUser={profileUser} /> : null}
-          {username ? <InfoCard user={profileUser} /> : <InfoCard user={user} isCurrentUser />}
+          <ProfileBanner user={user} />
+          <InfoCard user={user} isCurrentUser />
           <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
-          {activeTab === 0 && <StatsCard user={!username ? user : profileUser} username={username} />}
-          {activeTab === 1 && <ListsSection username={username} uid={profileUser?.uid} />}
-          {activeTab === 2 && <PostsSection username={username} uid={profileUser?.uid} />}
-          {activeTab === 3 && <ActivitiesSection username={username} uid={profileUser?.uid} />}
+          {activeTab === 0 && <StatsCard user={user} />}
+          {activeTab === 1 && <ListsSection uid={user?.uid} />}
+          {activeTab === 2 && <PostsSection uid={user?.uid} />}
+          {activeTab === 3 && <ActivitiesSection uid={user?.uid} />}
         </div>
         <motion.div
           className="hidden w-fit h-fit lg:flex sticky top-[4.7rem] justify-center"
