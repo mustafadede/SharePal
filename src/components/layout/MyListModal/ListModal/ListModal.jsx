@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ModalHeader from "../../ModalSkeleton/ModalHeader";
 import ListModalCard from "./ListModalCard";
+import { modalActions } from "../../../../store/modalSlice";
+import { MyListsActions } from "../../../../store/myListsSlice";
 
 function ListModal() {
   const { modalHasData } = useSelector((state) => state.modal);
   const [search, setSearch] = useState("");
-  const [findIndexForSearchItem, setFindIndexForSearchItem] = useState(null);
-  useState(() => {
-    modalHasData.username
-      ? setFindIndexForSearchItem(Array(modalHasData.list)?.findIndex((item) => item?.title?.toLowerCase().includes(search.toLowerCase())))
-      : null;
-  }, [modalHasData.username]);
+  const SearchedIndex =
+    search && Object.values(modalHasData.list)?.findIndex((item) => item.title.toLowerCase().includes(search.toLowerCase()));
 
+  useEffect(() => {}, []);
   return (
     <div className="bg-slate-900 rounded-2xl px-8 pt-4 overflow-hidden w-[25rem] md:w-[35rem] h-[28rem] md:h-[30rem]">
       <ModalHeader title={modalHasData.title} />
@@ -36,7 +35,7 @@ function ListModal() {
                 <ListModalCard
                   key={index}
                   id={Object.keys(modalHasData.list)[index]}
-                  listId={modalHasData.id}
+                  listId={modalHasData.listNum}
                   findIndex={null}
                   title={item.title}
                   poster={item.poster}
@@ -53,9 +52,9 @@ function ListModal() {
                 return (
                   <ListModalCard
                     key={index}
-                    id={Object.keys(modalHasData.list)[findIndexForSearchItem]}
-                    listId={modalHasData.id}
-                    findIndex={findIndexForSearchItem}
+                    id={Object.keys(modalHasData.list)[SearchedIndex]}
+                    listId={modalHasData.listNum}
+                    findIndex={SearchedIndex}
                     title={item.title}
                     poster={item.poster}
                     releaseDate={item.releaseDate}

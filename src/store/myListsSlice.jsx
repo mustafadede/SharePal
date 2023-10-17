@@ -16,7 +16,24 @@ const myListsSlice = createSlice({
     setPinned: (state, action) => {
       state.myLists[action.payload].isPinned = !state.myLists[action.payload].isPinned;
     },
-    deleteListItem: (state, action) => {},
+    deleteListItem: (state, action) => {
+      state.myLists[action.payload.listId].list = Object.values(state.myLists[action.payload.listId].list).filter(
+        (_, index) => index !== action.payload.findIndex
+      );
+    },
+    setSelectedList: (state, action) => {
+      state.myLists[action.payload.listId].list = action.payload.list;
+    },
+    addListItem: (state, action) => {
+      const data = {
+        id: action.payload.data.id,
+        title: action.payload.data.title,
+        poster: action.payload.data.poster,
+        releaseDate: action.payload.data.releaseDate,
+        backdrop: action.payload.data.backdrop,
+      };
+      Object(state.myLists[action.payload.listId].list)[data.id] = data;
+    },
     updateStatus: (state, action) => {
       state.status = action.payload;
     },

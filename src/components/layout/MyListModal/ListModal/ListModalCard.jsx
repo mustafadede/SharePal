@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Cross1Icon, InfoCircledIcon, ShuffleIcon } from "@radix-ui/react-icons";
 import ActionDetailsCard from "../../../common/ActionDetailsCard";
-import { deleteSelectedUserListsItem } from "../../../../firebase/firebaseActions";
+import { deleteSelectedUserListsItem, getSelectedUserSelectedList } from "../../../../firebase/firebaseActions";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MyListsActions } from "../../../../store/myListsSlice";
 import useSearchWithYear from "../../../../hooks/useSearchWithYear";
 import { modalActions } from "../../../../store/modalSlice";
@@ -11,16 +11,16 @@ import { modalActions } from "../../../../store/modalSlice";
 function ListModalCard({ id, listId, findIndex, title, poster, releaseDate, backdrop, username }) {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
-
+  const { modalHasData } = useSelector((state) => state.modal);
   const deleteHandler = () => {
-    console.log(id, listId, findIndex);
-    // TODO :MAKE THIS WORK
-    dispatch(MyListsActions.deleteListItem({ listId: listId, id: id, findIndex: findIndex }));
-    // deleteSelectedUserListsItem(localStorage.getItem("user"), id).then((res) => {
-    //   if (res) {
-    //     dispatch(MyListsActions.deleteListItem(id)) && toast.success("Item deleted successfully!");
-    //   }
-    // });
+    deleteSelectedUserListsItem(localStorage.getItem("user"), id);
+    dispatch(
+      MyListsActions.deleteListItem({
+        listId: listId,
+        id: id,
+        findIndex: findIndex ? findIndex : Object.values(modalHasData.list).findIndex((item, index) => item.title === title),
+      })
+    ) && toast.success("Movie deleted successfully!");
   };
 
   const movieInfoHandler = () => {
@@ -46,6 +46,15 @@ function ListModalCard({ id, listId, findIndex, title, poster, releaseDate, back
       }
     });
   };
+
+  useEffect(() => {
+    getSelectedUserSelectedList(localStorage.getItem("user"), id).then((res) => {
+      if (res) {
+        dispatch(MyListsActions.setMyLists({ list: res, listId: listId }));
+      }
+    });
+  }, []);
+
   return (
     <div>
       <button

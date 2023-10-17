@@ -31,7 +31,7 @@ function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = fal
   };
 
   const clickHandler = (id, title, list, date) => {
-    dispatch(modalActions.openModal({ name: "listModal", data: { id, title, list, date } }));
+    dispatch(modalActions.openModal({ name: "listModal", data: { id, title, list, date, listNum } }));
   };
 
   const addHandler = () => {
@@ -42,8 +42,19 @@ function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = fal
         poster: modalHasData.poster,
         releaseDate: modalHasData.releaseDate,
         backdrop: modalHasData.backdrop,
-      }) && toast.success("Movie added successfully!");
-      dispatch(modalActions.closeModal());
+      });
+      dispatch(
+        MyListsActions.addListItem({
+          data: {
+            id: myLists[listNum].id,
+            title: modalHasData.title,
+            poster: modalHasData.poster,
+            releaseDate: modalHasData.releaseDate,
+            backdrop: modalHasData.backdrop,
+          },
+          listId: listNum,
+        })
+      ) && toast.success("Movie added successfully!");
     } else {
       navigate("/search");
       dispatch(modalActions.closeModal());

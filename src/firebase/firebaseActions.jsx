@@ -684,6 +684,22 @@ const getSelectedUserLists = async (userId) => {
   return selectedUserLists;
 };
 
+const getSelectedUserSelectedList = async (userId, listId) => {
+  const pinnedListsRef = ref(database, `pinnedList/${userId}/${listId}`);
+  const snapshot = await get(pinnedListsRef);
+  const selectedUserLists = [];
+  if (snapshot.exists()) {
+    selectedUserLists.push({
+      id: snapshot.val().id,
+      title: snapshot.val().title,
+      isPinned: snapshot.val().isPinned,
+      date: snapshot.val().date,
+      list: snapshot.val().list,
+    });
+  }
+  return selectedUserLists;
+};
+
 const updateSelectedUserLists = async (userId, data) => {
   try {
     const pinnedListsRef = ref(database, `pinnedList/${userId}`);
@@ -709,7 +725,6 @@ const updateSelectedUserLists = async (userId, data) => {
 
 const deleteSelectedUserListsItem = async (userId, itemId) => {
   try {
-    console.log(userId, itemId);
     const pinnedListsRef = ref(database, `pinnedList/${userId}`);
     const snapshot = await get(pinnedListsRef);
     if (snapshot.exists()) {
@@ -718,7 +733,6 @@ const deleteSelectedUserListsItem = async (userId, itemId) => {
           set(ref(database, `pinnedList/${userId}/${childSnapshot.key}/list/${itemId}`), null);
         }
       });
-
       return true;
     } else {
       console.log("No data available");
@@ -924,6 +938,7 @@ export {
   updatePinnedList,
   removePinnedList,
   getSelectedUserLists,
+  getSelectedUserSelectedList,
   updateSelectedUserLists,
   getAllSelectedUserPostLikeLists,
   createSelectedUserPostLikeLists,
