@@ -4,6 +4,7 @@ import { getAllSelectedUserPostLikeLists, getAllSelectedUserPostRepostsLists, ge
 import FeedCard from "../../common/FeedCard";
 import Tabs from "./Tabs";
 import FeedTabs from "../FeedPage/FeedTabs";
+import InfoLabel from "../../common/InfoLabel";
 function ActivitiesSection({ username, uid }) {
   const [likes, setLikes] = useState([]);
   const [comments, setComments] = useState([]);
@@ -52,25 +53,11 @@ function ActivitiesSection({ username, uid }) {
           This user doesn't have any likes.
         </p>
       )}
-      {username && comments.length === 0 && tab === 1 && (
-        <p className="w-full p-4 mt-1 text-xl text-center text-slate-400 bg-slate-900 rounded-2xl h-fit">
-          This user doesn't have any comments.
-        </p>
-      )}
-      {username && reposts.length === 0 && tab === 2 && (
-        <p className="w-full p-4 mt-1 text-xl text-center text-slate-400 bg-slate-900 rounded-2xl h-fit">
-          This user doesn't have any reposts.
-        </p>
-      )}
-      {!username && likes.length === 0 && tab === 0 && (
-        <p className="w-full p-4 mt-1 text-xl text-center text-slate-400 bg-slate-900 rounded-2xl h-fit">You don't have any likes.</p>
-      )}
-      {!username && comments.length === 0 && tab === 1 && (
-        <p className="w-full p-4 mt-1 text-xl text-center text-slate-400 bg-slate-900 rounded-2xl h-fit">You don't have any comments.</p>
-      )}
-      {!username && reposts.length === 0 && tab === 2 && (
-        <p className="w-full p-4 mt-1 text-xl text-center text-slate-400 bg-slate-900 rounded-2xl h-fit">You don't have any reposts.</p>
-      )}
+      {username && comments.length === 0 && tab === 1 && <InfoLabel text="This user doesn't have any comments." />}
+      {username && reposts.length === 0 && tab === 2 && <InfoLabel text="This user doesn't have any reposts." />}
+      {!username && likes.length === 0 && tab === 0 && <InfoLabel text="You don't have any likes." />}
+      {!username && comments.length === 0 && tab === 1 && <InfoLabel text="You don't have any comments." />}
+      {!username && reposts.length === 0 && tab === 2 && <InfoLabel text="You don't have any reposts." />}
       {tab === 0 && likes.length > 0
         ? likes
             .map((data, index) => {

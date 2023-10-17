@@ -10,6 +10,7 @@ const profileSlice = createSlice({
       totalSeries: 0,
       totalFilms: 0,
     },
+    profileState: "loading",
   },
   reducers: {
     updateUser: (state, action) => {
@@ -32,6 +33,9 @@ const profileSlice = createSlice({
     },
     updateTotalFilms: (state, action) => {
       state.profileUser.totalFilms = action.payload;
+    },
+    updateState: (state, action) => {
+      state.profileState = action.payload;
     },
   },
 });

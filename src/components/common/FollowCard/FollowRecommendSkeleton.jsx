@@ -5,7 +5,7 @@ const FollowRecommendSkeleton = ({ username, photoURL }) => {
   const navigate = useNavigate();
 
   function handleClick() {
-    navigate(`/user/${username}`);
+    navigate(`/user/${username}`, { replace: true });
   }
   return (
     <div className="flex items-center justify-between my-2">
@@ -15,7 +15,7 @@ const FollowRecommendSkeleton = ({ username, photoURL }) => {
           <p className="duration-150 text-md text-slate-400 hover:text-fuchsia-600">@{username}</p>
         </button>
       </div>
-      <FollowButton />
+      {/* <FollowButton /> */}
     </div>
   );
 };

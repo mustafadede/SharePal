@@ -7,6 +7,7 @@ function FollowerModal() {
   const { modalHasData } = useSelector((state) => state.modal);
   const { followingList } = useSelector((state) => state.following);
   const { followersLists } = useSelector((state) => state.followers);
+
   return (
     <div className="px-8 pt-4 overflow-hidden bg-slate-900 rounded-2xl w-[30rem] h-96">
       <ModalHeader title={modalHasData.followType} />
