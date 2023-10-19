@@ -206,8 +206,9 @@ function SearchCardModal() {
         clickAction1={clickAction1}
         clickAction2={clickAction2}
         clickAction3={clickAction3}
+        images={images}
       />
-      <SearchCardModalBottom images={images} similar={similar} />
+      <SearchCardModalBottom similar={similar} />
     </div>
   );
 }

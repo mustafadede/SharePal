@@ -8,13 +8,13 @@ function UnfinishedComponent() {
   return (
     <div>
       <h3 className="pb-1 mt-4 overflow-hidden text-xl md:mt-0 h-fit text-slate-200">
-        {unfinishedList?.length > 0 ? unfinishedList?.length + " user unfinished this and bored 😔" : "People's unfinished and bored 😔"}
+        {unfinishedList?.length > 0 ? unfinishedList?.length + " user unfinished this 😔" : "People's unfinished 😔"}
       </h3>
       <div className="flex flex-wrap justify-center gap-2 mb-2 md:justify-start yt-2 md:mt-0 md:mb-0">
         {unfinishedList?.length > 0 ? (
           unfinishedList.map((item, i) => {
             return (
-              <Link to={`/profile/${item?.name}`} key={i}>
+              <Link to={`/user/${item?.name}`} key={i}>
                 <img src={item?.photoURL} className="object-cover w-12 h-12 rounded-full" alt={item?.name} />;
               </Link>
             );
@@ -22,7 +22,7 @@ function UnfinishedComponent() {
         ) : (
           <p className="text-slate-600">
             None of your followings finished this
-            {modalHasData.mediaType === "tv" ? modalHasData.mediaType.toUpperCase() + " Show" : " " + modalHasData.mediaType}.
+            {modalHasData.mediaType === "tv" ? " " + modalHasData.mediaType.toUpperCase() + " Show" : " " + modalHasData.mediaType}.
           </p>
         )}
       </div>

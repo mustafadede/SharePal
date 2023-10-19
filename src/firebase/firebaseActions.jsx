@@ -13,7 +13,6 @@ import { getDownloadURL, ref as sRef, uploadBytes } from "firebase/storage";
 
 const dbRef = ref(getDatabase());
 
-setPersistence(auth, browserSessionPersistence);
 
 const createUserWithEmailAction = async (data) => {
   try {

@@ -24,20 +24,15 @@ import { userActions } from "../../store/userSlice";
 import { followingActions } from "../../store/followingSlice";
 import { followersActions } from "../../store/followersSlice";
 import { notificationActions } from "../../store/notificationSlice";
-import { onAuthStateChanged } from "firebase/auth";
-import { authActions } from "../../store/authSlice";
-import { auth } from "../../firebase/firebaseConfig";
 
 function FeedPage() {
   const { posts, status } = useSelector((state) => state.posts);
   const { post } = useSelector((state) => state.createPost);
   const { user } = useSelector((state) => state.user);
   const [tab, setTab] = useState(0);
-  const [notification, setNotification] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     document.title = "SharePal | Feed";
-
     const getData = async () => {
       try {
         const userData = await getCurrentUserData(localStorage.getItem("user"));
@@ -63,10 +58,7 @@ function FeedPage() {
       }
     };
     dispatch(profileActions.removeUser(null));
-    onAuthStateChanged(auth, (user) => {
-      dispatch(authActions.login(user.uid));
-      getData();
-    });
+    getData();
   }, [tab, post]);
 
   const getUserLists = async () => {

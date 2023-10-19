@@ -9,11 +9,14 @@ import Navbar from "../../components/layout/Navbar";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/authSlice";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
+import CheckBox from "../../components/common/CheckBox";
+import { app } from "../../firebase/firebaseConfig";
 
 function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const {
     register,
     handleSubmit,
@@ -23,6 +26,7 @@ function LoginPage() {
   const submitHandler = (data) => {
     if (data.email && data.password && data.password.length >= 6) {
       signInWithEmailAction(data.email, data.password).then((res) => {
+        console.log(res);
         if (res.operationType === "signIn") {
           toast("Logged in successfully!");
           navigate("/feed");
@@ -44,6 +48,12 @@ function LoginPage() {
       : "w-full px-4 py-3 my-2 text-xl transition-colors md:w-3/4 bg-cGradient1 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl";
     return definer;
   };
+
+  const StateHandler = () => {
+    setRememberMe(!rememberMe);
+    app.auth().setPersistence(rememberMe ? "local" : "session");
+  };
+
   useEffect(() => {
     document.title = "SharePal | Log In";
   }, []);
@@ -89,6 +99,7 @@ function LoginPage() {
                   {showPassword ? <EyeOpenIcon className="w-6 h-6" /> : <EyeClosedIcon className="w-6 h-6" />}
                 </button>
               </div>
+              <CheckBox label="Remember me" onClickHandler={StateHandler} />
               <button type="submit" className="w-full py-2 mt-2 text-xl rounded-lg md:w-3/4 bg-fuchsia-600 text-cWhite">
                 Log In
               </button>

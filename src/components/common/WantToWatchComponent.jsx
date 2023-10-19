@@ -14,7 +14,7 @@ function WantToWatchComponent() {
         {wantToWatchList?.length > 0 ? (
           wantToWatchList.map((item, i) => {
             return (
-              <Link to={`/profile/${item?.name}`} key={i}>
+              <Link to={`/user/${item?.name}`} key={i}>
                 <img src={item?.photoURL} className="object-cover w-12 h-12 rounded-full" alt={item?.name} />;
               </Link>
             );
@@ -22,7 +22,7 @@ function WantToWatchComponent() {
         ) : (
           <p className="text-slate-600">
             None of your followings discover this
-            {modalHasData.mediaType === "tv" ? modalHasData.mediaType.toUpperCase() + " Show" : " " + modalHasData.mediaType}.
+            {modalHasData.mediaType === "tv" ? " " + modalHasData.mediaType.toUpperCase() + " Show" : " " + modalHasData.mediaType}.
           </p>
         )}
       </div>
