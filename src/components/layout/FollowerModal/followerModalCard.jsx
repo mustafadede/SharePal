@@ -52,10 +52,11 @@ function FollowerModalCard({ identify, info }) {
             src={`${data.banner}`}
             alt={data.nick}
             className="absolute inset-0 object-cover w-full h-full transition-opacity duration-700 opacity-0 rounded-2xl group-hover:opacity-40"
+            loading="lazy"
           />
         ) : null}
         {data.photo ? (
-          <img src={`${data.photo}`} alt={data.nick} className="z-10 object-cover w-16 h-full rounded-xl" />
+          <img src={`${data.photo}`} alt={data.nick} className="z-10 object-cover w-16 h-full rounded-xl" loading="lazy" />
         ) : (
           <div className="z-10 w-16 h-full rounded-xl bg-fuchsia-700"></div>
         )}

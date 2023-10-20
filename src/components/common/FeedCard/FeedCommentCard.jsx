@@ -9,17 +9,14 @@ import ActionDetailsCard from "../ActionDetailsCard";
 import { postsActions } from "../../../store/postsSlice";
 import { deleteSelectedPost } from "../../../firebase/firebaseActions";
 import { toast } from "react-toastify";
+import { DateFormatter } from "../../../utils/formatter";
 
 function FeedCommentCard({ data, notification }) {
   const [settings, setSettings] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user?.nick);
-  const day = new Date(data.date).getDate();
-  const month = new Date(data.date).getMonth() + 1;
-  const year = new Date(data.date).getFullYear();
-  const hour = new Date(data.date).getHours();
-  const minute = new Date(data.date).getMinutes();
-  const date = `${day}/${month}/${year} ${hour}:${minute < 10 ? "0" + minute : minute}`;
+
+  const date = DateFormatter(data);
 
   const deleteHandler = () => {
     deleteSelectedPost(localStorage.getItem("user"), data.postId).then(() => {
@@ -38,7 +35,7 @@ function FeedCommentCard({ data, notification }) {
         <div className="flex justify-between w-full">
           <div className="flex gap-4">
             {!data.photoURL && <div className="w-12 h-12 rounded-full bg-fuchsia-600"></div>}
-            {data.photoURL && <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" src={data.photoURL}></img>}
+            {data.photoURL && <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" loading="lazy" src={data.photoURL}></img>}
             <div className="flex flex-col">
               <NavLink to={data.nick === user ? `/profile` : `/user/${data.nick}`}>
                 <p className="transition-all duration-300 text-md text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600">

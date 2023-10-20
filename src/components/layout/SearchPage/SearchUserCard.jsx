@@ -27,12 +27,13 @@ function SearchUserCard({ user }) {
         <img
           src={user.banner}
           alt={user.displayName}
+          loading="lazy"
           className="absolute object-cover w-full transition-all duration-700 opacity-0 group-hover:opacity-40"
         />
       ) : null}
       <div className="z-10 flex flex-row items-center gap-4 p-4">
         {!photoURL && <div className="w-16 h-16 rounded-full bg-fuchsia-600"></div>}
-        {photoURL && <img className="object-cover w-16 h-16 rounded-full" src={photoURL} alt="user" />}
+        {photoURL && <img className="object-cover w-16 h-16 rounded-full" src={photoURL} loading="lazy" alt="user" />}
         <div className="flex flex-col items-start">
           <h1 className="text-xl text-white">{user?.displayName}</h1>
           {user.banner ? (

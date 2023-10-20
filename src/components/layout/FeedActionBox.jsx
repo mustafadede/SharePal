@@ -72,7 +72,12 @@ function FeedActionBox() {
             transition={{ delay: 0.3 }}
           >
             <div className="flex items-center gap-2">
-              <img className="w-8 h-8 rounded-full" src={`https://image.tmdb.org/t/p/w500/${modalHasData.poster}`} alt="poster" />
+              <img
+                className="w-8 h-8 rounded-full"
+                src={`https://image.tmdb.org/t/p/w500/${modalHasData.poster}`}
+                loading="lazy"
+                alt="poster"
+              />
               <div className="flex flex-col">
                 <span className="text-cWhite">{modalHasData.title}</span>
                 <span className="text-slate-300">{modalHasData.releaseDate.slice(0, 4)}</span>

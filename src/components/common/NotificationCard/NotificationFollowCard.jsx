@@ -2,13 +2,9 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { PersonIcon } from "@radix-ui/react-icons";
+import { DateFormatter } from "../../../utils/formatter";
 function NotificationFollowCard({ nick, photoURL, date }) {
-  const day = new Date(date).getDate();
-  const month = new Date(date).getMonth() + 1;
-  const year = new Date(date).getFullYear();
-  const hour = new Date(date).getHours();
-  const minute = new Date(date).getMinutes();
-  const newDate = `${day}/${month}/${year} ${hour}:${minute < 10 ? "0" + minute : minute}`;
+  const newDate = DateFormatter(date);
 
   return (
     <motion.div
@@ -18,7 +14,11 @@ function NotificationFollowCard({ nick, photoURL, date }) {
     >
       <div className="flex gap-4">
         {photoURL && (
-          <motion.img className="object-cover w-12 h-12 rounded-full lg:w-16 lg:h-16 bg-fuchsia-600" src={photoURL}></motion.img>
+          <motion.img
+            className="object-cover w-12 h-12 rounded-full lg:w-16 lg:h-16 bg-fuchsia-600"
+            loading="lazy"
+            src={photoURL}
+          ></motion.img>
         )}
         <motion.div className="flex flex-col items-start justify-center">
           <motion.p className="flex gap-1 text-base text-cWhite text-slate-20">

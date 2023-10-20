@@ -29,6 +29,7 @@ function SearchCardModalCenterMore({ overview, vote, providers, images, trailerI
                       src={`https://image.tmdb.org/t/p/w500/${provider.logo_path}`}
                       className="w-12 h-12 transition-all duration-300 border cursor-pointer drop-shadow-xl rounded-xl border-slate-400 hover:border-fuchsia-600"
                       alt={provider.provider_name}
+                      loading="lazy"
                     />
                   ))}
                 </div>

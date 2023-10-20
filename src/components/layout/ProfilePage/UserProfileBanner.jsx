@@ -12,7 +12,9 @@ function UserProfileBanner({ user = { nick: "Loading...", quote: "Loading...", b
       transition={{ delay: 0.2 }}
     >
       {/*  Banner start */}
-      {user?.banner && <motion.img className="absolute object-cover w-full h-full opacity-40 rounded-2xl" src={user.banner}></motion.img>}
+      {user?.banner && (
+        <motion.img className="absolute object-cover w-full h-full opacity-40 rounded-2xl" loading="lazy" src={user.banner}></motion.img>
+      )}
       {/*  Banner end */}
       <div className="relative flex items-center justify-center w-auto h-full gap-10 md:gap-4 xl:left-10">
         {/*  Profile picture start */}
@@ -24,6 +26,7 @@ function UserProfileBanner({ user = { nick: "Loading...", quote: "Loading...", b
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
             src={photo}
+            loading="lazy"
           ></motion.img>
         )}
         {/*  Profile picture end */}

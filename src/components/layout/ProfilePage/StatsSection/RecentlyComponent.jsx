@@ -8,6 +8,7 @@ function RecentlyComponent({ user }) {
         className="object-cover w-16 h-full rounded-2xl"
         src={`https://image.tmdb.org/t/p/w500/${user?.currentlyWatching?.poster}`}
         alt={user?.currentlyWatching?.title}
+        loading="lazy"
       />
       <div className="flex flex-col items-start justify-center gap-1">
         <p className="text-xl font-semibold transition-all text-cWhite">{user?.currentlyWatching?.title || "Loading"}</p>

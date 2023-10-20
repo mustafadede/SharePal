@@ -12,13 +12,19 @@ const ProfileCard = ({ nick = "-", username, quote = "-", banner }) => {
       <div className="relative h-28">
         {!banner && <div className="absolute object-cover object-top w-full h-24 bg-slate-700 rounded-t-2xl opacity-90"></div>}
         {banner && (
-          <img className="object-cover object-top w-full h-24 bg-slate-700 rounded-t-2xl opacity-90" src={banner} alt="banner"></img>
+          <img
+            className="object-cover object-top w-full h-24 bg-slate-700 rounded-t-2xl opacity-90"
+            src={banner}
+            loading="lazy"
+            alt="banner"
+          ></img>
         )}
         {photo && (
           <img
             className="absolute object-cover w-20 h-20 transform -translate-x-1/2 rounded-full bg-fuchsia-600 top-11 left-1/2"
             src={photo}
             alt="profile"
+            loading="lazy"
           ></img>
         )}
         {!photo && (

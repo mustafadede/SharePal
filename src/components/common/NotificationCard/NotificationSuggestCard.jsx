@@ -14,6 +14,7 @@ function NotificationSuggestCard() {
         <motion.img
           className="object-cover w-12 h-12 rounded-full lg:w-16 lg:h-16 bg-fuchsia-600"
           src="https://firebasestorage.googleapis.com/v0/b/sharepal-5d528.appspot.com/o/profilePhotos%2F1GnQrkyHUySMZsMuui0ygmkkBId2?alt=media&token=8d9d56e0-e3e9-47f4-a764-7be0f26d67fe"
+          loading="lazy"
         ></motion.img>
         <motion.div className="flex flex-col items-start justify-center">
           <motion.p className="flex gap-1 text-base text-cWhite text-slate-20">

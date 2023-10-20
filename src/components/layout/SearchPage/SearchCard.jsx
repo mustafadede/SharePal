@@ -46,6 +46,7 @@ function SearchCard({ id, title, poster, releaseDate, overview, vote, backdrop, 
           src={`https://image.tmdb.org/t/p/w500/${poster}`}
           alt={title}
           onClick={handleModal}
+          loading="lazy"
         />
       )}
       <motion.h1

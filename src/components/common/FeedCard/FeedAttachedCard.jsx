@@ -11,17 +11,15 @@ import ActionDetailsCard from "../ActionDetailsCard";
 import { toast } from "react-toastify";
 import { postsActions } from "../../../store/postsSlice";
 import useSearchWithYear from "../../../hooks/useSearchWithYear";
+import { DateFormatter } from "../../../utils/formatter";
 function FeedAttachedCard({ data, attachedData, notification }) {
   const [settings, setSettings] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
   const user = useSelector((state) => state.user.user?.nick);
   const dispatch = useDispatch();
-  const day = new Date(data.date).getDate();
-  const month = new Date(data.date).getMonth() + 1;
-  const year = new Date(data.date).getFullYear();
-  const hour = new Date(data.date).getHours();
-  const minute = new Date(data.date).getMinutes();
-  const date = `${day}/${month}/${year} ${hour}:${minute < 10 ? "0" + minute : minute}`;
+
+  const date = DateFormatter(data);
+
   // const onClickHandler = () => {
   //   dispatch(modalActions.openModal({ name: "pinnedModal", data: data.attachedFilm }));
   //   setBookmarked(!bookmarked);
@@ -78,7 +76,7 @@ function FeedAttachedCard({ data, attachedData, notification }) {
         <div className="flex justify-between w-full">
           <div className="flex gap-4">
             {!data.photoURL && <div className="w-12 h-12 rounded-full bg-fuchsia-600"></div>}
-            {data.photoURL && <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" src={data.photoURL}></img>}
+            {data.photoURL && <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" loading="lazy" src={data.photoURL}></img>}
             <div className="flex flex-col">
               <NavLink to={data.nick === user ? `/profile` : `/user/${data.nick}`}>
                 <p className="transition-all duration-300 text-md text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600">
@@ -118,6 +116,7 @@ function FeedAttachedCard({ data, attachedData, notification }) {
             <img
               src={`https://image.tmdb.org/t/p/w500/${attachedData?.poster || data.attachedFilm.poster}`}
               className="object-cover transition-all duration-700 rounded-full w-14 h-14 grayscale group-hover:grayscale-0"
+              loading="lazy"
             ></img>
             <div className="flex items-center justify-center gap-1">
               <p className="transition-all duration-700 text-slate-400 group-hover:text-slate-200">

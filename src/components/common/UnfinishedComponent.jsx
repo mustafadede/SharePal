@@ -15,7 +15,7 @@ function UnfinishedComponent() {
           unfinishedList.map((item, i) => {
             return (
               <Link to={`/user/${item?.name}`} key={i}>
-                <img src={item?.photoURL} className="object-cover w-12 h-12 rounded-full" alt={item?.name} />;
+                <img src={item?.photoURL} className="object-cover w-12 h-12 rounded-full" loading="lazy" alt={item?.name} />;
               </Link>
             );
           })

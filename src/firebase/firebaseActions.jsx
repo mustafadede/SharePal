@@ -1,18 +1,10 @@
-import {
-  browserSessionPersistence,
-  createUserWithEmailAndPassword,
-  getAuth,
-  setPersistence,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, database, storage } from "./firebaseConfig";
 import { toast } from "react-toastify";
 import { child, get, getDatabase, orderByValue, push, query, ref, set, update } from "firebase/database";
 import { getDownloadURL, ref as sRef, uploadBytes } from "firebase/storage";
 
 const dbRef = ref(getDatabase());
-
 
 const createUserWithEmailAction = async (data) => {
   try {

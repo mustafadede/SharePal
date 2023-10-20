@@ -4,17 +4,13 @@ import { Link } from "react-router-dom";
 import { ChevronDownIcon, HeartIcon, PersonIcon } from "@radix-ui/react-icons";
 import { getSelectedUserPost } from "../../../firebase/firebaseActions";
 import FeedCard from "../FeedCard";
+import { DateFormatter } from "../../../utils/formatter";
 
 function NotificationLikeCard({ nick, photoURL, date, postId }) {
   const [isOpen, setIsOpen] = useState(false);
   const [post, setPost] = useState(null);
-  const day = new Date(date).getDate();
-  const month = new Date(date).getMonth() + 1;
-  const year = new Date(date).getFullYear();
-  const hour = new Date(date).getHours();
-  const minute = new Date(date).getMinutes();
-  const newDate = `${day}/${month}/${year} ${hour}:${minute < 10 ? "0" + minute : minute}`;
 
+  const newDate = DateFormatter(date);
   useEffect(() => {
     getSelectedUserPost(localStorage.getItem("user"), postId).then((res) => setPost(res));
   }, []);
@@ -24,7 +20,11 @@ function NotificationLikeCard({ nick, photoURL, date, postId }) {
       <div className="flex flex-row items-center justify-between w-full p-4 mb-4 transition-all duration-150 border border-transparent bg-slate-900 rounded-xl hover:border-slate-400">
         <div className="flex gap-4">
           {photoURL && (
-            <motion.img className="object-cover w-12 h-12 rounded-full lg:w-16 lg:h-16 bg-fuchsia-600" src={photoURL}></motion.img>
+            <motion.img
+              className="object-cover w-12 h-12 rounded-full lg:w-16 lg:h-16 bg-fuchsia-600"
+              loading="lazy"
+              src={photoURL}
+            ></motion.img>
           )}
           <motion.div className="flex flex-col items-start justify-center">
             <motion.p className="flex gap-1 text-base text-cWhite text-slate-20">

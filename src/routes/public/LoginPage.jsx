@@ -26,7 +26,6 @@ function LoginPage() {
   const submitHandler = (data) => {
     if (data.email && data.password && data.password.length >= 6) {
       signInWithEmailAction(data.email, data.password).then((res) => {
-        console.log(res);
         if (res.operationType === "signIn") {
           toast("Logged in successfully!");
           navigate("/feed");
@@ -51,7 +50,7 @@ function LoginPage() {
 
   const StateHandler = () => {
     setRememberMe(!rememberMe);
-    app.auth().setPersistence(rememberMe ? "local" : "session");
+    app.auth().setPersistence(rememberMe ? "local" : "none");
   };
 
   useEffect(() => {
