@@ -1,10 +1,8 @@
 import React from "react";
 import { errorPageGifs } from "../assets/errorPageGifs";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 function NotFound() {
   const user = localStorage.getItem("user");
-  console.log(errorPageGifs);
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-4">
       <img

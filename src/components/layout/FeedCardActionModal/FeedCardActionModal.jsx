@@ -10,13 +10,14 @@ function FeedCardActionModal() {
       <ModalHeader title={modalHasData.title} />
       <div className="overflow-y-auto no-scrollbar h-[20rem]">
         {modalHasData.ids?.map((item, i) => (
-          <FollowerModalCard identify={"likes"} key={i} info={item} />
+          <FollowerModalCard identify={modalHasData.title} key={i} info={item} />
         ))}
         {!modalHasData.ids && (
           <div className="flex w-full h-full">
             <p className="text-lg text-slate-600">No {modalHasData.title.charAt(0).toLowerCase() + modalHasData.title.slice(1)} yet</p>
           </div>
         )}
+        {modalHasData.ids?.length === 0 && <p className="text-lg text-slate-600">No data yet</p>}
       </div>
     </div>
   );

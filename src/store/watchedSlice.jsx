@@ -3,13 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const watched = createSlice({
   name: "watched",
   initialState: {
-    watchedList: [],
+    watchedMovieList: [],
+    watchedSeriesList: [],
     loading: false,
     error: null,
   },
   reducers: {
     inititilize: (state, action) => {
-      state.watchedList = action.payload;
+      action.payload.type === "tv" ? (state.watchedSeriesList = action.payload.data) : (state.watchedMovieList = action.payload.data);
     },
     update: (state, action) => {
       state.watchedList.push(action.payload);

@@ -12,12 +12,13 @@ import { toast } from "react-toastify";
 import { followingActions } from "../../../store/followingSlice";
 import { userActions } from "../../../store/userSlice";
 import { profileActions } from "../../../store/profileSlice";
+import { useNavigate } from "react-router-dom";
 
 function UserActionButtons({ profileUser }) {
   const { user } = useSelector((state) => state.user);
   const { followingList } = useSelector((state) => state.following);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   useEffect(() => {
     getFollowersForUser(localStorage.getItem("user")).then((followers) => {
       dispatch(followingActions.initialFollowing(followers));
@@ -25,6 +26,10 @@ function UserActionButtons({ profileUser }) {
   }, []);
 
   const onClickHandler = async () => {
+    if (!localStorage.getItem("user")) {
+      navigate("/login");
+      return;
+    }
     if (followingList.some((user) => user.uid === profileUser?.uid)) {
       dispatch(followingActions.removeFollowing(profileUser.uid));
       dispatch(userActions.followUser(followingList.length - 1));

@@ -209,7 +209,7 @@ const getUserBySearch = async (username) => {
 
 const getUsers = async () => {
   try {
-    const userId = getAuth().currentUser.uid;
+    const userId = localStorage.getItem("user");
     const snapshot = await get(child(dbRef, `users`));
     if (snapshot.exists()) {
       const users = [];

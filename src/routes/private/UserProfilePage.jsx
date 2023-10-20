@@ -63,10 +63,13 @@ function UserProfilePage() {
       dispatch(profileActions.updateState("done"));
     }, 500);
   }, [username]);
-
+  console.log(profileUser);
   return (
     <>
-      <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
+      <Navbar
+        isNotLoggedin={localStorage.getItem("user") ? false : true}
+        additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30"
+      />
       <div className="flex mx-5 md:mx-10">
         {profileState === "loading" && (
           <div className="flex flex-col w-full h-screen gap-4 mb-6 lg:mr-6">
@@ -91,7 +94,7 @@ function UserProfilePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          <FollowCard users={users} />
+          {localStorage.getItem("user") ? <FollowCard users={users} /> : <PopularCard />}
         </motion.div>
       </div>
     </>

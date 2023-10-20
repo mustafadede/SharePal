@@ -48,11 +48,7 @@ const router = createHashRouter([
       },
       {
         path: "user/:username",
-        element: (
-          <PrivateRoute>
-            <UserProfilePage />
-          </PrivateRoute>
-        ),
+        element: <UserProfilePage />,
       },
       {
         path: "notifications",

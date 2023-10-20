@@ -15,6 +15,7 @@ import StatsCard from "../../components/layout/ProfilePage/StatsCard";
 import { followingActions } from "../../store/followingSlice";
 import { followersActions } from "../../store/followersSlice";
 import { modalActions } from "../../store/modalSlice";
+import { watchedActions } from "../../store/watchedSlice";
 
 function ProfilePage() {
   const tabs = [
@@ -28,6 +29,7 @@ function ProfilePage() {
   const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
+    dispatch(modalActions.closeModal());
     document.title = "SharePal | Profile";
     window.scrollTo(0, 0);
     const getData = async () => {
@@ -43,15 +45,16 @@ function ProfilePage() {
       getSelectedUserWatched(localStorage.getItem("user")).then((res) => {
         const filteredTVData = res?.filter((item) => item.mediaType === "tv");
         dispatch(userActions.userTotalSeries(filteredTVData.length));
+        dispatch(watchedActions.inititilize({ type: "tv", data: filteredTVData }));
       });
       getSelectedUserWatched(localStorage.getItem("user")).then((res) => {
         const filteredMovieData = res?.filter((item) => item.mediaType === "movie");
         dispatch(userActions.userTotalFilms(filteredMovieData.length));
+        dispatch(watchedActions.inititilize({ type: "films", data: filteredMovieData }));
       });
     };
     getData();
   }, []);
-  dispatch(modalActions.closeModal());
   return (
     <>
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />

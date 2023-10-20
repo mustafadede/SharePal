@@ -57,7 +57,7 @@ function Slider({ data, header, dataClassName, sliderType }) {
           }}
         >
           {data?.map((movie) =>
-            movie.release_date || (movie.first_air_date && movie.poster_path) ? (
+            movie.first_air_date || movie.poster_path ? (
               <SwiperSlide key={movie.id}>
                 <SearchCard
                   key={movie.id}
