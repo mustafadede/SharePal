@@ -47,14 +47,6 @@ function ListModalCard({ id, listId, findIndex, title, poster, releaseDate, back
     });
   };
 
-  useEffect(() => {
-    getSelectedUserSelectedList(localStorage.getItem("user"), id).then((res) => {
-      if (res) {
-        dispatch(MyListsActions.setMyLists({ list: res, listId: listId }));
-      }
-    });
-  }, []);
-
   return (
     <div>
       <button

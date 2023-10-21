@@ -63,7 +63,7 @@ function UserProfilePage() {
       dispatch(profileActions.updateState("done"));
     }, 500);
   }, [username]);
-  console.log(profileUser);
+
   return (
     <>
       <Navbar

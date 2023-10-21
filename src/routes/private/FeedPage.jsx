@@ -43,6 +43,8 @@ function FeedPage() {
         followers && dispatch(followersActions.initialFollowers(followers));
         const notifications = await getNotifications(localStorage.getItem("user"));
         notifications && dispatch(notificationActions.setNotification(notifications)) && dispatch(notificationActions.updateStatus("done"));
+        const res = await getSelectedUserLists(localStorage.getItem("user"));
+        dispatch(MyListsActions.initilizeList(res));
         if (tab === 0) {
           dispatch(postsActions.updateStatus("loading"));
           const response = await getAllPosts();
@@ -61,11 +63,6 @@ function FeedPage() {
     getData();
   }, [tab, post]);
 
-  const getUserLists = async () => {
-    const res = await getSelectedUserLists(localStorage.getItem("user"));
-    dispatch(MyListsActions.initilizeList(res));
-  };
-  getUserLists();
   return (
     <>
       <Navbar

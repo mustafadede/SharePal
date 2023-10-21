@@ -10,9 +10,9 @@ const myListsSlice = createSlice({
     initilizeList: (state, action) => {
       state.myLists = action.payload;
     },
-    setMyLists: (state, action) => {
-      state.myLists.push(action.payload);
-    },
+    // setMyLists: (state, action) => {
+    //   state.myLists.push(action.payload);
+    // },
     setPinned: (state, action) => {
       state.myLists[action.payload].isPinned = !state.myLists[action.payload].isPinned;
     },

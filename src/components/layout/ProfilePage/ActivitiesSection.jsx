@@ -13,7 +13,6 @@ function ActivitiesSection({ username, uid }) {
   useEffect(() => {
     if (username) {
       getAllSelectedUserPostLikeLists(uid).then((result) => {
-        console.log(result, uid);
         result.forEach((value) => {
           getSpecificPost(value.id.trim(), value.postId).then((res) => {
             res.length > 0 ? setLikes((prev) => [...prev, res]) : null;
