@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { getSelectedUserPosts } from "../../../firebase/firebaseActions";
 import FeedCard from "../../common/FeedCard";
+import LoginRestrictionComponent from "../../common/LoginRestrictionComponent";
 
 function PostsSection({ username, uid }) {
   const [posts, setPosts] = useState([]);
@@ -20,7 +21,8 @@ function PostsSection({ username, uid }) {
   }, []);
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full overflow-y-scroll no-scrollbar">
-      {username && posts.length === 0 && (
+      {!localStorage.getItem("user") ? <LoginRestrictionComponent /> : null}
+      {username && posts.length === 0 && localStorage.getItem("user") && (
         <p className="w-full p-4 mt-1 text-xl text-center text-slate-400 bg-slate-900 rounded-2xl h-fit">
           This user doesn't have any post.
         </p>
