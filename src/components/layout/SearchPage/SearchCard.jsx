@@ -65,12 +65,14 @@ function SearchCard({ id, title, poster, releaseDate, overview, vote, backdrop, 
       >
         {releaseDate && releaseDate.slice(0, 4)}
       </motion.p>
-      <motion.button
-        className="absolute z-10 px-2 py-1 text-white transition-all bg-transparent right-1 top-3 rounded-xl hover:text-fuchsia-800"
-        onClick={handleClick}
-      >
-        <PlusIcon className="w-6 h-6" />
-      </motion.button>
+      {localStorage.getItem("user") ? (
+        <motion.button
+          className="absolute z-10 px-2 py-1 text-white transition-all bg-transparent right-1 top-3 rounded-xl hover:text-fuchsia-800"
+          onClick={handleClick}
+        >
+          <PlusIcon className="w-6 h-6" />
+        </motion.button>
+      ) : null}
     </motion.div>
   );
 }

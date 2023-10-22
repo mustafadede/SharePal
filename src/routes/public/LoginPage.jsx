@@ -3,14 +3,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import video from "../../assets/video-playback.webm";
 import { signInWithEmailAction } from "../../firebase/firebaseActions";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Navbar from "../../components/layout/Navbar";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/authSlice";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import CheckBox from "../../components/common/CheckBox";
-import { app } from "../../firebase/firebaseConfig";
+import LoginPill from "../../components/common/LoginPill";
+import { browserLocalPersistence, browserSessionPersistence, setPersistence } from "firebase/auth";
+import { auth } from "../../firebase/firebaseConfig";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -20,6 +22,7 @@ function LoginPage() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -28,6 +31,7 @@ function LoginPage() {
       signInWithEmailAction(data.email, data.password).then((res) => {
         if (res.operationType === "signIn") {
           toast("Logged in successfully!");
+          localStorage.setItem("m", JSON.stringify(data.email));
           navigate("/feed");
           dispatch(authActions.login(res.user.uid));
         }
@@ -50,7 +54,7 @@ function LoginPage() {
 
   const StateHandler = () => {
     setRememberMe(!rememberMe);
-    app.auth().setPersistence(rememberMe ? "local" : "none");
+    setPersistence(auth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
   };
 
   useEffect(() => {
@@ -82,6 +86,16 @@ function LoginPage() {
                 {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
                 aria-invalid={errors.email ? true : false}
               />
+              {localStorage.getItem("m") ? (
+                <div className="flex justify-start w-full md:w-3/4">
+                  <LoginPill
+                    text="mustafa.dede.0016@gmail.com"
+                    onClickHandler={() => {
+                      setValue("email", JSON.parse(localStorage.getItem("m")), { shouldValidate: true });
+                    }}
+                  />
+                </div>
+              ) : null}
               <div className="relative flex justify-center w-full">
                 <motion.input
                   type={showPassword ? "text" : "password"}
