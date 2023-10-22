@@ -54,7 +54,7 @@ function LoginPage() {
 
   const StateHandler = () => {
     setRememberMe(!rememberMe);
-    setPersistence(auth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
+    setPersistence(auth, rememberMe ? browserSessionPersistence : browserLocalPersistence);
   };
 
   useEffect(() => {
