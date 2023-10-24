@@ -89,7 +89,7 @@ function LoginPage() {
               {localStorage.getItem("m") ? (
                 <div className="flex justify-start w-full md:w-3/4">
                   <LoginPill
-                    text="mustafa.dede.0016@gmail.com"
+                    text={JSON.parse(localStorage.getItem("m"))}
                     onClickHandler={() => {
                       setValue("email", JSON.parse(localStorage.getItem("m")), { shouldValidate: true });
                     }}
