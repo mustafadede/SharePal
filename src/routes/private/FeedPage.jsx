@@ -9,7 +9,6 @@ import {
   getNotifications,
   getSelectedUserFollowing,
   getSelectedUserLists,
-  getSelectedUserPosts,
 } from "../../firebase/firebaseActions";
 import FeedActionBox from "../../components/layout/FeedActionBox";
 import FeedCard from "../../components/common/FeedCard";
@@ -24,6 +23,7 @@ import { userActions } from "../../store/userSlice";
 import { followingActions } from "../../store/followingSlice";
 import { followersActions } from "../../store/followersSlice";
 import { notificationActions } from "../../store/notificationSlice";
+import FollowingSecctionComponent from "../../components/layout/FollowingSecctionComponent";
 
 function FeedPage() {
   const { posts, status } = useSelector((state) => state.posts);
@@ -49,10 +49,6 @@ function FeedPage() {
           dispatch(postsActions.updateStatus("loading"));
           const response = await getAllPosts();
           dispatch(postsActions.updatePosts(response));
-          dispatch(postsActions.updateStatus("done"));
-        } else {
-          dispatch(postsActions.updatePosts([]));
-          dispatch(postsActions.updateStatus("loading"));
           dispatch(postsActions.updateStatus("done"));
         }
       } catch (error) {
@@ -106,7 +102,7 @@ function FeedPage() {
                 }
               })
               .reverse()}
-          {tab === 1 && <p className="w-full mt-1 text-xl text-center text-slate-400">Coming soon...</p>}
+          {tab === 1 && <FollowingSecctionComponent />}
         </motion.div>
         <motion.div
           className="hidden w-1/3 h-fit lg:flex sticky top-[4.7rem] justify-center"

@@ -560,6 +560,7 @@ const getSelectedUserPosts = async (userId) => {
         spoiler: childSnapshot.val().spoiler,
         attachedFilm: childSnapshot.val().attachedFilm,
         likes: childSnapshot.val().likes,
+        likesList: childSnapshot.val().likesList,
         comments: childSnapshot.val().comments,
         repost: childSnapshot.val().repost,
         date: childSnapshot.val().date,

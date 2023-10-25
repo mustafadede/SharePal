@@ -10,7 +10,14 @@ const postsSlice = createSlice({
   reducers: {
     updatePosts: (state, action) => {
       state.posts = action.payload;
+      console.log(action.payload);
       state.status = "success";
+    },
+    resetPosts: (state) => {
+      state.posts = [];
+    },
+    pushPosts: (state, action) => {
+      state.posts.push(action.payload);
     },
     updateStatus: (state, action) => {
       state.status = action.payload;
