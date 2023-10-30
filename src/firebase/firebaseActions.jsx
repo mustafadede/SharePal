@@ -461,14 +461,16 @@ const createSelectedUserPostLikeLists = async (data) => {
   }
 };
 
-const removeSelectedUserPostLikeLists = async (userId, postId, data) => {
+const removeSelectedUserPostLikeLists = async (userId, postId) => {
   try {
-    const postsRef = ref(database, `likesList/${userId}/`);
+    const userPost = getAuth().currentUser.uid;
+    const postsRef = ref(database, `likesList/${userPost}/`);
     const snapshot = await get(postsRef);
     if (snapshot.exists()) {
       snapshot.forEach((childSnapshot) => {
-        if (childSnapshot.val().id === data.id) {
-          set(ref(database, `likesList/${userId}/${childSnapshot.key}`), null);
+        if (childSnapshot.val().postId === postId) {
+          console.log(childSnapshot.val().postId === postId);
+          set(ref(database, `likesList/${userPost}/${childSnapshot.key}`), null);
         }
       });
     }
@@ -554,6 +556,7 @@ const getSelectedUserPosts = async (userId) => {
   if (snapshot.exists()) {
     snapshot.forEach((childSnapshot) => {
       allPosts.push({
+        postId: childSnapshot.key,
         photoURL: childSnapshot.val().photoURL,
         nick: childSnapshot.val().nick,
         content: childSnapshot.val().content,
@@ -562,7 +565,9 @@ const getSelectedUserPosts = async (userId) => {
         likes: childSnapshot.val().likes,
         likesList: childSnapshot.val().likesList,
         comments: childSnapshot.val().comments,
+        commentsList: childSnapshot.val().commentsList,
         repost: childSnapshot.val().repost,
+        repostsList: childSnapshot.val().repostsList,
         date: childSnapshot.val().date,
         userId: childSnapshot.val().userId,
       });

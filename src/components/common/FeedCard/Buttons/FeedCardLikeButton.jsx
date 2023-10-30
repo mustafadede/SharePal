@@ -65,9 +65,8 @@ function FeedCardLikeButton({ data }) {
         likes: data.likes - 1,
         likesList: data.likesList?.filter((val) => val.id !== getAuth().currentUser.uid),
       }).then(() => {
-        removeSelectedUserPostLikeLists(data.userId, data.postId, {
-          id: getAuth().currentUser.uid,
-        });
+        console.log(data.userId, data.postId);
+        removeSelectedUserPostLikeLists(data.userId, data.postId);
       });
     }
   };

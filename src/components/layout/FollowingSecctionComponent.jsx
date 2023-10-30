@@ -4,7 +4,7 @@ import { getSelectedUserPosts } from "../../firebase/firebaseActions";
 import FeedCard from "../common/FeedCard";
 import { postsActions } from "../../store/postsSlice";
 
-function FollowingSecctionComponent() {
+function FollowingSecctionComponent({ tab }) {
   const { followingList } = useSelector((state) => state.following);
   const { posts, status } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
@@ -13,16 +13,17 @@ function FollowingSecctionComponent() {
     dispatch(postsActions.resetPosts());
     followingList.map((item) => {
       getSelectedUserPosts(item.uid).then((res) => {
-        dispatch(postsActions.pushPosts(...res));
+        res.map((post) => {
+          dispatch(postsActions.pushPosts(post));
+        });
       });
     });
     dispatch(postsActions.updateStatus("done"));
-  }, []);
+  }, [tab]);
 
   return (
     <>
-      {status === "loading" && <p className="w-full mt-1 text-xl text-center text-slate-400">Loading...</p>}
-      {status === "done" &&
+      {status === "done" ? (
         posts
           .map((data, index) => {
             if (data.attachedFilm) {
@@ -33,7 +34,12 @@ function FollowingSecctionComponent() {
               return <FeedCard key={index} isComment={true} data={data} index={index} />;
             }
           })
-          .reverse()}
+          .reverse()
+      ) : status === "loading" ? (
+        <p className="w-full mt-1 text-xl text-center text-slate-400">Loading...</p>
+      ) : (
+        <p className="w-full mt-1 text-xl text-center text-slate-400">You don't follow anyone</p>
+      )}
     </>
   );
 }
