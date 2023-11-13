@@ -55,9 +55,23 @@ function FollowerModalCard({ identify, info }) {
         setData(res);
       });
     };
+
+    const getRepostsData = async () => {
+      getUserByTheIds(info.id).then((res) => {
+        getProfilePhoto(info.id).then((photo) => {
+          const data = {
+            ...res,
+            photo,
+          };
+          setData(data);
+        });
+      });
+    };
+
     identify === "Following" && getFollowingData();
     identify === "Followers" && getFollowersData();
     identify === "Likes" && getLikesData(info);
+    identify === "Reposts" && getRepostsData(info);
     identify === "Total Films" && getTotalFilms(info);
     identify === "Total Series" && getTotalSeries(info);
   }, []);

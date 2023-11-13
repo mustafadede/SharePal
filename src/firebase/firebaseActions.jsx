@@ -533,6 +533,7 @@ const getSpecificPost = async (userId, postId) => {
   const post = [];
   if (snapshot.exists()) {
     post.push({
+      postId: snapshot.key,
       attachedFilm: snapshot.val()?.attachedFilm,
       comments: snapshot.val().comments,
       content: snapshot.val().content,
@@ -542,6 +543,7 @@ const getSpecificPost = async (userId, postId) => {
       likesList: snapshot.val().likesList,
       photoURL: snapshot.val().photoURL,
       repost: snapshot.val().repost,
+      repostsList: snapshot.val().repostsList,
       spoiler: snapshot.val()?.spoiler,
       userId: snapshot.val().userId,
     });

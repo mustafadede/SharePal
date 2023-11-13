@@ -21,6 +21,10 @@ const followingSlice = createSlice({
       state.followingList = newFollowing;
       state.length = state.followingList.length;
     },
+    resetFollowing: (state) => {
+      state.followingList = [];
+      state.length = 0;
+    },
   },
 });
 export const followingActions = followingSlice.actions;

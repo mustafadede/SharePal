@@ -8,7 +8,7 @@ function FeedCardActionsSkeleton({ action, number, data }) {
     if (action === "likes") {
       dispatch(modalActions.openModal({ name: "likesModal", data: { title: "Likes", ids: data?.likesList } }));
     } else if (action === "reposts") {
-      dispatch(modalActions.openModal({ name: "likesModal", data: { title: "Reposts", ids: data?.repostsList } }));
+      dispatch(modalActions.openModal({ name: "likesModal", data: { title: "Reposts", ids: data.repostsList } }));
     }
   };
   return (

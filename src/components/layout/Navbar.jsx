@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/authSlice";
 import { getNotifications } from "../../firebase/firebaseActions";
 import { notificationActions } from "../../store/notificationSlice";
+import { followingActions } from "../../store/followingSlice";
 
 const dropdownItems = [
   {
@@ -126,6 +127,7 @@ function Navbar({ isNotLoggedin = true, additionalClasses = "", onClickHandler }
                       signOut(auth)
                         .then(() => {
                           dispatch(notificationActions.setNotification([]));
+                          dispatch(followingActions.resetFollowing());
                           localStorage.removeItem("lookUpDate");
                           dispatch(authActions.logout());
                           return navigate("/login");
