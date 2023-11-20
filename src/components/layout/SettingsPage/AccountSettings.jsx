@@ -14,18 +14,24 @@ function AccountSettings() {
   const [email, setEmail] = useState(user?.email);
   const [quote, setQuote] = useState(user?.quote);
   const [topOne, setTopOne] = useState(user?.topOne);
+  const [instagram, setInstagram] = useState(user?.instagram);
+  const [linkedin, setLinkedin] = useState(user?.linkedin);
+  const [github, setGithub] = useState(user?.github);
 
   const formHandler = () => {
     if (!nick && !email && !quote && !topOne) return toast.error("You didn't change anything!");
     if (nick.length > 34) return toast.error("Nickname is too long! (max 34 characters)");
     if (quote.length > 175) return toast.error("Quote is too long! (max 175 characters)");
     if (email && !email.includes("@")) return toast.error("Email is invalid!");
-    dispatch(userActions.updateUser({ ...user, nick, email, quote, topOne }));
+    dispatch(userActions.updateUser({ ...user, nick, email, quote, topOne, instagram, linkedin, github }));
     const data = {
       nick,
       email,
       quote,
       topOne,
+      instagram,
+      linkedin,
+      github,
     };
     updateCurrentUserData(localStorage.getItem("user"), data) && toast.success("Updated successfully!");
   };
@@ -86,6 +92,27 @@ function AccountSettings() {
           placeholder={`Favorite in all time (${user?.topOne})`}
           onChange={(e) => {
             setTopOne(e.target.value);
+          }}
+        />
+        <input
+          className="w-full px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
+          placeholder={instagram ? instagram : `Your Instagram Profile Link`}
+          onChange={(e) => {
+            setInstagram(e.target.value);
+          }}
+        />
+        <input
+          className="w-full px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
+          placeholder={github ? github : `Your GitHub Profile Link`}
+          onChange={(e) => {
+            setGithub(e.target.value);
+          }}
+        />
+        <input
+          className="w-full px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
+          placeholder={linkedin ? linkedin : `Your LinkedIn Profile Link`}
+          onChange={(e) => {
+            setLinkedin(e.target.value);
           }}
         />
         <p className="w-full my-2 text-xl text-slate-300">Pictures</p>

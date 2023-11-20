@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import Socials from "./ProfileBannerSocials/Socials";
 
 function UserProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banner: "" } }) {
   const photo = user?.photoURL;
@@ -64,9 +65,9 @@ function UserProfileBanner({ user = { nick: "Loading...", quote: "Loading...", b
         </div>
       </div>
       {/*  Name, Quote end */}
-      {/*  Edit button start */}
-
-      {/*  Edit button end */}
+      {/*  Social media start */}
+      <Socials user={user} hasUser={true} />
+      {/*  Social media end */}
     </motion.div>
   );
 }

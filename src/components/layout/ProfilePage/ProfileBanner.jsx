@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 import { Pencil1Icon } from "@radix-ui/react-icons";
 import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
+import Socials from "./ProfileBannerSocials/Socials";
 
-function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banner: "" }, username }) {
+function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banner: "", instagram: "Loading..." }, username }) {
   const photo = username ? user.photoURL : getAuth().currentUser?.photoURL;
-
   return (
     <motion.div
       className="relative w-full overflow-hidden h-52 md:h-64 rounded-2xl bg-slate-900"
@@ -86,8 +86,10 @@ function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banne
           </motion.button>
         </Link>
       ) : null}
-
       {/*  Edit button end */}
+      {/*  Social media start */}
+      <Socials user={user} />
+      {/*  Social media end */}
     </motion.div>
   );
 }
