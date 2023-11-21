@@ -14,6 +14,9 @@ const createPostSlice = createSlice({
     updateText: (state, action) => {
       state.text = action.payload;
     },
+    resetText: (state) => {
+      state.text = "";
+    },
     updateAttachedFilm: (state, action) => {
       state.attachedFilm = action.payload;
     },
