@@ -655,6 +655,16 @@ const createNotification = async (uid, data) => {
   }
 };
 
+const deleteUserNotification = async (uid) => {
+  try {
+    set(ref(database, `notifications/${uid}`), null);
+    return true;
+  } catch (error) {
+    console.error(error);
+    return toast("Something went wrong!");
+  }
+};
+
 const createPinnedList = async (data) => {
   try {
     const userId = getAuth().currentUser.uid;
@@ -985,6 +995,7 @@ export {
   getSelectedUserPost,
   getNotifications,
   createNotification,
+  deleteUserNotification,
   createPinnedList,
   updatePinnedList,
   removePinnedList,

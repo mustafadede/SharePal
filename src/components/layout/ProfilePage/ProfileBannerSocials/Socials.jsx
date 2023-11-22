@@ -2,16 +2,16 @@ import { ExternalLinkIcon, GitHubLogoIcon, InstagramLogoIcon, LinkedInLogoIcon, 
 import React from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-function Socials({ user, hasUser }) {
+function Socials({ user }) {
   const handleClick = (link) => {
-    navigator.clipboard.writeText(link) && toast.success("Copied to clipboard!");
+    navigator.clipboard.writeText(link) && toast.success("External profile link copied to clipboard!");
   };
 
   return (
     <div className="flex items-center justify-center md:block">
       <div className="absolute flex flex-row-reverse items-center justify-center h-12 gap-2 w-fit md:right-5 bottom-2 md:bottom-3">
         <div className="flex flex-row-reverse w-full gap-2">
-          {user && (
+          {user && localStorage.getItem("user") && (
             <button onClick={() => handleClick(`https://sharepal.dev/#/user/${user?.nick}`)}>
               <motion.div
                 className="relative p-2 text-lg transition-all bg-transparent border-2 rounded-lg border-slate-400 text-slate-400 hover:border-fuchsia-800 hover:bg-fuchsia-800 hover:text-cWhite"

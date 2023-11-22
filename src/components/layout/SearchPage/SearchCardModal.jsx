@@ -97,7 +97,7 @@ function SearchCardModal() {
         getSelectedUserWatched(item.uid).then((res) => {
           if (res.length > 0) {
             const arr = res.find((item) => item.id === id);
-            arr && setUnfinished(true);
+            arr && dispatch(watchedActions.update(arr));
           }
         });
       });

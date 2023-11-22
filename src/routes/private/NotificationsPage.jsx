@@ -9,6 +9,7 @@ import NotificationListCard from "../../components/common/NotificationCard/Notif
 import NotificationSuggestCard from "../../components/common/NotificationCard/NotificationSuggestCard";
 import MyPinnedListsCard from "../../components/common/MyPinnedListsCard/MyPinnedListsCard";
 import {
+  deleteUserNotification,
   getCurrentUserData,
   getFollowersForUser,
   getNotifications,
@@ -21,6 +22,8 @@ import { userActions } from "../../store/userSlice";
 import { MyListsActions } from "../../store/myListsSlice";
 import { notificationActions } from "../../store/notificationSlice";
 import NotificationLikeCard from "../../components/common/NotificationCard/NotificationLikeCard";
+import { TrashIcon } from "@radix-ui/react-icons";
+import InfoLabel from "../../components/common/InfoLabel";
 
 function NotificationsPage() {
   const { user } = useSelector((state) => state.user);
@@ -56,6 +59,13 @@ function NotificationsPage() {
     getUserLists();
   }, []);
 
+  const handleDeletion = () => {
+    deleteUserNotification(localStorage.getItem("user")).then(() => {
+      dispatch(notificationActions.setNotification([]));
+      dispatch(notificationActions.updateStatus("deleted"));
+    });
+  };
+
   return (
     <>
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
@@ -76,14 +86,22 @@ function NotificationsPage() {
           <MyPinnedListsCard />
         </motion.div>
         <motion.div className="w-full h-fit xl:px-6">
-          <motion.h1
-            className="flex w-full mb-4 text-3xl text-cWhite"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            Notifications
-          </motion.h1>
+          <motion.div className="flex">
+            <motion.h1
+              className="flex w-full mb-4 text-3xl text-cWhite"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              Notifications
+            </motion.h1>
+            <motion.button
+              className="flex items-center justify-center w-12 h-10 transition-all duration-200 rounded-md group hover:bg-fuchsia-600/75"
+              onClick={() => handleDeletion()}
+            >
+              <TrashIcon className="transition-all duration-200 w-7 h-7 text-slate-600 group-hover:text-slate-200" />
+            </motion.button>
+          </motion.div>
           {status === "loading" && (
             <motion.h1
               className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
@@ -130,6 +148,9 @@ function NotificationsPage() {
                 }
               })
               .reverse()}
+          {status === "deleted" && notificationList.length === 0 && (
+            <InfoLabel text="There is nothing to see. Do some actions. Follow the rabbit hole." />
+          )}
         </motion.div>
         <motion.div
           className="hidden w-1/3 h-fit lg:flex sticky top-[4.7rem] justify-center"
