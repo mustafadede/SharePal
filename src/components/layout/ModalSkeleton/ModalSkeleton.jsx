@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useDispatch } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
@@ -36,6 +36,23 @@ const ModalOverlay = (props) => {
 function ModalSkeleton(props) {
   const portalElement = document.getElementById("modal");
   const dispatch = useDispatch();
+  const escfunction = useCallback((event) => {
+    if (event.key === "Escape") {
+      dispatch(modalActions.closeModal());
+      // console.clear();
+    } else {
+      return false;
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("keydown", escfunction, false);
+
+    return () => {
+      document.removeEventListener("keydown", escfunction, false);
+    };
+  }, []);
+
   const closeModal = () => {
     dispatch(modalActions.closeModal());
     console.clear();

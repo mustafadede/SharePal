@@ -38,7 +38,6 @@ function ActivitiesSection({ username, uid }) {
       getAllSelectedUserPostRepostsLists(localStorage.getItem("user")).then((result) => {
         result.forEach((value) => {
           getSpecificPost(value.id.trim(), value.postId).then((res) => {
-            console.log(res);
             res.length > 0 ? setReposts((prev) => [...prev, res]) : null;
           });
         });
