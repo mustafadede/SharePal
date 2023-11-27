@@ -12,6 +12,9 @@ import {
   updateWatched,
   createUnfinished,
   getSelectedUserUnfinished,
+  deleteWantToWatch,
+  deleteWatched,
+  deleteUnfinished,
 } from "../../../firebase/firebaseActions";
 import useSimilar from "../../../hooks/useSimilar";
 import useImages from "../../../hooks/useImages";
@@ -150,24 +153,51 @@ function SearchCardModal() {
   };
 
   const wantToWatchHandler = () => {
-    updateWantToWatch({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
-      setClickAction1(true);
-      toast("Information attached to this!");
-    });
+    if (!clickAction1) {
+      updateWantToWatch({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
+        setClickAction1(true);
+        setWantToWatch(true);
+        toast("Information attached to this!");
+      });
+    } else {
+      deleteWantToWatch({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
+        setClickAction1(false);
+        setWantToWatch(false);
+        toast("Information removed from this!");
+      });
+    }
   };
 
   const watchedHandler = () => {
-    updateWatched({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
-      setClickAction2(true);
-      toast("Information attached to this!");
-    });
+    if (!clickAction2) {
+      updateWatched({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
+        setClickAction2(true);
+        setWatched(true);
+        toast("Information attached to this!");
+      });
+    } else {
+      deleteWatched({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
+        setClickAction2(false);
+        setWatched(false);
+        toast("Information removed from this!");
+      });
+    }
   };
 
   const unfinishedHandler = () => {
-    createUnfinished({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
-      setClickAction3(true);
-      toast("Information attached to this!");
-    });
+    if (!clickAction3) {
+      createUnfinished({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
+        setClickAction3(true);
+        setUnfinished(true);
+        toast("Information attached to this!");
+      });
+    } else {
+      deleteUnfinished({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
+        setClickAction3(false);
+        setUnfinished(false);
+        toast("Information removed from this!");
+      });
+    }
   };
 
   return (

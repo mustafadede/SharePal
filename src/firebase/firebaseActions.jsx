@@ -921,6 +921,24 @@ const createUnfinished = async (data) => {
   }
 };
 
+const deleteUnfinished = async (data) => {
+  try {
+    const userId = getAuth().currentUser.uid;
+    const WatchedRef = ref(database, `unfinished/${userId}`);
+    const snapshot = await get(WatchedRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().id === data.id) {
+          set(ref(database, `unfinished/${userId}/${childSnapshot.key}`), null);
+        }
+      });
+    }
+    return true;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const getSelectedUserWantToWatch = async (userId) => {
   const wantToWatchRef = ref(database, `wanttowatch/${userId}`);
   const snapshot = await get(wantToWatchRef);
@@ -1016,6 +1034,7 @@ export {
   updateWatched,
   deleteWatched,
   createUnfinished,
+  deleteUnfinished,
   getSelectedUserWantToWatch,
   getSelectedUserWatched,
   getSelectedUserUnfinished,
