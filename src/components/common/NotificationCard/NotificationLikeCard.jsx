@@ -19,6 +19,7 @@ function NotificationLikeCard({ nick, photoURL, date, postId }) {
     <div>
       <div className="flex flex-row items-center justify-between w-full p-4 mb-4 transition-all duration-150 border border-transparent bg-slate-900 rounded-xl hover:border-slate-400">
         <div className="flex gap-4">
+          {!photoURL && <motion.div className="w-12 h-12 rounded-full lg:w-16 lg:h-16 bg-fuchsia-600"></motion.div>}
           {photoURL && (
             <motion.img
               className="object-cover w-12 h-12 rounded-full lg:w-16 lg:h-16 bg-fuchsia-600"
