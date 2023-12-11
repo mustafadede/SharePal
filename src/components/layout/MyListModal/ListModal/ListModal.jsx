@@ -11,7 +11,7 @@ function ListModal() {
 
   return (
     <div className="bg-slate-900 rounded-2xl px-8 pt-4 overflow-hidden w-[25rem] md:w-[35rem] h-[28rem] md:h-[30rem]">
-      <ModalHeader title={modalHasData.title} />
+      <ModalHeader title={modalHasData.title} options={true} />
       <div className="flex flex-col justify-center w-full py-2">
         <div className="flex flex-col justify-between md:flex-row">
           <p className="text-lg text-slate-500 ">Creation Time: {modalHasData.date}</p>

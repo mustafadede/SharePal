@@ -6,16 +6,19 @@ import useUpcoming from "../../hooks/useUpcoming";
 import useNowPlaying from "../../hooks/useNowPlaying";
 import useTop10 from "../../hooks/useTop10";
 import Slider from "../../components/common/Slider";
+import useNextYear from "../../hooks/useNextYear/useNextYear";
 
 function ExplorePage() {
   const [nowPlaying, setNowPlaying] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
+  const [nextYear, setNextYear] = useState([]);
   const [top10Movies, setTop10Movies] = useState([]);
   const [top10Series, setTop10Series] = useState([]);
   useEffect(() => {
     window.scrollTo(0, 0);
     useNowPlaying(setNowPlaying);
     useUpcoming(setUpcoming);
+    useNextYear(setNextYear);
     useTop10("series", setTop10Series);
     useTop10("movies", setTop10Movies);
   }, []);
@@ -31,7 +34,7 @@ function ExplorePage() {
           transition={{ delay: 0.1 }}
         >
           <motion.div
-            className={`flex flex-col md:hidden h-full mt-4 gap-2 overflow-hidden overflow-x-auto no-scrollbar`}
+            className={`lg:flex flex-col hidden h-full mt-4 gap-2 overflow-hidden overflow-x-auto no-scrollbar`}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
@@ -45,6 +48,14 @@ function ExplorePage() {
             transition={{ delay: 0.3 }}
           >
             <Slider data={upcoming.results} sliderType="movie" header="Upcoming" dataClassName="upcoming" />
+          </motion.div>
+          <motion.div
+            className={`flex flex-col w-full h-full mt-4 gap-2`}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            <Slider data={nextYear.results} sliderType="movie" header="Coming to next year" dataClassName="upcoming" />
           </motion.div>
           <motion.div
             className={`flex flex-col w-full h-full mt-4 gap-2 overflow-hidden overflow-x-auto no-scrollbar`}
