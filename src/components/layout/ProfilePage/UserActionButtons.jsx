@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import {
   createNotification,
   followUser,
-  getFollowersForUser,
+  getSelectedUserFollowing,
   unfollowUser,
   updateCurrentUserData,
 } from "../../../firebase/firebaseActions";
@@ -20,8 +20,8 @@ function UserActionButtons({ profileUser }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    getFollowersForUser(localStorage.getItem("user")).then((followers) => {
-      dispatch(followingActions.initialFollowing(followers));
+    getSelectedUserFollowing(localStorage.getItem("user")).then((followings) => {
+      dispatch(followingActions.initialFollowing(followings));
     });
   }, []);
 

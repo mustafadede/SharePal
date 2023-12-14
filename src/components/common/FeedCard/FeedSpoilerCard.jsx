@@ -7,12 +7,15 @@ import { Cross1Icon, DotsHorizontalIcon, LockClosedIcon, Pencil1Icon } from "@ra
 import { useDispatch, useSelector } from "react-redux";
 import ActionDetailsCard from "../ActionDetailsCard";
 import { postsActions } from "../../../store/postsSlice";
-import { deleteSelectedPost } from "../../../firebase/firebaseActions";
+import { deleteSelectedPost, editSelectedPost } from "../../../firebase/firebaseActions";
 import { toast } from "react-toastify";
 import { DateFormatter } from "../../../utils/formatter";
 
 function FeedSpoilerCard({ data, notification }) {
   const [settings, setSettings] = useState(false);
+  const [rename, setRename] = useState(false);
+  const [editedText, setEditedText] = useState(data.text);
+
   const user = useSelector((state) => state.user.user?.nick);
   const dispatch = useDispatch();
 
@@ -23,6 +26,16 @@ function FeedSpoilerCard({ data, notification }) {
       e.target.classList.remove("blur-sm");
     } else {
       e.target.classList.add("blur-sm");
+    }
+  };
+
+  const handlePost = (e) => {
+    if (e.key === "Enter") {
+      editSelectedPost(data.postId, editedText).then(() => {
+        dispatch(postsActions.editPost({ text: editedText, postId: data.postId })) && toast.success("Post edited successfully");
+      });
+      setRename(false);
+      setSettings(false);
     }
   };
 
@@ -60,6 +73,7 @@ function FeedSpoilerCard({ data, notification }) {
               <div className="flex gap-2">
                 <LockClosedIcon className="w-4 h-4 text-slate-200" />
                 <p className="text-sm text-slate-400">Spoiler!</p>
+                {data.edited && <p className="text-sm text-slate-400">(Edited)</p>}
               </div>
               {!notification && data.nick === user && (
                 <div className="flex flex-col">
@@ -71,9 +85,20 @@ function FeedSpoilerCard({ data, notification }) {
             </div>
           </div>
         </div>
-        <p className="py-4 transition-all duration-150 cursor-pointer select-none text-slate-200 blur-sm" onClick={handleSpoiler}>
-          {data.text || data.content}
-        </p>
+        {!rename ? (
+          <p className="py-4 transition-all duration-150 cursor-pointer select-none text-slate-200 blur-sm" onClick={handleSpoiler}>
+            {data.text || data.content}
+          </p>
+        ) : (
+          <input
+            type="text"
+            placeholder="Edit your post..."
+            className="w-full px-4 py-2 my-4 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
+            value={editedText !== undefined ? editedText : data.text || data.content}
+            onChange={(e) => setEditedText(e.target.value)}
+            onKeyDown={(e) => handlePost(e)}
+          />
+        )}
         {!notification && (
           <div className="flex gap-2">
             <FeedCardActionsSkeleton action={"likes"} number={data.likes} data={data} />
@@ -87,7 +112,10 @@ function FeedSpoilerCard({ data, notification }) {
         <ActionDetailsCard
           haveBorder={false}
           icon1={
-            <button className="flex items-center w-full px-4 py-2 text-sm text-left transition-all text-slate-200 rounded-xl hover:bg-slate-800">
+            <button
+              className="flex items-center w-full px-4 py-2 text-sm text-left transition-all text-slate-200 rounded-xl hover:bg-slate-800"
+              onClick={() => setRename(!rename)}
+            >
               <Pencil1Icon className="w-5 h-5 mr-2" />
               Edit
             </button>

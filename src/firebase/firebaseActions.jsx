@@ -367,6 +367,7 @@ const createPostAction = async (text, attachedFilm, spoiler, nick) => {
       likes: 0,
       likesList: [],
       comments: 0,
+      edited: false,
       commentsList: [],
       repost: 0,
       repostList: [],
@@ -376,6 +377,34 @@ const createPostAction = async (text, attachedFilm, spoiler, nick) => {
   } catch (error) {
     console.error(error);
     return toast("Something went wrong!");
+  }
+};
+
+const editSelectedPost = async (postId, text) => {
+  try {
+    const userId = getAuth().currentUser.uid;
+    const postsRef = ref(database, `posts/${userId}/`);
+    const snapshot = await get(postsRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.key === postId) {
+          const updates = {};
+          updates[`posts/${userId}/${childSnapshot.key}`] = {
+            ...childSnapshot.val(),
+            content: text ? text : childSnapshot.val().content,
+            edited: true,
+          };
+          update(ref(database), updates);
+        }
+      });
+      return true;
+    } else {
+      console.log("No data available");
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
   }
 };
 
@@ -399,6 +428,7 @@ const getAllPosts = async () => {
           likesList: value.likesList || null,
           likes: value.likes,
           comments: value.comments,
+          edited: value.edited || false,
           commentsList: value.commentsList || null,
           repost: value.repost,
           repostsList: value.repostsList || null,
@@ -554,6 +584,7 @@ const getSpecificPost = async (userId, postId) => {
       postId: snapshot.key,
       attachedFilm: snapshot.val()?.attachedFilm,
       comments: snapshot.val().comments,
+      edited: snapshot.val().edited,
       content: snapshot.val().content,
       date: snapshot.val().date,
       likes: snapshot.val().likes,
@@ -585,6 +616,7 @@ const getSelectedUserPosts = async (userId) => {
         likes: childSnapshot.val().likes,
         likesList: childSnapshot.val().likesList,
         comments: childSnapshot.val().comments,
+        edited: childSnapshot.val().edited,
         commentsList: childSnapshot.val().commentsList,
         repost: childSnapshot.val().repost,
         repostsList: childSnapshot.val().repostsList,
@@ -609,6 +641,7 @@ const getSelectedUserPost = async (userId, postId) => {
       attachedFilm: snapshot.val().attachedFilm,
       likes: snapshot.val().likes,
       comments: snapshot.val().comments,
+      edited: snapshot.val().edited,
       repost: snapshot.val().repost,
       date: snapshot.val().date,
       userId: snapshot.val().userId,
@@ -1005,6 +1038,7 @@ export {
   getSelectedUserFollowing,
   unfollowUser,
   createPostAction,
+  editSelectedPost,
   getAllPosts,
   deleteSelectedPost,
   updateSelectedPost,
