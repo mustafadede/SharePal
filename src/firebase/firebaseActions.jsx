@@ -710,6 +710,30 @@ const createPinnedList = async (data) => {
   }
 };
 
+const changePinnedListTitle = async (data) => {
+  try {
+    const userId = getAuth().currentUser.uid;
+    const pinnedListRef = ref(database, `pinnedList/${userId}`);
+    const snapshot = await get(pinnedListRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().id === data.id) {
+          const updates = {};
+          updates[`pinnedList/${userId}/${childSnapshot.key}`] = { ...childSnapshot.val(), title: data.title };
+          update(ref(database), updates);
+        }
+      });
+      return true;
+    } else {
+      console.log("No data available");
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    return toast("Something went wrong!");
+  }
+};
+
 const updatePinnedList = async (data) => {
   try {
     const userId = getAuth().currentUser.uid;
@@ -1049,6 +1073,7 @@ export {
   createNotification,
   deleteUserNotification,
   createPinnedList,
+  changePinnedListTitle,
   updatePinnedList,
   removePinnedList,
   getSelectedUserLists,

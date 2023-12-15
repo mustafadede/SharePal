@@ -17,6 +17,9 @@ const modalSlice = createSlice({
       state.modalState = false;
       state.modalHasData = action.payload?.data ? action.payload.data : "";
     },
+    renameList: (state, action) => {
+      state.modalHasData.title = action.payload;
+    },
   },
 });
 

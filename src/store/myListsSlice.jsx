@@ -37,6 +37,13 @@ const myListsSlice = createSlice({
     updateStatus: (state, action) => {
       state.status = action.payload;
     },
+    updateListTitle: (state, action) => {
+      state.myLists.forEach((list) => {
+        if (list.id === action.payload.listId) {
+          list.title = action.payload.title;
+        }
+      });
+    },
   },
 });
 
