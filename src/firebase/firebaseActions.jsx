@@ -719,7 +719,12 @@ const changePinnedListTitle = async (data) => {
       snapshot.forEach((childSnapshot) => {
         if (childSnapshot.val().id === data.id) {
           const updates = {};
-          updates[`pinnedList/${userId}/${childSnapshot.key}`] = { ...childSnapshot.val(), title: data.title };
+          updates[`pinnedList/${userId}/${childSnapshot.key}`] = {
+            ...childSnapshot.val(),
+            title: data.title || childSnapshot.val().title,
+            edited: true,
+            editedDate: Date.now(),
+          };
           update(ref(database), updates);
         }
       });
@@ -795,6 +800,8 @@ const getSelectedUserLists = async (userId) => {
         isPinned: childSnapshot.val().isPinned,
         date: childSnapshot.val().date,
         list: childSnapshot.val().list,
+        edited: childSnapshot.val().edited,
+        editedDate: childSnapshot.val().editedDate,
       });
     });
   }
@@ -812,6 +819,8 @@ const getSelectedUserSelectedList = async (userId, listId) => {
       isPinned: snapshot.val().isPinned,
       date: snapshot.val().date,
       list: snapshot.val().list,
+      edited: snapshot.val().edited,
+      editedDate: snapshot.val().editedDate,
     });
   }
   return selectedUserLists;

@@ -11,12 +11,9 @@ function ListModal() {
 
   return (
     <div className="bg-slate-900 rounded-2xl px-8 pt-4 overflow-hidden w-[25rem] md:w-[35rem] h-[28rem] md:h-[30rem]">
-      <ModalHeader title={modalHasData.title} options={true} />
+      <ModalHeader options={true} />
       <div className="flex flex-col justify-center w-full py-2">
-        <div className="flex flex-col justify-between md:flex-row">
-          <p className="text-lg text-slate-500 ">Creation Time: {modalHasData.date}</p>
-          <p className="text-lg text-slate-500 ">Total Items: {modalHasData.list ? Object.keys(modalHasData.list)?.length : 0}</p>
-        </div>
+        <div className="flex flex-col justify-between md:flex-row"></div>
         <input
           type="text"
           className="w-full py-2 mb-4 text-lg text-white transition-all bg-transparent border-b-2 outline-none lg:text-2xl focus-within:border-slate-900"

@@ -16,6 +16,9 @@ const myListsSlice = createSlice({
     setPinned: (state, action) => {
       state.myLists[action.payload].isPinned = !state.myLists[action.payload].isPinned;
     },
+    deleteList: (state, action) => {
+      state.myLists = state.myLists.filter((list) => list.id !== action.payload);
+    },
     deleteListItem: (state, action) => {
       state.myLists[action.payload.listId].list = Object.values(state.myLists[action.payload.listId].list).filter(
         (_, index) => index !== action.payload.findIndex

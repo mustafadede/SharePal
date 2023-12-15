@@ -25,9 +25,10 @@ function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = fal
   };
 
   const handleRemove = (id) => {
-    dispatch(MyListsActions.deleteList(id));
-    removePinnedList(id);
-    toast.success("List removed successfully!");
+    removePinnedList(id).then(() => {
+      dispatch(MyListsActions.deleteList(id));
+      toast.success("List removed successfully!");
+    });
   };
 
   const clickHandler = (id, title, list, date) => {

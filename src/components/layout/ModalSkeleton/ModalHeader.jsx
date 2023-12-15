@@ -1,18 +1,21 @@
-import { CheckIcon, Cross1Icon, DotsHorizontalIcon, Pencil1Icon } from "@radix-ui/react-icons";
+import { CheckIcon, Cross1Icon, DotsHorizontalIcon, InfoCircledIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
 import ActionDetailsCard from "../../common/ActionDetailsCard";
-import { changePinnedListTitle } from "../../../firebase/firebaseActions";
+import { changePinnedListTitle, removePinnedList } from "../../../firebase/firebaseActions";
 import { toast } from "react-toastify";
 import { MyListsActions } from "../../../store/myListsSlice";
+import { motion } from "framer-motion";
 
 function ModalHeader({ title, options = false }) {
   const [settings, setSettings] = useState(false);
   const [name, setName] = useState("");
   const [rename, setRename] = useState(false);
+  const [info, setInfo] = useState(false);
   const dispatch = useDispatch();
   const { modalHasData } = useSelector((state) => state.modal);
+
   const handleClick = () => {
     dispatch(modalActions.closeModal());
   };
@@ -21,7 +24,11 @@ function ModalHeader({ title, options = false }) {
   };
 
   const deleteHandler = () => {
-    dispatch(modalActions.deleteList());
+    removePinnedList(modalHasData.id).then(() => {
+      dispatch(MyListsActions.deleteList(modalHasData.id));
+      toast.success("List removed successfully!");
+    });
+    dispatch(modalActions.closeModal());
   };
 
   const changeHandler = (e) => {
@@ -70,14 +77,21 @@ function ModalHeader({ title, options = false }) {
 
   return (
     <>
-      <div className="flex items-center justify-between w-full pb-2">
+      <div className="flex items-center justify-between w-full">
         {!rename ? (
-          <h1 className="text-2xl text-slate-200">{title}</h1>
+          <div className="flex justify-center gap-1">
+            <h1 className="text-2xl text-slate-200">{modalHasData.title || title}</h1>
+            {options && (
+              <button className="px-2 py-2 text-sm w-fit text-slate-200" onClick={() => setInfo(!info)}>
+                <InfoCircledIcon className="w-5 h-5" />
+              </button>
+            )}
+          </div>
         ) : (
           <div className="flex w-full gap-4">
             <input
               type="text"
-              placeholder={`Rename ${title} to...`}
+              placeholder={`Rename ${modalHasData.title} to...`}
               className="w-full py-1 text-lg text-white transition-all bg-transparent border-b-2 outline-none focus:border-slate-900"
               onChange={(e) => changeHandler(e)}
               autoFocus={true}
@@ -103,16 +117,27 @@ function ModalHeader({ title, options = false }) {
           {!rename && <Cross1Icon className="w-6 h-6 ml-auto cursor-pointer text-slate-200 hover:text-slate-100" onClick={handleClick} />}
         </div>
       </div>
+      {options && info && (
+        <motion.div
+          className="flex justify-between mt-2"
+          initial={{ opacity: 0, y: -7 }}
+          animate={{ opacity: 1, y: 0, transition: { duration: 0.2 } }}
+        >
+          <p className="text-lg text-slate-500 ">Creation Time: {modalHasData.date}</p>
+          <p className="text-lg text-slate-500 ">Total Items: {modalHasData.list ? Object.keys(modalHasData.list)?.length : 0}</p>
+        </motion.div>
+      )}
       {settings && !rename && (
         <ActionDetailsCard
           haveBorder={false}
+          haveBottom={false}
           icon1={
             <button
               className="flex items-center w-full px-4 py-2 text-sm text-left transition-all text-slate-200 rounded-xl hover:bg-slate-800"
               onClick={renameHandler}
             >
               <Pencil1Icon className="w-5 h-5 mr-2" />
-              Rename this list
+              Rename
             </button>
           }
           icon2={
@@ -121,7 +146,7 @@ function ModalHeader({ title, options = false }) {
               onClick={deleteHandler}
             >
               <Cross1Icon className="w-5 h-5 mr-2" />
-              Delete this list
+              Delete
             </button>
           }
         />
