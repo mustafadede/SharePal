@@ -50,6 +50,14 @@ function ModalHeader({ title, options = false }) {
     if (e.key === "Escape") {
       setRename(false);
     }
+    if (e.key === "Enter" && e.target.value === "") {
+      toast.error("Please enter a valid name");
+      return;
+    }
+    if (e.key === "Enter" && e.target.value === modalHasData.title) {
+      toast.error("Please enter a different name");
+      return;
+    }
     if (e.key === "Enter") {
       changePinnedListTitle({ title: e.target.value, id: modalHasData.id }).then(() => {
         dispatch(modalActions.renameList(e.target.value));
