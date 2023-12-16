@@ -109,7 +109,7 @@ function ModalHeader({ title, options = false }) {
           </div>
         )}
         <div className="flex gap-2">
-          {options && !rename && (
+          {localStorage.getItem("user") && options && !rename && (
             <button className="cursor-pointer" onClick={() => setSettings(!settings)}>
               <DotsHorizontalIcon className="transition-all duration-300 w-7 h-7 text-slate-400 hover:text-slate-200" />
             </button>
@@ -127,7 +127,7 @@ function ModalHeader({ title, options = false }) {
           <p className="text-lg text-slate-500 ">Total Items: {modalHasData.list ? Object.keys(modalHasData.list)?.length : 0}</p>
         </motion.div>
       )}
-      {settings && !rename && (
+      {localStorage.getItem("user") && settings && !rename && (
         <ActionDetailsCard
           haveBorder={false}
           haveBottom={false}

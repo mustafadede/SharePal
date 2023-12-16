@@ -4,8 +4,9 @@ import { Pencil1Icon } from "@radix-ui/react-icons";
 import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import Socials from "./ProfileBannerSocials/Socials";
+import ProfileOnlineStatus from "../../common/ProfileOnlineStatus";
 
-function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banner: "", instagram: "Loading..." }, username }) {
+function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banner: "" }, username }) {
   const photo = username ? user.photoURL : getAuth().currentUser?.photoURL;
   return (
     <motion.div
@@ -20,22 +21,28 @@ function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banne
       <div className="relative flex items-center justify-center w-auto h-full gap-7 md:gap-4 xl:left-10">
         {/*  Profile picture start */}
         {!photo && (
-          <motion.div
-            className="w-24 h-24 rounded-full md:w-40 md:h-40 bg-fuchsia-600"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          ></motion.div>
+          <div className="relative w-24 h-24 md:w-40 md:h-40">
+            <motion.div
+              className="w-24 h-24 rounded-full md:w-40 md:h-40 bg-fuchsia-600"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            ></motion.div>
+            <ProfileOnlineStatus username={username} />
+          </div>
         )}
         {photo && (
-          <motion.img
-            className="object-cover w-24 h-24 rounded-full md:w-40 md:h-40 bg-fuchsia-600"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            loading="lazy"
-            src={photo}
-          ></motion.img>
+          <div className="relative w-24 h-24 md:w-40 md:h-40">
+            <motion.img
+              className="object-cover w-24 h-24 rounded-full md:w-40 md:h-40 bg-fuchsia-600"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              loading="lazy"
+              src={photo}
+            ></motion.img>
+            <ProfileOnlineStatus username={username} />
+          </div>
         )}
         {/*  Profile picture end */}
         {/*  Name, Quote start */}

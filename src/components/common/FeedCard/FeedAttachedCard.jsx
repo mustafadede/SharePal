@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { postsActions } from "../../../store/postsSlice";
 import useSearchWithYear from "../../../hooks/useSearchWithYear";
 import { DateFormatter } from "../../../utils/formatter";
+import OnlineStatus from "../ProfileOnlineStatus";
 function FeedAttachedCard({ data, attachedData, notification }) {
   const [settings, setSettings] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
@@ -75,8 +76,16 @@ function FeedAttachedCard({ data, attachedData, notification }) {
       >
         <div className="flex justify-between w-full">
           <div className="flex gap-4">
-            {!data.photoURL && <div className="w-12 h-12 rounded-full bg-fuchsia-600"></div>}
-            {data.photoURL && <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" loading="lazy" src={data.photoURL}></img>}
+            {!data.photoURL && (
+              <div className="relative w-12 h-12">
+                <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" loading="lazy" src={data.photoURL}></img>
+              </div>
+            )}
+            {data.photoURL && (
+              <div className="relative w-12 h-12">
+                <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" loading="lazy" src={data.photoURL}></img>
+              </div>
+            )}
             <div className="flex flex-col">
               <NavLink to={data.nick === user ? `/profile` : `/user/${data.nick}`}>
                 <p className="transition-all duration-300 text-md text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600">

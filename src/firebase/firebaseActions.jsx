@@ -24,6 +24,7 @@ const createUserWithEmailAction = async (data) => {
         bestMovieYear: "",
         bestSeriesYear: "",
         banner: "",
+        online: false,
       });
       updateProfile(auth.currentUser, {
         displayName: data.name,
@@ -83,6 +84,44 @@ const getCurrentUserData = async (userId) => {
         bestMovieYear: snapshot.val().bestMovieYear || "",
         bestSeriesYear: snapshot.val().bestSeriesYear || "",
         photoURL: getAuth().currentUser.photoURL || snapshot.val().photoURL || "",
+        online: snapshot.val().online,
+      };
+      return user;
+    } else {
+      console.log("No data available");
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+const setOnlineStatus = async (userId, status) => {
+  try {
+    const snapshot = await get(child(dbRef, `users/${userId}`));
+    if (snapshot.exists()) {
+      await set(ref(database, `users/${userId}`), {
+        ...snapshot.val(),
+        online: status,
+      });
+      return true;
+    } else {
+      console.log("No data available");
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+const getUserOnlineStatus = async (userId) => {
+  try {
+    const snapshot = await get(child(dbRef, `users/${userId}`));
+    if (snapshot.exists()) {
+      const user = {
+        online: snapshot.val().online,
       };
       return user;
     } else {
@@ -127,6 +166,7 @@ const getUserByTheUsername = async (username) => {
             currentlyWatching: childSnapshot.val().currentlyWatching || "",
             bestMovieYear: childSnapshot.val().bestMovieYear || "",
             bestSeriesYear: childSnapshot.val().bestSeriesYear || "",
+            online: childSnapshot.val().online || false,
           });
         }
       });
@@ -149,6 +189,7 @@ const getUserByTheIds = async (userId) => {
         uid: snapshot.key,
         nick: snapshot.val().displayName,
         banner: snapshot.val().banner,
+        online: snapshot.val().online || false,
       };
       return user;
     } else {
@@ -205,6 +246,7 @@ const getUserBySearch = async (username) => {
             currentlyWatching: childSnapshot.val().currentlyWatching || "",
             bestMovieYear: childSnapshot.val().bestMovieYear || "",
             bestSeriesYear: childSnapshot.val().bestSeriesYear || "",
+            online: childSnapshot.val().online || false,
           });
         }
       });
@@ -242,6 +284,7 @@ const getUsers = async () => {
             currentlyWatching: childSnapshot.val().currentlyWatching || "",
             bestMovieYear: childSnapshot.val().bestMovieYear || "",
             bestSeriesYear: childSnapshot.val().bestSeriesYear || "",
+            online: childSnapshot.val().online || false,
           });
         }
       });
@@ -276,6 +319,7 @@ const updateCurrentUserData = async (userId, data) => {
         bestMovieYear: data.bestMovieYear || snapshot.val().bestMovieYear || "",
         bestSeriesYear: data.bestSeriesYear || snapshot.val().bestSeriesYear || "",
         photoURL: getAuth().currentUser.photoURL || snapshot.val().photoURL || null,
+        online: data.online || snapshot.val().online || false,
       });
       if (snapshotPosts.exists()) {
         snapshotPosts.forEach((childSnapshot) => {
@@ -1060,6 +1104,8 @@ export {
   createUserWithEmailAction,
   signInWithEmailAction,
   getCurrentUserData,
+  setOnlineStatus,
+  getUserOnlineStatus,
   getProfilePhoto,
   getUserByTheUsername,
   getUserByTheIds,

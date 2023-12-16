@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Socials from "./ProfileBannerSocials/Socials";
+import ProfileOnlineStatus from "../../common/ProfileOnlineStatus";
 
 function UserProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banner: "" } }) {
   const photo = user?.photoURL;
@@ -19,16 +20,29 @@ function UserProfileBanner({ user = { nick: "Loading...", quote: "Loading...", b
       {/*  Banner end */}
       <div className="relative flex items-center justify-center w-auto h-full gap-10 md:gap-4 xl:left-10">
         {/*  Profile picture start */}
-        {!photo && <motion.div className="w-24 h-24 rounded-full md:w-40 md:h-40 bg-fuchsia-600"></motion.div>}
+        {!photo && (
+          <div className="relative w-24 h-24 md:w-40 md:h-40">
+            <motion.div
+              className="w-24 h-24 rounded-full md:w-40 md:h-40 bg-fuchsia-600"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            ></motion.div>
+            <ProfileOnlineStatus username={false} />
+          </div>
+        )}
         {photo && (
-          <motion.img
-            className="object-cover w-24 h-24 rounded-full md:w-40 md:h-40 bg-fuchsia-600"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            src={photo}
-            loading="lazy"
-          ></motion.img>
+          <div className="relative w-24 h-24 md:w-40 md:h-40">
+            <motion.img
+              className="object-cover w-24 h-24 rounded-full md:w-40 md:h-40 bg-fuchsia-600"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              loading="lazy"
+              src={photo}
+            ></motion.img>
+            <ProfileOnlineStatus username={false} />
+          </div>
         )}
         {/*  Profile picture end */}
         {/*  Name, Quote start */}
