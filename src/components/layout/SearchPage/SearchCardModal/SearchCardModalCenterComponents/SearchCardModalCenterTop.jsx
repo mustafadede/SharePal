@@ -31,7 +31,7 @@ function SearchCardModalCenterTop({
           <h2 className="mb-2 text-3xl text-slate-200">Actions</h2>
           <div className="flex flex-col justify-center md:mb-0 md:justify-start">
             {localStorage.getItem("user") ? (
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap justify-center gap-2 md:justify-start">
                 <SearchCardButton
                   title={"Add to Watchlist"}
                   icon={<PlusIcon className="w-6 h-6 transition-all text-slate-400 group-hover:text-fuchsia-600" />}

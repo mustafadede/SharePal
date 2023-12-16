@@ -74,7 +74,7 @@ function Navbar({ isNotLoggedin = true, additionalClasses = "", onClickHandler }
           </>
         ) : (
           <>
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex items-center justify-center gap-2 md:gap-4">
               <Link to={"/notifications"}>
                 <button className="relative flex items-center justify-center rounded w-7 h-7" onClick={onClickHandler}>
                   <BellIcon className="w-10 h-10 md:w-6 md:h-6 text-cWhite hover:text-fuchsia-700 hover:transition-colors" />

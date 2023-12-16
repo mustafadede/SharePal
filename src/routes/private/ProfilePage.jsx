@@ -60,7 +60,7 @@ function ProfilePage() {
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
       <div className="flex mx-5 md:mx-10">
         <div className="flex flex-col w-full gap-4 mb-6 lg:mr-6">
-          <ProfileBanner user={user} />
+          <ProfileBanner user={user} username={false} />
           <InfoCard user={user} isCurrentUser />
           <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
           {activeTab === 0 && <StatsCard user={user} />}
