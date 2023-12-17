@@ -14,8 +14,8 @@ const useOnline = (username, data = false) => {
     } else {
       setOnline(user?.online);
     }
-    if (data) {
-      getUserOnlineStatus(data?.userId).then((res) => {
+    if (data && username) {
+      getUserOnlineStatus(data?.userId || data).then((res) => {
         setOnline(res?.online);
       });
     }

@@ -129,6 +129,7 @@ function NotificationsPage() {
                   return (
                     <NotificationFollowCard
                       key={index}
+                      uid={notification.from?.uid}
                       nick={notification.from?.nick}
                       photoURL={notification.from?.photo}
                       date={notification?.date}
@@ -139,6 +140,7 @@ function NotificationsPage() {
                   return (
                     <NotificationLikeCard
                       key={index}
+                      uid={notification.from?.uid}
                       nick={notification.from?.nick}
                       postId={notification.from?.postId}
                       photoURL={notification.from?.photo}
