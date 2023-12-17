@@ -6,7 +6,7 @@ import useUpcoming from "../../hooks/useUpcoming";
 import useNowPlaying from "../../hooks/useNowPlaying";
 import useTop10 from "../../hooks/useTop10";
 import Slider from "../../components/common/Slider";
-import useNextYear from "../../hooks/useNextYear/useNextYear";
+import useNextYear from "../../hooks/useNextYear";
 
 function ExplorePage() {
   const [nowPlaying, setNowPlaying] = useState([]);

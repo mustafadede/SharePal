@@ -12,7 +12,8 @@ import { toast } from "react-toastify";
 import { postsActions } from "../../../store/postsSlice";
 import useSearchWithYear from "../../../hooks/useSearchWithYear";
 import { DateFormatter } from "../../../utils/formatter";
-import OnlineStatus from "../ProfileOnlineStatus";
+import FeedCardOnlineStatus from "../FeedCardOnlineStatus";
+
 function FeedAttachedCard({ data, attachedData, notification }) {
   const [settings, setSettings] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
@@ -79,11 +80,13 @@ function FeedAttachedCard({ data, attachedData, notification }) {
             {!data.photoURL && (
               <div className="relative w-12 h-12">
                 <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" loading="lazy" src={data.photoURL}></img>
+                <FeedCardOnlineStatus username={!notification && data.nick === user ? false : true} data={data} />
               </div>
             )}
             {data.photoURL && (
               <div className="relative w-12 h-12">
                 <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" loading="lazy" src={data.photoURL}></img>
+                <FeedCardOnlineStatus username={!notification && data.nick === user ? false : true} data={data} />
               </div>
             )}
             <div className="flex flex-col">

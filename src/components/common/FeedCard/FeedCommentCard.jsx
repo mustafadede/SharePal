@@ -10,6 +10,7 @@ import { postsActions } from "../../../store/postsSlice";
 import { deleteSelectedPost, editSelectedPost } from "../../../firebase/firebaseActions";
 import { toast } from "react-toastify";
 import { DateFormatter } from "../../../utils/formatter";
+import FeedCardOnlineStatus from "../FeedCardOnlineStatus";
 
 function FeedCommentCard({ data, notification }) {
   const [settings, setSettings] = useState(false);
@@ -45,8 +46,18 @@ function FeedCommentCard({ data, notification }) {
         {/*Comment Card Top section: Profile Picture and Name start */}
         <div className="flex justify-between w-full">
           <div className="flex gap-4">
-            {!data.photoURL && <div className="w-12 h-12 rounded-full bg-fuchsia-600"></div>}
-            {data.photoURL && <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" loading="lazy" src={data.photoURL}></img>}
+            {!data.photoURL && (
+              <div className="relative w-12 h-12">
+                <div className="w-12 h-12 rounded-full bg-fuchsia-600"></div>
+                <FeedCardOnlineStatus username={!notification && data.nick === user ? false : true} data={data} />
+              </div>
+            )}
+            {data.photoURL && (
+              <div className="relative w-12 h-12">
+                <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" loading="lazy" src={data.photoURL}></img>
+                <FeedCardOnlineStatus username={!notification && data.nick === user ? false : true} data={data} />
+              </div>
+            )}
             <div className="flex flex-col">
               <NavLink to={data.nick === user ? `/profile` : `/user/${data.nick}`}>
                 <p className="transition-all duration-300 text-md text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600">

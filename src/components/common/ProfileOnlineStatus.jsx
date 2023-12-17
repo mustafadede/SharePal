@@ -1,32 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
-import { getUserOnlineStatus } from "../../firebase/firebaseActions";
-import { getAuth } from "firebase/auth";
+import useOnline from "../../hooks/useOnline";
 
 function ProfileOnlineStatus({ username }) {
-  const [online, setOnline] = useState(false);
-  const { profileUser } = useSelector((state) => state.profile);
-  const { user } = useSelector((state) => state.user);
-  useState(() => {
-    if (!username) {
-      setOnline(user?.online);
-      console.log(getAuth().currentUser);
-    } else {
-      getUserOnlineStatus(profileUser?.uid).then((res) => {
-        console.log(res);
-        setOnline(res?.online);
-      });
-    }
-  }, []);
-
+  const online = useOnline(username);
   return (
     <motion.div
       aria-label="Online status"
       className={
         online
-          ? "absolute z-20 w-4 h-4 bg-green-600 rounded-full bottom-1 right-2 md:bottom-3 md:right-4"
-          : "absolute z-20 w-4 h-4 rounded-full bottom-1 right-2 md:bottom-3 md:right-4 bg-slate-400"
+          ? "absolute z-20 w-4 h-4 bg-green-600 rounded-full bottom-1 border-4 box-content border-slate-900 right-2 md:bottom-3 md:right-4"
+          : "absolute z-20 w-4 h-4 rounded-full bottom-1 right-2 md:bottom-3 md:right-4 border-4 box-content border-slate-900 bg-slate-600"
       }
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
