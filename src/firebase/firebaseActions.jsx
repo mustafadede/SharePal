@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, deleteUser, getAuth, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, database, storage } from "./firebaseConfig";
 import { toast } from "react-toastify";
 import { child, get, getDatabase, orderByValue, push, query, ref, set, update } from "firebase/database";
@@ -320,6 +320,7 @@ const updateCurrentUserData = async (userId, data) => {
         bestSeriesYear: data.bestSeriesYear || snapshot.val().bestSeriesYear || "",
         photoURL: getAuth().currentUser.photoURL || snapshot.val().photoURL || null,
         online: data.online || snapshot.val().online || false,
+        deleted: data.deleted || snapshot.val().deleted || false,
       });
       if (snapshotPosts.exists()) {
         snapshotPosts.forEach((childSnapshot) => {
@@ -1100,6 +1101,26 @@ const getSelectedUserUnfinished = async (userId) => {
   return selectedUserUnfinished;
 };
 
+const updatePassword = async (password) => {
+  try {
+    await updatePassword(auth.currentUser, password);
+    return true;
+  } catch (error) {
+    console.error(error);
+    return toast("Something went wrong!");
+  }
+};
+
+const deleteAccount = async () => {
+  try {
+    deleteUser(auth.currentUser);
+    return true;
+  } catch (error) {
+    console.error(error);
+    return toast("Something went wrong!");
+  }
+};
+
 export {
   createUserWithEmailAction,
   signInWithEmailAction,
@@ -1152,4 +1173,6 @@ export {
   getSelectedUserWantToWatch,
   getSelectedUserWatched,
   getSelectedUserUnfinished,
+  updatePassword,
+  deleteAccount,
 };

@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../../store/userSlice";
 import { updateCurrentUserData, uploadBannerPhoto, uploadProfilePhoto } from "../../../firebase/firebaseActions";
 import { toast } from "react-toastify";
+import DangerZoneComponent from "./AccountSettingsComponents/DangerZoneComponent";
+import ChangePasswordComponent from "./AccountSettingsComponents/ChangePasswordComponent";
 
 function AccountSettings() {
   const { user } = useSelector((state) => state.user);
@@ -143,21 +145,14 @@ function AccountSettings() {
             </div>
           </div>
         </div>
-        <p className="my-2 text-xl text-slate-300">Password</p>
-        <input
-          className="px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
-          placeholder="Password"
-        />
-        <input
-          className="px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
-          placeholder="Current Password"
-        />
+        <ChangePasswordComponent />
         <button
           className="w-full px-4 py-3 my-2 text-xl transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl"
           onClick={formHandler}
         >
           Save
         </button>
+        <DangerZoneComponent />
       </div>
     </motion.div>
   );
