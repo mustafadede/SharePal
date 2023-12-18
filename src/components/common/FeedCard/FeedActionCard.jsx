@@ -54,7 +54,7 @@ function FeedActionCard({ data, notification }) {
   return (
     <div className="flex flex-col w-full">
       <motion.div
-        className="relative flex flex-col w-full mb-4 overflow-hidden h-44 bg-slate-900 rounded-xl"
+        className="relative flex flex-col w-full mb-4 overflow-hidden h-36 bg-slate-900 rounded-xl"
         initial={{ opacity: 0, y: -20, transition: { duration: 2 } }}
         animate={{ opacity: 1, y: 0 }}
       >
