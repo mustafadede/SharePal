@@ -1,13 +1,13 @@
 import React from "react";
 import { Link2Icon, Cross1Icon, LockOpen1Icon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
-import FeedActionBoxButton from "../common/FeedActionBoxButton";
+import FeedActionBoxButton from "../../common/FeedActionBoxButton";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { createPostActions } from "../../store/createPostSlice";
-import { createPostAction } from "../../firebase/firebaseActions";
+import { createPostActions } from "../../../store/createPostSlice";
+import { createPostAction } from "../../../firebase/firebaseActions";
 import { getAuth } from "firebase/auth";
-import { modalActions } from "../../store/modalSlice";
+import { modalActions } from "../../../store/modalSlice";
 
 function FeedActionBox() {
   const dispatch = useDispatch();

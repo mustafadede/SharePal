@@ -425,6 +425,27 @@ const createPostAction = async (text, attachedFilm, spoiler, nick) => {
   }
 };
 
+const createFeedAction = async (data) => {
+  try {
+    const userId = getAuth().currentUser.uid;
+    const newPostRef = push(ref(database, `posts/${userId}`));
+    set(newPostRef, {
+      userId: userId,
+      photoURL: getAuth().currentUser.photoURL || null,
+      nick: data.nick,
+      attachedAction: data.attachedAction || null,
+      actionName: data.actionName || null,
+      add: 0,
+      addList: [],
+      date: Date.now(),
+    });
+    return true;
+  } catch (error) {
+    console.error(error);
+    return toast("Something went wrong!");
+  }
+};
+
 const editSelectedPost = async (postId, text) => {
   try {
     const userId = getAuth().currentUser.uid;
@@ -479,6 +500,10 @@ const getAllPosts = async () => {
           repostsList: value.repostsList || null,
           date: value.date,
           userId: value.userId.trim(),
+          attachedAction: value.attachedAction || null,
+          actionName: value.actionName || null,
+          add: 0,
+          addList: [],
         });
       });
     });
@@ -640,6 +665,10 @@ const getSpecificPost = async (userId, postId) => {
       repostsList: snapshot.val().repostsList,
       spoiler: snapshot.val()?.spoiler,
       userId: snapshot.val().userId,
+      attachedAction: snapshot.val().attachedAction || null,
+      actionName: snapshot.val().actionName || null,
+      add: 0,
+      addList: [],
     });
   }
   return post;
@@ -667,6 +696,10 @@ const getSelectedUserPosts = async (userId) => {
         repostsList: childSnapshot.val().repostsList,
         date: childSnapshot.val().date,
         userId: childSnapshot.val().userId,
+        attachedAction: childSnapshot.val().attachedAction || null,
+        actionName: childSnapshot.val().actionName || null,
+        add: 0,
+        addList: [],
       });
     });
   }
@@ -690,6 +723,10 @@ const getSelectedUserPost = async (userId, postId) => {
       repost: snapshot.val().repost,
       date: snapshot.val().date,
       userId: snapshot.val().userId,
+      attachedAction: snapshot.val().attachedAction || null,
+      actionName: snapshot.val().actionName || null,
+      add: 0,
+      addList: [],
     });
   }
   return post;
@@ -1138,6 +1175,7 @@ export {
   getSelectedUserFollowing,
   unfollowUser,
   createPostAction,
+  createFeedAction,
   editSelectedPost,
   getAllPosts,
   deleteSelectedPost,

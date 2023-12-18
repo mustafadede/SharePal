@@ -36,7 +36,7 @@ function PostsSection({ username, uid }) {
             return <FeedCard key={index} isAttached={true} data={data} index={index} />;
           } else if (data.spoiler) {
             return <FeedCard key={index} isSpoiler={true} data={data} index={index} />;
-          } else {
+          } else if (!data.actionName && !data.attachedFilm && !data.spoiler) {
             return <FeedCard key={index} isComment={true} data={data} index={index} />;
           }
         })

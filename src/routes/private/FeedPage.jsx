@@ -10,7 +10,7 @@ import {
   getSelectedUserFollowing,
   getSelectedUserLists,
 } from "../../firebase/firebaseActions";
-import FeedActionBox from "../../components/layout/FeedActionBox";
+import FeedActionBox from "../../components/layout/FeedPage/FeedActionBox";
 import FeedCard from "../../components/common/FeedCard";
 import MyPinnedListsCard from "../../components/common/MyPinnedListsCard/MyPinnedListsCard";
 import { useDispatch, useSelector } from "react-redux";
@@ -97,7 +97,9 @@ function FeedPage() {
                   return <FeedCard key={index} isAttached={true} data={data} index={index} />;
                 } else if (data.spoiler) {
                   return <FeedCard key={index} isSpoiler={true} data={data} index={index} />;
-                } else {
+                } else if (data.actionName && localStorage.getItem("user") == data.userId) {
+                  return <FeedCard key={index} isAction={true} data={data} index={index} />;
+                } else if (!data.actionName && !data.attachedFilm && !data.spoiler) {
                   return <FeedCard key={index} isComment={true} data={data} index={index} />;
                 }
               })

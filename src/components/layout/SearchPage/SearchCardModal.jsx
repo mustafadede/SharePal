@@ -15,6 +15,7 @@ import {
   deleteWantToWatch,
   deleteWatched,
   deleteUnfinished,
+  createFeedAction,
 } from "../../../firebase/firebaseActions";
 import useSimilar from "../../../hooks/useSimilar";
 import useImages from "../../../hooks/useImages";
@@ -157,12 +158,28 @@ function SearchCardModal() {
       updateWantToWatch({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
         setClickAction1(true);
         setWantToWatch(true);
+        createFeedAction({
+          attachedAction: {
+            id: id,
+            mediaType: mediaType,
+            title: title,
+            poster: poster,
+            releaseDate: releaseDate,
+            vote: vote,
+            backdrop: backdrop,
+            genres: genres,
+            upcoming: upcoming || null,
+          },
+          nick: user?.nick,
+          actionName: "wantToWatch",
+        });
         toast("Information attached to this!");
       });
     } else {
       deleteWantToWatch({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
         setClickAction1(false);
         setWantToWatch(false);
+        deleteSelectedPost(localStorage.getItem("user"), post);
         toast("Information removed from this!");
       });
     }
