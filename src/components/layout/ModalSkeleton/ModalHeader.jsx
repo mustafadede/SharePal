@@ -80,7 +80,9 @@ function ModalHeader({ title, options = false }) {
       <div className="flex items-center justify-between w-full">
         {!rename ? (
           <div className="flex justify-center gap-1">
-            <h1 className="text-2xl text-slate-200">{modalHasData.title || title}</h1>
+            <h1 className="text-2xl text-slate-200">
+              {title ? title : modalHasData.title.length < 32 ? modalHasData.title : modalHasData.title.slice(0, 32) + "..."}
+            </h1>
             {options && (
               <button className="px-2 py-2 text-sm w-fit text-slate-200" onClick={() => setInfo(!info)}>
                 <InfoCircledIcon className="w-5 h-5" />

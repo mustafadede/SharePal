@@ -53,7 +53,7 @@ function FeedActionCard({ data, notification }) {
   return (
     <div className="flex flex-col w-full">
       <motion.div
-        className="relative flex flex-col w-full mb-4 overflow-hidden h-44 bg-slate-900 rounded-xl"
+        className="relative flex flex-col w-full mb-4 overflow-hidden h-36 bg-slate-900 rounded-xl"
         initial={{ opacity: 0, y: -20, transition: { duration: 2 } }}
         animate={{ opacity: 1, y: 0 }}
       >
@@ -71,7 +71,7 @@ function FeedActionCard({ data, notification }) {
         {data.actionName === "wantToWatch" ? (
           <div className="flex w-full h-full group">
             <div
-              className="z-10 flex flex-col justify-center w-full h-full p-4"
+              className="z-10 flex flex-col justify-center w-full h-full gap-1 p-4"
               style={{
                 background: "linear-gradient(to left, rgba(15, 23, 42, 0), rgba(15, 23, 42, 1))",
               }}
@@ -79,23 +79,29 @@ function FeedActionCard({ data, notification }) {
               <div className="flex items-end gap-2">
                 <NavLink to={data.nick === user ? `/profile` : `/user/${data.nick}`}>
                   <p className="text-xl transition-all duration-300 text-fuchsia-600 hover:cursor-pointer w-fit hover:text-white">
-                    {data.nick}
+                    {data.nick.length < 14 ? data.nick : data.nick.slice(0, 14) + "..."}
                   </p>
                 </NavLink>
-                <span className="text-md text-slate-200"> wants to watch</span>
+                <span className="duration-150 text-md text-slate-400 group-hover:text-slate-200"> wants to watch</span>
               </div>
               <p className="z-10 flex items-center w-full gap-2 italic h-30">
                 <button
-                  className="text-4xl text-white transition-all duration-300 text-start group-hover:text-fuchsia-600 hover:cursor-pointer w-fit"
+                  className="text-3xl text-white transition-all duration-300 text-start group-hover:text-fuchsia-600 hover:cursor-pointer w-fit"
                   onClick={onClickHandler}
                 >
                   <span>
-                    {data.attachedAction.title.length < 39 ? data.attachedAction.title : data.attachedAction.title.slice(0, 39) + "..."}
+                    {data.attachedAction.title.length < 21 ? data.attachedAction.title : data.attachedAction.title.slice(0, 21) + "..."}
                   </span>
                 </button>
               </p>
-              <p className="w-full cursor-default text-md text-slate-300"> ({data.attachedAction.releaseDate.slice(0, 4)})</p>
-              <p className="text-sm transition-all duration-300 cursor-default text-slate-400">{date}</p>
+              <div className="flex items-center gap-2">
+                <p className="px-3 border rounded-lg cursor-default w-fit text-md border-fuchsia-800 text-fuchsia-800">
+                  {data.attachedAction.mediaType === "movie"
+                    ? data.attachedAction.mediaType.charAt(0).toUpperCase() + data.attachedAction.mediaType.slice(1)
+                    : data.attachedAction.mediaType.toUpperCase()}
+                </p>
+              </div>
+              <p className="text-sm transition-all duration-1000 cursor-default text-slate-400">{date}</p>
             </div>
             <div className="flex justify-center w-1/2 overflow-hidden">
               <img
