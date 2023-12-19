@@ -12,7 +12,6 @@ import { modalActions } from "../../../store/modalSlice";
 import useSearchWithYear from "../../../hooks/useSearchWithYear";
 
 function FeedActionCard({ data, notification }) {
-  console.log(data);
   const [settings, setSettings] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user?.nick);
@@ -54,7 +53,7 @@ function FeedActionCard({ data, notification }) {
   return (
     <div className="flex flex-col w-full">
       <motion.div
-        className="relative flex flex-col w-full mb-4 overflow-hidden h-36 bg-slate-900 rounded-xl"
+        className="relative flex flex-col w-full mb-4 overflow-hidden h-44 bg-slate-900 rounded-xl"
         initial={{ opacity: 0, y: -20, transition: { duration: 2 } }}
         animate={{ opacity: 1, y: 0 }}
       >
@@ -87,10 +86,12 @@ function FeedActionCard({ data, notification }) {
               </div>
               <p className="z-10 flex items-center w-full gap-2 italic h-30">
                 <button
-                  className="text-4xl text-white transition-all duration-300 group-hover:text-fuchsia-600 hover:cursor-pointer w-fit"
+                  className="text-4xl text-white transition-all duration-300 text-start group-hover:text-fuchsia-600 hover:cursor-pointer w-fit"
                   onClick={onClickHandler}
                 >
-                  <span>{data.attachedAction.title}</span>
+                  <span>
+                    {data.attachedAction.title.length < 39 ? data.attachedAction.title : data.attachedAction.title.slice(0, 39) + "..."}
+                  </span>
                 </button>
               </p>
               <p className="w-full cursor-default text-md text-slate-300"> ({data.attachedAction.releaseDate.slice(0, 4)})</p>

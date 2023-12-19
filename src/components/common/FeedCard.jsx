@@ -14,7 +14,6 @@ function FeedCard({
   attachedData,
   notification = false,
 }) {
-  if (isAction) console.log(data);
   return isComment ? (
     <FeedCommentCard data={data} index={index} notification={notification} />
   ) : isAttached ? (
