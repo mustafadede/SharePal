@@ -28,6 +28,7 @@ function FeedCommentCard({ data, notification }) {
       });
       setRename(false);
       setSettings(false);
+      setIsEdited(true);
     }
   };
 
@@ -36,7 +37,6 @@ function FeedCommentCard({ data, notification }) {
       dispatch(postsActions.deletePost(data.postId)) && toast.success("Post deleted successfully");
       setRename(false);
       setSettings(false);
-      setIsEdited(true);
     });
   };
 
@@ -73,7 +73,7 @@ function FeedCommentCard({ data, notification }) {
           </div>
           {!notification && data.nick === user && (
             <div className="flex items-center gap-2">
-              {(editedText || data.edited) && <p className="text-sm text-slate-400">(Edited)</p>}
+              {(isEdited || data.edited) && <p className="text-sm text-slate-400">(Edited)</p>}
               <button onClick={() => setSettings(!settings)}>
                 <DotsHorizontalIcon className="w-6 h-6 transition-colors text-slate-400 hover:text-slate-200" />
               </button>
