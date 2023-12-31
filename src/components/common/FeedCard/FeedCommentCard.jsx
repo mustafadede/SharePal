@@ -16,6 +16,7 @@ function FeedCommentCard({ data, notification }) {
   const [settings, setSettings] = useState(false);
   const [rename, setRename] = useState(false);
   const [editedText, setEditedText] = useState(data.text);
+  const [isEdited, setIsEdited] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user?.nick);
   const date = DateFormatter(data);
@@ -33,6 +34,9 @@ function FeedCommentCard({ data, notification }) {
   const deleteHandler = () => {
     deleteSelectedPost(localStorage.getItem("user"), data.postId).then(() => {
       dispatch(postsActions.deletePost(data.postId)) && toast.success("Post deleted successfully");
+      setRename(false);
+      setSettings(false);
+      setIsEdited(true);
     });
   };
 
@@ -68,7 +72,8 @@ function FeedCommentCard({ data, notification }) {
             </div>
           </div>
           {!notification && data.nick === user && (
-            <div className="flex flex-col">
+            <div className="flex items-center gap-2">
+              {(editedText || data.edited) && <p className="text-sm text-slate-400">(Edited)</p>}
               <button onClick={() => setSettings(!settings)}>
                 <DotsHorizontalIcon className="w-6 h-6 transition-colors text-slate-400 hover:text-slate-200" />
               </button>

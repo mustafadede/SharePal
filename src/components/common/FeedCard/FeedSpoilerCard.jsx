@@ -16,6 +16,7 @@ function FeedSpoilerCard({ data, notification }) {
   const [settings, setSettings] = useState(false);
   const [rename, setRename] = useState(false);
   const [editedText, setEditedText] = useState(data.text);
+  const [isEdited, setIsEdited] = useState(false);
 
   const user = useSelector((state) => state.user.user?.nick);
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ function FeedSpoilerCard({ data, notification }) {
       });
       setRename(false);
       setSettings(false);
+      setIsEdited(true);
     }
   };
 
@@ -82,7 +84,7 @@ function FeedSpoilerCard({ data, notification }) {
               <div className="flex gap-2">
                 <LockClosedIcon className="w-4 h-4 text-slate-200" />
                 <p className="text-sm text-slate-400">Spoiler!</p>
-                {data.edited && <p className="text-sm text-slate-400">(Edited)</p>}
+                {(isEdited || data.edited) && <p className="text-sm text-slate-400">(Edited)</p>}
               </div>
               {!notification && data.nick === user && (
                 <div className="flex flex-col">

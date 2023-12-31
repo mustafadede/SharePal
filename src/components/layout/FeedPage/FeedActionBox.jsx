@@ -108,8 +108,9 @@ function FeedActionBox() {
             icons={<LockOpen1Icon className="w-6 h-6 transition-all text-slate-300" />}
             text="Sshhh! Spoiler!"
             onClickAction={() => {
-              dispatch(createPostActions.updateSpoiler(true));
+              dispatch(createPostActions.updateSpoiler(!spoiler));
             }}
+            check={spoiler}
           />
           <motion.button
             className="w-full p-2 text-lg transition-colors duration-300 rounded-lg select-none h-100 bg-fuchsia-800 hover:bg-slate-700 text-cWhite"
