@@ -36,6 +36,7 @@ function ListModal() {
                   releaseDate={item.releaseDate}
                   backdrop={item.backdrop}
                   username={modalHasData.username}
+                  listNumber={index + 1}
                 />
               );
             })}

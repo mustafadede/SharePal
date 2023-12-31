@@ -16,6 +16,8 @@ import FeedCardOnlineStatus from "../FeedCardOnlineStatus";
 
 function FeedAttachedCard({ data, attachedData, notification }) {
   const [settings, setSettings] = useState(false);
+  const [rename, setRename] = useState(false);
+  const [editedText, setEditedText] = useState(data.text);
   const [bookmarked, setBookmarked] = useState(false);
   const user = useSelector((state) => state.user.user?.nick);
   const dispatch = useDispatch();
@@ -160,7 +162,10 @@ function FeedAttachedCard({ data, attachedData, notification }) {
         <ActionDetailsCard
           haveBorder={false}
           icon1={
-            <button className="flex items-center w-full px-4 py-2 text-sm text-left transition-all text-slate-200 rounded-xl hover:bg-slate-800">
+            <button
+              className="flex items-center w-full px-4 py-2 text-sm text-left transition-all text-slate-200 rounded-xl hover:bg-slate-800"
+              onClick={() => setRename(!rename)}
+            >
               <Pencil1Icon className="w-5 h-5 mr-2" />
               Edit
             </button>

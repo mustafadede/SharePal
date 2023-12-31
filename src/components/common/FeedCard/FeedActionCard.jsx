@@ -61,7 +61,7 @@ function FeedActionCard({ data, notification }) {
         {!notification && data.nick === user && (
           <div className="absolute z-10 flex flex-col top-4 right-4">
             <button onClick={() => setSettings(!settings)}>
-              <DotsHorizontalIcon className="w-6 h-6 transition-colors text-fuchsia-600 hover:text-slate-200" />
+              <DotsHorizontalIcon className="w-6 h-6 transition-colors duration-150 text-slate-200 hover:text-cWhite" />
             </button>
           </div>
         )}
@@ -71,14 +71,14 @@ function FeedActionCard({ data, notification }) {
         {data.actionName === "wantToWatch" ? (
           <div className="flex w-full h-full group">
             <div
-              className="z-10 flex flex-col justify-center w-full h-full gap-1 p-4"
+              className="z-10 flex flex-col justify-center w-full h-full gap-2 p-4"
               style={{
                 background: "linear-gradient(to left, rgba(15, 23, 42, 0), rgba(15, 23, 42, 1))",
               }}
             >
               <div className="flex items-end gap-2">
                 <NavLink to={data.nick === user ? `/profile` : `/user/${data.nick}`}>
-                  <p className="text-xl transition-all duration-300 text-fuchsia-600 hover:cursor-pointer w-fit hover:text-white">
+                  <p className="w-full transition-all duration-300 text-md lg:text-xl text-fuchsia-600 hover:cursor-pointer hover:text-white">
                     {data.nick.length < 14 ? data.nick : data.nick.slice(0, 14) + "..."}
                   </p>
                 </NavLink>
@@ -86,7 +86,7 @@ function FeedActionCard({ data, notification }) {
               </div>
               <p className="z-10 flex items-center w-full gap-2 italic h-30">
                 <button
-                  className="text-3xl text-white transition-all duration-300 text-start group-hover:text-fuchsia-600 hover:cursor-pointer w-fit"
+                  className="w-full text-lg text-white transition-all duration-300 lg:text-3xl text-start group-hover:text-fuchsia-600 hover:cursor-pointer"
                   onClick={onClickHandler}
                 >
                   <span>
@@ -95,13 +95,13 @@ function FeedActionCard({ data, notification }) {
                 </button>
               </p>
               <div className="flex items-center gap-2">
-                <p className="px-3 border rounded-lg cursor-default w-fit text-md border-fuchsia-800 text-fuchsia-800">
+                <p className="px-2 text-sm border rounded-lg cursor-default lg:px-3 w-fit lg:text-md border-fuchsia-800 text-fuchsia-800">
                   {data.attachedAction.mediaType === "movie"
                     ? data.attachedAction.mediaType.charAt(0).toUpperCase() + data.attachedAction.mediaType.slice(1)
                     : data.attachedAction.mediaType.toUpperCase()}
                 </p>
               </div>
-              <p className="text-sm transition-all duration-1000 cursor-default text-slate-400">{date}</p>
+              <p className="mb-2 text-xs transition-all duration-1000 cursor-default lg:text-sm text-slate-400">{date}</p>
             </div>
             <div className="flex justify-center w-1/2 overflow-hidden">
               <img
