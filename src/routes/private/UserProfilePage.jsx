@@ -17,6 +17,7 @@ import { modalActions } from "../../store/modalSlice";
 import FollowCard from "../../components/common/FollowCard/FollowCard";
 import PopularCard from "../../components/common/MostPopularCard/PopularCard";
 import InfoLabel from "../../components/common/InfoLabel";
+import Snowfall from "react-snowfall";
 
 function UserProfilePage() {
   const { username } = useParams();
@@ -66,6 +67,14 @@ function UserProfilePage() {
 
   return (
     <>
+      <Snowfall
+        style={{
+          position: "fixed",
+          width: "100vw",
+          height: "100vh",
+          zIndex: "999",
+        }}
+      />
       <Navbar
         isNotLoggedin={localStorage.getItem("user") ? false : true}
         additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30"

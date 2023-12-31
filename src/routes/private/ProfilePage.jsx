@@ -16,6 +16,7 @@ import { followingActions } from "../../store/followingSlice";
 import { followersActions } from "../../store/followersSlice";
 import { modalActions } from "../../store/modalSlice";
 import { watchedActions } from "../../store/watchedSlice";
+import Snowfall from "react-snowfall";
 
 function ProfilePage() {
   const tabs = [
@@ -57,6 +58,14 @@ function ProfilePage() {
   }, []);
   return (
     <>
+      <Snowfall
+        style={{
+          position: "fixed",
+          width: "100vw",
+          height: "100vh",
+          zIndex: "999",
+        }}
+      />
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
       <div className="flex mx-5 md:mx-10">
         <div className="flex flex-col w-full gap-4 mb-6 lg:mr-6">
