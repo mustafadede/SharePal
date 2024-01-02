@@ -8,11 +8,12 @@ import { createPostActions } from "../../../store/createPostSlice";
 import { createPostAction } from "../../../firebase/firebaseActions";
 import { getAuth } from "firebase/auth";
 import { modalActions } from "../../../store/modalSlice";
+import FeedActionBoxTag from "../../common/FeedActionBoxTag/FeedActionBoxTag";
 
 function FeedActionBox() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
-  const { attachedFilm, spoiler, text } = useSelector((state) => state.createPost);
+  const { attachedFilm, spoiler, text, tagFlag } = useSelector((state) => state.createPost);
   const { modalHasData, modalName } = useSelector((state) => state.modal);
   const createPost = () => {
     if (text.length > 0 && text.length <= 280) {
@@ -37,6 +38,10 @@ function FeedActionBox() {
     }
   };
   const handlePost = (e) => {
+    // TODO: Add tagFlag
+    if (e.key === " " || e.key === "Escape") {
+      dispatch(createPostActions.tagFlag(false));
+    }
     if (e.ctrlKey && e.key === "Enter") {
       createPost();
     }
@@ -96,6 +101,7 @@ function FeedActionBox() {
             </button>
           </motion.div>
         )}
+        {tagFlag && <FeedActionBoxTag />}
         <div className="flex justify-end w-full gap-2">
           <FeedActionBoxButton
             icons={<Link2Icon className="w-6 h-6 transition-all text-slate-300" />}

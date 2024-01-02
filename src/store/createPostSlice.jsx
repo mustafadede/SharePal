@@ -9,8 +9,12 @@ const createPostSlice = createSlice({
     attachedPhoto: null,
     postsLength: -1,
     spoiler: false,
+    tagFlag: false,
   },
   reducers: {
+    tagFlag: (state, action) => {
+      state.tagFlag = action.payload;
+    },
     updateText: (state, action) => {
       state.text = action.payload;
     },

@@ -4,6 +4,7 @@ import video from "../../assets/video-playback.webm";
 import Navbar from "../../components/layout/Navbar";
 import { useNavigate } from "react-router-dom";
 import AttachCardsSection from "../../components/layout/HomePage/AttachCardsSection";
+import { toast } from "react-toastify";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -45,11 +46,15 @@ function HomePage() {
   const item = { hidden: { y: 10, opacity: 0 }, visible: { y: 0, opacity: 1 } };
   useEffect(() => {
     document.title = "SharePal";
-    // if (localStorage.getItem("user")) {
-    //   navigate("/feed");
-    // } else {
-    //   navigate("/");
-    // }
+    if (localStorage.getItem("user")) {
+      toast.success("You are already logged in. Redirecting to feed.");
+      const timeoutDirection = setTimeout(() => {
+        navigate("/feed");
+      }, 3000);
+      return () => clearTimeout(timeoutDirection);
+    } else {
+      navigate("/");
+    }
   }, []);
   return (
     <>
