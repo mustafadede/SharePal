@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Cross1Icon, DotsHorizontalIcon, InfoCircledIcon } from "@radix-ui/react-icons";
+import { Cross1Icon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import ActionDetailsCard from "../ActionDetailsCard";
 import { postsActions } from "../../../store/postsSlice";
-import { deleteSelectedPost, editSelectedPost } from "../../../firebase/firebaseActions";
+import { deleteSelectedPost } from "../../../firebase/firebaseActions";
 import { toast } from "react-toastify";
-import { DateFormatter } from "../../../utils/formatter";
+import { DateFormatter, TextShorter } from "../../../utils/formatter";
 import { modalActions } from "../../../store/modalSlice";
 import useSearchWithYear from "../../../hooks/useSearchWithYear";
 
@@ -15,7 +15,9 @@ function FeedActionCard({ data, notification }) {
   const [settings, setSettings] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user?.nick);
+  // utils functions
   const date = DateFormatter(data);
+  const title = TextShorter(data.attachedAction.title, 21);
 
   const deleteHandler = () => {
     deleteSelectedPost(localStorage.getItem("user"), data.postId).then(() => {
@@ -89,9 +91,7 @@ function FeedActionCard({ data, notification }) {
                   className="w-full text-lg text-white transition-all duration-300 lg:text-3xl text-start group-hover:text-fuchsia-600 hover:cursor-pointer"
                   onClick={onClickHandler}
                 >
-                  <span>
-                    {data.attachedAction.title.length < 21 ? data.attachedAction.title : data.attachedAction.title.slice(0, 21) + "..."}
-                  </span>
+                  <span>{title}</span>
                 </button>
               </p>
               <div className="flex items-center gap-2">
@@ -113,7 +113,6 @@ function FeedActionCard({ data, notification }) {
         ) : null}
       </motion.div>
       {/*Action Card Middle Top section end */}
-
       {/*Action Card Bottom section start */}
       {settings && (
         <ActionDetailsCard

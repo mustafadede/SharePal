@@ -13,7 +13,6 @@ function FollowingSecctionComponent({ tab }) {
     dispatch(postsActions.resetPosts());
     followingList.map((item) => {
       getSelectedUserPosts(item.uid).then((res) => {
-        console.log(res);
         res.map((post) => {
           dispatch(postsActions.pushPosts(post));
         });

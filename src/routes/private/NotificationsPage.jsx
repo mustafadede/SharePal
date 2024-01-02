@@ -31,9 +31,6 @@ function NotificationsPage() {
   const { notificationList, status } = useSelector((state) => state.notification);
   const dispatch = useDispatch();
   const [tab, setTab] = useState(0);
-  const [likes, setLikes] = useState([]);
-  const [comments, setComments] = useState([]);
-  const [reposts, setReposts] = useState([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -119,7 +116,7 @@ function NotificationsPage() {
               Loading...
             </motion.h1>
           )}
-          {status === "error" && (notificationList.length === 0 || likes.length === 0 || comments.length === 0 || reposts.length === 0) && (
+          {status === "error" && (
             <motion.h1
               className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
               initial={{ opacity: 0, y: -20 }}

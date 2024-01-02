@@ -1,4 +1,5 @@
 import { modalActions } from "../../../store/modalSlice";
+import { DateFormatter, TextShorter } from "../../../utils/formatter";
 
 function PopularItem({ data, dispatch }) {
   const handleClick = () => {
@@ -20,13 +21,15 @@ function PopularItem({ data, dispatch }) {
       })
     );
   };
+  // utils functions
+  const date = DateFormatter(data.release_date || data.first_air_date, "popular");
+  const title = TextShorter(data.original_title || data.original_name);
+
   return (
     <button className="py-2 mt-4 text-left cursor-pointer group" onClick={handleClick}>
       <div>
-        <p className="pb-1 transition-colors xl:text-lg lg:text-md text-fuchsia-600 group-hover:text-slate-300">
-          {data.original_title || data.original_name}
-        </p>
-        <p className="text-sm transition-colors text-slate-600 group-hover:text-slate-700">{data.release_date || data.first_air_date}</p>
+        <p className="pb-1 transition-colors xl:text-lg lg:text-md text-fuchsia-600 group-hover:text-slate-300">{title}</p>
+        <p className="text-sm transition-colors text-slate-600 group-hover:text-slate-700">{date}</p>
       </div>
     </button>
   );
