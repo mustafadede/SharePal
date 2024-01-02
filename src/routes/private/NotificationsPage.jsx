@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/layout/Navbar";
 import { motion } from "framer-motion";
 import ProfileCard from "../../components/common/ProfileCard";
@@ -24,11 +24,17 @@ import { notificationActions } from "../../store/notificationSlice";
 import NotificationLikeCard from "../../components/common/NotificationCard/NotificationLikeCard";
 import { TrashIcon } from "@radix-ui/react-icons";
 import InfoLabel from "../../components/common/InfoLabel";
+import FeedTabs from "../../components/layout/FeedPage/FeedTabs";
 
 function NotificationsPage() {
   const { user } = useSelector((state) => state.user);
   const { notificationList, status } = useSelector((state) => state.notification);
   const dispatch = useDispatch();
+  const [tab, setTab] = useState(0);
+  const [likes, setLikes] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [reposts, setReposts] = useState([]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
     localStorage.setItem("lookUpDate", JSON.stringify(new Date().toISOString()));
@@ -102,6 +108,7 @@ function NotificationsPage() {
               <TrashIcon className="transition-all duration-200 w-7 h-7 text-slate-600 group-hover:text-slate-200" />
             </motion.button>
           </motion.div>
+          <FeedTabs tabInfo={tab} tab={setTab} />
           {status === "loading" && (
             <motion.h1
               className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
@@ -112,7 +119,7 @@ function NotificationsPage() {
               Loading...
             </motion.h1>
           )}
-          {status === "error" && notificationList.length === 0 && (
+          {status === "error" && (notificationList.length === 0 || likes.length === 0 || comments.length === 0 || reposts.length === 0) && (
             <motion.h1
               className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
               initial={{ opacity: 0, y: -20 }}
@@ -123,33 +130,55 @@ function NotificationsPage() {
             </motion.h1>
           )}
           {status === "done" &&
+            tab === 0 &&
             notificationList
-              ?.map((notification, index) => {
-                if (notification?.type === "follow") {
-                  return (
-                    <NotificationFollowCard
-                      key={index}
-                      uid={notification.from?.uid}
-                      nick={notification.from?.nick}
-                      photoURL={notification.from?.photo}
-                      date={notification?.date}
-                    />
-                  );
-                }
-                if (notification?.type === "like") {
-                  return (
-                    <NotificationLikeCard
-                      key={index}
-                      uid={notification.from?.uid}
-                      nick={notification.from?.nick}
-                      postId={notification.from?.postId}
-                      photoURL={notification.from?.photo}
-                      date={notification?.date}
-                    />
-                  );
-                }
-              })
-              .reverse()}
+              ?.filter((notification) => notification?.type === "like")
+              .reverse()
+              .map((notification, index) => (
+                <NotificationLikeCard
+                  key={index}
+                  uid={notification.from?.uid}
+                  nick={notification.from?.nick}
+                  postId={notification.from?.postId}
+                  photoURL={notification.from?.photo}
+                  date={notification?.date}
+                  deleteId={notification.id}
+                />
+              ))}
+          {status === "done" &&
+            tab === 2 &&
+            notificationList
+              ?.filter((notification) => notification?.type === "repost")
+              .reverse()
+              .map((notification, index) => (
+                <NotificationLikeCard
+                  key={index}
+                  uid={notification.from?.uid}
+                  nick={notification.from?.nick}
+                  postId={notification.from?.postId}
+                  photoURL={notification.from?.photo}
+                  date={notification?.date}
+                  deleteId={notification.id}
+                />
+              ))}
+          {status === "done" &&
+            tab === 3 &&
+            notificationList
+              ?.filter((notification) => notification?.type === "follow")
+              .reverse()
+              .map((notification, index) => (
+                <NotificationFollowCard
+                  key={index}
+                  uid={notification.from?.uid}
+                  nick={notification.from?.nick}
+                  photoURL={notification.from?.photo}
+                  date={notification?.date}
+                  deleteId={notification.id}
+                />
+              ))}
+
+          {status === "done" && tab === 1 && <InfoLabel text="Coming soon..." />}
+          {status === "done" && tab === 2 && <InfoLabel text="Coming soon..." />}
           {status === "deleted" && notificationList.length === 0 && (
             <InfoLabel text="There is nothing to see. Do some actions. Follow the rabbit hole." />
           )}

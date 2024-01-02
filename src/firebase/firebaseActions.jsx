@@ -739,6 +739,7 @@ const getNotifications = async (uid) => {
   if (snapshot.exists()) {
     snapshot.forEach((childSnapshot) => {
       notifications.push({
+        id: childSnapshot.key,
         from: childSnapshot.val().from,
         date: childSnapshot.val().date,
         type: childSnapshot.val().type,
@@ -774,6 +775,23 @@ const deleteUserNotification = async (uid) => {
   try {
     set(ref(database, `notifications/${uid}`), null);
     return true;
+  } catch (error) {
+    console.error(error);
+    return toast("Something went wrong!");
+  }
+};
+
+const deleteSelectedNotification = async (notificationId) => {
+  try {
+    const uid = localStorage.getItem("user");
+    const notificationsRef = ref(database, `notifications/${uid}/${notificationId}`);
+    const snapshot = await get(notificationsRef);
+    if (snapshot.exists()) {
+      set(notificationsRef, null);
+      return true;
+    } else {
+      return null;
+    }
   } catch (error) {
     console.error(error);
     return toast("Something went wrong!");
@@ -1186,6 +1204,7 @@ export {
   getNotifications,
   createNotification,
   deleteUserNotification,
+  deleteSelectedNotification,
   createPinnedList,
   changePinnedListTitle,
   updatePinnedList,
