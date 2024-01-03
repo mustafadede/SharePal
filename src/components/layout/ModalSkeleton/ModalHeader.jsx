@@ -12,7 +12,7 @@ function ModalHeader({ title, options = false }) {
   const [settings, setSettings] = useState(false);
   const [name, setName] = useState("");
   const [rename, setRename] = useState(false);
-  const [info, setInfo] = useState(false);
+  const [info, setInfo] = useState(true);
   const dispatch = useDispatch();
   const { modalHasData } = useSelector((state) => state.modal);
 
