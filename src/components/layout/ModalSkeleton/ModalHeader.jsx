@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { MyListsActions } from "../../../store/myListsSlice";
 import { motion } from "framer-motion";
 
-function ModalHeader({ title, options = false }) {
+function ModalHeader({ title, options = false, username }) {
   const [settings, setSettings] = useState(false);
   const [name, setName] = useState("");
   const [rename, setRename] = useState(false);
@@ -111,7 +111,7 @@ function ModalHeader({ title, options = false }) {
           </div>
         )}
         <div className="flex gap-2">
-          {localStorage.getItem("user") && options && !rename && (
+          {localStorage.getItem("user") && !username && options && !rename && (
             <button className="cursor-pointer" onClick={() => setSettings(!settings)}>
               <DotsHorizontalIcon className="transition-all duration-300 w-7 h-7 text-slate-400 hover:text-slate-200" />
             </button>

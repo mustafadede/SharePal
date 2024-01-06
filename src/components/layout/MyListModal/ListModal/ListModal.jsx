@@ -6,12 +6,10 @@ import ListModalCard from "./ListModalCard";
 function ListModal() {
   const { modalHasData } = useSelector((state) => state.modal);
   const [search, setSearch] = useState("");
-  const SearchedIndex =
-    search && Object.values(modalHasData.list)?.findIndex((item) => item.title.toLowerCase().includes(search.toLowerCase()));
 
   return (
     <div className="bg-slate-900 rounded-2xl px-8 pt-4 overflow-hidden w-[25rem] md:w-[35rem] h-[28rem] md:h-[30rem]">
-      <ModalHeader options={true} />
+      <ModalHeader options={true} username={modalHasData.username} />
       <div className="flex flex-col justify-center w-full py-2">
         <div className="flex flex-col justify-between md:flex-row"></div>
         <input
@@ -44,17 +42,19 @@ function ListModal() {
             Object.values(modalHasData.list)
               ?.filter((item) => item.title.toLowerCase().includes(search.toLowerCase()))
               .map((item, index) => {
+                const searchedIndex = Object.values(modalHasData.list).indexOf(item);
                 return (
                   <ListModalCard
                     key={index}
-                    id={Object.keys(modalHasData.list)[SearchedIndex]}
+                    id={Object.keys(modalHasData.list)[searchedIndex]}
                     listId={modalHasData.listNum}
-                    findIndex={SearchedIndex}
+                    findIndex={searchedIndex}
                     title={item.title}
                     poster={item.poster}
                     releaseDate={item.releaseDate}
                     backdrop={item.backdrop}
                     username={modalHasData.username}
+                    listNumber={searchedIndex + 1}
                   />
                 );
               })}

@@ -74,7 +74,9 @@ function ListModalCard({ id, listId, findIndex, title, poster, releaseDate, back
         )}
         <img src={`https://image.tmdb.org/t/p/w500/${poster}`} alt={title} loading="lazy" className="z-10 w-16 h-full rounded-xl" />
         <div className="flex justify-between w-full gap-1 pr-4">
-          <p className="z-10 text-lg text-left text-slate-200">{title}</p>
+          <p className="z-10 text-lg text-left text-slate-200">
+            {listNumber}. {title}
+          </p>
           <p className="z-10 text-lg text-slate-400">({releaseDate?.slice(0, 4)})</p>
         </div>
       </button>
