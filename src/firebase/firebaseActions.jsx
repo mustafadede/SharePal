@@ -25,6 +25,7 @@ const createUserWithEmailAction = async (data) => {
         bestSeriesYear: "",
         banner: "",
         online: false,
+        splash: false,
       });
       updateProfile(auth.currentUser, {
         displayName: data.name,
@@ -85,6 +86,7 @@ const getCurrentUserData = async (userId) => {
         bestSeriesYear: snapshot.val().bestSeriesYear || "",
         photoURL: getAuth().currentUser.photoURL || snapshot.val().photoURL || "",
         online: snapshot.val().online,
+        splash: snapshot.val().splash,
       };
       return user;
     } else {
@@ -321,6 +323,7 @@ const updateCurrentUserData = async (userId, data) => {
         photoURL: getAuth().currentUser.photoURL || snapshot.val().photoURL || null,
         online: data.online || snapshot.val().online || false,
         deleted: data.deleted || snapshot.val().deleted || false,
+        splash: data.splash || snapshot.val().splash || false,
       });
       if (snapshotPosts.exists()) {
         snapshotPosts.forEach((childSnapshot) => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { delay, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ChevronDownIcon, Cross1Icon, DotsVerticalIcon, HeartIcon } from "@radix-ui/react-icons";
 import { deleteSelectedNotification, getSelectedUserPost } from "../../../firebase/firebaseActions";
@@ -28,7 +28,7 @@ function NotificationLikeCard({ uid, nick, photoURL, date, postId, deleteId }) {
 
   return (
     <>
-      <div>
+      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <div className="flex flex-row items-center justify-between w-full p-4 mb-4 transition-all duration-150 border border-transparent bg-slate-900 rounded-xl hover:border-slate-400">
           <div className="flex gap-4">
             {!photoURL && (
@@ -85,7 +85,7 @@ function NotificationLikeCard({ uid, nick, photoURL, date, postId, deleteId }) {
               return <FeedCard key={index} isComment={true} data={data} notification={true} index={index} />;
             }
           })}
-      </div>
+      </motion.div>
       {settings && (
         <ActionDetailsCard
           haveBorder={false}

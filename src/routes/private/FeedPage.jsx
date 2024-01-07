@@ -24,6 +24,7 @@ import { followingActions } from "../../store/followingSlice";
 import { followersActions } from "../../store/followersSlice";
 import { notificationActions } from "../../store/notificationSlice";
 import FollowingSecctionComponent from "../../components/layout/FollowingSecctionComponent";
+import { modalActions } from "../../store/modalSlice";
 
 function FeedPage() {
   const { posts, status } = useSelector((state) => state.posts);
@@ -37,6 +38,9 @@ function FeedPage() {
       try {
         const userData = await getCurrentUserData(localStorage.getItem("user"));
         userData && dispatch(userActions.updateUser(userData));
+        // if (!localStorage.getItem("ss") || !userData.splash) {
+        //   dispatch(modalActions.openModal({ name: "splashModal" }));
+        // }
         const response = await getSelectedUserFollowing(localStorage.getItem("user"));
         response && dispatch(followingActions.initialFollowing(response));
         const followers = await getFollowersForUser(localStorage.getItem("user"));

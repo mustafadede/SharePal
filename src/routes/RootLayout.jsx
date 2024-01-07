@@ -12,6 +12,7 @@ import LabelInfo from "../components/layout/LabelInfo";
 import ShareModal from "../components/layout/ShareModal/ShareModal";
 import FollowerModal from "../components/layout/FollowerModal/FollowerModal";
 import FeedCardActionModal from "../components/layout/FeedCardActionModal/FeedCardActionModal";
+import SplashModal from "../components/layout/SplashModal/SplashModal";
 
 function RootLayout() {
   const { modalState, modalName } = useSelector((state) => state.modal);
@@ -76,6 +77,16 @@ function RootLayout() {
         {modalState && modalName === "likesModal" && (
           <ModalSkeleton>
             <FeedCardActionModal />
+          </ModalSkeleton>
+        )}
+        {modalState && modalName === "commentsModal" && (
+          <ModalSkeleton>
+            <FeedCardActionModal />
+          </ModalSkeleton>
+        )}
+        {modalState && modalName === "splashModal" && (
+          <ModalSkeleton>
+            <SplashModal />
           </ModalSkeleton>
         )}
         <Outlet />
