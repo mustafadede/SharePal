@@ -1,7 +1,6 @@
 import React from "react";
 import SearchCardModalCenterTop from "./SearchCardModalCenterComponents/SearchCardModalCenterTop";
 import SearchCardModalCenterMore from "./SearchCardModalCenterComponents/SearchCardModalCenterMore";
-import SearchCardModalCenterCommentSection from "./SearchCardModalCenterComponents/SearchCardModalCenterCommentSection";
 
 function SearchCardModalCenter({
   mediaType,
@@ -47,7 +46,6 @@ function SearchCardModalCenter({
         clickAction3={clickAction3}
         yearIndicator={yearIndicator}
       />
-      {localStorage.getItem("user") ? <SearchCardModalCenterCommentSection /> : null}
       <div className="flex flex-col w-full px-6 pt-6 text-center md:flex-col md:text-left">
         {seeMore ? (
           <>

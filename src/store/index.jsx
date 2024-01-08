@@ -12,6 +12,7 @@ import notificationSlice from "./notificationSlice";
 import wantToWatchSlice from "./wantToWatchSlice";
 import watchedSlice from "./watchedSlice";
 import unfinishedSlice from "./unfinishedSlice";
+import splashSlice from "./splashSlice";
 
 const store = configureStore({
   reducer: {
@@ -28,6 +29,7 @@ const store = configureStore({
     unfinished: unfinishedSlice,
     following: followingSlice,
     followers: followersSlice,
+    splash: splashSlice,
   },
 });
 
