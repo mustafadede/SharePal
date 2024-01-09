@@ -746,6 +746,7 @@ const getNotifications = async (uid) => {
         from: childSnapshot.val().from,
         date: childSnapshot.val().date,
         type: childSnapshot.val().type,
+        isRead: childSnapshot.val().isRead || false,
       });
     });
   } else {
@@ -766,6 +767,7 @@ const createNotification = async (uid, data) => {
       },
       date: data.date,
       type: data.type,
+      isRead: false,
     });
     return true;
   } catch (error) {

@@ -7,6 +7,8 @@ import FavMovieThisYear from "./StatsSection/FavMovieThisYear";
 import FavSeriesThisYear from "./StatsSection/FavSeriesThisYear";
 import WatchedFilmsStats from "./StatsSection/WatchedFilmsStats";
 import WatchedSeriesStats from "./StatsSection/WatchedSeriesStats";
+import FavMovieLastYear from "./StatsSection/FavMovieLastYear";
+import FavSeriesLastYear from "./StatsSection/FavSeriesLastYear";
 
 function StatsCard({ user, username }) {
   const navigate = useNavigate();
@@ -30,12 +32,14 @@ function StatsCard({ user, username }) {
           <FavMovieThisYear username={username} user={user} navigate={navigate} />
           <FavSeriesThisYear username={username} user={user} navigate={navigate} />
         </div>
-        {/* <div className="flex flex-col justify-center w-full gap-4 p-4 rounded-xl bg-slate-900">
-          <p className="text-3xl font-bold text-slate-200">Recently watched</p>
-          <RecentlyComponent user={user} />
-        </div> */}
       </div>
-      <div className="flex flex-row w-full gap-3 mt-6"></div>
+      <p className="w-full my-4 text-xl font-bold md:text-3xl text-slate-200">Previous Stats</p>
+      <div className="flex flex-row-reverse w-full gap-3">
+        <div className="flex flex-col w-full gap-6">
+          <FavMovieLastYear username={username} user={user} navigate={navigate} />
+          <FavSeriesLastYear username={username} user={user} navigate={navigate} />
+        </div>
+      </div>
     </motion.div>
   );
 }
