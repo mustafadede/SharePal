@@ -10,7 +10,7 @@ function FeedCardActionModal() {
       <ModalHeader title={modalHasData.title} />
       <div className="overflow-y-auto no-scrollbar h-[20rem]">
         {modalHasData.ids?.map((item, i) => (
-          <FollowerModalCard identify={modalHasData.title} key={i} info={item} />
+          <FollowerModalCard identify={modalHasData.title} numbers={i} key={i} info={item} />
         ))}
         {!modalHasData.ids && (
           <div className="flex w-full h-full">

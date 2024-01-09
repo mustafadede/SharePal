@@ -6,7 +6,7 @@ import useSearchWithMovieId from "../../../hooks/useSearchWithMovieId";
 import useSearchWithSeriesId from "../../../hooks/useSearchWithSeriesId";
 import ListModalCard from "../MyListModal/ListModal/ListModalCard";
 
-function FollowerModalCard({ identify, info }) {
+function FollowerModalCard({ identify, numbers, info }) {
   const [data, setData] = React.useState({});
   const user = useSelector((state) => state.user.user?.nick);
   useEffect(() => {
@@ -83,6 +83,7 @@ function FollowerModalCard({ identify, info }) {
       releaseDate={data.release_date || data.first_air_date}
       backdrop={data.backdrop_path}
       username={user}
+      listNumber={numbers + 1}
     />
   ) : (
     <Link to={data.nick === user ? `/profile` : `/user/${data.nick}`}>

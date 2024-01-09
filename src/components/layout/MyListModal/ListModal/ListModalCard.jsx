@@ -8,7 +8,7 @@ import { MyListsActions } from "../../../../store/myListsSlice";
 import useSearchWithYear from "../../../../hooks/useSearchWithYear";
 import { modalActions } from "../../../../store/modalSlice";
 
-function ListModalCard({ id, listId, findIndex, title, poster, releaseDate, backdrop, username, listNumber }) {
+function ListModalCard({ id, numbers, listId, findIndex, title, poster, releaseDate, backdrop, username, listNumber }) {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const { modalHasData } = useSelector((state) => state.modal);
