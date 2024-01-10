@@ -38,7 +38,7 @@ function FeedActionBox() {
     }
   };
   const handlePost = (e) => {
-    // TODO: Add tagFlag
+    // TODO: Add tagFlag for people tagging
     if (e.key === " " || e.key === "Escape") {
       dispatch(createPostActions.tagFlag(false));
     }
@@ -53,7 +53,7 @@ function FeedActionBox() {
   return (
     <>
       <motion.div
-        className="w-full px-3 py-2 mb-4 overflow-hidden rounded-lg h-fit bg-slate-900"
+        className="w-full px-2 py-2 mb-4 overflow-hidden rounded-lg h-fit bg-slate-900"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
@@ -61,7 +61,7 @@ function FeedActionBox() {
         <motion.textarea
           name="post"
           className="w-full h-20 px-4 py-2 my-2 rounded-lg outline-none resize-none text-md text-cWhite bg-slate-800 "
-          placeholder="What's happening?"
+          placeholder="What's happening ?"
           value={text}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

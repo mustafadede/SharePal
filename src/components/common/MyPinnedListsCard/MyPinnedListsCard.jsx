@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
 import MyListsModalCard from "../../layout/MyListModal/MyListsModalCard";
 
-function MyPinnedListsCard() {
+function MyPinnedListsCard({ isCard = false }) {
   const { myLists } = useSelector((state) => state.myLists);
   const dispatch = useDispatch();
   const clickHandler = () => {
@@ -15,9 +15,9 @@ function MyPinnedListsCard() {
     <>
       <motion.div
         className="w-full p-4 mt-4 h-fit bg-slate-900 rounded-2xl"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
+        initial={!isCard && { opacity: 0, y: -20 }}
+        animate={!isCard && { opacity: 1, y: 0 }}
+        transition={!isCard && { delay: 0.2 }}
       >
         <div className="flex justify-between">
           <p className="text-xl text-slate-200">My Pinned Lists</p>

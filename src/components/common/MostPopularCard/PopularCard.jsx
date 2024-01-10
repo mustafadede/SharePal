@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import PopularItem from "./PopularItem";
 import { useDispatch } from "react-redux";
-function PopularCard({ padding }) {
+function PopularCard() {
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {

@@ -13,6 +13,7 @@ import SearchPage from "./private/SearchPage";
 import ExplorePage from "./private/ExplorePage";
 import NotificationsPage from "./private/NotificationsPage";
 import UserProfilePage from "./private/UserProfilePage";
+import FeedCardPage from "./private/FeedCardPage";
 const router = createHashRouter([
   {
     path: "/",
@@ -27,6 +28,14 @@ const router = createHashRouter([
         element: (
           <PrivateRoute>
             <FeedPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "feed/:user/:id",
+        element: (
+          <PrivateRoute>
+            <FeedCardPage />
           </PrivateRoute>
         ),
       },
