@@ -8,7 +8,7 @@ function FeedCardCommentButton({ data }) {
   const dispatch = useDispatch();
   const clickHandler = () => {
     dispatch(cardActions.updateData([data]));
-    navigate(`/feed/${data.nick}/${data.postId}`);
+    navigate(`/feed/${data.nick}/${data.postId}`, { state: { uId: data.userId, pId: data.postId } });
   };
   return (
     <button className="flex items-center gap-2" onClick={clickHandler}>

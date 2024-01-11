@@ -7,36 +7,43 @@ import { notificationActions } from "../../store/notificationSlice";
 import { MyListsActions } from "../../store/myListsSlice";
 import { userActions } from "../../store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { getCurrentUserData, getNotifications, getSelectedUserLists } from "../../firebase/firebaseActions";
+import { getCurrentUserData, getNotifications, getSelectedUserLists, getSpecificPost } from "../../firebase/firebaseActions";
 import FeedCardPageCardComponent from "../../components/layout/FeedCardPage/FeedCardPageCardComponent";
 import FeedCardPageBackButton from "../../components/layout/FeedCardPage/FeedCardPageBackButton";
 import FeedCardPageCommentComponent from "../../components/layout/FeedCardPage/FeedCardPageCommentComponent";
 import { motion } from "framer-motion";
+import FeedCardPageCommentSection from "../../components/layout/FeedCardPage/FeedCardPageCommentSection";
+import { useLocation } from "react-router-dom";
+import { cardActions } from "../../store/cardSlice";
 
 function FeedCardPage() {
   const { user } = useSelector((state) => state.user);
-  const { cardData } = useSelector((state) => state.card);
+  const { cardData, cardComments } = useSelector((state) => state.card);
   const dispatch = useDispatch();
+  const { state: incomingData } = useLocation();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const getData = async () => {
+      cardData.length === 0 && dispatch(cardActions.updateState("loading"));
       const userData = await getCurrentUserData(localStorage.getItem("user"));
       userData && dispatch(userActions.updateUser(userData));
       const notifications = await getNotifications(localStorage.getItem("user"));
       notifications && dispatch(notificationActions.setNotification(notifications)) && dispatch(notificationActions.updateStatus("done"));
       const res = await getSelectedUserLists(localStorage.getItem("user"));
       dispatch(MyListsActions.initilizeList(res));
+      getSpecificPost(incomingData.uId, incomingData.pId).then((res) => {
+        dispatch(cardActions.updateState("done"));
+        dispatch(cardActions.updateData(res));
+      });
     };
     getData();
   }, []);
 
   return (
     <>
-      <Navbar
-        isNotLoggedin={false}
-        additionalClasses="sticky top-0 bg-gradient-to-t from-cGradient2/70 to-cGradient2 backdrop-blur-[2px] z-30"
-      />
-      <div className="flex mx-5 lg:gap-4 xl:gap-0 md:mx-10">
+      <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 z-30" />
+      <div className="flex pb-4 mx-5 lg:gap-4 xl:gap-0 md:mx-10">
         <motion.div
           className="hidden lg:w-1/4 h-fit lg:flex flex-col sticky top-[4.6rem] bg-cGradient2"
           initial={{ opacity: 0, y: -20 }}
@@ -59,6 +66,7 @@ function FeedCardPage() {
         <div className="flex flex-col w-full xl:px-6">
           <FeedCardPageBackButton />
           <FeedCardPageCardComponent cardData={cardData} />
+          <FeedCardPageCommentSection />
           <FeedCardPageCommentComponent />
         </div>
         <motion.div

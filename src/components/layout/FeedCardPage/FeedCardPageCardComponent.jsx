@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import FeedCard from "../../common/FeedCard";
 import InfoLabel from "../../common/InfoLabel";
+import { useSelector } from "react-redux";
 
 function FeedCardPageCardComponent({ cardData }) {
+  const { cardState } = useSelector((state) => state.card);
+
   return (
     <div>
       {cardData &&
@@ -20,7 +23,8 @@ function FeedCardPageCardComponent({ cardData }) {
         !cardData[0]?.attachedFilm &&
         !cardData[0]?.spoiler &&
         cardData.map((data, index) => <FeedCard key={index} isComment={true} data={data} index={index} />)}
-      {cardData.length === 0 && <InfoLabel text="Not Found." />}
+      {cardData.length === 0 && cardState === "done" && <InfoLabel text="Not Found." />}
+      {cardState === "loading" && <InfoLabel text="Loading..." />}
     </div>
   );
 }
