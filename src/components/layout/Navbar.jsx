@@ -39,7 +39,7 @@ function Navbar({ isNotLoggedin = true, additionalClasses = "", onClickHandler }
     if (localStorage.getItem("user") === null) {
       navigate("/");
     } else {
-      navigate("/feed");
+      navigate("/feed", { preventScrollReset: true });
     }
   };
 

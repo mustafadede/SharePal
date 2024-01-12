@@ -18,7 +18,7 @@ import { cardActions } from "../../store/cardSlice";
 
 function FeedCardPage() {
   const { user } = useSelector((state) => state.user);
-  const { cardData, cardComments } = useSelector((state) => state.card);
+  const { cardData } = useSelector((state) => state.card);
   const dispatch = useDispatch();
   const { state: incomingData } = useLocation();
 
@@ -66,7 +66,7 @@ function FeedCardPage() {
         <div className="flex flex-col w-full xl:px-6">
           <FeedCardPageBackButton />
           <FeedCardPageCardComponent cardData={cardData} />
-          <FeedCardPageCommentSection />
+          <FeedCardPageCommentSection cardPost={cardData} />
           <FeedCardPageCommentComponent />
         </div>
         <motion.div

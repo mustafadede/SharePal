@@ -1,13 +1,37 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { createCommentsList, updateSelectedPost } from "../../../firebase/firebaseActions";
+import { cardActions } from "../../../store/cardSlice";
 
-function FeedCardPageCommentSection() {
+function FeedCardPageCommentSection({ cardPost }) {
   const { user } = useSelector((state) => state.user);
   const [comment, setComment] = useState("");
+  const dispatch = useDispatch();
+
+  const handlePostComment = () => {
+    if (comment.length === 0) return toast.error("Comment can't be empty");
+    createCommentsList(cardPost[0]?.postId, { userId: user.uid, comment: comment }).then(() => {
+      updateSelectedPost(cardPost[0]?.userId, cardPost[0]?.postId, { comments: cardPost[0]?.comments + 1 });
+      dispatch(
+        cardActions.updateComments({
+          userId: user.uid,
+          comment: comment,
+          nick: user.nick,
+          photo: user.photoURL,
+          date: Date.now(),
+          likes: 0,
+          comments: 0,
+        })
+      );
+      toast("Comment posted");
+    });
+    setComment("");
+  };
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      console.log("Enter key pressed");
+      handlePostComment();
     }
   };
   return (

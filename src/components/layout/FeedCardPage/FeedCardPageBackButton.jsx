@@ -1,11 +1,15 @@
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { cardActions } from "../../../store/cardSlice";
 
 function FeedCardPageBackButton() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const clickHandler = () => {
-    navigate("/feed");
+    navigate("/feed", { preventScrollReset: true });
+    dispatch(cardActions.deleteComments());
   };
   return (
     <button className="flex items-center justify-start w-full gap-2 mb-2 group" onClick={clickHandler}>

@@ -71,6 +71,7 @@ const getCurrentUserData = async (userId) => {
     const snapshot = await get(child(dbRef, `users/${userId}`));
     if (snapshot.exists()) {
       const user = {
+        uid: snapshot.key,
         nick: snapshot.val().displayName,
         following: snapshot.val().following,
         followers: snapshot.val().followers,
@@ -438,8 +439,6 @@ const createFeedAction = async (data) => {
       nick: data.nick,
       attachedAction: data.attachedAction || null,
       actionName: data.actionName || null,
-      add: 0,
-      addList: [],
       date: Date.now(),
     });
     return true;
@@ -498,15 +497,12 @@ const getAllPosts = async () => {
           likes: value.likes,
           comments: value.comments,
           edited: value.edited || false,
-          commentsList: value.commentsList || null,
           repost: value.repost,
           repostsList: value.repostsList || null,
           date: value.date,
           userId: value.userId.trim(),
           attachedAction: value.attachedAction || null,
           actionName: value.actionName || null,
-          add: 0,
-          addList: [],
         });
       });
     });
@@ -657,6 +653,7 @@ const getSpecificPost = async (userId, postId) => {
       postId: snapshot.key,
       attachedFilm: snapshot.val()?.attachedFilm,
       comments: snapshot.val().comments,
+      commentsList: snapshot.val().commentsList,
       edited: snapshot.val().edited,
       content: snapshot.val().content,
       date: snapshot.val().date,
@@ -670,11 +667,52 @@ const getSpecificPost = async (userId, postId) => {
       userId: snapshot.val().userId,
       attachedAction: snapshot.val().attachedAction || null,
       actionName: snapshot.val().actionName || null,
-      add: 0,
-      addList: [],
     });
   }
   return post;
+};
+
+const createCommentsList = async (postId, data) => {
+  try {
+    const newCommentRef = push(ref(database, `commentsList/${postId}/`));
+    set(newCommentRef, {
+      userId: data.userId,
+      comment: data.comment,
+      date: Date.now(),
+      likes: 0,
+      likesList: [],
+      comments: 0,
+      commentsList: [],
+      reposts: 0,
+      repostsList: [],
+    });
+    return true;
+  } catch (error) {
+    console.error(error);
+    return toast("Something went wrong!");
+  }
+};
+
+const getCommentsList = async (postId) => {
+  const commentsRef = ref(database, `commentsList/${postId}`);
+  const snapshot = await get(commentsRef);
+  const comments = [];
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      comments.push({
+        userId: childSnapshot.val().userId,
+        comment: childSnapshot.val().comment,
+        likes: childSnapshot.val().likes || 0,
+        likesList: childSnapshot.val().likesList || [],
+        comments: childSnapshot.val().comments || 0,
+        commentsList: childSnapshot.val().commentsList || [],
+        reposts: childSnapshot.val().reposts || 0,
+        repostsList: childSnapshot.val().repostsList || [],
+        date: childSnapshot.val().date,
+      });
+    });
+  }
+  return comments;
 };
 
 const getSelectedUserPosts = async (userId) => {
@@ -694,15 +732,13 @@ const getSelectedUserPosts = async (userId) => {
         likesList: childSnapshot.val().likesList,
         comments: childSnapshot.val().comments,
         edited: childSnapshot.val().edited,
-        commentsList: childSnapshot.val().commentsList,
+        commentsList: childSnapshot.val().commentsList || [],
         repost: childSnapshot.val().repost,
         repostsList: childSnapshot.val().repostsList,
         date: childSnapshot.val().date,
         userId: childSnapshot.val().userId,
         attachedAction: childSnapshot.val().attachedAction || null,
         actionName: childSnapshot.val().actionName || null,
-        add: 0,
-        addList: [],
       });
     });
   }
@@ -722,14 +758,13 @@ const getSelectedUserPost = async (userId, postId) => {
       attachedFilm: snapshot.val().attachedFilm,
       likes: snapshot.val().likes,
       comments: snapshot.val().comments,
+      commentsList: snapshot.val().commentsList || [],
       edited: snapshot.val().edited,
       repost: snapshot.val().repost,
       date: snapshot.val().date,
       userId: snapshot.val().userId,
       attachedAction: snapshot.val().attachedAction || null,
       actionName: snapshot.val().actionName || null,
-      add: 0,
-      addList: [],
     });
   }
   return post;
@@ -1204,6 +1239,8 @@ export {
   deleteSelectedPost,
   updateSelectedPost,
   getSpecificPost,
+  createCommentsList,
+  getCommentsList,
   getSelectedUserPosts,
   getSelectedUserPost,
   getNotifications,

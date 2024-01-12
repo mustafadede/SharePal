@@ -4,6 +4,7 @@ const cardSlice = createSlice({
   name: "card",
   initialState: {
     cardState: false,
+    commentsState: false,
     cardData: [],
     cardComments: [],
   },
@@ -14,8 +15,17 @@ const cardSlice = createSlice({
     updateState: (state, action) => {
       state.cardState = action.payload;
     },
-    updateComments: (state, action) => {
+    initilizeComments: (state, action) => {
       state.cardComments = action.payload;
+    },
+    updateComments: (state, action) => {
+      state.cardComments.unshift(action.payload);
+    },
+    deleteComments: (state) => {
+      state.cardComments = [];
+    },
+    updateCommentsState: (state, action) => {
+      state.commentsState = action.payload;
     },
   },
 });

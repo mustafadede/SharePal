@@ -33,6 +33,11 @@ const postsSlice = createSlice({
       state.posts[index].likes = action.payload.likes;
       state.posts[index].likesList = action.payload.likesList;
     },
+    updateComment: (state, action) => {
+      const index = state.posts.findIndex((post) => post.postId === action.payload.postId);
+      state.posts[index].comments = action.payload.comments;
+      state.posts[index].commentsList = action.payload.commentsList;
+    },
     repostPost: (state, action) => {
       const index = state.posts.findIndex((post) => post.postId === action.payload.postId);
       state.posts[index].repost = action.payload.repost;
