@@ -33,11 +33,11 @@ function StatsCard({ user, username }) {
           <FavSeriesThisYear username={username} user={user} navigate={navigate} />
         </div>
       </div>
-      <p className="w-full my-4 text-xl font-bold md:text-3xl text-slate-200">Previous Stats</p>
+      <p className="w-full my-4 text-xl font-bold md:text-3xl text-slate-200">Stats for last year</p>
       <div className="flex flex-row-reverse w-full gap-3">
         <div className="flex flex-col w-full gap-6">
-          <FavMovieLastYear username={username} user={user} navigate={navigate} />
-          <FavSeriesLastYear username={username} user={user} navigate={navigate} />
+          <FavMovieLastYear username={username} user={user} />
+          <FavSeriesLastYear username={username} user={user} />
         </div>
       </div>
     </motion.div>

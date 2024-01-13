@@ -1,41 +1,46 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import FeedCardPageCommentCard from "../../common/FeedCardPageCommentCard";
-import { getCommentsList, getProfilePhoto, getUserByTheIds } from "../../../firebase/firebaseActions";
 import { useDispatch, useSelector } from "react-redux";
+import InfoLabel from "../../common/InfoLabel";
+import { getAllPosts, getCommentsList, getProfilePhoto, getUserByTheIds } from "../../../firebase/firebaseActions";
+import { postsActions } from "../../../store/postsSlice";
 import { cardActions } from "../../../store/cardSlice";
 import { useLocation } from "react-router-dom";
-import InfoLabel from "../../common/InfoLabel";
 
 function FeedCardPageCommentComponent() {
   const { cardComments, commentsState } = useSelector((state) => state.card);
-  const dispatch = useDispatch();
   const { state: incomingData } = useLocation();
-
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(cardActions.updateCommentsState("loading"));
-    getCommentsList(incomingData.pId).then((res) => {
-      if (res.length === 0) {
-        return dispatch(cardActions.updateCommentsState("noComments"));
-      }
-      res
-        .sort((a, b) => {
-          return new Date(b.date) - new Date(a.date);
-        })
-        .map((user) => {
-          getUserByTheIds(user.userId).then((res) => {
-            getProfilePhoto(user.userId).then((photo) => {
-              const data = {
-                ...user,
-                ...res,
-                photo,
-              };
-              dispatch(cardActions.updateComments(data));
+    const getData = async () => {
+      const response = await getAllPosts();
+      dispatch(postsActions.updatePosts(response));
+      dispatch(cardActions.updateCommentsState("loading"));
+      getCommentsList(incomingData.pId).then((res) => {
+        if (res.length === 0) {
+          return dispatch(cardActions.updateCommentsState("noComments"));
+        }
+        res
+          .sort((a, b) => {
+            return new Date(b.date) - new Date(a.date);
+          })
+          .map((user) => {
+            getUserByTheIds(user.userId).then((res) => {
+              getProfilePhoto(user.userId).then((photo) => {
+                const data = {
+                  ...user,
+                  ...res,
+                  photo,
+                };
+                dispatch(cardActions.updateComments(data));
+              });
             });
           });
-        });
-      dispatch(cardActions.updateCommentsState("done"));
-    });
+        dispatch(cardActions.updateCommentsState("done"));
+      });
+    };
+    getData();
   }, []);
 
   return (
@@ -60,6 +65,7 @@ function FeedCardPageCommentComponent() {
         cardComments.map((user, index) => (
           <FeedCardPageCommentCard
             key={index}
+            commentId={user.commentId}
             nick={user.nick}
             photo={user.photo}
             comment={user.comment}
@@ -68,6 +74,7 @@ function FeedCardPageCommentComponent() {
             comments={user.comments}
           />
         ))}
+      {commentsState === "done" && cardComments.length === 0 && <InfoLabel text="No comments yet" />}
     </motion.div>
   );
 }

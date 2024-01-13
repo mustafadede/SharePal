@@ -1,21 +1,30 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import FeedCardActionsSkeleton from "./FeedCard/FeedCardActions/FeedCardActionsSkeleton";
 import { DateFormatter } from "../../utils/formatter";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import { Cross1Icon, DotsHorizontalIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import ActionDetailsCard from "./ActionDetailsCard";
 import { toast } from "react-toastify";
+import { deleteSelectedComment, updateSelectedPost } from "../../firebase/firebaseActions";
+import { cardActions } from "../../store/cardSlice";
 
-function FeedCardPageCommentCard({ nick, photo, comment, date, likes, comments, notification = false }) {
+function FeedCardPageCommentCard({ commentId, nick, photo, comment, date, likes, comments, notification = false }) {
   const newDate = DateFormatter(date);
   const { user } = useSelector((state) => state.user);
+  const { cardPost } = useSelector((state) => state.card);
   const [settings, setSettings] = useState(false);
   const [rename, setRename] = useState(false);
+  const { state: incomingData } = useLocation();
+  const dispatch = useDispatch();
 
   const deleteHandler = () => {
-    toast("Coming soon...");
+    deleteSelectedComment(incomingData.pId, commentId).then(() => {
+      toast("Comment deleted");
+      dispatch(cardActions.deleteComments(commentId));
+    });
+    updateSelectedPost(cardPost[0]?.userId, cardPost[0]?.postId, { comments: cardPost[0]?.comments - 1 });
   };
 
   return (
@@ -42,17 +51,19 @@ function FeedCardPageCommentCard({ nick, photo, comment, date, likes, comments, 
                 </NavLink>
                 <p className="text-sm text-slate-400">{newDate}</p>
               </div>
-              {nick === user?.nick && (
+              {!notification && nick === user?.nick && (
                 <button onClick={() => setSettings(!settings)}>
                   <DotsHorizontalIcon className="w-6 h-6 transition-colors text-slate-400 hover:text-slate-200" />
                 </button>
               )}
             </div>
             <p className="text-slate-200">{comment}</p>
-            <div className="flex gap-2 mt-1">
-              <FeedCardActionsSkeleton action={"likes"} number={likes} data={0} />
-              <FeedCardActionsSkeleton action={"comments"} number={comments} data={0} />
-            </div>
+            {!notification && (
+              <div className="flex gap-2 mt-1">
+                <FeedCardActionsSkeleton action={"likes"} number={likes} data={0} />
+                <FeedCardActionsSkeleton action={"comments"} number={comments} data={0} />
+              </div>
+            )}
           </div>
         </div>
       </motion.div>

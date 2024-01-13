@@ -52,7 +52,7 @@ function NotificationFollowCard({ uid, nick, photoURL, date, deleteId }) {
               >
                 <motion.span className="font-bold text-fuchsia-600 ">{nick}</motion.span>
               </Link>
-              started following you
+              started following you.
             </motion.p>
             <motion.p className="text-sm text-slate-400">{newDate}</motion.p>
           </motion.div>

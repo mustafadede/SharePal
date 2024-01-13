@@ -25,6 +25,7 @@ import NotificationLikeCard from "../../components/common/NotificationCard/Notif
 import { TrashIcon } from "@radix-ui/react-icons";
 import InfoLabel from "../../components/common/InfoLabel";
 import FeedTabs from "../../components/layout/FeedPage/FeedTabs";
+import NotificationCommentCard from "../../components/common/NotificationCard/NotificationCommentCard";
 
 function NotificationsPage() {
   const { user } = useSelector((state) => state.user);
@@ -143,6 +144,23 @@ function NotificationsPage() {
                 />
               ))}
           {status === "done" &&
+            tab === 1 &&
+            notificationList
+              ?.filter((notification) => notification?.type === "comment")
+              .reverse()
+              .map((notification, index) => (
+                <NotificationCommentCard
+                  key={index}
+                  uid={notification.from?.uid}
+                  nick={notification.from?.nick}
+                  postId={notification.from?.postId}
+                  photoURL={notification.from?.photo}
+                  date={notification?.date}
+                  comment={notification.from?.comment}
+                  deleteId={notification.id}
+                />
+              ))}
+          {status === "done" &&
             tab === 2 &&
             notificationList
               ?.filter((notification) => notification?.type === "repost")
@@ -174,7 +192,6 @@ function NotificationsPage() {
                 />
               ))}
 
-          {status === "done" && tab === 1 && <InfoLabel text="Coming soon..." />}
           {status === "done" && tab === 2 && <InfoLabel text="Coming soon..." />}
           {status === "deleted" && notificationList.length === 0 && (
             <InfoLabel text="There is nothing to see. Do some actions. Follow the rabbit hole." />

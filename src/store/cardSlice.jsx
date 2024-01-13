@@ -21,8 +21,9 @@ const cardSlice = createSlice({
     updateComments: (state, action) => {
       state.cardComments.unshift(action.payload);
     },
-    deleteComments: (state) => {
-      state.cardComments = [];
+    deleteComments: (state, action) => {
+      const index = state.cardComments.findIndex((item) => item.commentId === action.payload);
+      state.cardComments.splice(index, 1);
     },
     updateCommentsState: (state, action) => {
       state.commentsState = action.payload;

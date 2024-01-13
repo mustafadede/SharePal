@@ -312,9 +312,9 @@ const updateCurrentUserData = async (userId, data) => {
         email: data.email || snapshot.val().email,
         following: data.following || snapshot.val().following,
         followers: data.followers || snapshot.val().followers,
-        banner: data.banner || snapshot.val().banner,
         quote: data.quote || snapshot.val().quote,
         topOne: data.topOne || snapshot.val().topOne,
+        banner: data.banner || snapshot.val().banner,
         instagram: data.instagram || snapshot.val().instagram || "",
         linkedin: data.linkedin || snapshot.val().linkedin || "",
         github: data.github || snapshot.val().github || "",
@@ -586,7 +586,6 @@ const removeSelectedUserPostLikeLists = async (userId, postId) => {
     if (snapshot.exists()) {
       snapshot.forEach((childSnapshot) => {
         if (childSnapshot.val().postId === postId) {
-          console.log(childSnapshot.val().postId === postId);
           set(ref(database, `likesList/${userPost}/${childSnapshot.key}`), null);
         }
       });
@@ -676,6 +675,7 @@ const createCommentsList = async (postId, data) => {
   try {
     const newCommentRef = push(ref(database, `commentsList/${postId}/`));
     set(newCommentRef, {
+      commentId: data.commentId,
       userId: data.userId,
       comment: data.comment,
       date: Date.now(),
@@ -693,6 +693,27 @@ const createCommentsList = async (postId, data) => {
   }
 };
 
+const deleteSelectedComment = async (postId, commentId) => {
+  try {
+    console.log(postId, commentId);
+    const commentsRef = ref(database, `commentsList/${postId}`);
+    const snapshot = await get(commentsRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().commentId === commentId) {
+          set(ref(database, `commentsList/${postId}/${childSnapshot.key}`), null);
+        }
+      });
+      return true;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    return toast("Something went wrong!");
+  }
+};
+
 const getCommentsList = async (postId) => {
   const commentsRef = ref(database, `commentsList/${postId}`);
   const snapshot = await get(commentsRef);
@@ -700,6 +721,7 @@ const getCommentsList = async (postId) => {
   if (snapshot.exists()) {
     snapshot.forEach((childSnapshot) => {
       comments.push({
+        commentId: childSnapshot.val().commentId,
         userId: childSnapshot.val().userId,
         comment: childSnapshot.val().comment,
         likes: childSnapshot.val().likes || 0,
@@ -795,6 +817,7 @@ const createNotification = async (uid, data) => {
     const newNotificationRef = push(ref(database, `notifications/${uid}`));
     set(newNotificationRef, {
       from: {
+        comment: data.from.comment || null,
         uid: data.from.uid,
         nick: data.from.nick,
         photo: data.from.photo,
@@ -1240,6 +1263,7 @@ export {
   updateSelectedPost,
   getSpecificPost,
   createCommentsList,
+  deleteSelectedComment,
   getCommentsList,
   getSelectedUserPosts,
   getSelectedUserPost,
