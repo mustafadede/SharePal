@@ -16,17 +16,21 @@ const cardSlice = createSlice({
       state.cardState = action.payload;
     },
     initilizeComments: (state, action) => {
-      state.cardComments = action.payload;
+      state.cardComments.push(action.payload);
     },
     updateComments: (state, action) => {
       state.cardComments.unshift(action.payload);
+      state.cardData[0].comments = state.cardData[0]?.comments + 1;
     },
     deleteComments: (state, action) => {
-      const index = state.cardComments.findIndex((item) => item.commentId === action.payload);
-      state.cardComments.splice(index, 1);
+      state.cardComments = state.cardComments.filter((comment) => comment.commentId !== action.payload);
+      state.cardData[0].comments = state.cardData[0]?.comments - 1;
     },
     updateCommentsState: (state, action) => {
       state.commentsState = action.payload;
+    },
+    resetComments: (state) => {
+      state.cardComments = [];
     },
   },
 });

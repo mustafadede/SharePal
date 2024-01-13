@@ -13,7 +13,7 @@ import { cardActions } from "../../store/cardSlice";
 function FeedCardPageCommentCard({ commentId, nick, photo, comment, date, likes, comments, notification = false }) {
   const newDate = DateFormatter(date);
   const { user } = useSelector((state) => state.user);
-  const { cardPost } = useSelector((state) => state.card);
+  const { cardData } = useSelector((state) => state.card);
   const [settings, setSettings] = useState(false);
   const [rename, setRename] = useState(false);
   const { state: incomingData } = useLocation();
@@ -21,10 +21,10 @@ function FeedCardPageCommentCard({ commentId, nick, photo, comment, date, likes,
 
   const deleteHandler = () => {
     deleteSelectedComment(incomingData.pId, commentId).then(() => {
-      toast("Comment deleted");
       dispatch(cardActions.deleteComments(commentId));
+      toast("Comment deleted");
     });
-    updateSelectedPost(cardPost[0]?.userId, cardPost[0]?.postId, { comments: cardPost[0]?.comments - 1 });
+    cardData[0]?.comments > 0 && updateSelectedPost(cardData[0]?.userId, cardData[0]?.postId, { comments: cardData[0]?.comments - 1 });
   };
 
   return (

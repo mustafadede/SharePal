@@ -25,6 +25,7 @@ import { followersActions } from "../../store/followersSlice";
 import { notificationActions } from "../../store/notificationSlice";
 import FollowingSecctionComponent from "../../components/layout/FollowingSecctionComponent";
 import { modalActions } from "../../store/modalSlice";
+import { cardActions } from "../../store/cardSlice";
 
 function FeedPage() {
   const { posts, status } = useSelector((state) => state.posts);
@@ -35,6 +36,7 @@ function FeedPage() {
   useEffect(() => {
     document.title = "SharePal | Feed";
     const getData = async () => {
+      dispatch(cardActions.resetComments());
       try {
         const userData = await getCurrentUserData(localStorage.getItem("user"));
         userData && dispatch(userActions.updateUser(userData));

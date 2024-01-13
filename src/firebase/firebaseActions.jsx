@@ -695,7 +695,6 @@ const createCommentsList = async (postId, data) => {
 
 const deleteSelectedComment = async (postId, commentId) => {
   try {
-    console.log(postId, commentId);
     const commentsRef = ref(database, `commentsList/${postId}`);
     const snapshot = await get(commentsRef);
     if (snapshot.exists()) {

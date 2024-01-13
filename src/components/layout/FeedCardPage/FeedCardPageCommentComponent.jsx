@@ -33,7 +33,7 @@ function FeedCardPageCommentComponent() {
                   ...res,
                   photo,
                 };
-                dispatch(cardActions.updateComments(data));
+                dispatch(cardActions.initilizeComments(data));
               });
             });
           });

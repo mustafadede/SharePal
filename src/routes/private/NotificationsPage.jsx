@@ -70,6 +70,8 @@ function NotificationsPage() {
     });
   };
 
+  const commentTabLength = notificationList?.filter((notification) => notification?.type === "comment").length;
+
   return (
     <>
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
@@ -117,7 +119,7 @@ function NotificationsPage() {
               Loading...
             </motion.h1>
           )}
-          {status === "error" && (
+          {(status === "error" || (commentTabLength === 0 && tab === 1)) && (
             <motion.h1
               className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
               initial={{ opacity: 0, y: -20 }}
