@@ -32,7 +32,7 @@ function FeedCardPage() {
       notifications && dispatch(notificationActions.setNotification(notifications)) && dispatch(notificationActions.updateStatus("done"));
       const res = await getSelectedUserLists(localStorage.getItem("user"));
       dispatch(MyListsActions.initilizeList(res));
-      getSpecificPost(incomingData.uId, incomingData.pId).then((res) => {
+      getSpecificPost(incomingData?.uId, incomingData?.pId).then((res) => {
         dispatch(cardActions.updateState("done"));
         dispatch(cardActions.updateData(res));
       });

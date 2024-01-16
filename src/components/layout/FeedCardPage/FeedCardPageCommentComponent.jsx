@@ -17,7 +17,7 @@ function FeedCardPageCommentComponent() {
       const response = await getAllPosts();
       dispatch(postsActions.updatePosts(response));
       dispatch(cardActions.updateCommentsState("loading"));
-      getCommentsList(incomingData.pId).then((res) => {
+      getCommentsList(incomingData?.pId).then((res) => {
         if (res.length === 0) {
           return dispatch(cardActions.updateCommentsState("noComments"));
         }
