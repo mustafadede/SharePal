@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ChatBubbleIcon, ChevronDownIcon, Cross1Icon, DotsVerticalIcon } from "@radix-ui/react-icons";
 import { deleteSelectedNotification } from "../../../firebase/firebaseActions";
 import { DateFormatter } from "../../../utils/formatter";
@@ -8,11 +8,18 @@ import FeedCardOnlineStatus from "../FeedCardOnlineStatus";
 import ActionDetailsCard from "../ActionDetailsCard";
 import { toast } from "react-toastify";
 import FeedCardPageCommentCard from "../FeedCardPageCommentCard";
+import { useSelector } from "react-redux";
 
-function NotificationCommentCard({ uid, nick, photoURL, date, comment, deleteId }) {
+function NotificationCommentCard({ uid, nick, postId, photoURL, date, comment, deleteId }) {
   const [isOpen, setIsOpen] = useState(false);
   const [settings, setSettings] = useState(false);
   const newDate = DateFormatter(date);
+  const { user } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/feed/${user.nick}/${postId}`, { state: { uId: user.uid, pId: postId } });
+  };
 
   const deleteHandler = () => {
     deleteSelectedNotification(deleteId).then(() => {
@@ -50,7 +57,10 @@ function NotificationCommentCard({ uid, nick, photoURL, date, comment, deleteId 
                 >
                   <motion.span className="font-bold text-fuchsia-600 ">{nick}</motion.span>
                 </Link>
-                commented on your post.
+                commented on your{" "}
+                <button onClick={handleClick} className="hover:underline text-fuchsia-300">
+                  post
+                </button>
               </motion.p>
 
               <motion.p className="text-sm text-slate-400">{newDate}</motion.p>

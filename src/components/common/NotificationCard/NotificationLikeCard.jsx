@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { delay, motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ChevronDownIcon, Cross1Icon, DotsVerticalIcon, HeartIcon } from "@radix-ui/react-icons";
 import { deleteSelectedNotification, getSelectedUserPost } from "../../../firebase/firebaseActions";
 import FeedCard from "../FeedCard";
@@ -8,16 +8,22 @@ import { DateFormatter } from "../../../utils/formatter";
 import FeedCardOnlineStatus from "../FeedCardOnlineStatus";
 import ActionDetailsCard from "../ActionDetailsCard";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 function NotificationLikeCard({ uid, nick, photoURL, date, postId, deleteId }) {
   const [isOpen, setIsOpen] = useState(false);
   const [post, setPost] = useState(null);
   const [settings, setSettings] = useState(false);
   const newDate = DateFormatter(date);
-
+  const { user } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   useEffect(() => {
     getSelectedUserPost(localStorage.getItem("user"), postId).then((res) => setPost(res));
   }, []);
+
+  const handleClick = () => {
+    navigate(`/feed/${user.nick}/${postId}`, { state: { uId: user.uid, pId: postId } });
+  };
 
   const deleteHandler = () => {
     deleteSelectedNotification(deleteId).then(() => {
@@ -55,7 +61,10 @@ function NotificationLikeCard({ uid, nick, photoURL, date, postId, deleteId }) {
                 >
                   <motion.span className="font-bold text-fuchsia-600 ">{nick}</motion.span>
                 </Link>
-                liked your post.
+                liked your
+                <button onClick={handleClick} className="hover:underline text-fuchsia-300">
+                  post
+                </button>
               </motion.p>
 
               <motion.p className="text-sm text-slate-400">{newDate}</motion.p>
