@@ -72,6 +72,7 @@ function FeedCardPageCommentComponent() {
             date={user.date}
             likes={user.likes}
             comments={user.comments}
+            dataEdited={user.isEdited}
           />
         ))}
       {commentsState === "done" && cardComments.length === 0 && <InfoLabel text="No comments yet" />}

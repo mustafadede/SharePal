@@ -22,6 +22,13 @@ const cardSlice = createSlice({
       state.cardComments.unshift(action.payload);
       state.cardData[0].comments = state.cardData[0]?.comments + 1;
     },
+    editComments: (state, action) => {
+      state.cardComments.map((comment) => {
+        if (comment.commentId === action.payload.commentId) {
+          comment.comment = action.payload.text;
+        }
+      });
+    },
     deleteComments: (state, action) => {
       state.cardComments = state.cardComments.filter((comment) => comment.commentId !== action.payload);
       state.cardData[0].comments = state.cardData[0]?.comments - 1;

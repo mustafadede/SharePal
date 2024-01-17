@@ -24,6 +24,7 @@ function FeedCardPageCommentSection({ cardPost }) {
           date: Date.now(),
           likes: 0,
           comments: 0,
+          isEdited: false,
         })
       );
       if (user.uid !== cardPost[0]?.userId) {

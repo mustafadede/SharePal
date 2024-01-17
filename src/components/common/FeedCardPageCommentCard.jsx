@@ -7,22 +7,37 @@ import { motion } from "framer-motion";
 import { Cross1Icon, DotsHorizontalIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import ActionDetailsCard from "./ActionDetailsCard";
 import { toast } from "react-toastify";
-import { deleteSelectedComment, updateSelectedPost } from "../../firebase/firebaseActions";
+import { deleteSelectedComment, updateSelectedComment, updateSelectedPost } from "../../firebase/firebaseActions";
 import { cardActions } from "../../store/cardSlice";
 
-function FeedCardPageCommentCard({ commentId, nick, photo, comment, date, likes, comments, notification = false }) {
+function FeedCardPageCommentCard({ commentId, nick, photo, comment, date, likes, comments, notification = false, dataEdited = false }) {
   const newDate = DateFormatter(date);
   const { user } = useSelector((state) => state.user);
   const { cardData } = useSelector((state) => state.card);
   const [settings, setSettings] = useState(false);
   const [rename, setRename] = useState(false);
   const { state: incomingData } = useLocation();
+  const [editedText, setEditedText] = useState(comment);
+  const [isEdited, setIsEdited] = useState(false);
   const dispatch = useDispatch();
+
+  const handlePost = (e) => {
+    if (e.key === "Enter") {
+      updateSelectedComment(incomingData.pId, commentId, editedText).then(() => {
+        dispatch(cardActions.editComments({ text: editedText, commentId: commentId }));
+        toast("Comment edited");
+      });
+      setIsEdited(true);
+      setRename(false);
+      setSettings(false);
+    }
+  };
 
   const deleteHandler = () => {
     deleteSelectedComment(incomingData.pId, commentId).then(() => {
       dispatch(cardActions.deleteComments(commentId));
       toast("Comment deleted");
+      setSettings(false);
     });
     cardData[0]?.comments > 0 && updateSelectedPost(cardData[0]?.userId, cardData[0]?.postId, { comments: cardData[0]?.comments - 1 });
   };
@@ -51,13 +66,27 @@ function FeedCardPageCommentCard({ commentId, nick, photo, comment, date, likes,
                 </NavLink>
                 <p className="text-sm text-slate-400">{newDate}</p>
               </div>
-              {!notification && nick === user?.nick && (
-                <button onClick={() => setSettings(!settings)}>
-                  <DotsHorizontalIcon className="w-6 h-6 transition-colors text-slate-400 hover:text-slate-200" />
-                </button>
-              )}
+              <div className="flex items-center gap-2">
+                {(isEdited || dataEdited) && <p className="text-xs text-slate-400">(Edited)</p>}
+                {!notification && nick === user?.nick && (
+                  <button onClick={() => setSettings(!settings)}>
+                    <DotsHorizontalIcon className="w-6 h-6 transition-colors text-slate-400 hover:text-slate-200" />
+                  </button>
+                )}
+              </div>
             </div>
-            <p className="text-slate-200">{comment}</p>
+            {!rename ? (
+              <p className="py-1 text-slate-200">{comment}</p>
+            ) : (
+              <input
+                type="text"
+                placeholder="Edit your post..."
+                className="w-full px-4 py-2 my-4 transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
+                value={editedText !== undefined ? editedText : comment}
+                onChange={(e) => setEditedText(e.target.value)}
+                onKeyDown={(e) => handlePost(e)}
+              />
+            )}
             {!notification && (
               <div className="flex gap-2 mt-1">
                 <FeedCardActionsSkeleton action={"likes"} number={likes} data={0} />
