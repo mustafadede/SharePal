@@ -15,6 +15,7 @@ import { motion } from "framer-motion";
 import FeedCardPageCommentSection from "../../components/layout/FeedCardPage/FeedCardPageCommentSection";
 import { useLocation } from "react-router-dom";
 import { cardActions } from "../../store/cardSlice";
+import { modalActions } from "../../store/modalSlice";
 
 function FeedCardPage() {
   const { user } = useSelector((state) => state.user);
@@ -24,6 +25,7 @@ function FeedCardPage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    dispatch(modalActions.closeModal());
     const getData = async () => {
       cardData.length === 0 && dispatch(cardActions.updateState("loading"));
       const userData = await getCurrentUserData(localStorage.getItem("user"));
@@ -32,10 +34,17 @@ function FeedCardPage() {
       notifications && dispatch(notificationActions.setNotification(notifications)) && dispatch(notificationActions.updateStatus("done"));
       const res = await getSelectedUserLists(localStorage.getItem("user"));
       dispatch(MyListsActions.initilizeList(res));
-      getSpecificPost(incomingData?.uId.trim(""), incomingData?.pId).then((res) => {
-        dispatch(cardActions.updateState("done"));
-        dispatch(cardActions.updateData(res));
-      });
+      if (incomingData) {
+        getSpecificPost(incomingData?.uId.trim(""), incomingData?.pId).then((res) => {
+          dispatch(cardActions.updateState("done"));
+          dispatch(cardActions.updateData(res));
+        });
+      } else {
+        getSpecificPost(localStorage.getItem("shareUId"), localStorage.getItem("sharePId")).then((res) => {
+          dispatch(cardActions.updateState("done"));
+          dispatch(cardActions.updateData(res));
+        });
+      }
     };
     getData();
   }, []);
