@@ -3,11 +3,11 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { modalActions } from "../../../../store/modalSlice";
 
-function FeedCardShareButton() {
+function FeedCardShareButton({ data }) {
   const dispatch = useDispatch();
   const handleClick = () => {
     console.log("Share button clicked");
-    dispatch(modalActions.openModal({ name: "shareModal" }));
+    dispatch(modalActions.openModal({ name: "shareModal", data: data }));
   };
   return (
     <button className="flex items-center gap-2" onClick={handleClick}>
