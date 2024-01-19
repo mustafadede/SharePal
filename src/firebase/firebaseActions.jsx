@@ -760,6 +760,129 @@ const getCommentsList = async (postId) => {
   return comments;
 };
 
+const createCommentLikeList = async (postId, commentId, data) => {
+  try {
+    const newCommentLikeRef = push(ref(database, `commentsList/${postId}/${commentId}/likesList/`));
+    set(newCommentLikeRef, {
+      uid: data.uid,
+      nick: data.nick,
+      date: Date.now(),
+    });
+    return true;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const removeCommentLikeList = async (postId, commentId, data) => {
+  try {
+    const commentsRef = ref(database, `commentsList/${postId}/${commentId}/likesList/`);
+    const snapshot = await get(commentsRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().uid === data.uid) {
+          set(ref(database, `commentsList/${postId}/${commentId}/likesList/${childSnapshot.key}`), null);
+        }
+      });
+      return true;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const createUserCommentsList = async (userId, data) => {
+  try {
+    const newCommentRef = push(ref(database, `userCommentsList/${userId}/`));
+    set(newCommentRef, {
+      commentId: data.commentId,
+      userId: data.userId,
+      comment: data.comment,
+      date: Date.now(),
+      likes: 0,
+      likesList: [],
+      comments: 0,
+      commentsList: [],
+      reposts: 0,
+      repostsList: [],
+      isEdited: false,
+      relatedPostId: data.relatedPostId,
+    });
+    return true;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const updateUserCommentsList = async (userId, commentId, data) => {
+  console.log(userId, commentId, data);
+  try {
+    const commentsRef = ref(database, `userCommentsList/${userId}`);
+    const snapshot = await get(commentsRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().commentId === commentId) {
+          const updates = {};
+          updates[`userCommentsList/${userId}/${childSnapshot.key}`] = { ...childSnapshot.val(), comment: data, isEdited: true };
+          update(ref(database), updates);
+        }
+      });
+      return true;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const deleteUserCommentsList = async (userId, commentId) => {
+  try {
+    const commentsRef = ref(database, `userCommentsList/${userId}`);
+    const snapshot = await get(commentsRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().commentId === commentId) {
+          set(ref(database, `userCommentsList/${userId}/${childSnapshot.key}`), null);
+        }
+      });
+      return true;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const getSelectedUserCommentsList = async (userId) => {
+  const commentsRef = ref(database, `userCommentsList/${userId}`);
+  const snapshot = await get(commentsRef);
+  const comments = [];
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      comments.push({
+        key: childSnapshot.key,
+        commentId: childSnapshot.val().commentId,
+        userId: childSnapshot.val().userId,
+        comment: childSnapshot.val().comment,
+        likes: childSnapshot.val().likes || 0,
+        likesList: childSnapshot.val().likesList || [],
+        comments: childSnapshot.val().comments || 0,
+        commentsList: childSnapshot.val().commentsList || [],
+        reposts: childSnapshot.val().reposts || 0,
+        repostsList: childSnapshot.val().repostsList || [],
+        date: childSnapshot.val().date,
+        isEdited: childSnapshot.val().isEdited || false,
+        relatedPostId: childSnapshot.val().relatedPostId,
+      });
+    });
+  }
+  return comments;
+};
+
 const getSelectedUserPosts = async (userId) => {
   const selectedUserPosts = ref(database, `posts/${userId}`);
   const snapshot = await get(selectedUserPosts);
@@ -1289,6 +1412,10 @@ export {
   deleteSelectedComment,
   updateSelectedComment,
   getCommentsList,
+  createUserCommentsList,
+  updateUserCommentsList,
+  deleteUserCommentsList,
+  getSelectedUserCommentsList,
   getSelectedUserPosts,
   getSelectedUserPost,
   getNotifications,

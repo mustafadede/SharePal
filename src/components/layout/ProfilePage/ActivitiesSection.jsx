@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { getAllSelectedUserPostLikeLists, getAllSelectedUserPostRepostsLists, getSpecificPost } from "../../../firebase/firebaseActions";
+import {
+  getAllSelectedUserPostLikeLists,
+  getAllSelectedUserPostRepostsLists,
+  getProfilePhoto,
+  getSelectedUserCommentsList,
+  getSpecificPost,
+  getUserByTheIds,
+} from "../../../firebase/firebaseActions";
 import FeedCard from "../../common/FeedCard";
 import FeedTabs from "../FeedPage/FeedTabs";
 import InfoLabel from "../../common/InfoLabel";
 import LoginRestrictionComponent from "../../common/LoginRestrictionComponent";
+import FeedCardPageCommentCard from "../../common/FeedCardPageCommentCard";
 function ActivitiesSection({ username, uid }) {
   const [likes, setLikes] = useState([]);
   const [comments, setComments] = useState([]);
@@ -26,6 +34,20 @@ function ActivitiesSection({ username, uid }) {
           });
         });
       });
+      getSelectedUserCommentsList(uid).then((result) => {
+        result.forEach((value) => {
+          getUserByTheIds(value.userId).then((res) => {
+            getProfilePhoto(value.userId).then((photo) => {
+              const data = {
+                ...value,
+                ...res,
+                photo,
+              };
+              setComments((prev) => [...prev, data]);
+            });
+          });
+        });
+      });
     } else {
       getAllSelectedUserPostLikeLists(localStorage.getItem("user")).then((result) => {
         result.forEach((value) => {
@@ -38,6 +60,20 @@ function ActivitiesSection({ username, uid }) {
         result.forEach((value) => {
           getSpecificPost(value.id.trim(), value.postId).then((res) => {
             res.length > 0 ? setReposts((prev) => [...prev, res]) : null;
+          });
+        });
+      });
+      getSelectedUserCommentsList(localStorage.getItem("user")).then((result) => {
+        result.forEach((value) => {
+          getUserByTheIds(value.userId).then((res) => {
+            getProfilePhoto(value.userId).then((photo) => {
+              const data = {
+                ...value,
+                ...res,
+                photo,
+              };
+              setComments((prev) => [...prev, data]);
+            });
           });
         });
       });
@@ -70,6 +106,27 @@ function ActivitiesSection({ username, uid }) {
               }
             })
             .reverse()
+        : null}
+      {tab === 1 && comments.length > 0
+        ? comments
+            .map((data, index) => (
+              <FeedCardPageCommentCard
+                key={index}
+                commentId={data.commentId}
+                nick={data.nick}
+                photo={data.photo}
+                comment={data.comment}
+                date={data.date}
+                likes={data.likes}
+                comments={data.comments}
+                dataEdited={data.isEdited}
+                relatedPostId={data.relatedPostId}
+                activities={true}
+              />
+            ))
+            .sort((a, b) => {
+              return new Date(b.props.date) - new Date(a.props.date);
+            })
         : null}
       {tab === 2 && reposts.length > 0
         ? reposts

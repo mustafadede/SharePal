@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { createCommentsList, createNotification, updateSelectedPost } from "../../../firebase/firebaseActions";
+import { createCommentsList, createNotification, createUserCommentsList, updateSelectedPost } from "../../../firebase/firebaseActions";
 import { cardActions } from "../../../store/cardSlice";
 
 function FeedCardPageCommentSection({ cardPost }) {
@@ -36,6 +36,12 @@ function FeedCardPageCommentSection({ cardPost }) {
       }
       toast("Comment posted");
       dispatch(cardActions.updateCommentsState("done"));
+      createUserCommentsList(user.uid, {
+        commentId: commentId,
+        userId: user.uid,
+        comment: comment,
+        relatedPostId: cardPost[0]?.postId,
+      });
     });
     setComment("");
   };

@@ -7,10 +7,28 @@ import { motion } from "framer-motion";
 import { Cross1Icon, DotsHorizontalIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import ActionDetailsCard from "./ActionDetailsCard";
 import { toast } from "react-toastify";
-import { deleteSelectedComment, updateSelectedComment, updateSelectedPost } from "../../firebase/firebaseActions";
+import {
+  deleteSelectedComment,
+  deleteUserCommentsList,
+  updateSelectedComment,
+  updateSelectedPost,
+  updateUserCommentsList,
+} from "../../firebase/firebaseActions";
 import { cardActions } from "../../store/cardSlice";
 
-function FeedCardPageCommentCard({ commentId, nick, photo, comment, date, likes, comments, notification = false, dataEdited = false }) {
+function FeedCardPageCommentCard({
+  commentId,
+  nick,
+  photo,
+  comment,
+  date,
+  likes,
+  comments,
+  notification = false,
+  dataEdited = false,
+  relatedPostId = null,
+  activities = false,
+}) {
   const newDate = DateFormatter(date);
   const { user } = useSelector((state) => state.user);
   const { cardData } = useSelector((state) => state.card);
@@ -26,6 +44,7 @@ function FeedCardPageCommentCard({ commentId, nick, photo, comment, date, likes,
       updateSelectedComment(incomingData.pId, commentId, editedText).then(() => {
         dispatch(cardActions.editComments({ text: editedText, commentId: commentId }));
         toast("Comment edited");
+        updateUserCommentsList(user.uid, commentId, editedText);
       });
       setIsEdited(true);
       setRename(false);
@@ -38,6 +57,7 @@ function FeedCardPageCommentCard({ commentId, nick, photo, comment, date, likes,
       dispatch(cardActions.deleteComments(commentId));
       toast("Comment deleted");
       setSettings(false);
+      deleteUserCommentsList(user.uid, commentId);
     });
     cardData[0]?.comments > 0 && updateSelectedPost(cardData[0]?.userId, cardData[0]?.postId, { comments: cardData[0]?.comments - 1 });
   };
@@ -45,7 +65,7 @@ function FeedCardPageCommentCard({ commentId, nick, photo, comment, date, likes,
   return (
     <>
       <motion.div
-        className="p-4 bg-slate-900 rounded-2xl"
+        className="p-4 mb-4 bg-slate-900 rounded-2xl"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
@@ -68,7 +88,7 @@ function FeedCardPageCommentCard({ commentId, nick, photo, comment, date, likes,
               </div>
               <div className="flex items-center gap-2">
                 {(isEdited || dataEdited) && <p className="text-xs text-slate-400">(Edited)</p>}
-                {!notification && nick === user?.nick && (
+                {!notification && nick === user?.nick && !activities && (
                   <button onClick={() => setSettings(!settings)}>
                     <DotsHorizontalIcon className="w-6 h-6 transition-colors text-slate-400 hover:text-slate-200" />
                   </button>
