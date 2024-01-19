@@ -10,6 +10,7 @@ function SearchCardModalCenterTop({
   mediaType,
   releaseDate,
   watchlistHandler,
+  attachHandler,
   currentlyWatchingHandler,
   bestMovieHandler,
   bestSeriesHandler,
@@ -40,6 +41,7 @@ function SearchCardModalCenterTop({
                 <SearchCardButton
                   title={"Attachment"}
                   icon={<Link2Icon className="w-6 h-6 transition-all text-slate-400 group-hover:text-fuchsia-600" />}
+                  clickHandler={attachHandler}
                 />
                 <SearchCardButton
                   title={"Want to watch"}

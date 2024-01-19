@@ -27,6 +27,7 @@ import { wantToWatchActions } from "../../../store/wantToWatchSlice";
 import { watchedActions } from "../../../store/watchedSlice";
 import useTrailer from "../../../hooks/useTrailer";
 import { unfinishedActions } from "../../../store/unfinishedSlice";
+import { useNavigate } from "react-router-dom";
 
 function SearchCardModal() {
   const { id, title, poster, releaseDate, overview, vote, backdrop, genres, mediaType, upcoming } = useSelector(
@@ -45,6 +46,7 @@ function SearchCardModal() {
   const { user } = useSelector((state) => state.user);
   const { followingList } = useSelector((state) => state.following);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(wantToWatchActions.reset());
@@ -201,6 +203,11 @@ function SearchCardModal() {
     }
   };
 
+  const attachHandler = () => {
+    dispatch(modalActions.closeModal({ name: "attachedFilmModal", data: { title, poster, releaseDate, backdrop } }));
+    navigate(`/feed`);
+    toast("Attached to your box!");
+  };
   const unfinishedHandler = () => {
     if (!clickAction3) {
       createUnfinished({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
@@ -241,6 +248,7 @@ function SearchCardModal() {
         trailerID={trailerID}
         providers={providers}
         watchlistHandler={watchlistHandler}
+        attachHandler={attachHandler}
         currentlyWatchingHandler={currentlyWatchingHandler}
         bestMovieHandler={bestMovieInYearHandler}
         bestSeriesHandler={bestSeriesInYearHandler}

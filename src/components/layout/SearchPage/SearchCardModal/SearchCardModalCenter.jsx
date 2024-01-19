@@ -10,6 +10,7 @@ function SearchCardModalCenter({
   trailerID,
   providers,
   watchlistHandler,
+  attachHandler,
   currentlyWatchingHandler,
   bestMovieHandler,
   bestSeriesHandler,
@@ -32,6 +33,7 @@ function SearchCardModalCenter({
         mediaType={mediaType}
         releaseDate={releaseDate}
         watchlistHandler={watchlistHandler}
+        attachHandler={attachHandler}
         currentlyWatchingHandler={currentlyWatchingHandler}
         bestMovieHandler={bestMovieHandler}
         bestSeriesHandler={bestSeriesHandler}
