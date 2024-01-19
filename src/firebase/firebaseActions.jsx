@@ -809,6 +809,7 @@ const createUserCommentsList = async (userId, data) => {
       repostsList: [],
       isEdited: false,
       relatedPostId: data.relatedPostId,
+      relatedUserId: data.relatedUserId,
     });
     return true;
   } catch (error) {
@@ -877,6 +878,7 @@ const getSelectedUserCommentsList = async (userId) => {
         date: childSnapshot.val().date,
         isEdited: childSnapshot.val().isEdited || false,
         relatedPostId: childSnapshot.val().relatedPostId,
+        relatedUserId: childSnapshot.val().relatedUserId,
       });
     });
   }
