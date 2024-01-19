@@ -41,7 +41,7 @@ function FeedCardPageCommentSection({ cardPost }) {
         userId: user.uid,
         comment: comment,
         relatedPostId: cardPost[0]?.postId,
-        relatedPostUserId: cardPost[0]?.userId,
+        relatedUserId: cardPost[0]?.userId,
       });
     });
     setComment("");
