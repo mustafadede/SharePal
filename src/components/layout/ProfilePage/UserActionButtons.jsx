@@ -58,15 +58,23 @@ function UserActionButtons({ profileUser }) {
       });
     }
   };
+
+  const suggestHandler = () => {
+    toast("Coming soon...");
+  };
+
   return (
     <motion.div
-      className="flex justify-center w-full"
+      className="flex justify-center w-full gap-4"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.4 }}
     >
-      <button
-        className="flex items-center justify-center w-full h-12 transition-all md:w-1/3 bg-fuchsia-800 rounded-2xl hover:bg-slate-900"
+      <motion
+        className="flex items-center justify-center w-full h-12 transition-all cursor-pointer md:w-1/3 bg-fuchsia-800 rounded-2xl hover:bg-slate-900"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
         onClick={onClickHandler}
       >
         {followingList.find((user) => user.uid === profileUser?.uid) ? (
@@ -74,7 +82,29 @@ function UserActionButtons({ profileUser }) {
         ) : (
           <span className="text-xl text-slate-200">Follow</span>
         )}
-      </button>
+      </motion>
+      {followingList.find((user) => user.uid === profileUser?.uid) && (
+        <>
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="flex items-center justify-center w-full h-12 text-xl transition-all cursor-pointer text-slate-200 md:w-1/3 bg-slate-600 rounded-2xl hover:bg-slate-900"
+            onClick={suggestHandler}
+          >
+            Create List
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="flex items-center justify-center w-full h-12 text-xl transition-all cursor-pointer text-slate-200 md:w-1/3 bg-slate-600 rounded-2xl hover:bg-slate-900"
+            onClick={suggestHandler}
+          >
+            Suggest Movie/TV
+          </motion.div>
+        </>
+      )}
     </motion.div>
   );
 }
