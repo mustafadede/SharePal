@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import video from "../../assets/video-playback.webm";
 import Navbar from "../../components/layout/Navbar";
 import { useNavigate } from "react-router-dom";
-import AttachCardsSection from "../../components/layout/HomePage/AttachCardsSection";
 import { toast } from "react-toastify";
 
 function HomePage() {

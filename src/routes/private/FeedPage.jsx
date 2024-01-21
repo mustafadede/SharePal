@@ -24,7 +24,6 @@ import { followingActions } from "../../store/followingSlice";
 import { followersActions } from "../../store/followersSlice";
 import { notificationActions } from "../../store/notificationSlice";
 import FollowingSecctionComponent from "../../components/layout/FollowingSecctionComponent";
-import { modalActions } from "../../store/modalSlice";
 import { cardActions } from "../../store/cardSlice";
 
 function FeedPage() {
@@ -64,7 +63,7 @@ function FeedPage() {
     dispatch(profileActions.removeUser(null));
     getData();
   }, [tab, post]);
-
+  console.log(posts);
   return (
     <>
       <Navbar
