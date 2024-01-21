@@ -18,6 +18,7 @@ import FollowCard from "../../components/common/FollowCard/FollowCard";
 import PopularCard from "../../components/common/MostPopularCard/PopularCard";
 import InfoLabel from "../../components/common/InfoLabel";
 import Snowfall from "react-snowfall";
+import AccountPrivacyHelperFunction from "../../utils/AccountPrivacy";
 
 function UserProfilePage() {
   const { username } = useParams();
@@ -31,6 +32,8 @@ function UserProfilePage() {
   const [activeTab, setActiveTab] = useState(0);
   const dispatch = useDispatch();
   const { profileUser, profileState } = useSelector((state) => state.profile);
+  const { followingList } = useSelector((state) => state.following);
+  const accountPrivacyFlag = AccountPrivacyHelperFunction(profileUser?.uid, followingList, profileUser?.accountPrivate);
   useEffect(() => {
     dispatch(profileActions.updateState("loading"));
     dispatch(modalActions.closeModal());
@@ -63,7 +66,7 @@ function UserProfilePage() {
     setTimeout(() => {
       dispatch(profileActions.updateState("done"));
     }, 500);
-  }, [username]);
+  }, [username, accountPrivacyFlag]);
 
   return (
     <>
@@ -91,10 +94,17 @@ function UserProfilePage() {
             <UserActionButtons profileUser={profileUser} />
             <InfoCard user={profileUser} />
             <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
-            {activeTab === 0 && <StatsCard user={profileUser} username={username} />}
-            {activeTab === 1 && <ListsSection username={username} uid={profileUser?.uid} />}
-            {activeTab === 2 && <PostsSection username={username} uid={profileUser?.uid} />}
-            {activeTab === 3 && <ActivitiesSection username={username} uid={profileUser?.uid} />}
+            {!accountPrivacyFlag && <InfoLabel text="This account is private." additionalClasses="lg:mr-6 h-fit" />}
+            {accountPrivacyFlag && activeTab === 0 && <StatsCard user={profileUser} username={username} />}
+            {accountPrivacyFlag && activeTab === 1 && (
+              <ListsSection username={username} uid={profileUser?.uid} accountPrivacyFlag={accountPrivacyFlag} />
+            )}
+            {accountPrivacyFlag && activeTab === 2 && (
+              <PostsSection username={username} uid={profileUser?.uid} accountPrivacyFlag={accountPrivacyFlag} />
+            )}
+            {accountPrivacyFlag && activeTab === 3 && (
+              <ActivitiesSection username={username} uid={profileUser?.uid} accountPrivacyFlag={accountPrivacyFlag} />
+            )}
           </div>
         )}
         <motion.div

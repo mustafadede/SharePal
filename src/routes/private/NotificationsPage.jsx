@@ -5,8 +5,6 @@ import ProfileCard from "../../components/common/ProfileCard";
 import { useDispatch, useSelector } from "react-redux";
 import PopularCard from "../../components/common/MostPopularCard/PopularCard";
 import NotificationFollowCard from "../../components/common/NotificationCard/NotificationFollowCard";
-import NotificationListCard from "../../components/common/NotificationCard/NotificationListCard";
-import NotificationSuggestCard from "../../components/common/NotificationCard/NotificationSuggestCard";
 import MyPinnedListsCard from "../../components/common/MyPinnedListsCard/MyPinnedListsCard";
 import {
   deleteUserNotification,
@@ -21,17 +19,21 @@ import { followingActions } from "../../store/followingSlice";
 import { userActions } from "../../store/userSlice";
 import { MyListsActions } from "../../store/myListsSlice";
 import { notificationActions } from "../../store/notificationSlice";
-import NotificationLikeCard from "../../components/common/NotificationCard/NotificationLikeCard";
 import { TrashIcon } from "@radix-ui/react-icons";
-import InfoLabel from "../../components/common/InfoLabel";
-import FeedTabs from "../../components/layout/FeedPage/FeedTabs";
-import NotificationCommentCard from "../../components/common/NotificationCard/NotificationCommentCard";
+import ActivitiesSection from "../../components/layout/NotificationPage/ActivitiesSection";
+import Tabs from "../../components/layout/ProfilePage/Tabs";
+import FollowRequestButton from "../../components/layout/NotificationPage/FollowRequestButton";
 
 function NotificationsPage() {
   const { user } = useSelector((state) => state.user);
   const { notificationList, status } = useSelector((state) => state.notification);
   const dispatch = useDispatch();
-  const [tab, setTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(0);
+
+  const tabs = [
+    { id: 0, name: "Follow Requests" },
+    { id: 1, name: "Activities" },
+  ];
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -70,8 +72,6 @@ function NotificationsPage() {
     });
   };
 
-  const commentTabLength = notificationList?.filter((notification) => notification?.type === "comment").length;
-
   return (
     <>
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
@@ -91,7 +91,7 @@ function NotificationsPage() {
           />
           <MyPinnedListsCard />
         </motion.div>
-        <motion.div className="w-full h-fit xl:px-6">
+        <motion.div className="w-full flex flex-col h-fit xl:px-6">
           <motion.div className="flex">
             <motion.h1
               className="flex w-full mb-4 text-3xl text-cWhite"
@@ -108,7 +108,8 @@ function NotificationsPage() {
               <TrashIcon className="transition-all duration-200 w-7 h-7 text-slate-600 group-hover:text-slate-200" />
             </motion.button>
           </motion.div>
-          <FeedTabs tabInfo={tab} tab={setTab} />
+          <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+          {activeTab === 0 && <FollowRequestButton />}
           {status === "loading" && (
             <motion.h1
               className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
@@ -119,67 +120,7 @@ function NotificationsPage() {
               Loading...
             </motion.h1>
           )}
-          {(status === "error" || (commentTabLength === 0 && tab === 1)) && (
-            <motion.h1
-              className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-            >
-              Try more {user?.nick}. Follow more people. Follow the rabbit hole.
-            </motion.h1>
-          )}
-          {status === "done" &&
-            tab === 0 &&
-            notificationList
-              ?.filter((notification) => notification?.type === "like")
-              .reverse()
-              .map((notification, index) => (
-                <NotificationLikeCard
-                  key={index}
-                  uid={notification.from?.uid}
-                  nick={notification.from?.nick}
-                  postId={notification.from?.postId}
-                  photoURL={notification.from?.photo}
-                  date={notification?.date}
-                  deleteId={notification.id}
-                />
-              ))}
-          {status === "done" &&
-            tab === 1 &&
-            notificationList
-              ?.filter((notification) => notification?.type === "comment")
-              .reverse()
-              .map((notification, index) => (
-                <NotificationCommentCard
-                  key={index}
-                  uid={notification.from?.uid}
-                  nick={notification.from?.nick}
-                  postId={notification.from?.postId}
-                  photoURL={notification.from?.photo}
-                  date={notification?.date}
-                  comment={notification.from?.comment}
-                  deleteId={notification.id}
-                />
-              ))}
-          {status === "done" &&
-            tab === 2 &&
-            notificationList
-              ?.filter((notification) => notification?.type === "repost")
-              .reverse()
-              .map((notification, index) => (
-                <NotificationLikeCard
-                  key={index}
-                  uid={notification.from?.uid}
-                  nick={notification.from?.nick}
-                  postId={notification.from?.postId}
-                  photoURL={notification.from?.photo}
-                  date={notification?.date}
-                  deleteId={notification.id}
-                />
-              ))}
-          {status === "done" &&
-            tab === 3 &&
+          {activeTab === 0 &&
             notificationList
               ?.filter((notification) => notification?.type === "follow")
               .reverse()
@@ -193,11 +134,7 @@ function NotificationsPage() {
                   deleteId={notification.id}
                 />
               ))}
-
-          {status === "done" && tab === 2 && <InfoLabel text="Coming soon..." />}
-          {status === "deleted" && notificationList.length === 0 && (
-            <InfoLabel text="There is nothing to see. Do some actions. Follow the rabbit hole." />
-          )}
+          {activeTab === 1 && <ActivitiesSection />}
         </motion.div>
         <motion.div
           className="hidden w-1/3 h-fit lg:flex sticky top-[4.7rem] justify-center"

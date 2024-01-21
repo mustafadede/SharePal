@@ -4,7 +4,7 @@ import { getSelectedUserPosts } from "../../../firebase/firebaseActions";
 import FeedCard from "../../common/FeedCard";
 import LoginRestrictionComponent from "../../common/LoginRestrictionComponent";
 
-function PostsSection({ username, uid }) {
+function PostsSection({ username, uid, accountPrivacyFlag }) {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     setTimeout(() => {
@@ -13,9 +13,10 @@ function PostsSection({ username, uid }) {
           setPosts(res);
         });
       } else {
-        getSelectedUserPosts(uid).then((res) => {
-          setPosts(res);
-        });
+        accountPrivacyFlag &&
+          getSelectedUserPosts(uid).then((res) => {
+            setPosts(res);
+          });
       }
     }, 500);
   }, []);

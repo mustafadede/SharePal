@@ -13,13 +13,13 @@ import FeedTabs from "../FeedPage/FeedTabs";
 import InfoLabel from "../../common/InfoLabel";
 import LoginRestrictionComponent from "../../common/LoginRestrictionComponent";
 import FeedCardPageCommentCard from "../../common/FeedCardPageCommentCard";
-function ActivitiesSection({ username, uid }) {
+function ActivitiesSection({ username, uid, accountPrivacyFlag }) {
   const [likes, setLikes] = useState([]);
   const [comments, setComments] = useState([]);
   const [reposts, setReposts] = useState([]);
 
   useEffect(() => {
-    if (username) {
+    if (username && accountPrivacyFlag) {
       getAllSelectedUserPostLikeLists(uid).then((result) => {
         result.forEach((value) => {
           getSpecificPost(value.id.trim(), value.postId).then((res) => {

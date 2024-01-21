@@ -7,7 +7,7 @@ import ListsSectionCard from "./ListsSectionCard";
 import { getSelectedUserLists } from "../../../../firebase/firebaseActions";
 import { MyListsActions } from "../../../../store/myListsSlice";
 
-function ListsSection({ username, uid }) {
+function ListsSection({ username, uid, accountPrivacyFlag }) {
   const dispatch = useDispatch();
   const { myLists, status } = useSelector((state) => state.myLists);
   const [userList, setUserList] = useState([]);
@@ -16,7 +16,7 @@ function ListsSection({ username, uid }) {
   };
 
   useEffect(() => {
-    if (username) {
+    if (username && accountPrivacyFlag) {
       const getData = async () => {
         getSelectedUserLists(uid).then((lists) => {
           setUserList(lists);

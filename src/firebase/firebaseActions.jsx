@@ -26,6 +26,9 @@ const createUserWithEmailAction = async (data) => {
         banner: "",
         online: false,
         splash: false,
+        accountPrivate: "Public",
+        taggingPrivacy: "Public",
+        listPrivacy: "Public",
       });
       updateProfile(auth.currentUser, {
         displayName: data.name,
@@ -88,6 +91,9 @@ const getCurrentUserData = async (userId) => {
         photoURL: getAuth().currentUser.photoURL || snapshot.val().photoURL || "",
         online: snapshot.val().online,
         splash: snapshot.val().splash,
+        accountPrivate: snapshot.val().accountPrivate || "Public",
+        taggingPrivacy: snapshot.val().taggingPrivacy || "Public",
+        listPrivacy: snapshot.val().listPrivacy || "Public",
       };
       return user;
     } else {
@@ -170,6 +176,9 @@ const getUserByTheUsername = async (username) => {
             bestMovieYear: childSnapshot.val().bestMovieYear || "",
             bestSeriesYear: childSnapshot.val().bestSeriesYear || "",
             online: childSnapshot.val().online || false,
+            accountPrivate: childSnapshot.val().accountPrivate || "Public",
+            taggingPrivacy: childSnapshot.val().taggingPrivacy || "Public",
+            listPrivacy: childSnapshot.val().listPrivacy || "Public",
           });
         }
       });
@@ -250,6 +259,9 @@ const getUserBySearch = async (username) => {
             bestMovieYear: childSnapshot.val().bestMovieYear || "",
             bestSeriesYear: childSnapshot.val().bestSeriesYear || "",
             online: childSnapshot.val().online || false,
+            accountPrivate: childSnapshot.val().accountPrivate || "Public",
+            taggingPrivacy: childSnapshot.val().taggingPrivacy || "Public",
+            listPrivacy: childSnapshot.val().listPrivacy || "Public",
           });
         }
       });
@@ -288,6 +300,9 @@ const getUsers = async () => {
             bestMovieYear: childSnapshot.val().bestMovieYear || "",
             bestSeriesYear: childSnapshot.val().bestSeriesYear || "",
             online: childSnapshot.val().online || false,
+            accountPrivate: childSnapshot.val().accountPrivate || "Public",
+            taggingPrivacy: childSnapshot.val().taggingPrivacy || "Public",
+            listPrivacy: childSnapshot.val().listPrivacy || "Public",
           });
         }
       });
@@ -325,6 +340,9 @@ const updateCurrentUserData = async (userId, data) => {
         online: data.online || snapshot.val().online || false,
         deleted: data.deleted || snapshot.val().deleted || false,
         splash: data.splash || snapshot.val().splash || false,
+        accountPrivate: data.accountPrivate || snapshot.val().accountPrivate || "Public",
+        taggingPrivacy: data.taggingPrivacy || snapshot.val().taggingPrivacy || "Public",
+        listPrivacy: data.listPrivacy || snapshot.val().listPrivacy || "Public",
       });
       if (snapshotPosts.exists()) {
         snapshotPosts.forEach((childSnapshot) => {

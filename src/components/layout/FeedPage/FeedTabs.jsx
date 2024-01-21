@@ -88,15 +88,6 @@ function FeedTabs({ tabInfo, tab, info }) {
             <span className={`text-lg hidden md:block font-semibold ${tabInfo === 2 ? "text-fuchsia-400" : null}`}>Reposts</span>
             <LoopIcon className={`w-8 h-6 md:hidden ${tabInfo === 2 ? "text-fuchsia-400" : null}`} />
           </button>
-          <button
-            className={`flex items-center justify-center w-1/2 h-full transition-all rounded-tr-xl rounded-br-xl text-slate-300 hover:text-fuchsia-600 hover:bg-slate-600/40 ${
-              tabInfo === 3 ? "bg-slate-600/20" : null
-            }`}
-            onClick={() => tab(3)}
-          >
-            <span className={`text-lg hidden md:block font-semibold ${tabInfo === 3 ? "text-fuchsia-400" : null}`}>Follow</span>
-            <PersonIcon className={`w-8 h-6 md:hidden ${tabInfo === 3 ? "text-fuchsia-400" : null}`} />
-          </button>
         </>
       )}
     </motion.div>

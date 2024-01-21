@@ -14,6 +14,7 @@ import watchedSlice from "./watchedSlice";
 import unfinishedSlice from "./unfinishedSlice";
 import splashSlice from "./splashSlice";
 import cardSlice from "./cardSlice";
+import privacySlice from "./privacySlice";
 
 const store = configureStore({
   reducer: {
@@ -32,6 +33,7 @@ const store = configureStore({
     followers: followersSlice,
     splash: splashSlice,
     card: cardSlice,
+    privacy: privacySlice,
   },
 });
 
