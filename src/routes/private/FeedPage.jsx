@@ -63,7 +63,6 @@ function FeedPage() {
     dispatch(profileActions.removeUser(null));
     getData();
   }, [tab, post]);
-  console.log(posts);
   return (
     <>
       <Navbar

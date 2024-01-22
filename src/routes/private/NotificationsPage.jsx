@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import ProfileCard from "../../components/common/ProfileCard";
 import { useDispatch, useSelector } from "react-redux";
 import PopularCard from "../../components/common/MostPopularCard/PopularCard";
-import NotificationFollowCard from "../../components/common/NotificationCard/NotificationFollowCard";
 import MyPinnedListsCard from "../../components/common/MyPinnedListsCard/MyPinnedListsCard";
 import {
   getCurrentUserData,
@@ -20,12 +19,12 @@ import { MyListsActions } from "../../store/myListsSlice";
 import { notificationActions } from "../../store/notificationSlice";
 import ActivitiesSection from "../../components/layout/NotificationPage/ActivitiesSection";
 import Tabs from "../../components/layout/ProfilePage/Tabs";
-import FollowRequestButton from "../../components/layout/NotificationPage/FollowRequestButton";
-import DeleteNotificationButton from "../../components/layout/NotificationPage/DeleteNotificationButton";
+import NotificationHeader from "../../components/layout/NotificationPage/NotificationHeader";
+import FollowSection from "../../components/layout/NotificationPage/FollowSection";
 
 function NotificationsPage() {
   const { user } = useSelector((state) => state.user);
-  const { notificationList, status } = useSelector((state) => state.notification);
+  const { notificationList, status, followRequestStatus } = useSelector((state) => state.notification);
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState(0);
 
@@ -83,44 +82,15 @@ function NotificationsPage() {
           />
           <MyPinnedListsCard />
         </motion.div>
-        <motion.div className="w-full flex flex-col h-fit xl:px-6">
-          <motion.div className="flex">
-            <motion.h1
-              className="flex w-full mb-4 text-3xl text-cWhite"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              Notifications
-            </motion.h1>
-            {activeTab === 1 && <DeleteNotificationButton />}
-          </motion.div>
+        <motion.div className="flex flex-col w-full h-fit xl:px-6">
+          <NotificationHeader activeTab={activeTab} />
           <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
-          {activeTab === 0 && <FollowRequestButton />}
-          {status === "loading" && (
-            <motion.h1
-              className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-            >
-              Loading...
-            </motion.h1>
-          )}
-          {activeTab === 0 &&
-            notificationList
-              ?.filter((notification) => notification?.type === "follow")
-              .reverse()
-              .map((notification, index) => (
-                <NotificationFollowCard
-                  key={index}
-                  uid={notification.from?.uid}
-                  nick={notification.from?.nick}
-                  photoURL={notification.from?.photo}
-                  date={notification?.date}
-                  deleteId={notification.id}
-                />
-              ))}
+          <FollowSection
+            notificationList={notificationList}
+            activeTab={activeTab}
+            status={status}
+            followRequestStatus={followRequestStatus}
+          />
           {activeTab === 1 && <ActivitiesSection />}
         </motion.div>
         <motion.div

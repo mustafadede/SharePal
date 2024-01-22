@@ -5,6 +5,8 @@ const notification = createSlice({
   initialState: {
     notificationList: [],
     status: null,
+    followRequest: [],
+    followRequestStatus: false,
   },
   reducers: {
     setNotification: (state, action) => {
@@ -12,6 +14,9 @@ const notification = createSlice({
     },
     updateStatus: (state, action) => {
       state.status = action.payload;
+    },
+    updateFollowRequest: (state) => {
+      state.followRequestStatus = !state.followRequestStatus;
     },
   },
 });

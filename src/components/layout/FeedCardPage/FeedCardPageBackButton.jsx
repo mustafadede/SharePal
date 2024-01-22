@@ -3,13 +3,18 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { cardActions } from "../../../store/cardSlice";
+import { notificationActions } from "../../../store/notificationSlice";
 
-function FeedCardPageBackButton() {
+function FeedCardPageBackButton({ location = false }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const clickHandler = () => {
-    navigate("/feed", { preventScrollReset: true });
-    dispatch(cardActions.deleteComments());
+    if (location) {
+      dispatch(notificationActions.updateFollowRequest(false));
+    } else {
+      navigate("/feed", { preventScrollReset: true });
+      dispatch(cardActions.deleteComments());
+    }
   };
   return (
     <button className="flex items-center justify-start w-full gap-2 mb-2 group" onClick={clickHandler}>
