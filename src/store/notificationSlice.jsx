@@ -15,6 +15,9 @@ const notification = createSlice({
     updateStatus: (state, action) => {
       state.status = action.payload;
     },
+    deleteSelectedNotification: (state, action) => {
+      state.notificationList = state.notificationList.filter((notification) => notification.id !== action.payload);
+    },
     updateFollowRequest: (state) => {
       state.followRequestStatus = !state.followRequestStatus;
     },

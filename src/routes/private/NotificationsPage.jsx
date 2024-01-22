@@ -91,7 +91,7 @@ function NotificationsPage() {
             status={status}
             followRequestStatus={followRequestStatus}
           />
-          {activeTab === 1 && <ActivitiesSection />}
+          {activeTab === 1 && <ActivitiesSection user={user} />}
         </motion.div>
         <motion.div
           className="hidden w-1/3 h-fit lg:flex sticky top-[4.7rem] justify-center"

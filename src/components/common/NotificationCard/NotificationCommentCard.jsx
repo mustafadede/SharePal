@@ -8,7 +8,8 @@ import FeedCardOnlineStatus from "../FeedCardOnlineStatus";
 import ActionDetailsCard from "../ActionDetailsCard";
 import { toast } from "react-toastify";
 import FeedCardPageCommentCard from "../FeedCardPageCommentCard";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { notificationActions } from "../../../store/notificationSlice";
 
 function NotificationCommentCard({ uid, nick, postId, photoURL, date, comment, deleteId }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +17,7 @@ function NotificationCommentCard({ uid, nick, postId, photoURL, date, comment, d
   const newDate = DateFormatter(date);
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleClick = () => {
     navigate(`/feed/${user.nick}/${postId}`, { state: { uId: user.uid, pId: postId } });
@@ -23,6 +25,7 @@ function NotificationCommentCard({ uid, nick, postId, photoURL, date, comment, d
 
   const deleteHandler = () => {
     deleteSelectedNotification(deleteId).then(() => {
+      dispatch(notificationActions.deleteSelectedNotification(deleteId));
       setSettings(false);
       toast.success("Notification deleted successfully");
     });

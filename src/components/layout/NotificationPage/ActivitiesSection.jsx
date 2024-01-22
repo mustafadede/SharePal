@@ -4,8 +4,9 @@ import NotificationLikeCard from "../../common/NotificationCard/NotificationLike
 import InfoLabel from "../../common/InfoLabel";
 import { useSelector } from "react-redux";
 import FeedTabs from "../FeedPage/FeedTabs";
+import { motion } from "framer-motion";
 
-function ActivitiesSection() {
+function ActivitiesSection({ user }) {
   const [tab, setTab] = useState(0);
   const { notificationList, status } = useSelector((state) => state.notification);
   const commentTabLength = notificationList?.filter((notification) => notification?.type === "comment").length;
@@ -39,6 +40,16 @@ function ActivitiesSection() {
               deleteId={notification.id}
             />
           ))}
+      {status === "done" && tab === 0 && notificationList?.filter((notification) => notification?.type === "like").length === 0 && (
+        <motion.h1
+          className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          Try more {user?.nick}. Follow more people. Follow the rabbit hole.
+        </motion.h1>
+      )}
       {status === "done" &&
         tab === 1 &&
         notificationList
@@ -73,9 +84,6 @@ function ActivitiesSection() {
             />
           ))}
       {status === "done" && tab === 2 && <InfoLabel text="Coming soon..." />}
-      {status === "deleted" && notificationList.length === 0 && (
-        <InfoLabel text="There is nothing to see. Do some actions. Follow the rabbit hole." />
-      )}
     </div>
   );
 }
