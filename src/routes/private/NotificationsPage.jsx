@@ -3,7 +3,6 @@ import Navbar from "../../components/layout/Navbar";
 import { motion } from "framer-motion";
 import ProfileCard from "../../components/common/ProfileCard";
 import { useDispatch, useSelector } from "react-redux";
-import PopularCard from "../../components/common/MostPopularCard/PopularCard";
 import MyPinnedListsCard from "../../components/common/MyPinnedListsCard/MyPinnedListsCard";
 import {
   getCurrentUserData,
@@ -21,6 +20,7 @@ import ActivitiesSection from "../../components/layout/NotificationPage/Activiti
 import Tabs from "../../components/layout/ProfilePage/Tabs";
 import NotificationHeader from "../../components/layout/NotificationPage/NotificationHeader";
 import FollowSection from "../../components/layout/NotificationPage/FollowSection";
+import PopularSection from "../../components/layout/PopularSection";
 
 function NotificationsPage() {
   const { user } = useSelector((state) => state.user);
@@ -93,14 +93,7 @@ function NotificationsPage() {
           />
           {activeTab === 1 && <ActivitiesSection user={user} />}
         </motion.div>
-        <motion.div
-          className="hidden w-1/3 h-fit lg:flex sticky top-[4.7rem] justify-center"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          <PopularCard />
-        </motion.div>
+        <PopularSection />
       </div>
     </>
   );

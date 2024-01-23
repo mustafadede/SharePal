@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Navbar from "../../components/layout/Navbar";
 import { motion } from "framer-motion";
-import PopularCard from "../../components/common/MostPopularCard/PopularCard";
 import SearchCard from "../../components/layout/SearchPage/SearchCard";
 import useSearch from "../../hooks/useSearch";
 import Suggestion from "../../components/common/Suggestion";
 import { getUserBySearch } from "../../firebase/firebaseActions";
 import SearchUserCard from "../../components/layout/SearchPage/SearchUserCard";
+import PopularSection from "../../components/layout/PopularSection";
 function SearchPage() {
   const [search, setSearch] = useState("");
   const [movies, setMovies] = useState("");
@@ -82,14 +82,7 @@ function SearchPage() {
           {/* Search results end */}
         </div>
         {/* Most popular movies and series start */}
-        <motion.div
-          className="hidden w-fit h-fit lg:flex sticky top-[4.7rem]"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          <PopularCard />
-        </motion.div>
+        <PopularSection />
         {/* Most popular movies and series end */}
       </div>
     </>

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Navbar from "../../components/layout/Navbar";
 import ProfileCard from "../../components/common/ProfileCard";
 import MyPinnedListsCard from "../../components/common/MyPinnedListsCard/MyPinnedListsCard";
-import PopularCard from "../../components/common/MostPopularCard/PopularCard";
 import { notificationActions } from "../../store/notificationSlice";
 import { MyListsActions } from "../../store/myListsSlice";
 import { userActions } from "../../store/userSlice";
@@ -16,6 +15,7 @@ import FeedCardPageCommentSection from "../../components/layout/FeedCardPage/Fee
 import { useLocation } from "react-router-dom";
 import { cardActions } from "../../store/cardSlice";
 import { modalActions } from "../../store/modalSlice";
+import PopularSection from "../../components/layout/PopularSection";
 
 function FeedCardPage() {
   const { user } = useSelector((state) => state.user);
@@ -78,14 +78,7 @@ function FeedCardPage() {
           <FeedCardPageCommentSection cardPost={cardData} />
           <FeedCardPageCommentComponent />
         </div>
-        <motion.div
-          className="hidden w-1/3 h-fit lg:flex sticky top-[4.7rem] justify-center"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          <PopularCard />
-        </motion.div>
+        <PopularSection />
       </div>
     </>
   );

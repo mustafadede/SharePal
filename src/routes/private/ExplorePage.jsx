@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/layout/Navbar";
-import PopularCard from "../../components/common/MostPopularCard/PopularCard";
 import { motion } from "framer-motion";
 import useUpcoming from "../../hooks/useUpcoming";
 import useNowPlaying from "../../hooks/useNowPlaying";
 import useTop10 from "../../hooks/useTop10";
 import Slider from "../../components/common/Slider";
 import useNextYear from "../../hooks/useNextYear";
+import PopularSection from "../../components/layout/PopularSection";
 
 function ExplorePage() {
   const [nowPlaying, setNowPlaying] = useState([]);
@@ -76,14 +76,7 @@ function ExplorePage() {
           <h2 className="my-4 text-2xl text-slate-200">Users Lists</h2>
         </motion.div>
         {/* Most popular movies and series start */}
-        <motion.div
-          className="hidden w-fit h-fit lg:flex sticky top-[4.7rem]"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          <PopularCard />
-        </motion.div>
+        <PopularSection />
         {/* Most popular movies and series end */}
       </div>
     </>

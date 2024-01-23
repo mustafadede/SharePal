@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/layout/Navbar";
 import ProfileBanner from "../../components/layout/ProfilePage/ProfileBanner";
-import PopularCard from "../../components/common/MostPopularCard/PopularCard";
-import { motion } from "framer-motion";
 import InfoCard from "../../components/layout/ProfilePage/InfoCard";
 import { useDispatch, useSelector } from "react-redux";
 import Tabs from "../../components/layout/ProfilePage/Tabs";
@@ -17,6 +15,7 @@ import { followersActions } from "../../store/followersSlice";
 import { modalActions } from "../../store/modalSlice";
 import { watchedActions } from "../../store/watchedSlice";
 import Snowfall from "react-snowfall";
+import PopularSection from "../../components/layout/PopularSection";
 
 function ProfilePage() {
   const tabs = [
@@ -77,14 +76,7 @@ function ProfilePage() {
           {activeTab === 2 && <PostsSection uid={user?.uid} />}
           {activeTab === 3 && <ActivitiesSection uid={user?.uid} />}
         </div>
-        <motion.div
-          className="hidden w-fit h-fit lg:flex sticky top-[4.7rem] justify-center"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          <PopularCard />
-        </motion.div>
+        <PopularSection />
       </div>
     </>
   );
