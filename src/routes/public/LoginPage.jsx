@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import video from "../../assets/video-playback.webm";
 import { signInWithEmailAction } from "../../firebase/firebaseActions";
 import { toast } from "react-toastify";
-import { json, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Navbar from "../../components/layout/Navbar";
 import { useDispatch } from "react-redux";

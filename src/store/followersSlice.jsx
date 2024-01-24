@@ -12,6 +12,9 @@ const followersSlice = createSlice({
     updateFollowers: (state, action) => {
       state.followersLists.push(action.payload);
     },
+    resetFollowers: (state) => {
+      state.followersLists = [];
+    },
   },
 });
 export const followersActions = followersSlice.actions;

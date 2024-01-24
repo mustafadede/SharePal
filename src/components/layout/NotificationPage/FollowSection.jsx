@@ -9,16 +9,7 @@ function FollowSection({ notificationList, status, activeTab, followRequestStatu
   return (
     <div>
       {!followRequestStatus && activeTab === 0 && <FollowRequestButton />}
-      {status === "loading" && (
-        <motion.h1
-          className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          Loading...
-        </motion.h1>
-      )}
+      {status === "loading" && activeTab === 0 && <InfoLabel text="Loading..." />}
       {!followRequestStatus &&
         activeTab === 0 &&
         notificationList

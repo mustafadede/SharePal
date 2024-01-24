@@ -35,18 +35,6 @@ function NotificationsPage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    localStorage.setItem("lookUpDate", JSON.stringify(new Date().toISOString()));
-    const getNotificationsData = async () => {
-      if (notificationList.length === 0) {
-        dispatch(notificationActions.updateStatus("loading"));
-        const notifications = await getNotifications(localStorage.getItem("user"));
-        !notifications &&
-          dispatch(notificationActions.updateStatus("error")) &&
-          localStorage.setItem("notifications", JSON.stringify(false));
-        notifications && dispatch(notificationActions.setNotification(notifications)) && dispatch(notificationActions.updateStatus("done"));
-      }
-    };
-    getNotificationsData();
     const getData = async () => {
       const userData = await getCurrentUserData(localStorage.getItem("user"));
       userData && dispatch(userActions.updateUser(userData));

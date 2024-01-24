@@ -43,8 +43,6 @@ function FeedPage() {
         response && dispatch(followingActions.initialFollowing(response));
         const followers = await getFollowersForUser(localStorage.getItem("user"));
         followers && dispatch(followersActions.initialFollowers(followers));
-        const notifications = await getNotifications(localStorage.getItem("user"));
-        notifications && dispatch(notificationActions.setNotification(notifications)) && dispatch(notificationActions.updateStatus("done"));
         const res = await getSelectedUserLists(localStorage.getItem("user"));
         dispatch(MyListsActions.initilizeList(res));
         if (tab === 0) {
