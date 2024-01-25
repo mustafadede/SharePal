@@ -36,17 +36,21 @@ function ActionTextArea() {
   };
   const handlePost = (e) => {
     // TODO: Add tagFlag for people tagging
-    if (e.key === " " || e.key === "Escape") {
-      dispatch(createPostActions.tagFlag(false));
-    }
+    // if (e.key === "@") {
+    //   dispatch(createPostActions.tagFlag(true));
+    // }
+    // if (e.key === " " || e.key === "Escape" || e.key === "Backspace") {
+    //   dispatch(createPostActions.tagFlag(false));
+    // }
     if (e.ctrlKey && e.key === "Enter") {
       createPost();
     }
   };
+
   return (
     <motion.textarea
       name="post"
-      className="w-full h-20 px-4 py-2 my-2 rounded-lg outline-none resize-none text-md text-cWhite bg-slate-800 "
+      className="w-full h-20 px-4 py-2 my-2 rounded-lg outline-none resize-none text-md text-cWhite bg-slate-800"
       placeholder="What's happening ?"
       value={text}
       initial={{ opacity: 0 }}

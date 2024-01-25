@@ -1,13 +1,34 @@
-import { Link2Icon } from "@radix-ui/react-icons";
+import { Link2Icon, RocketIcon } from "@radix-ui/react-icons";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
 import { toast } from "react-toastify";
+import { createNotification } from "../../../firebase/firebaseActions";
 
-function AttachedCard({ title, poster, releaseDate, backdrop }) {
+function AttachedCard({ title, poster, releaseDate, backdrop, isSuggest = false }) {
+  const { profileUser } = useSelector((state) => state.profile);
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
   const handleClick = () => {
-    dispatch(modalActions.closeModal({ data: { title, poster, releaseDate, backdrop } })) && toast.success("Attached successfully!");
+    createNotification(profileUser.uid, {
+      from: {
+        uid: localStorage.getItem("user"),
+        nick: user.nick,
+        photo: user.photoURL,
+        attached: {
+          title: title,
+          poster: poster,
+          releaseDate: releaseDate,
+          backdrop: backdrop,
+        },
+      },
+      type: "suggest",
+      date: Date.now(),
+    }).then(() => {
+      toast.success(`You have suggested ${title} to ${profileUser.nick}`);
+      dispatch(modalActions.closeModal());
+    });
   };
   return (
     <div className="flex justify-between w-full h-32 p-2 group rounded-2xl">
@@ -29,7 +50,7 @@ function AttachedCard({ title, poster, releaseDate, backdrop }) {
         className="px-2 py-1 text-white transition-all bg-transparent rounded-xl hover:text-fuchsia-800"
         onClick={(movie) => handleClick(movie)}
       >
-        <Link2Icon className="w-6 h-6" />
+        {isSuggest ? <RocketIcon className="w-5 h-5" /> : <Link2Icon className="w-6 h-6" />}
       </button>
     </div>
   );

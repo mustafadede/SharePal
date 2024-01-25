@@ -7,6 +7,7 @@ import FeedCardOnlineStatus from "../FeedCardOnlineStatus";
 import ActionDetailsCard from "../ActionDetailsCard";
 import { deleteSelectedNotification } from "../../../firebase/firebaseActions";
 import { toast } from "react-toastify";
+import { notificationActions } from "../../../store/notificationSlice";
 
 function NotificationFollowCard({ uid, nick, photoURL, date, deleteId }) {
   const newDate = DateFormatter(date);
@@ -16,6 +17,7 @@ function NotificationFollowCard({ uid, nick, photoURL, date, deleteId }) {
     deleteSelectedNotification(deleteId).then(() => {
       setSettings(false);
       toast.success("Notification deleted successfully");
+      dispatch(notificationActions.deleteSelectedNotification(deleteId));
     });
   };
 

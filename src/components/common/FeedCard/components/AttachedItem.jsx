@@ -13,7 +13,7 @@ function AttachedItem({ data, attachedData, onClickHandler }) {
           loading="lazy"
         ></img>
         <div className="flex items-center justify-center gap-1">
-          <p className="transition-all duration-700 text-slate-400 group-hover:text-slate-200">
+          <p className="transition-all duration-700 text-start w-fit text-slate-400 group-hover:text-slate-200">
             {attachedData?.title || data.attachedFilm.title}
           </p>
           <p className="transition-all duration-700 text-slate-400 group-hover:text-slate-200">

@@ -19,7 +19,6 @@ function FeedAttachedCard({ data, attachedData, notification }) {
   const [rename, setRename] = useState(false);
   const [editedText, setEditedText] = useState(data.text);
   const [isEdited, setIsEdited] = useState(false);
-  const [bookmarked, setBookmarked] = useState(false);
   const user = useSelector((state) => state.user.user?.nick);
   const dispatch = useDispatch();
 

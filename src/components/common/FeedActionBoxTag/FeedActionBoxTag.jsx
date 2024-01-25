@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import FeedActionBoxTagItem from "./FeedActionBoxTagItem";
 
 function FeedActionBoxTag() {
+  useEffect(() => {}, []);
   return (
     <motion.div
       className="flex items-center justify-start w-full gap-2 px-2 py-2 mb-3 text-sm transition-all duration-200 rounded-lg text-slate-300 bg-slate-800"

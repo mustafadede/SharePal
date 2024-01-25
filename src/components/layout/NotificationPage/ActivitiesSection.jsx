@@ -5,6 +5,7 @@ import InfoLabel from "../../common/InfoLabel";
 import { useSelector } from "react-redux";
 import FeedTabs from "../FeedPage/FeedTabs";
 import { motion } from "framer-motion";
+import NotificationSuggestionCard from "../../common/NotificationCard/NotificationSuggestionCard";
 
 function ActivitiesSection({ user }) {
   const [tab, setTab] = useState(0);
@@ -14,7 +15,7 @@ function ActivitiesSection({ user }) {
   return (
     <div className="mt-4">
       <FeedTabs tabInfo={tab} tab={setTab} />
-      {(status === "error" || (commentTabLength === 0 && tab === 1)) && (
+      {(status === "error" || (commentTabLength === 0 && tab === 2)) && (
         <motion.h1
           className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
           initial={{ opacity: 0, y: -20 }}
@@ -26,6 +27,22 @@ function ActivitiesSection({ user }) {
       )}
       {status === "done" &&
         tab === 0 &&
+        notificationList
+          ?.filter((notification) => notification?.type === "suggest")
+          .reverse()
+          .map((notification, index) => (
+            <NotificationSuggestionCard
+              key={index}
+              uid={notification.from?.uid}
+              nick={notification.from?.nick}
+              photoURL={notification.from?.photo}
+              date={notification?.date}
+              deleteId={notification.id}
+              attached={notification.from?.attached}
+            />
+          ))}
+      {status === "done" &&
+        tab === 1 &&
         notificationList
           ?.filter((notification) => notification?.type === "like")
           .reverse()
@@ -40,7 +57,17 @@ function ActivitiesSection({ user }) {
               deleteId={notification.id}
             />
           ))}
-      {status === "done" && tab === 0 && notificationList?.filter((notification) => notification?.type === "like").length === 0 && (
+      {status === "done" && tab === 1 && notificationList?.filter((notification) => notification?.type === "like").length === 0 && (
+        <motion.h1
+          className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          Try more {user?.nick}. Follow more people. Follow the rabbit hole.
+        </motion.h1>
+      )}
+      {status === "done" && tab === 0 && notificationList?.filter((notification) => notification?.type === "suggest").length === 0 && (
         <motion.h1
           className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
           initial={{ opacity: 0, y: -20 }}
@@ -51,7 +78,7 @@ function ActivitiesSection({ user }) {
         </motion.h1>
       )}
       {status === "done" &&
-        tab === 1 &&
+        tab === 2 &&
         notificationList
           ?.filter((notification) => notification?.type === "comment")
           .reverse()
@@ -68,7 +95,7 @@ function ActivitiesSection({ user }) {
             />
           ))}
       {status === "done" &&
-        tab === 2 &&
+        tab === 3 &&
         notificationList
           ?.filter((notification) => notification?.type === "repost")
           .reverse()
@@ -83,7 +110,7 @@ function ActivitiesSection({ user }) {
               deleteId={notification.id}
             />
           ))}
-      {status === "done" && tab === 2 && <InfoLabel text="Coming soon..." />}
+      {status === "done" && tab === 3 && <InfoLabel text="Coming soon..." />}
     </div>
   );
 }

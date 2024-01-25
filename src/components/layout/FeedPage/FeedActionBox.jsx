@@ -20,7 +20,7 @@ function FeedActionBox() {
         transition={{ delay: 0.4 }}
       >
         <ActionTextArea />
-        {lastModalName === "attachedFilmModal" && <AttachedModal />}
+        {lastModalName === "attachedFilmModal" && modalHasData && <AttachedModal />}
         {tagFlag && <FeedActionBoxTag />}
         <div className="flex justify-end w-full gap-2">
           <ActionBoxButtons />

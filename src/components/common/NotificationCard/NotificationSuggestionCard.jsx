@@ -1,29 +1,53 @@
 import React, { useEffect, useState } from "react";
-import { delay, motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
-import { ChevronDownIcon, Cross1Icon, DotsVerticalIcon, HeartIcon } from "@radix-ui/react-icons";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { ChevronDownIcon, Cross1Icon, DotsVerticalIcon, HeartIcon, RocketIcon } from "@radix-ui/react-icons";
 import { deleteSelectedNotification, getSelectedUserPost } from "../../../firebase/firebaseActions";
 import FeedCard from "../FeedCard";
 import { DateFormatter } from "../../../utils/formatter";
 import FeedCardOnlineStatus from "../FeedCardOnlineStatus";
 import ActionDetailsCard from "../ActionDetailsCard";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import useSearchWithYear from "../../../hooks/useSearchWithYear";
+import { modalActions } from "../../../store/modalSlice";
+import { useDispatch } from "react-redux";
 import { notificationActions } from "../../../store/notificationSlice";
 
-function NotificationLikeCard({ uid, nick, photoURL, date, postId, deleteId }) {
+function NotificationSuggestionCard({ uid, nick, photoURL, date, postId, deleteId, attached }) {
   const [isOpen, setIsOpen] = useState(false);
   const [post, setPost] = useState(null);
   const [settings, setSettings] = useState(false);
   const newDate = DateFormatter(date);
-  const { user } = useSelector((state) => state.user);
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
   useEffect(() => {
     getSelectedUserPost(localStorage.getItem("user"), postId).then((res) => setPost(res));
   }, []);
 
   const handleClick = () => {
-    navigate(`/feed/${user.nick}/${postId}`, { state: { uId: user.uid, pId: postId } });
+    const movieInfoHandler = () => {
+      useSearchWithYear(attached.title, attached.releaseDate).then((data) => {
+        if (data) {
+          dispatch(
+            modalActions.openModal({
+              name: "searchCardModal",
+              data: {
+                id: data.id,
+                title: data.original_title || data.original_name,
+                poster: data.poster_path,
+                releaseDate: data.release_date || data.first_air_date,
+                overview: data.overview,
+                vote: data.vote_average,
+                backdrop: data.backdrop_path,
+                genres: data.genre_ids,
+                mediaType: data.media_type,
+                upcoming: data.upcoming,
+              },
+            })
+          );
+        }
+      });
+    };
+    movieInfoHandler();
   };
 
   const deleteHandler = () => {
@@ -37,7 +61,7 @@ function NotificationLikeCard({ uid, nick, photoURL, date, postId, deleteId }) {
   return (
     <>
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-        <div className="flex flex-row items-center justify-between w-full p-4 mb-4 transition-all duration-150 border border-transparent bg-slate-900 rounded-xl hover:border-slate-400">
+        <div className="relative flex flex-row items-center justify-between w-full p-4 mb-4 transition-all duration-150 border border-transparent bg-slate-900 rounded-xl hover:border-slate-400">
           <div className="flex gap-4">
             {!photoURL && (
               <div className="relative w-12 h-12 lg:w-16 lg:h-16">
@@ -63,39 +87,26 @@ function NotificationLikeCard({ uid, nick, photoURL, date, postId, deleteId }) {
                 >
                   <motion.span className="font-bold text-fuchsia-600 ">{nick}</motion.span>
                 </Link>
-                liked your
-                <button onClick={handleClick} className="hover:underline text-fuchsia-300">
-                  post
+                suggested
+                <button
+                  className="text-base transition-all duration-300 text-fuchsia-400 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600"
+                  onClick={handleClick}
+                >
+                  {attached.title.length > 24 ? attached.title.slice(0, 24) + "..." : attached.title}
                 </button>
+                to you.
               </motion.p>
 
               <motion.p className="text-sm text-slate-400">{newDate}</motion.p>
             </motion.div>
           </div>
           <div className="flex items-center gap-2">
-            <HeartIcon className="w-6 h-6 mr-2 text-slate-200" />
-            <button
-              className="flex items-center justify-center transition-all rounded-full w-7 h-7 bg-slate-800 hover:bg-fuchsia-700"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              <ChevronDownIcon className="w-6 h-6 text-slate-200" />
-            </button>
+            <RocketIcon className="w-6 h-6 mr-2 text-slate-200" />
             <button onClick={() => setSettings(!settings)}>
               <DotsVerticalIcon className="w-6 h-6 transition-colors text-slate-400 hover:text-slate-200" />
             </button>
           </div>
         </div>
-        {isOpen &&
-          post &&
-          post.map((data, index) => {
-            if (data.attachedFilm) {
-              return <FeedCard key={index} isAttached={true} data={data} notification={true} index={index} />;
-            } else if (data.spoiler) {
-              return <FeedCard key={index} isSpoiler={true} data={data} notification={true} index={index} />;
-            } else {
-              return <FeedCard key={index} isComment={true} data={data} notification={true} index={index} />;
-            }
-          })}
       </motion.div>
       {settings && (
         <ActionDetailsCard
@@ -115,4 +126,4 @@ function NotificationLikeCard({ uid, nick, photoURL, date, postId, deleteId }) {
   );
 }
 
-export default NotificationLikeCard;
+export default NotificationSuggestionCard;

@@ -13,6 +13,7 @@ import { followingActions } from "../../../store/followingSlice";
 import { userActions } from "../../../store/userSlice";
 import { profileActions } from "../../../store/profileSlice";
 import { useNavigate } from "react-router-dom";
+import { modalActions } from "../../../store/modalSlice";
 
 function UserActionButtons({ profileUser }) {
   const { user } = useSelector((state) => state.user);
@@ -60,7 +61,7 @@ function UserActionButtons({ profileUser }) {
   };
 
   const suggestHandler = () => {
-    toast("Coming soon...");
+    dispatch(modalActions.openModal({ name: "suggestFilmModal" }));
   };
 
   return (

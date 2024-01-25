@@ -3,14 +3,12 @@ import FeedCardButtons from "./Buttons/FeedCardButtons";
 import { motion } from "framer-motion";
 import FeedCardActionsSkeleton from "./FeedCardActions/FeedCardActionsSkeleton";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { Cross1Icon, DotsHorizontalIcon, Pencil1Icon } from "@radix-ui/react-icons";
+import { Cross1Icon, Pencil1Icon } from "@radix-ui/react-icons";
 import ActionDetailsCard from "../ActionDetailsCard";
 import { postsActions } from "../../../store/postsSlice";
 import { deleteSelectedPost, editSelectedPost } from "../../../firebase/firebaseActions";
 import { toast } from "react-toastify";
 import { DateFormatter } from "../../../utils/formatter";
-import FeedCardOnlineStatus from "../FeedCardOnlineStatus";
 import FeedCardHeader from "./components/FeedCardHeader";
 
 function FeedCommentCard({ data, notification }) {

@@ -988,6 +988,7 @@ const createNotification = async (uid, data) => {
         nick: data.from.nick,
         photo: data.from.photo,
         postId: data.from?.postId || null,
+        attached: data.from?.attached || null,
       },
       date: data.date,
       type: data.type,

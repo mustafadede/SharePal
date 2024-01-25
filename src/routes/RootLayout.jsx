@@ -13,6 +13,7 @@ import ShareModal from "../components/layout/ShareModal/ShareModal";
 import FollowerModal from "../components/layout/FollowerModal/FollowerModal";
 import FeedCardActionModal from "../components/layout/FeedCardActionModal/FeedCardActionModal";
 import SplashModal from "../components/layout/SplashModal/SplashModal";
+import SuggestFilmModal from "../components/common/SuggestFılmModal/suggestFilmModal";
 
 function RootLayout() {
   const { modalState, modalName } = useSelector((state) => state.modal);
@@ -87,6 +88,11 @@ function RootLayout() {
         {modalState && modalName === "splashModal" && (
           <ModalSkeleton>
             <SplashModal />
+          </ModalSkeleton>
+        )}
+        {modalState && modalName === "suggestFilmModal" && (
+          <ModalSkeleton>
+            <SuggestFilmModal />
           </ModalSkeleton>
         )}
         <Outlet />
