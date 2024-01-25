@@ -6,11 +6,13 @@ const modalSlice = createSlice({
     modalState: false,
     modalName: "",
     modalHasData: false,
+    lastModalName: "",
   },
   reducers: {
     openModal: (state, action) => {
       state.modalState = true;
       state.modalName = action.payload.name;
+      state.lastModalName = "";
       state.modalHasData = action.payload?.data ? action.payload.data : false;
     },
     closeModal: (state, action) => {
@@ -20,6 +22,9 @@ const modalSlice = createSlice({
     },
     renameList: (state, action) => {
       state.modalHasData.title = action.payload;
+    },
+    assignLastModalName: (state, action) => {
+      state.lastModalName = action.payload;
     },
   },
 });

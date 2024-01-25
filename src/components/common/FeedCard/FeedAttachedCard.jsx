@@ -13,6 +13,8 @@ import { postsActions } from "../../../store/postsSlice";
 import useSearchWithYear from "../../../hooks/useSearchWithYear";
 import { DateFormatter } from "../../../utils/formatter";
 import FeedCardOnlineStatus from "../FeedCardOnlineStatus";
+import AttachedItem from "./Components/AttachedItem";
+import FeedCardHeader from "./components/FeedCardHeader";
 
 function FeedAttachedCard({ data, attachedData, notification }) {
   const [settings, setSettings] = useState(false);
@@ -89,46 +91,15 @@ function FeedAttachedCard({ data, attachedData, notification }) {
         initial={{ opacity: 0, y: -20, transition: { duration: 2 } }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <div className="flex justify-between w-full">
-          <div className="flex gap-4">
-            {!data.photoURL && (
-              <div className="relative w-12 h-12">
-                <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" loading="lazy" src={data.photoURL}></img>
-                <FeedCardOnlineStatus username={!notification && data.nick === user ? false : true} data={data} />
-              </div>
-            )}
-            {data.photoURL && (
-              <div className="relative w-12 h-12">
-                <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" loading="lazy" src={data.photoURL}></img>
-                <FeedCardOnlineStatus username={!notification && data.nick === user ? false : true} data={data} />
-              </div>
-            )}
-            <div className="flex flex-col">
-              <NavLink to={data.nick === user ? `/profile` : `/user/${data.nick}`}>
-                <p className="transition-all duration-300 text-md text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600">
-                  @{data.nick}
-                </p>
-              </NavLink>
-              <p className="text-xs text-slate-400">{date}</p>
-            </div>
-          </div>
-          <div className="flex items-center justify-center gap-2">
-            {data.spoiler && (
-              <div className="flex gap-2">
-                <LockClosedIcon className="w-4 h-4 text-slate-200" />
-                <p className="text-sm text-slate-400">Spoiler!</p>
-              </div>
-            )}
-            {!notification && data.nick === user && (
-              <div className="flex items-center justify-center gap-2">
-                {(isEdited || data.edited) && <p className="text-sm text-slate-400">(Edited)</p>}
-                <button onClick={() => setSettings(!settings)}>
-                  <DotsHorizontalIcon className="w-6 h-6 transition-colors text-slate-400 hover:text-slate-200" />
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
+        <FeedCardHeader
+          data={data}
+          date={date}
+          isEdited={isEdited}
+          setSettings={setSettings}
+          settings={settings}
+          user={user}
+          notification={notification}
+        />
         {data.spoiler && !rename && (
           <p className={"py-4 text-slate-200 cursor-pointer duration-150 transition-all  blur-sm select-none"} onClick={handleSpoiler}>
             {data.text || data.content}
@@ -145,33 +116,7 @@ function FeedAttachedCard({ data, attachedData, notification }) {
             onKeyDown={(e) => handlePost(e)}
           />
         )}
-        <button
-          className="flex items-center justify-between w-full gap-4 p-2 transition-all duration-700 border rounded-2xl border-slate-700 group hover:bg-cGradient2 hover:border-slate-600"
-          onClick={onClickHandler}
-        >
-          <div className="flex items-center gap-4">
-            <img
-              src={`https://image.tmdb.org/t/p/w500/${attachedData?.poster || data.attachedFilm.poster}`}
-              className="object-cover transition-all duration-700 rounded-full w-14 h-14 grayscale group-hover:grayscale-0"
-              loading="lazy"
-            ></img>
-            <div className="flex items-center justify-center gap-1">
-              <p className="transition-all duration-700 text-slate-400 group-hover:text-slate-200">
-                {attachedData?.title || data.attachedFilm.title}
-              </p>
-              <p className="transition-all duration-700 text-slate-400 group-hover:text-slate-200">
-                ({attachedData?.releaseDate.slice(0, 4) || data.attachedFilm.releaseDate.slice(0, 4)})
-              </p>
-            </div>
-          </div>
-          {/* <button onClick={onClickHandler}>
-          {!bookmarked ? (
-            <BookmarkIcon className="w-6 h-6 transition-all duration-700 text-slate-400 group-hover:text-slate-200" />
-          ) : (
-            <BookmarkFilledIcon className="w-6 h-6 transition-all duration-700 text-fuchsia-600" />
-          )}
-        </button> */}
-        </button>
+        <AttachedItem data={data} attachedData={attachedData} onClickHandler={onClickHandler} />
         {!notification && (
           <div className="flex gap-2">
             <FeedCardActionsSkeleton action={"likes"} number={data.likes} data={data} />

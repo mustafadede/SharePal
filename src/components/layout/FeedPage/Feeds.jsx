@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FeedCard from "../../common/FeedCard";
+import { getAllPosts } from "../../../firebase/firebaseActions";
+import { postsActions } from "../../../store/postsSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-function Feeds({ tab, status, posts }) {
+function Feeds({ tab }) {
+  const { posts, status } = useSelector((state) => state.posts);
+  const { post } = useSelector((state) => state.createPost);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getData = async () => {
+      dispatch(postsActions.updateStatus("loading"));
+      const response = await getAllPosts();
+      dispatch(postsActions.updatePosts(response));
+      dispatch(postsActions.updateStatus("done"));
+    };
+    getData();
+  }, [tab, post]);
+
   return (
     <div>
       {tab === 0 &&

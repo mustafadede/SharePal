@@ -1,20 +1,37 @@
 import { getAuth } from "firebase/auth";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { getCurrentUserData, getFollowersForUser, getSelectedUserFollowing } from "../../firebase/firebaseActions";
+import { userActions } from "../../store/userSlice";
+import { followersActions } from "../../store/followersSlice";
+import { followingActions } from "../../store/followingSlice";
 
-const ProfileCard = ({ nick = "-", username, quote = "-", banner }) => {
+const ProfileCard = () => {
   const photo = getAuth().currentUser?.photoURL;
   const { followingList } = useSelector((state) => state.following);
   const { followersLists } = useSelector((state) => state.followers);
-
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+  useEffect(() => {
+    const getData = async () => {
+      const userData = await getCurrentUserData(localStorage.getItem("user"));
+      userData && dispatch(userActions.updateUser(userData));
+      const response = await getSelectedUserFollowing(localStorage.getItem("user"));
+      response && dispatch(followingActions.initialFollowing(response));
+      const followers = await getFollowersForUser(localStorage.getItem("user"));
+      followers && dispatch(followersActions.initialFollowers(followers));
+    };
+    getData();
+  }, []);
   return (
     <div className="flex flex-col lg:w-56 xl:w-72 h-fit bg-slate-900 rounded-2xl">
       <div className="relative h-28">
-        {!banner && <div className="absolute object-cover object-top w-full h-24 bg-slate-700 rounded-t-2xl opacity-90"></div>}
-        {banner && (
+        {!user?.banner && <div className="absolute object-cover object-top w-full h-24 bg-slate-700 rounded-t-2xl opacity-90"></div>}
+        {user?.banner && (
           <img
             className="object-cover object-top w-full h-24 bg-slate-700 rounded-t-2xl opacity-90"
-            src={banner}
+            src={user?.banner}
             loading="lazy"
             alt="banner"
           ></img>
@@ -32,9 +49,9 @@ const ProfileCard = ({ nick = "-", username, quote = "-", banner }) => {
         )}
       </div>
       <div className="flex flex-col items-center justify-center pt-5">
-        <p className="text-xl text-slate-200">{username}</p>
-        <p className="text-md text-slate-400">@{nick}</p>
-        <p className="px-6 pt-2 text-sm text-center xl:text-lg text-slate-300">{quote}</p>
+        <p className="text-xl text-slate-200">{user?.username}</p>
+        <p className="text-md text-slate-400">@{user?.nick}</p>
+        <p className="px-6 pt-2 text-sm text-center xl:text-lg text-slate-300">{user?.quote}</p>
       </div>
       <div className="flex justify-around pt-2 text-center">
         <div className="flex flex-col ">

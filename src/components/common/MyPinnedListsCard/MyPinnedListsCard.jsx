@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
 import MyListsModalCard from "../../layout/MyListModal/MyListsModalCard";
+import { getSelectedUserLists } from "../../../firebase/firebaseActions";
+import { MyListsActions } from "../../../store/myListsSlice";
 
 function MyPinnedListsCard({ isCard = false }) {
   const { myLists } = useSelector((state) => state.myLists);
@@ -11,6 +13,13 @@ function MyPinnedListsCard({ isCard = false }) {
   const clickHandler = () => {
     dispatch(modalActions.openModal({ name: "pinnedModal" }));
   };
+  useEffect(() => {
+    const getData = async () => {
+      const res = await getSelectedUserLists(localStorage.getItem("user"));
+      dispatch(MyListsActions.initilizeList(res));
+    };
+    getData();
+  }, []);
   return (
     <>
       <motion.div

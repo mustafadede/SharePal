@@ -23,7 +23,7 @@ function FollowingSecctionComponent({ tab }) {
 
   return (
     <>
-      {status === "done" ? (
+      {status === "done" &&
         posts
           .map((data, index) => {
             if (data.attachedFilm) {
@@ -36,12 +36,7 @@ function FollowingSecctionComponent({ tab }) {
               return <FeedCard key={index} isComment={true} data={data} index={index} />;
             }
           })
-          .reverse()
-      ) : status === "loading" ? (
-        <p className="w-full mt-1 text-xl text-center text-slate-400">Loading...</p>
-      ) : (
-        <p className="w-full mt-1 text-xl text-center text-slate-400">You don't follow anyone</p>
-      )}
+          .reverse()}
     </>
   );
 }
