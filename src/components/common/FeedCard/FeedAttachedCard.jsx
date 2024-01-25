@@ -1,19 +1,17 @@
-import { BookmarkFilledIcon, BookmarkIcon, Cross1Icon, DotsHorizontalIcon, LockClosedIcon, Pencil1Icon } from "@radix-ui/react-icons";
+import { BookmarkFilledIcon, BookmarkIcon, Cross1Icon, Pencil1Icon } from "@radix-ui/react-icons";
 import React, { useState } from "react";
 import FeedCardButtons from "./Buttons/FeedCardButtons";
 import { motion } from "framer-motion";
 import FeedCardActionsSkeleton from "./FeedCardActions/FeedCardActionsSkeleton";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
 import { modalActions } from "../../../store/modalSlice";
-import { deleteSelectedPost, editSelectedPost, updatePinnedList } from "../../../firebase/firebaseActions";
+import { deleteSelectedPost, editSelectedPost } from "../../../firebase/firebaseActions";
 import ActionDetailsCard from "../ActionDetailsCard";
 import { toast } from "react-toastify";
 import { postsActions } from "../../../store/postsSlice";
 import useSearchWithYear from "../../../hooks/useSearchWithYear";
 import { DateFormatter } from "../../../utils/formatter";
-import FeedCardOnlineStatus from "../FeedCardOnlineStatus";
-import AttachedItem from "./Components/AttachedItem";
+import AttachedItem from "./components/AttachedItem";
 import FeedCardHeader from "./components/FeedCardHeader";
 
 function FeedAttachedCard({ data, attachedData, notification }) {
