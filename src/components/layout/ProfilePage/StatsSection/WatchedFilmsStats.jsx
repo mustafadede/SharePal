@@ -6,7 +6,16 @@ function WatchedFilmsStats({ username, user }) {
   const dispatch = useDispatch();
   const { watchedMovieList } = useSelector((state) => state.watched);
   const clickHandler = () => {
-    !username && dispatch(modalActions.openModal({ name: "likesModal", data: { title: "Total Films", ids: watchedMovieList } }));
+    if (!username) {
+      dispatch(modalActions.openModal({ name: "likesModal", data: { title: "Total Films", ids: watchedMovieList } }));
+    } else {
+      dispatch(
+        modalActions.openModal({
+          name: "likesModal",
+          data: { title: "Total Films", ids: user?.totalFilmsStats },
+        })
+      );
+    }
   };
   return (
     <div className="flex flex-col w-full gap-4 p-4 h-fit rounded-xl bg-slate-900">

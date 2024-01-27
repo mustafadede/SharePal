@@ -47,10 +47,12 @@ function UserProfilePage() {
           getSelectedUserWatched(userData[0].uid).then((res) => {
             const filteredTVData = res?.filter((item) => item.mediaType === "tv");
             dispatch(profileActions.updateTotalSeries(filteredTVData.length));
+            dispatch(profileActions.updateTotalSeriesStats(filteredTVData));
           });
           getSelectedUserWatched(userData[0].uid).then((res) => {
             const filteredMovieData = res?.filter((item) => item.mediaType === "movie");
             dispatch(profileActions.updateTotalFilms(filteredMovieData.length));
+            dispatch(profileActions.updateTotalFilmsStats(filteredMovieData));
           });
         });
       });

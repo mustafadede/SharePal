@@ -9,6 +9,8 @@ const profileSlice = createSlice({
       following: 0,
       totalSeries: 0,
       totalFilms: 0,
+      totalFilmsStats: [],
+      totalSeriesStats: [],
     },
     profileState: "loading",
   },
@@ -36,6 +38,12 @@ const profileSlice = createSlice({
     },
     updateState: (state, action) => {
       state.profileState = action.payload;
+    },
+    updateTotalFilmsStats: (state, action) => {
+      state.profileUser.totalFilmsStats = action.payload;
+    },
+    updateTotalSeriesStats: (state, action) => {
+      state.profileUser.totalSeriesStats = action.payload;
     },
   },
 });

@@ -6,7 +6,16 @@ function WatchedSeriesStats({ username, user }) {
   const dispatch = useDispatch();
   const { watchedSeriesList } = useSelector((state) => state.watched);
   const clickHandler = () => {
-    !username && dispatch(modalActions.openModal({ name: "likesModal", data: { title: "Total Series", ids: watchedSeriesList } }));
+    if (!username) {
+      dispatch(modalActions.openModal({ name: "likesModal", data: { title: "Total Series", ids: watchedSeriesList } }));
+    } else {
+      dispatch(
+        modalActions.openModal({
+          name: "likesModal",
+          data: { title: "Total Series", ids: user?.totalSeriesStats },
+        })
+      );
+    }
   };
   return (
     <div className="flex flex-col w-full gap-4 p-4 h-fit rounded-xl bg-slate-900">
