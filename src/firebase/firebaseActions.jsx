@@ -993,6 +993,7 @@ const createNotification = async (uid, data) => {
       date: data.date,
       type: data.type,
       isRead: false,
+      isDone: false,
     });
     return true;
   } catch (error) {

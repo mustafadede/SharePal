@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Cross1Icon, DotsVerticalIcon, PersonIcon } from "@radix-ui/react-icons";
 import { DateFormatter } from "../../../utils/formatter";
-import FeedCardOnlineStatus from "../FeedCardOnlineStatus";
 import ActionDetailsCard from "../ActionDetailsCard";
 import { deleteSelectedNotification } from "../../../firebase/firebaseActions";
 import { toast } from "react-toastify";
 import { notificationActions } from "../../../store/notificationSlice";
+import NotificationPhoto from "./components/NotificationPhoto";
 
 function NotificationFollowCard({ uid, nick, photoURL, date, deleteId }) {
   const newDate = DateFormatter(date);
@@ -30,22 +30,7 @@ function NotificationFollowCard({ uid, nick, photoURL, date, deleteId }) {
         className="flex flex-row items-center justify-between w-full p-4 mt-4 transition-all duration-150 border border-transparent bg-slate-900 rounded-xl hover:border-slate-400"
       >
         <div className="flex gap-4">
-          {!photoURL && (
-            <div className="relative w-12 h-12 lg:w-16 lg:h-16">
-              <motion.div className="w-12 h-12 rounded-full lg:w-16 lg:h-16 bg-fuchsia-600"></motion.div>
-              <FeedCardOnlineStatus username={true} data={uid} />
-            </div>
-          )}
-          {photoURL && (
-            <div className="relative w-12 h-12 lg:w-16 lg:h-16">
-              <motion.img
-                className="object-cover w-12 h-12 rounded-full lg:w-16 lg:h-16 bg-fuchsia-600"
-                loading="lazy"
-                src={photoURL}
-              ></motion.img>
-              <FeedCardOnlineStatus username={true} data={uid} />
-            </div>
-          )}
+          <NotificationPhoto uid={uid} photoURL={photoURL} />
           <motion.div className="flex flex-col items-start justify-center">
             <motion.p className="flex gap-1 text-base text-cWhite text-slate-20">
               <Link

@@ -5,7 +5,7 @@ import { modalActions } from "../../../store/modalSlice";
 import { toast } from "react-toastify";
 import { createNotification } from "../../../firebase/firebaseActions";
 
-function AttachedCard({ title, poster, releaseDate, backdrop, isSuggest = false }) {
+function AttachedCard({ title, poster, releaseDate, backdrop, isSuggest = false, id, mediaType }) {
   const { profileUser } = useSelector((state) => state.profile);
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -21,6 +21,8 @@ function AttachedCard({ title, poster, releaseDate, backdrop, isSuggest = false 
           poster: poster,
           releaseDate: releaseDate,
           backdrop: backdrop,
+          id: id,
+          mediaType: mediaType,
         },
       },
       type: "suggest",
