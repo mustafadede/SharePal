@@ -64,6 +64,10 @@ function UserActionButtons({ profileUser }) {
     dispatch(modalActions.openModal({ name: "suggestFilmModal" }));
   };
 
+  const createListHandler = () => {
+    dispatch(modalActions.openModal({ name: "createFriendList" }));
+  };
+
   return (
     <motion.div
       className="flex justify-center w-full gap-4"
@@ -91,7 +95,7 @@ function UserActionButtons({ profileUser }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
             className="flex items-center justify-center w-full h-12 text-xl transition-all cursor-pointer text-slate-200 md:w-1/3 bg-slate-600 rounded-2xl hover:bg-slate-900"
-            onClick={() => toast("Coming soon...")}
+            onClick={createListHandler}
           >
             Create List
           </motion.div>

@@ -14,6 +14,7 @@ import FollowerModal from "../components/layout/FollowerModal/FollowerModal";
 import FeedCardActionModal from "../components/layout/FeedCardActionModal/FeedCardActionModal";
 import SplashModal from "../components/layout/SplashModal/SplashModal";
 import SuggestFilmModal from "../components/common/SuggestFılmModal/suggestFilmModal";
+import CreateFriendList from "../components/common/CreateFriendList/CreateFriendList";
 
 function RootLayout() {
   const { modalState, modalName } = useSelector((state) => state.modal);
@@ -93,6 +94,11 @@ function RootLayout() {
         {modalState && modalName === "suggestFilmModal" && (
           <ModalSkeleton>
             <SuggestFilmModal />
+          </ModalSkeleton>
+        )}
+        {modalState && modalName === "createFriendList" && (
+          <ModalSkeleton>
+            <CreateFriendList />
           </ModalSkeleton>
         )}
         <Outlet />

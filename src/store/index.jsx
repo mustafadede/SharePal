@@ -15,6 +15,7 @@ import unfinishedSlice from "./unfinishedSlice";
 import splashSlice from "./splashSlice";
 import cardSlice from "./cardSlice";
 import privacySlice from "./privacySlice";
+import UsersSuggestionsListSlice from "./UsersSuggestionsListSlice";
 
 const store = configureStore({
   reducer: {
@@ -34,6 +35,7 @@ const store = configureStore({
     splash: splashSlice,
     card: cardSlice,
     privacy: privacySlice,
+    usersSuggestionsList: UsersSuggestionsListSlice,
   },
 });
 

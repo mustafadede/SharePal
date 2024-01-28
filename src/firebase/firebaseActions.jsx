@@ -1387,6 +1387,50 @@ const getSelectedUserUnfinished = async (userId) => {
   return selectedUserUnfinished;
 };
 
+const createUserSuggestionLists = async (userId, data) => {
+  try {
+    const newSuggestionListRef = push(ref(database, `userSuggestionLists/${userId}`));
+    set(newSuggestionListRef, data);
+    return true;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const getSelectedUserSuggestionLists = async (userId) => {
+  const suggestionListsRef = ref(database, `userSuggestionLists/${userId}`);
+  const snapshot = await get(suggestionListsRef);
+  const selectedUserSuggestionLists = [];
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      selectedUserSuggestionLists.push({
+        id: childSnapshot.val().id,
+        title: childSnapshot.val().title,
+        date: childSnapshot.val().date,
+        from: childSnapshot.val().from,
+      });
+    });
+  }
+  return selectedUserSuggestionLists;
+};
+
+const deleteSelectedUserSuggestionList = async (userId, listId) => {
+  try {
+    const suggestionListsRef = ref(database, `userSuggestionLists/${userId}`);
+    const snapshot = await get(suggestionListsRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().id === listId) {
+          set(ref(database, `userSuggestionLists/${userId}/${childSnapshot.key}`), null);
+        }
+      });
+    }
+    return true;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const updatePassword = async (password) => {
   try {
     await updatePassword(auth.currentUser, password);
@@ -1469,6 +1513,9 @@ export {
   getSelectedUserWantToWatch,
   getSelectedUserWatched,
   getSelectedUserUnfinished,
+  createUserSuggestionLists,
+  getSelectedUserSuggestionLists,
+  deleteSelectedUserSuggestionList,
   updatePassword,
   deleteAccount,
 };
