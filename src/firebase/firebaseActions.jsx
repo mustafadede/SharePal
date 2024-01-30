@@ -1,4 +1,12 @@
-import { createUserWithEmailAndPassword, deleteUser, getAuth, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  EmailAuthProvider,
+  createUserWithEmailAndPassword,
+  deleteUser,
+  getAuth,
+  reauthenticateWithCredential,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import { auth, database, storage } from "./firebaseConfig";
 import { toast } from "react-toastify";
 import { child, get, getDatabase, orderByValue, push, query, ref, set, update } from "firebase/database";
@@ -1431,16 +1439,6 @@ const deleteSelectedUserSuggestionList = async (userId, listId) => {
   }
 };
 
-const updatePassword = async (password) => {
-  try {
-    await updatePassword(auth.currentUser, password);
-    return true;
-  } catch (error) {
-    console.error(error);
-    return toast("Something went wrong!");
-  }
-};
-
 const deleteAccount = async () => {
   try {
     deleteUser(auth.currentUser);
@@ -1516,6 +1514,5 @@ export {
   createUserSuggestionLists,
   getSelectedUserSuggestionLists,
   deleteSelectedUserSuggestionList,
-  updatePassword,
   deleteAccount,
 };

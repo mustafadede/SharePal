@@ -145,13 +145,13 @@ function AccountSettings() {
             </div>
           </div>
         </div>
-        <ChangePasswordComponent />
         <button
-          className="w-full px-4 py-3 my-2 text-xl transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl"
+          className="w-full px-4 py-3 my-2 mt-4 text-xl transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl"
           onClick={formHandler}
         >
-          Save
+          Save Changes
         </button>
+        <ChangePasswordComponent />
         <DangerZoneComponent />
       </div>
     </motion.div>
