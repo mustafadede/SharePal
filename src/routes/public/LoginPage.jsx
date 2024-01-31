@@ -112,7 +112,18 @@ function LoginPage() {
                   {showPassword ? <EyeOpenIcon className="w-6 h-6" /> : <EyeClosedIcon className="w-6 h-6" />}
                 </button>
               </div>
-              <CheckBox label="Remember me" onClickHandler={StateHandler} />
+              <div className="flex justify-around w-full ml-2">
+                <CheckBox label="Remember me" onClickHandler={StateHandler} />
+                <motion.button
+                  type="button"
+                  className="mr-4 duration-150 text-md lg:text-lg hover:underline text-fuchsia-400 focus:outline-none"
+                  onClick={() => {
+                    navigate("/reset");
+                  }}
+                >
+                  Forgot Password?
+                </motion.button>
+              </div>
               <button type="submit" className="w-full py-2 mt-2 text-xl rounded-lg md:w-3/4 bg-fuchsia-600 text-cWhite">
                 Log In
               </button>

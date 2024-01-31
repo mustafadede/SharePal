@@ -14,6 +14,7 @@ import ExplorePage from "./private/ExplorePage";
 import NotificationsPage from "./private/NotificationsPage";
 import UserProfilePage from "./private/UserProfilePage";
 import FeedCardPage from "./private/FeedCardPage";
+import ResetPassword from "./public/resetPassword";
 const router = createHashRouter([
   {
     path: "/",
@@ -23,6 +24,7 @@ const router = createHashRouter([
       { index: true, element: <HomePage /> },
       { path: "signup", element: <SignUpPage /> },
       { path: "login", element: <LoginPage /> },
+      { path: "reset", element: <ResetPassword /> },
       {
         path: "feed",
         element: (
