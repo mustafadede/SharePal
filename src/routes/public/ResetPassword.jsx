@@ -23,8 +23,8 @@ function ResetPassword() {
 
   const onClassDefiner = (value) => {
     const definer = value
-      ? "w-full px-4 py-3 my-2 text-xl transition-colors md:w-3/4 bg-red-900 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
-      : "w-full px-4 py-3 my-2 text-xl transition-colors md:w-3/4 bg-cGradient1 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl";
+      ? "w-1/3 md:w-3/4 px-4 py-3 my-2 text-xl transition-colors md:w-3/4 bg-red-900 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
+      : "w-1/3 md:w-3/4 px-4 py-3 my-2 text-xl transition-colors md:w-3/4 bg-cGradient1 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl";
     return definer;
   };
 
@@ -48,7 +48,7 @@ function ResetPassword() {
     <>
       <Navbar />
       <motion.div className="flex flex-col items-center justify-center mt-10 h-96">
-        <h1 className="mb-10 text-5xl font-bold text-center text-cWhite">Reset Password</h1>
+        <h1 className="mb-4 text-3xl font-bold text-center md:text-4xl lg:text-5xl text-cWhite">Reset Password</h1>
         <motion.form className="w-[46rem] flex flex-col items-center" onSubmit={handleSubmit(submitHandler)}>
           <motion.input
             type="email"
@@ -58,7 +58,7 @@ function ResetPassword() {
             {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
             aria-invalid={errors.email ? true : false}
           />
-          <div className="flex w-3/4">
+          <div className="flex w-1/3 md:w-3/4">
             {localStorage.getItem("m") ? (
               <div className="flex justify-start">
                 <LoginPill
@@ -70,7 +70,7 @@ function ResetPassword() {
               </div>
             ) : null}
           </div>
-          <button type="submit" className="w-full py-2 mt-2 text-xl rounded-lg md:w-3/4 bg-fuchsia-800 text-cWhite">
+          <button type="submit" className="w-1/3 py-2 mt-4 text-xl rounded-lg md:w-3/4 bg-fuchsia-800 text-cWhite">
             Send Reset Link
           </button>
         </motion.form>
