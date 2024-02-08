@@ -8,8 +8,6 @@ function ShareModal() {
   const { modalHasData } = useSelector((state) => state.modal);
   const handleCopy = () => {
     navigator.clipboard.writeText(`https://sharepal.dev/#/feed/${modalHasData.nick}/${modalHasData.postId}`);
-    localStorage.setItem("shareUId", `${modalHasData.userId}`);
-    localStorage.setItem("sharePId", `${modalHasData.postId}`);
     toast.success("Copied to clipboard");
   };
 

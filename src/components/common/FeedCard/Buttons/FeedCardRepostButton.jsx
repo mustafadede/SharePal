@@ -8,10 +8,18 @@ import {
   removeSelectedUserPostRepostsLists,
   updateSelectedPost,
 } from "../../../../firebase/firebaseActions";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 function FeedCardRepostButton({ data }) {
   const [isReposted, setIsReposted] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleRepost = () => {
+    if (!localStorage.getItem("user")) {
+      navigate("/login");
+      return toast("You need to be logged in to perform this action");
+    }
     setIsReposted(!isReposted);
     if (!isReposted) {
       dispatch(
@@ -58,7 +66,7 @@ function FeedCardRepostButton({ data }) {
 
   useEffect(() => {
     const checkIfReposted = () => {
-      data?.repostsList?.find((val) => val.id === getAuth().currentUser.uid) && setIsReposted(true);
+      data?.repostsList?.find((val) => val.id === getAuth().currentUser?.uid) && setIsReposted(true);
     };
     checkIfReposted();
   }, []);

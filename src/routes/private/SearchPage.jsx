@@ -35,7 +35,7 @@ function SearchPage() {
       <div className="flex mx-5 md:mx-10">
         <div className="flex flex-col w-full md:pr-6">
           {/* Search title and input start */}
-          <motion.div className="sticky flex w-full pb-4 " initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
+          <motion.div className="sticky flex w-full" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
             <div className="w-full">
               <h1 className="mb-4 text-3xl text-slate-200">Search</h1>
               <input
@@ -76,6 +76,9 @@ function SearchPage() {
               )}
             {movies.length === 0 && users.length === 0 && <p className="text-2xl text-slate-600">✨ Search something ✨</p>}
           </div>
+          {!movies && users.length > 0 && (
+            <h1 className="flex justify-end w-full mb-2 text-xl text-slate-400">Total User: {users.length}</h1>
+          )}
           <div className="flex flex-col w-full gap-7 mb-7">
             {!movies && users.map((user) => <SearchUserCard key={user.displayName} user={user} />)}
           </div>

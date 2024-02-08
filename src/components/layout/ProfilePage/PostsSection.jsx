@@ -9,11 +9,13 @@ function PostsSection({ username, uid, accountPrivacyFlag }) {
   useEffect(() => {
     setTimeout(() => {
       if (!username) {
-        getSelectedUserPosts(localStorage.getItem("user")).then((res) => {
-          setPosts(res);
-        });
+        localStorage.getItem("user") &&
+          getSelectedUserPosts(localStorage.getItem("user")).then((res) => {
+            setPosts(res);
+          });
       } else {
-        accountPrivacyFlag &&
+        localStorage.getItem("user") &&
+          accountPrivacyFlag &&
           getSelectedUserPosts(uid).then((res) => {
             setPosts(res);
           });

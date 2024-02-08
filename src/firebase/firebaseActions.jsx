@@ -712,6 +712,8 @@ const createCommentsList = async (postId, data) => {
       reposts: 0,
       repostsList: [],
       isEdited: false,
+      relatedPostId: data.relatedPostId,
+      relatedUserId: data.relatedUserId,
     });
     return true;
   } catch (error) {
@@ -780,9 +782,40 @@ const getCommentsList = async (postId) => {
         repostsList: childSnapshot.val().repostsList || [],
         date: childSnapshot.val().date,
         isEdited: childSnapshot.val().isEdited || false,
+        relatedPostId: childSnapshot.val().relatedPostId,
+        relatedUserId: childSnapshot.val().relatedUserId,
       });
     });
   }
+  return comments;
+};
+
+const getSelectedComment = async (postId, commentId) => {
+  const commentsRef = ref(database, `commentsList/${postId}`);
+  const snapshot = await get(commentsRef);
+  const comments = [];
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      if (childSnapshot.val().commentId === commentId) {
+        comments.push({
+          commentId: childSnapshot.val().commentId,
+          userId: childSnapshot.val().userId,
+          comment: childSnapshot.val().comment,
+          likes: childSnapshot.val().likes || 0,
+          likesList: childSnapshot.val().likesList || [],
+          comments: childSnapshot.val().comments || 0,
+          commentsList: childSnapshot.val().commentsList || [],
+          reposts: childSnapshot.val().reposts || 0,
+          repostsList: childSnapshot.val().repostsList || [],
+          date: childSnapshot.val().date,
+          isEdited: childSnapshot.val().isEdited || false,
+          relatedPostId: childSnapshot.val().relatedPostId,
+          relatedUserId: childSnapshot.val().relatedUserId,
+        });
+      }
+    });
+  }
+  console.log(comments);
   return comments;
 };
 
@@ -1476,6 +1509,7 @@ export {
   deleteSelectedComment,
   updateSelectedComment,
   getCommentsList,
+  getSelectedComment,
   createUserCommentsList,
   updateUserCommentsList,
   deleteUserCommentsList,

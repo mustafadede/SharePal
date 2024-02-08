@@ -12,7 +12,13 @@ function FeedCardPageCommentSection({ cardPost }) {
   const handlePostComment = () => {
     const commentId = Date.now() + user.uid; // This is a temporary solution, it will be changed in the future
     if (comment.length === 0) return toast.error("Comment can't be empty");
-    createCommentsList(cardPost[0]?.postId, { commentId: commentId, userId: user.uid, comment: comment }).then(() => {
+    createCommentsList(cardPost[0]?.postId, {
+      commentId: commentId,
+      userId: user.uid,
+      comment: comment,
+      relatedPostId: cardPost[0]?.postId,
+      relatedUserId: cardPost[0]?.userId,
+    }).then(() => {
       updateSelectedPost(cardPost[0]?.userId.trim(""), cardPost[0]?.postId, { comments: cardPost[0]?.comments + 1 });
       dispatch(
         cardActions.updateComments({
@@ -25,6 +31,8 @@ function FeedCardPageCommentSection({ cardPost }) {
           likes: 0,
           comments: 0,
           isEdited: false,
+          relatedPostId: cardPost[0]?.postId,
+          relatedUserId: cardPost[0]?.userId,
         })
       );
       if (user.uid !== cardPost[0]?.userId) {

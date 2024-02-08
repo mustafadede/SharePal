@@ -9,12 +9,20 @@ import {
 } from "../../../../firebase/firebaseActions";
 import { getAuth } from "firebase/auth";
 import { postsActions } from "../../../../store/postsSlice";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 function FeedCardLikeButton({ data }) {
   const [isLiked, setIsLiked] = useState(false);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
   const handleLike = () => {
+    if (!localStorage.getItem("user")) {
+      navigate("/login");
+      return toast("You need to be logged in to perform this action");
+    }
     setIsLiked(!isLiked);
     if (!isLiked) {
       dispatch(
@@ -72,7 +80,7 @@ function FeedCardLikeButton({ data }) {
 
   useState(() => {
     const checkIfLiked = () => {
-      data.likesList?.find((val) => val.id === getAuth().currentUser.uid) && setIsLiked(true);
+      data.likesList?.find((val) => val.id === getAuth().currentUser?.uid) && setIsLiked(true);
     };
     checkIfLiked();
   }, []);

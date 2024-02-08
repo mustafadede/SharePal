@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Navbar from "../../components/layout/Navbar";
 import { useDispatch, useSelector } from "react-redux";
-import { getSpecificPost } from "../../firebase/firebaseActions";
+import { getSelectedComment, getSpecificPost, getUserByTheUsername } from "../../firebase/firebaseActions";
 import FeedCardPageCardComponent from "../../components/layout/FeedCardPage/FeedCardPageCardComponent";
 import FeedCardPageBackButton from "../../components/layout/FeedCardPage/FeedCardPageBackButton";
 import FeedCardPageCommentComponent from "../../components/layout/FeedCardPage/FeedCardPageCommentComponent";
@@ -23,29 +23,39 @@ function FeedCardPage() {
     const getData = async () => {
       cardData.length === 0 && dispatch(cardActions.updateState("loading"));
       if (incomingData) {
-        getSpecificPost(incomingData?.uId.trim(""), incomingData?.pId).then((res) => {
-          dispatch(cardActions.updateState("done"));
-          dispatch(cardActions.updateData(res));
-        });
+        if (incomingData?.cardStat === "comment") {
+          getSelectedComment(incomingData.relatedPostId, incomingData.relatedUserId).then((res) => {
+            dispatch(cardActions.updateState("done"));
+            dispatch(cardActions.updateData(res));
+          });
+        } else {
+          getSpecificPost(incomingData?.uId.trim(""), incomingData?.pId).then((res) => {
+            dispatch(cardActions.updateState("done"));
+            dispatch(cardActions.updateData(res));
+          });
+        }
       } else {
-        getSpecificPost(localStorage.getItem("shareUId"), localStorage.getItem("sharePId")).then((res) => {
-          dispatch(cardActions.updateState("done"));
-          dispatch(cardActions.updateData(res));
+        getUserByTheUsername(window.location.hash.split("/")[2]).then((res) => {
+          console.log(window.location.hash.split("/")[3], res[0].uid.trim(""));
+          getSpecificPost(res[0].uid.trim(""), window.location.hash.split("/")[3]).then((res) => {
+            dispatch(cardActions.updateState("done"));
+            dispatch(cardActions.updateData(res));
+          });
         });
       }
     };
     getData();
-  }, []);
+  }, [incomingData?.cardStat]);
 
   return (
     <>
-      <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 z-30" />
+      {!localStorage.getItem("user") ? <Navbar /> : <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 z-30" />}
       <div className="flex pb-4 mx-5 lg:gap-4 xl:gap-0 md:mx-10">
-        <ProfileWithListSection />
+        {localStorage.getItem("user") && <ProfileWithListSection />}
         <div className="flex flex-col w-full xl:px-6">
-          <FeedCardPageBackButton />
+          {localStorage.getItem("user") && <FeedCardPageBackButton />}
           <FeedCardPageCardComponent cardData={cardData} />
-          <FeedCardPageCommentSection cardPost={cardData} />
+          {localStorage.getItem("user") && <FeedCardPageCommentSection cardPost={cardData} />}
           <FeedCardPageCommentComponent />
         </div>
         <PopularSection />

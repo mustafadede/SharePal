@@ -34,7 +34,7 @@ function ExplorePage() {
           transition={{ delay: 0.1 }}
         >
           <motion.div
-            className={`lg:flex flex-col h-full mt-4 gap-2 overflow-hidden overflow-x-auto no-scrollbar`}
+            className={`lg:flex w-full flex-col h-full mt-4 gap-2 overflow-hidden overflow-x-auto no-scrollbar`}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}

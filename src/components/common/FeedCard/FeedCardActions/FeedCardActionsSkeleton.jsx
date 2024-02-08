@@ -4,7 +4,7 @@ import { modalActions } from "../../../../store/modalSlice";
 import { useNavigate } from "react-router-dom";
 import { cardActions } from "../../../../store/cardSlice";
 
-function FeedCardActionsSkeleton({ action, number, data }) {
+function FeedCardActionsSkeleton({ action, number, data, relatedPostId = false, relatedUserId = false }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleClick = () => {
@@ -12,7 +12,13 @@ function FeedCardActionsSkeleton({ action, number, data }) {
       dispatch(modalActions.openModal({ name: "likesModal", data: { title: "Likes", ids: data?.likesList } }));
     } else if (action === "comments") {
       dispatch(cardActions.updateData([data]));
-      navigate(`/feed/${data.nick}/${data.postId}`, { state: { uId: data.userId, pId: data.postId } });
+      if (!relatedPostId && !relatedUserId) {
+        navigate(`/feed/${data.nick}/${data.postId}`, { state: { uId: data.userId, pId: data.postId } });
+      } else {
+        navigate(`/feed/${data.nick}/${data.postId}`, {
+          state: { uId: data.userId, pId: data.postId, relatedPostId: relatedPostId, relatedUserId: relatedUserId, cardStat: "comment" },
+        });
+      }
     } else if (action === "reposts") {
       dispatch(modalActions.openModal({ name: "likesModal", data: { title: "Reposts", ids: data.repostsList } }));
     }

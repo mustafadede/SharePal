@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import FeedCard from "../../common/FeedCard";
 import InfoLabel from "../../common/InfoLabel";
 import { useSelector } from "react-redux";

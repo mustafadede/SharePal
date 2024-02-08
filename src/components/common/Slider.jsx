@@ -5,7 +5,7 @@ import "swiper/css";
 
 function Slider({ data, header, dataClassName, sliderType }) {
   return (
-    <div className="w-full">
+    <div>
       <h1 className="mb-4 text-3xl text-fuchsia-200">{header}</h1>
       <div className={`${dataClassName} w-full cursor-grab`}>
         <Swiper

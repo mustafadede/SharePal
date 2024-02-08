@@ -26,7 +26,8 @@ function FeedCardPageCommentCard({
   comments,
   notification = false,
   dataEdited = false,
-  relatedPostId = null,
+  relatedPostId = false,
+  relatedUserId = false,
   activities = false,
 }) {
   const newDate = DateFormatter(date);
@@ -110,7 +111,13 @@ function FeedCardPageCommentCard({
             {!notification && (
               <div className="flex gap-2 mt-1">
                 <FeedCardActionsSkeleton action={"likes"} number={likes} data={0} />
-                <FeedCardActionsSkeleton action={"comments"} number={comments} data={0} />
+                <FeedCardActionsSkeleton
+                  action={"comments"}
+                  number={comments}
+                  data={0}
+                  relatedPostId={relatedPostId}
+                  relatedUserId={relatedUserId}
+                />
               </div>
             )}
           </div>

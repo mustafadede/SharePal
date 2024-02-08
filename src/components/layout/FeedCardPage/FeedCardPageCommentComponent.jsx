@@ -7,6 +7,7 @@ import { getAllPosts, getCommentsList, getProfilePhoto, getUserByTheIds } from "
 import { postsActions } from "../../../store/postsSlice";
 import { cardActions } from "../../../store/cardSlice";
 import { useLocation } from "react-router-dom";
+import LoginRestrictionComponent from "../../common/LoginRestrictionComponent";
 
 function FeedCardPageCommentComponent() {
   const { cardComments, commentsState } = useSelector((state) => state.card);
@@ -40,7 +41,7 @@ function FeedCardPageCommentComponent() {
         dispatch(cardActions.updateCommentsState("done"));
       });
     };
-    getData();
+    localStorage.getItem("user") ? getData() : dispatch(cardActions.updateCommentsState("login"));
   }, []);
 
   return (
@@ -73,9 +74,12 @@ function FeedCardPageCommentComponent() {
             likes={user.likes}
             comments={user.comments}
             dataEdited={user.isEdited}
+            relatedPostId={incomingData.pId}
+            relatedUserId={incomingData.uId}
           />
         ))}
       {commentsState === "done" && cardComments.length === 0 && <InfoLabel text="No comments yet" />}
+      {commentsState === "login" && <LoginRestrictionComponent />}
     </motion.div>
   );
 }
