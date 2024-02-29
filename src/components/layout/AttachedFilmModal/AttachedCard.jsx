@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
 import { toast } from "react-toastify";
 import { createNotification } from "../../../firebase/firebaseActions";
-import { createPostActions } from "../../../store/createPostSlice";
 
 function AttachedCard({ title, poster, releaseDate, backdrop, isSuggest = false, id, mediaType }) {
   const { profileUser } = useSelector((state) => state.profile);
@@ -37,17 +36,15 @@ function AttachedCard({ title, poster, releaseDate, backdrop, isSuggest = false,
       dispatch(modalActions.closeModal({ data: { title, poster, releaseDate, backdrop, id, mediaType } }));
     }
   };
-  return (
+  return poster ? (
     <div className="flex justify-between w-full h-32 p-2 group rounded-2xl">
       <div className="flex">
-        {poster && (
-          <img
-            className="object-cover w-20 h-full rounded-2xl"
-            src={`https://image.tmdb.org/t/p/w500/${poster}`}
-            loading="lazy"
-            alt={title}
-          />
-        )}
+        <img
+          className="object-cover w-20 h-full rounded-2xl"
+          src={`https://image.tmdb.org/t/p/w500/${poster}`}
+          loading="lazy"
+          alt={title}
+        />
         <div className="flex flex-col justify-center ml-2">
           <p className="text-lg font-semibold transition-all text-cWhite group-hover:text-fuchsia-600">{title}</p>
           <p className="text-sm transition-all text-slate-400 group-hover:">{releaseDate.slice(0, 4)}</p>
@@ -60,7 +57,7 @@ function AttachedCard({ title, poster, releaseDate, backdrop, isSuggest = false,
         {isSuggest ? <RocketIcon className="w-5 h-5" /> : <Link2Icon className="w-6 h-6" />}
       </button>
     </div>
-  );
+  ) : null;
 }
 
 export default AttachedCard;

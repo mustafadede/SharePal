@@ -34,7 +34,7 @@ function AttachedFilmModal() {
         suggestion3="The Long Pond Studio"
         handleSuggestion={handleSuggestion}
       />
-      <div className="flex flex-row flex-wrap w-full h-full gap-4 overflow-y-scroll no-scrollbar">
+      <div className="flex flex-row flex-wrap w-full h-full overflow-y-scroll no-scrollbar">
         {movies.length > 0 &&
           movies.map((movie) =>
             movie.release_date || movie.first_air_date ? (
