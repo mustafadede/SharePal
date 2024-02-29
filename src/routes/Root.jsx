@@ -87,6 +87,7 @@ const router = createHashRouter([
 ]);
 
 function Root() {
+  console.log(`83 104 97 114 101 80 97 108`);
   return <RouterProvider router={router} />;
 }
 

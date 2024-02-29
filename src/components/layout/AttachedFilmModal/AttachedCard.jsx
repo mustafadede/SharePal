@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
 import { toast } from "react-toastify";
 import { createNotification } from "../../../firebase/firebaseActions";
+import { createPostActions } from "../../../store/createPostSlice";
 
 function AttachedCard({ title, poster, releaseDate, backdrop, isSuggest = false, id, mediaType }) {
   const { profileUser } = useSelector((state) => state.profile);
@@ -11,26 +12,30 @@ function AttachedCard({ title, poster, releaseDate, backdrop, isSuggest = false,
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    createNotification(profileUser.uid, {
-      from: {
-        uid: localStorage.getItem("user"),
-        nick: user.nick,
-        photo: user.photoURL,
-        attached: {
-          title: title,
-          poster: poster,
-          releaseDate: releaseDate,
-          backdrop: backdrop,
-          id: id,
-          mediaType: mediaType,
+    if (isSuggest) {
+      createNotification(profileUser.uid, {
+        from: {
+          uid: localStorage.getItem("user"),
+          nick: user.nick,
+          photo: user.photoURL,
+          attached: {
+            title: title,
+            poster: poster,
+            releaseDate: releaseDate,
+            backdrop: backdrop,
+            id: id,
+            mediaType: mediaType,
+          },
         },
-      },
-      type: "suggest",
-      date: Date.now(),
-    }).then(() => {
-      toast.success(`You have suggested ${title} to ${profileUser.nick}`);
-      dispatch(modalActions.closeModal());
-    });
+        type: "suggest",
+        date: Date.now(),
+      }).then(() => {
+        toast.success(`You have suggested ${title} to ${profileUser.nick}`);
+        dispatch(modalActions.closeModal());
+      });
+    } else {
+      dispatch(modalActions.closeModal({ data: { title, poster, releaseDate, backdrop, id, mediaType } }));
+    }
   };
   return (
     <div className="flex justify-between w-full h-32 p-2 group rounded-2xl">

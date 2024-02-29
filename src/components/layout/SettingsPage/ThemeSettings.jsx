@@ -11,9 +11,7 @@ function ThemeSettings() {
     >
       <h1 className="mb-4 text-3xl text-slate-200">Theme</h1>
       <div className="flex flex-col">
-        {/* <SettingsButton title="Edit Profile" />
-<SettingsButton title="Change Password" />
-<SettingsButton title="Delete Account" /> */}
+        <p className="text-xl text-slate-400">Coming soon...</p>
       </div>
     </motion.div>
   );

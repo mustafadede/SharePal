@@ -7,6 +7,7 @@ import ThemeSettings from "../../components/layout/SettingsPage/ThemeSettings";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import ProfileWithListSection from "../../components/layout/ProfileWithListSection";
+import PasswordSettings from "../../components/layout/SettingsPage/PasswordSettings/PasswordSettings";
 function SettingsPage() {
   const [selectedSection, setSelectedSection] = useState("Account");
   const navigate = useNavigate();
@@ -24,6 +25,9 @@ function SettingsPage() {
   const handleSettingsBar = () => {
     if (selectedSection === "Account") {
       return <AccountSettings />;
+    }
+    if (selectedSection === "Password") {
+      return <PasswordSettings />;
     }
     if (selectedSection === "Privacy") {
       return <PrivacySettings />;
@@ -47,6 +51,7 @@ function SettingsPage() {
           <h1 className="mb-4 text-3xl text-slate-200">Settings</h1>
           <div className="flex lg:flex-col">
             <SettingsButton title="Account" handleSelection={handleSelection} />
+            <SettingsButton title="Password" handleSelection={handleSelection} />
             <SettingsButton title="Privacy" handleSelection={handleSelection} />
             <SettingsButton title="Theme" handleSelection={handleSelection} />
           </div>

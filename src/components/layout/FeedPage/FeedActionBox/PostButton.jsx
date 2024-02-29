@@ -20,7 +20,7 @@ function PostButton() {
           photoURL: getAuth().currentUser.photoURL || null,
           id: getAuth().currentUser.uid,
           text: text,
-          attachedFilm: modalHasData ? modalHasData : attachedFilm,
+          attachedFilm: modalHasData,
           spoiler: spoiler,
           nick: user?.nick,
           likes: 0,
@@ -29,7 +29,7 @@ function PostButton() {
           date: new Date().toISOString(),
         })
       );
-      createPostAction(text, modalHasData ? modalHasData : attachedFilm, spoiler, user?.nick) && toast.success("Post created!");
+      createPostAction(text, modalHasData, spoiler, user?.nick) && toast.success("Post created!");
       dispatch(modalActions.closeModal()) && dispatch(createPostActions.resetText());
     } else {
       toast.error("Post field must be between 1 and 280 characters!");

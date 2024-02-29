@@ -5,7 +5,8 @@ import { userActions } from "../../../store/userSlice";
 import { updateCurrentUserData, uploadBannerPhoto, uploadProfilePhoto } from "../../../firebase/firebaseActions";
 import { toast } from "react-toastify";
 import DangerZoneComponent from "./AccountSettingsComponents/DangerZoneComponent";
-import ChangePasswordComponent from "./AccountSettingsComponents/ChangePasswordComponent";
+import InformationSectionComponent from "./AccountSettingsComponents/InformationSectionComponent";
+import SocialSectionComponent from "./AccountSettingsComponents/SocialSectionComponent";
 
 function AccountSettings() {
   const { user } = useSelector((state) => state.user);
@@ -67,56 +68,14 @@ function AccountSettings() {
     >
       <h1 className="mb-4 text-3xl text-slate-200">Account</h1>
       <div className="flex flex-col gap-2">
-        <p className="w-full my-2 text-xl text-slate-300">Information</p>
-        <input
-          className="w-full px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
-          placeholder={`Your nickname (${user?.nick})`}
-          onChange={(e) => {
-            setNick(e.target.value);
-          }}
-        />
-        <input
-          className="w-full px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
-          placeholder={`Email (${user?.email})`}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
-        <input
-          className="w-full px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
-          placeholder={`Quote (${user?.quote})`}
-          onChange={(e) => {
-            setQuote(e.target.value);
-          }}
-        />
-        <input
-          className="w-full px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
-          placeholder={`Favorite in all time (${user?.topOne})`}
-          onChange={(e) => {
-            setTopOne(e.target.value);
-          }}
-        />
-        <p className="w-full my-2 text-xl text-slate-300">Socials</p>
-        <input
-          className="w-full px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
-          placeholder={instagram ? instagram : `Your Instagram Profile Link`}
-          onChange={(e) => {
-            setInstagram(e.target.value);
-          }}
-        />
-        <input
-          className="w-full px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
-          placeholder={github ? github : `Your GitHub Profile Link`}
-          onChange={(e) => {
-            setGithub(e.target.value);
-          }}
-        />
-        <input
-          className="w-full px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
-          placeholder={linkedin ? linkedin : `Your LinkedIn Profile Link`}
-          onChange={(e) => {
-            setLinkedin(e.target.value);
-          }}
+        <InformationSectionComponent user={user} setNick={setNick} setEmail={setEmail} setQuote={setQuote} setTopOne={setTopOne} />
+        <SocialSectionComponent
+          instagram={instagram}
+          setInstagram={setInstagram}
+          github={github}
+          setGithub={setGithub}
+          linkedin={linkedin}
+          setLinkedin={setLinkedin}
         />
         <p className="w-full my-2 text-xl text-slate-300">Pictures</p>
         <div className="flex flex-row justify-center gap-10">
@@ -151,7 +110,6 @@ function AccountSettings() {
         >
           Save Changes
         </button>
-        <ChangePasswordComponent />
         <DangerZoneComponent />
       </div>
     </motion.div>

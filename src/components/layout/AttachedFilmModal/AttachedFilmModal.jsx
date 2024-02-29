@@ -41,6 +41,8 @@ function AttachedFilmModal() {
               <AttachedCard
                 key={movie.id}
                 title={movie.title || movie.name}
+                id={movie.id}
+                mediaType={movie.media_type || "movie"}
                 poster={movie.poster_path || movie.profile_path || null}
                 releaseDate={movie.release_date || movie.first_air_date || null}
                 backdrop={movie.backdrop_path || movie.poster_path || movie.profile_path || null}
