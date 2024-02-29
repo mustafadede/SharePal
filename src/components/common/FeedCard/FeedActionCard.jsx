@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Cross1Icon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import ActionDetailsCard from "../ActionDetailsCard";
 import { postsActions } from "../../../store/postsSlice";
@@ -11,6 +11,7 @@ import FeedActionCardWantToWatchComponent from "./FeedActionCard/FeedActionCardW
 
 function FeedActionCard({ data, notification }) {
   const [settings, setSettings] = useState(false);
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user?.nick);
   // utils functions
   const title = TextShorter(data.attachedAction.title, 30);
