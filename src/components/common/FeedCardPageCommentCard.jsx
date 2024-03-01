@@ -15,6 +15,9 @@ import {
   updateUserCommentsList,
 } from "../../firebase/firebaseActions";
 import { cardActions } from "../../store/cardSlice";
+import FeedCardPageAction from "../layout/FeedCardPage/FeedCardPageAction";
+import FeedCardPageMiniCommentSection from "../layout/FeedCardPage/FeedCardPageMiniCommentSection";
+import FeedCardButtons from "./FeedCard/Buttons/FeedCardButtons";
 
 function FeedCardPageCommentCard({
   commentId,
@@ -35,6 +38,7 @@ function FeedCardPageCommentCard({
   const { cardData } = useSelector((state) => state.card);
   const [settings, setSettings] = useState(false);
   const [rename, setRename] = useState(false);
+  const [isCommentVisible, setIsCommentVisible] = useState(false);
   const { state: incomingData } = useLocation();
   const [editedText, setEditedText] = useState(comment);
   const [isEdited, setIsEdited] = useState(false);
@@ -111,18 +115,19 @@ function FeedCardPageCommentCard({
             {!notification && (
               <div className="flex gap-2 mt-1">
                 <FeedCardActionsSkeleton action={"likes"} number={likes} data={0} />
-                <FeedCardActionsSkeleton
-                  action={"comments"}
-                  number={comments}
-                  data={0}
-                  relatedPostId={relatedPostId}
-                  relatedUserId={relatedUserId}
-                />
+                <FeedCardPageAction action={"comments"} number={comments} data={0} />
+                <button
+                  className="transition-all text-slate-300 hover:text-fuchsia-600"
+                  onClick={() => setIsCommentVisible(!isCommentVisible)}
+                >
+                  Reply
+                </button>
               </div>
             )}
           </div>
         </div>
       </motion.div>
+      {isCommentVisible && <FeedCardPageMiniCommentSection pointer={nick} />}
       {settings && (
         <ActionDetailsCard
           haveBorder={false}

@@ -3,11 +3,12 @@ import React, { useEffect, useState } from "react";
 import SettingsButton from "../../components/common/SettingsButton";
 import AccountSettings from "../../components/layout/SettingsPage/AccountSettings";
 import PrivacySettings from "../../components/layout/SettingsPage/PrivacySettings";
-import ThemeSettings from "../../components/layout/SettingsPage/ThemeSettings";
+import PreferencesSettings from "../../components/layout/SettingsPage/PreferencesSettings";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import ProfileWithListSection from "../../components/layout/ProfileWithListSection";
 import PasswordSettings from "../../components/layout/SettingsPage/PasswordSettings/PasswordSettings";
+
 function SettingsPage() {
   const [selectedSection, setSelectedSection] = useState("Account");
   const navigate = useNavigate();
@@ -32,8 +33,8 @@ function SettingsPage() {
     if (selectedSection === "Privacy") {
       return <PrivacySettings />;
     }
-    if (selectedSection === "Theme") {
-      return <ThemeSettings />;
+    if (selectedSection === "Preferences") {
+      return <PreferencesSettings />;
     }
   };
 
@@ -53,7 +54,7 @@ function SettingsPage() {
             <SettingsButton title="Account" handleSelection={handleSelection} />
             <SettingsButton title="Password" handleSelection={handleSelection} />
             <SettingsButton title="Privacy" handleSelection={handleSelection} />
-            <SettingsButton title="Theme" handleSelection={handleSelection} />
+            <SettingsButton title="Preferences" handleSelection={handleSelection} />
           </div>
         </motion.div>
         {handleSettingsBar()}

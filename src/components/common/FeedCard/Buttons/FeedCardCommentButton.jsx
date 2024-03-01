@@ -3,12 +3,11 @@ import { ChatBubbleIcon } from "@radix-ui/react-icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { cardActions } from "../../../../store/cardSlice";
-function FeedCardCommentButton({ data }) {
+function FeedCardCommentButton({ isCommentVisible, setCommentVisible }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const clickHandler = () => {
-    dispatch(cardActions.updateData([data]));
-    navigate(`/feed/${data.nick}/${data.postId}`, { state: { uId: data.userId, pId: data.postId } });
+    setCommentVisible(!isCommentVisible);
   };
   return (
     <button className="flex items-center gap-2" onClick={clickHandler}>

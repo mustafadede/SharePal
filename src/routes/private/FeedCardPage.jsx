@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Navbar from "../../components/layout/Navbar";
 import { useDispatch, useSelector } from "react-redux";
-import { getSelectedComment, getSpecificPost, getUserByTheUsername } from "../../firebase/firebaseActions";
+import { getSpecificPost, getUserByTheUsername } from "../../firebase/firebaseActions";
 import FeedCardPageCardComponent from "../../components/layout/FeedCardPage/FeedCardPageCardComponent";
 import FeedCardPageBackButton from "../../components/layout/FeedCardPage/FeedCardPageBackButton";
 import FeedCardPageCommentComponent from "../../components/layout/FeedCardPage/FeedCardPageCommentComponent";
@@ -23,17 +23,10 @@ function FeedCardPage() {
     const getData = async () => {
       cardData.length === 0 && dispatch(cardActions.updateState("loading"));
       if (incomingData) {
-        if (incomingData?.cardStat === "comment") {
-          getSelectedComment(incomingData.relatedPostId, incomingData.relatedUserId).then((res) => {
-            dispatch(cardActions.updateState("done"));
-            dispatch(cardActions.updateData(res));
-          });
-        } else {
-          getSpecificPost(incomingData?.uId.trim(""), incomingData?.pId).then((res) => {
-            dispatch(cardActions.updateState("done"));
-            dispatch(cardActions.updateData(res));
-          });
-        }
+        getSpecificPost(incomingData?.uId.trim(""), incomingData?.pId).then((res) => {
+          dispatch(cardActions.updateState("done"));
+          dispatch(cardActions.updateData(res));
+        });
       } else {
         getUserByTheUsername(window.location.hash.split("/")[2]).then((res) => {
           console.log(window.location.hash.split("/")[3], res[0].uid.trim(""));
@@ -45,7 +38,7 @@ function FeedCardPage() {
       }
     };
     getData();
-  }, [incomingData?.cardStat]);
+  }, [incomingData.cardStat]);
 
   return (
     <>

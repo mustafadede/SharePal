@@ -13,12 +13,14 @@ import useSearchWithYear from "../../../hooks/useSearchWithYear";
 import { DateFormatter } from "../../../utils/formatter";
 import AttachedItem from "./components/AttachedItem";
 import FeedCardHeader from "./components/FeedCardHeader";
+import FeedCardPageMiniCommentSection from "../../layout/FeedCardPage/FeedCardPageMiniCommentSection";
 
 function FeedAttachedCard({ data, attachedData, notification }) {
   const [settings, setSettings] = useState(false);
   const [rename, setRename] = useState(false);
   const [editedText, setEditedText] = useState(data.text);
   const [isEdited, setIsEdited] = useState(false);
+  const [isCommentVisible, setIsCommentVisible] = useState(false);
   const user = useSelector((state) => state.user.user?.nick);
   const dispatch = useDispatch();
 
@@ -121,8 +123,9 @@ function FeedAttachedCard({ data, attachedData, notification }) {
             <FeedCardActionsSkeleton action={"reposts"} number={data.repost} data={data} />
           </div>
         )}
-        {!notification && <FeedCardButtons data={data} />}
+        {!notification && <FeedCardButtons data={data} isCommentVisible={isCommentVisible} setCommentVisible={setIsCommentVisible} />}
       </motion.div>
+      {isCommentVisible && <FeedCardPageMiniCommentSection />}
       {!notification && settings && (
         <ActionDetailsCard
           haveBorder={false}

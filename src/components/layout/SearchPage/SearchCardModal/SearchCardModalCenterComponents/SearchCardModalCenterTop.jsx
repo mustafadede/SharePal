@@ -4,7 +4,6 @@ import WatchedComponent from "../../../../common/WatchedComponent";
 import UnfinishedComponent from "../../../../common/UnfinishedComponent";
 import SearchCardButton from "../../SearchCardButton";
 import { BookmarkFilledIcon, BookmarkIcon, EyeOpenIcon, Link2Icon, PauseIcon, PlusIcon, StarFilledIcon } from "@radix-ui/react-icons";
-import CommentSlider from "../../../../common/CommentSlider";
 
 function SearchCardModalCenterTop({
   mediaType,
@@ -113,9 +112,6 @@ function SearchCardModalCenterTop({
             ) : (
               <p className="text-lg text-slate-600">You need to be logged in to add this to your lists.</p>
             )}
-          </div>
-          <div className="w-full">
-            <CommentSlider />
           </div>
         </div>
         <div className="flex flex-col items-center gap-4 md:items-start">

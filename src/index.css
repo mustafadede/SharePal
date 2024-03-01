@@ -1,7 +1,7 @@
 @tailwind base;
 * {
-  scrollbar-width: thin;
-  scrollbar-color: var(--secondary) var(--primary);
+  scrollbar-width: auto;
+  scrollbar-color: #0f172a #0e0b13;
   scroll-behavior: smooth;
 }
 

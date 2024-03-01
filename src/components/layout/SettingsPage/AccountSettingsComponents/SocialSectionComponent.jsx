@@ -1,9 +1,10 @@
 import React from "react";
+import SettingsSubTitle from "../../../common/SettingsPage/SettingsSubTitle";
 
 function SocialSectionComponent({ instagram, setInstagram, github, setGithub, linkedin, setLinkedin }) {
   return (
     <>
-      <p className="w-full my-2 text-xl text-slate-300">Socials</p>
+      <SettingsSubTitle title="Socials" />
       <input
         className="w-full px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
         placeholder={instagram ? instagram : `Your Instagram Profile Link`}

@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import DangerZoneComponent from "./AccountSettingsComponents/DangerZoneComponent";
 import InformationSectionComponent from "./AccountSettingsComponents/InformationSectionComponent";
 import SocialSectionComponent from "./AccountSettingsComponents/SocialSectionComponent";
+import SettingsSubTitle from "../../common/SettingsPage/SettingsSubTitle";
+import SettingsTitle from "../../common/SettingsPage/SettingsTitle";
 
 function AccountSettings() {
   const { user } = useSelector((state) => state.user);
@@ -66,7 +68,7 @@ function AccountSettings() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
     >
-      <h1 className="mb-4 text-3xl text-slate-200">Account</h1>
+      <SettingsTitle title="Account" />
       <div className="flex flex-col gap-2">
         <InformationSectionComponent user={user} setNick={setNick} setEmail={setEmail} setQuote={setQuote} setTopOne={setTopOne} />
         <SocialSectionComponent
@@ -77,7 +79,7 @@ function AccountSettings() {
           linkedin={linkedin}
           setLinkedin={setLinkedin}
         />
-        <p className="w-full my-2 text-xl text-slate-300">Pictures</p>
+        <SettingsSubTitle title="Pictures" />
         <div className="flex flex-row justify-center gap-10">
           <div className="flex flex-row gap-4 rounded-2xl">
             <div className="flex flex-col gap-2">

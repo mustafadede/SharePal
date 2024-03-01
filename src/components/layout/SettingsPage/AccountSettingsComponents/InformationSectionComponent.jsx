@@ -1,9 +1,10 @@
 import React from "react";
+import SettingsSubTitle from "../../../common/SettingsPage/SettingsSubTitle";
 
 function InformationSectionComponent({ user, setNick, setEmail, setQuote, setTopOne }) {
   return (
     <>
-      <p className="w-full my-2 text-xl text-slate-300">Information</p>
+      <SettingsSubTitle title="Information" />
       <input
         className="w-full px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
         placeholder={`Your nickname (${user?.nick})`}
