@@ -11,7 +11,7 @@ import { modalActions } from "../../../../store/modalSlice";
 function ListModalCard({ id, listId, findIndex, title, poster, releaseDate, backdrop, username, listNumber }) {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
-  const { modalHasData } = useSelector((state) => state.modal);
+  const { modalHasData, dragable } = useSelector((state) => state.modal);
   const deleteHandler = () => {
     deleteSelectedUserListsItem(localStorage.getItem("user"), id);
     dispatch(

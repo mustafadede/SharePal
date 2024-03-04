@@ -7,6 +7,7 @@ const modalSlice = createSlice({
     modalName: "",
     modalHasData: false,
     lastModalName: "",
+    dragable: false,
   },
   reducers: {
     openModal: (state, action) => {
@@ -19,12 +20,16 @@ const modalSlice = createSlice({
       state.modalState = false;
       state.modalHasData = action.payload?.data ? action.payload.data : "";
       state.modalName = action.payload?.name ? action.payload.name : "";
+      state.dragable = false;
     },
     renameList: (state, action) => {
       state.modalHasData.title = action.payload;
     },
     assignLastModalName: (state, action) => {
       state.lastModalName = action.payload;
+    },
+    updateDragable: (state, action) => {
+      state.dragable = action.payload;
     },
   },
 });

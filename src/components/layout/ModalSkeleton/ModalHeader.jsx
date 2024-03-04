@@ -1,4 +1,4 @@
-import { CheckIcon, Cross1Icon, DotsHorizontalIcon, InfoCircledIcon, Pencil1Icon } from "@radix-ui/react-icons";
+import { CheckIcon, Cross1Icon, DiscIcon, DotsHorizontalIcon, InfoCircledIcon, ListBulletIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
@@ -14,13 +14,18 @@ function ModalHeader({ title, options = false, username }) {
   const [rename, setRename] = useState(false);
   const [info, setInfo] = useState(true);
   const dispatch = useDispatch();
-  const { modalHasData } = useSelector((state) => state.modal);
+  const { modalHasData, dragable } = useSelector((state) => state.modal);
 
   const handleClick = () => {
     dispatch(modalActions.closeModal());
   };
   const renameHandler = () => {
     setRename(!rename);
+  };
+
+  const dragHandler = () => {
+    dispatch(modalActions.updateDragable(!dragable));
+    !dragable && setSettings(false);
   };
 
   const deleteHandler = () => {
@@ -144,6 +149,15 @@ function ModalHeader({ title, options = false, username }) {
             </button>
           }
           icon2={
+            <button
+              className="flex items-center w-full px-4 py-2 text-sm text-left transition-all text-slate-200 rounded-xl hover:bg-slate-800"
+              onClick={dragHandler}
+            >
+              <ListBulletIcon className="w-5 h-5 mr-2" />
+              Reorder
+            </button>
+          }
+          icon3={
             <button
               className="flex items-center w-full px-4 py-2 text-sm text-left transition-all bg-fuchsia-800/20 text-slate-200 rounded-xl hover:bg-slate-800"
               onClick={deleteHandler}

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ModalHeader from "../../ModalSkeleton/ModalHeader";
 import ListModalCard from "./ListModalCard";
-import { Reorder } from "framer-motion";
+import { Reorder, motion } from "framer-motion";
 import ListChangesInfoCard from "../ListChangesInfoCard";
 
 function ListModal() {
-  const { modalHasData } = useSelector((state) => state.modal);
+  const { modalHasData, dragable } = useSelector((state) => state.modal);
   const [search, setSearch] = useState("");
   const [list, setList] = useState(Object.values(modalHasData.list));
   const [listChanged, setListChanged] = useState(false);
@@ -28,30 +28,62 @@ function ListModal() {
           onChange={(e) => setSearch(e.target.value)}
         />
         {listChanged && <ListChangesInfoCard data={list} onChangeHandler={setListChanged} />}
+        {dragable && (
+          <motion.p
+            className="text-lg text-slate-600"
+            initial={{ opacity: 0, height: "0%" }}
+            animate={{ opacity: 1, height: "27px" }}
+            exit={{ opacity: 0, height: "0%" }}
+            transition={{ duration: 0.5 }}
+          >
+            Drag and drop to reorder.
+          </motion.p>
+        )}
         <div className="pb-4 overflow-scroll h-[18rem] lg:h-80 no-scrollbar">
           {!modalHasData.list && <p className="py-4 text-xl text-slate-600">Your list is empty.</p>}
-          <Reorder.Group values={list} onReorder={handleOrder}>
-            {list &&
-              !search &&
-              list?.map((item, index) => {
-                return (
-                  <Reorder.Item key={index} value={item}>
-                    <ListModalCard
-                      key={index}
-                      id={Object.keys(modalHasData.list)[index]}
-                      listId={modalHasData.listNum}
-                      findIndex={null}
-                      title={item.title}
-                      poster={item.poster}
-                      releaseDate={item.releaseDate}
-                      backdrop={item.backdrop}
-                      username={modalHasData.username}
-                      listNumber={index + 1}
-                    />
-                  </Reorder.Item>
-                );
-              })}
-          </Reorder.Group>
+          {dragable ? (
+            <Reorder.Group values={list} onReorder={handleOrder}>
+              {list &&
+                !search &&
+                list?.map((item, index) => {
+                  return (
+                    <Reorder.Item key={index} value={item}>
+                      <ListModalCard
+                        key={index}
+                        id={Object.keys(modalHasData.list)[index]}
+                        listId={modalHasData.listNum}
+                        findIndex={null}
+                        title={item.title}
+                        poster={item.poster}
+                        releaseDate={item.releaseDate}
+                        backdrop={item.backdrop}
+                        username={modalHasData.username}
+                        listNumber={index + 1}
+                      />
+                    </Reorder.Item>
+                  );
+                })}
+            </Reorder.Group>
+          ) : (
+            list &&
+            !search &&
+            list?.map((item, index) => {
+              return (
+                <ListModalCard
+                  key={index}
+                  id={Object.keys(modalHasData.list)[index]}
+                  listId={modalHasData.listNum}
+                  findIndex={null}
+                  title={item.title}
+                  poster={item.poster}
+                  releaseDate={item.releaseDate}
+                  backdrop={item.backdrop}
+                  username={modalHasData.username}
+                  listNumber={index + 1}
+                />
+              );
+            })
+          )}
           {search &&
             Object.values(modalHasData.list)
               ?.filter((item) => item.title.toLowerCase().includes(search.toLowerCase()))
