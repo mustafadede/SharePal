@@ -1111,6 +1111,31 @@ const changePinnedListTitle = async (data) => {
   }
 };
 
+const changedListupdatePinnedList = async (data) => {
+  try {
+    const userId = getAuth().currentUser.uid;
+    const pinnedListRef = ref(database, `pinnedList/${userId}`);
+    const snapshot = await get(pinnedListRef);
+
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        console.log(data[0].id);
+        if (childSnapshot.val().id === data[0].id) {
+          const newChildRef = ref(database, `pinnedList/${userId}/${childSnapshot.key}/list`);
+          set(newChildRef, data);
+        }
+      });
+      return true;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    toast.error("Something went wrong!");
+    return false;
+  }
+};
+
 const updatePinnedList = async (data) => {
   try {
     const userId = getAuth().currentUser.uid;
@@ -1522,6 +1547,7 @@ export {
   deleteSelectedNotification,
   createPinnedList,
   changePinnedListTitle,
+  changedListupdatePinnedList,
   updatePinnedList,
   removePinnedList,
   getSelectedUserLists,

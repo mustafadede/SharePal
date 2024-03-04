@@ -2,10 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ModalHeader from "../../ModalSkeleton/ModalHeader";
 import ListModalCard from "./ListModalCard";
+import { Reorder } from "framer-motion";
+import ListChangesInfoCard from "../ListChangesInfoCard";
 
 function ListModal() {
   const { modalHasData } = useSelector((state) => state.modal);
   const [search, setSearch] = useState("");
+  const [list, setList] = useState(Object.values(modalHasData.list));
+  const [listChanged, setListChanged] = useState(false);
+
+  const handleOrder = (values) => {
+    setListChanged(true);
+    setList(values);
+  };
 
   return (
     <div className="bg-slate-900 rounded-2xl px-8 pt-4 overflow-hidden w-[25rem] md:w-[35rem] h-[28rem] md:h-[30rem]">
@@ -18,26 +27,31 @@ function ListModal() {
           placeholder="Search..."
           onChange={(e) => setSearch(e.target.value)}
         />
+        {listChanged && <ListChangesInfoCard data={list} onChangeHandler={setListChanged} />}
         <div className="pb-4 overflow-scroll h-[18rem] lg:h-80 no-scrollbar">
           {!modalHasData.list && <p className="py-4 text-xl text-slate-600">Your list is empty.</p>}
-          {modalHasData.list &&
-            !search &&
-            Object.values(modalHasData.list)?.map((item, index) => {
-              return (
-                <ListModalCard
-                  key={index}
-                  id={Object.keys(modalHasData.list)[index]}
-                  listId={modalHasData.listNum}
-                  findIndex={null}
-                  title={item.title}
-                  poster={item.poster}
-                  releaseDate={item.releaseDate}
-                  backdrop={item.backdrop}
-                  username={modalHasData.username}
-                  listNumber={index + 1}
-                />
-              );
-            })}
+          <Reorder.Group values={list} onReorder={handleOrder}>
+            {list &&
+              !search &&
+              list?.map((item, index) => {
+                return (
+                  <Reorder.Item key={index} value={item}>
+                    <ListModalCard
+                      key={index}
+                      id={Object.keys(modalHasData.list)[index]}
+                      listId={modalHasData.listNum}
+                      findIndex={null}
+                      title={item.title}
+                      poster={item.poster}
+                      releaseDate={item.releaseDate}
+                      backdrop={item.backdrop}
+                      username={modalHasData.username}
+                      listNumber={index + 1}
+                    />
+                  </Reorder.Item>
+                );
+              })}
+          </Reorder.Group>
           {search &&
             Object.values(modalHasData.list)
               ?.filter((item) => item.title.toLowerCase().includes(search.toLowerCase()))
