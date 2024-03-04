@@ -2,8 +2,11 @@ import React from "react";
 import CustomButton from "../../common/CustomButton";
 import { changedListupdatePinnedList } from "../../../firebase/firebaseActions";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { modalActions } from "../../../store/modalSlice";
 
 function ListChangesInfoCard({ data, onChangeHandler }) {
+  const dispatch = useDispatch();
   console.log(data);
   return (
     <div className="flex items-center justify-between w-full h-12">
@@ -15,7 +18,9 @@ function ListChangesInfoCard({ data, onChangeHandler }) {
           changedListupdatePinnedList(data).then((val) => {
             if (val) {
               onChangeHandler(false);
+              dispatch(modalActions.updateDragable(false));
               toast.success("List updated successfully.");
+              dispatch;
             } else {
               toast.error("Failed to update list.");
             }
