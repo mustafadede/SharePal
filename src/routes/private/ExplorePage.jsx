@@ -28,7 +28,7 @@ function ExplorePage() {
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
       <div className="flex gap-6 mx-5 md:mx-10">
         <motion.div
-          className="flex flex-col w-full lg:w-3/4 2xl:w-4/5"
+          className="flex flex-col w-80 lg:w-3/4 2xl:w-4/5"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}

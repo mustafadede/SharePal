@@ -7,7 +7,9 @@ function FeedCardCommentButton({ isCommentVisible, setCommentVisible }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const clickHandler = () => {
-    setCommentVisible(!isCommentVisible);
+    if (window.location.hash.length < 7) {
+      setCommentVisible(!isCommentVisible);
+    }
   };
   return (
     <button className="flex items-center gap-2" onClick={clickHandler}>

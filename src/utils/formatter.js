@@ -10,7 +10,7 @@ export function DateFormatter(data, infoType = "cards") {
     const day = new Date(data).getDate();
     const month = new Date(data).getMonth() + 1;
     const year = new Date(data).getFullYear();
-    return `${day}/${month}/${year}`;
+    return `${day < 10 ? "0" + day : day}/${month < 10 ? "0" + month : month}/${year}`;
   }
 }
 
