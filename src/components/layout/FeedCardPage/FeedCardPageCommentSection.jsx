@@ -62,7 +62,7 @@ function FeedCardPageCommentSection({ cardPost }) {
   };
   return (
     <div className="flex w-full gap-2 p-4 mb-4 rounded-2xl bg-slate-900">
-      {user?.photoURL && <img src={user.photoURL} alt="profile" className="object-cover h-10 rounded-full w-14" />}
+      {user?.photoURL && <img src={user.photoURL} alt="profile" className="object-cover w-10 h-10 rounded-full" />}
       {!user?.photoURL && <div className="h-10 rounded-full w-14 bg-fuchsia-600"></div>}
       <input
         type="text"

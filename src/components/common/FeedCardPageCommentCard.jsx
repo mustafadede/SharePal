@@ -4,7 +4,7 @@ import FeedCardActionsSkeleton from "./FeedCard/FeedCardActions/FeedCardActionsS
 import { DateFormatter } from "../../utils/formatter";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
-import { Cross1Icon, DotsHorizontalIcon, Pencil1Icon } from "@radix-ui/react-icons";
+import { Cross1Icon, DotsHorizontalIcon, HeartIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import ActionDetailsCard from "./ActionDetailsCard";
 import { toast } from "react-toastify";
 import {
@@ -101,7 +101,14 @@ function FeedCardPageCommentCard({
               </div>
             </div>
             {!rename ? (
-              <p className="py-1 text-slate-200">{comment}</p>
+              <div className="flex justify-between">
+                <p className="py-1 text-slate-200">{comment}</p>
+                <div className="flex items-center ">
+                  <button>
+                    <HeartIcon className="w-6 h-5 transition-all text-slate-400 hover:text-slate-200" />
+                  </button>
+                </div>
+              </div>
             ) : (
               <input
                 type="text"
@@ -113,15 +120,8 @@ function FeedCardPageCommentCard({
               />
             )}
             {!notification && (
-              <div className="flex gap-2 mt-1">
+              <div className="flex gap-2">
                 <FeedCardActionsSkeleton action={"likes"} number={likes} data={0} />
-                <FeedCardPageAction action={"comments"} number={comments} data={0} />
-                <button
-                  className="transition-all text-slate-300 hover:text-fuchsia-600"
-                  onClick={() => setIsCommentVisible(!isCommentVisible)}
-                >
-                  Reply
-                </button>
               </div>
             )}
           </div>
