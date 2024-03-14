@@ -10,20 +10,23 @@ import { deleteSelectedPost, editSelectedPost } from "../../../firebase/firebase
 import { toast } from "react-toastify";
 import { DateFormatter } from "../../../utils/formatter";
 import FeedCardHeader from "./components/FeedCardHeader";
+import EditSpoilerButton from "./components/EditSpoilerButton";
 
 function FeedCommentCard({ data, notification }) {
   const [settings, setSettings] = useState(false);
   const [rename, setRename] = useState(false);
   const [editedText, setEditedText] = useState(data.text);
   const [isEdited, setIsEdited] = useState(false);
+  const [isSpoiler, setIsSpoiler] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user?.nick);
   const date = DateFormatter(data);
 
   const handlePost = (e) => {
     if (e.key === "Enter") {
-      editSelectedPost(data.postId, editedText).then(() => {
-        dispatch(postsActions.editPost({ text: editedText, postId: data.postId })) && toast.success("Post edited successfully");
+      editSelectedPost(data.postId, editedText, isSpoiler).then(() => {
+        dispatch(postsActions.editPost({ text: editedText, postId: data.postId, spoiler: isSpoiler })) &&
+          toast.success("Post edited successfully");
       });
       setRename(false);
       setSettings(false);
@@ -61,14 +64,17 @@ function FeedCommentCard({ data, notification }) {
         {!rename ? (
           <p className="py-4 text-slate-200">{data?.text || data.content}</p>
         ) : (
-          <input
-            type="text"
-            placeholder="Edit your post..."
-            className="w-full px-4 py-2 my-4 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
-            value={editedText !== undefined ? editedText : data.text || data.content}
-            onChange={(e) => setEditedText(e.target.value)}
-            onKeyDown={(e) => handlePost(e)}
-          />
+          <div className="flex items-center justify-center gap-2">
+            <input
+              type="text"
+              placeholder="Edit your post..."
+              className="w-full px-4 py-2 my-4 transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
+              value={editedText !== undefined ? editedText : data.text || data.content}
+              onChange={(e) => setEditedText(e.target.value)}
+              onKeyDown={(e) => handlePost(e)}
+            />
+            <EditSpoilerButton isSpoiler={isSpoiler} onClickAction={setIsSpoiler} />
+          </div>
         )}
         {/*Comment Card Middle Top section: Input end */}
         {/*Comment Card Middle Bottom section: Stats start */}
@@ -93,7 +99,7 @@ function FeedCommentCard({ data, notification }) {
               onClick={() => setRename(!rename)}
             >
               <Pencil1Icon className="w-5 h-5 mr-2" />
-              Edit
+              {rename ? "Cancel Edit" : "Edit"}
             </button>
           }
           icon2={

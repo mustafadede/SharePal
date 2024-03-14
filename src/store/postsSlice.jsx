@@ -18,6 +18,7 @@ const postsSlice = createSlice({
     editPost: (state, action) => {
       const index = state.posts.findIndex((post) => post.postId === action.payload.postId);
       state.posts[index].text = action.payload.text;
+      state.posts[index].spoiler = action.payload.spoiler;
     },
     pushPosts: (state, action) => {
       state.posts.push(action.payload);

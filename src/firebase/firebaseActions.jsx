@@ -474,7 +474,7 @@ const createFeedAction = async (data) => {
   }
 };
 
-const editSelectedPost = async (postId, text) => {
+const editSelectedPost = async (postId, text, spoiler) => {
   try {
     const userId = getAuth().currentUser.uid;
     const postsRef = ref(database, `posts/${userId}/`);
@@ -487,6 +487,7 @@ const editSelectedPost = async (postId, text) => {
             ...childSnapshot.val(),
             content: text ? text : childSnapshot.val().content,
             edited: true,
+            spoiler: spoiler,
           };
           update(ref(database), updates);
         }
