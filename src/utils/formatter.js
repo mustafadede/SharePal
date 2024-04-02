@@ -5,7 +5,7 @@ export function DateFormatter(data, infoType = "cards") {
     const year = new Date(data.date || data).getFullYear();
     const hour = new Date(data.date || data).getHours();
     const minute = new Date(data.date || data).getMinutes();
-    return `${day}/${month}/${year} ${hour}:${minute < 10 ? "0" + minute : minute}`;
+    return `${day < 10 ? "0" + day : day}/${month < 10 ? "0" + month : month}/${year} ${hour}:${minute < 10 ? "0" + minute : minute}`;
   } else {
     const day = new Date(data).getDate();
     const month = new Date(data).getMonth() + 1;

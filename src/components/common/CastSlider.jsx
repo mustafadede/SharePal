@@ -3,9 +3,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import Images from "../layout/SearchPage/Images";
+import Casts from "../layout/SearchPage/Casts";
 
-function ImagesSlider({ data, header, dataClassName }) {
+function CastSlider({ data, header, dataClassName }) {
   return (
     <div className="w-full select-none">
       <h1 className="my-4 text-3xl text-slate-200">{header}</h1>
@@ -61,16 +61,16 @@ function ImagesSlider({ data, header, dataClassName }) {
             },
           }}
         >
-          {(data.backdrops?.length > 0 &&
-            data.backdrops?.map((image, i) => (
+          {(data.length > 0 &&
+            data.map((item, i) => (
               <SwiperSlide key={i}>
-                <Images path={image} />
+                <Casts data={item} />
               </SwiperSlide>
-            ))) || <p className="mt-4 text-lg text-slate-600">No image content found.</p>}
+            ))) || <p className="mt-4 text-lg text-slate-600">No cast found.</p>}
         </Swiper>
       </div>
     </div>
   );
 }
 
-export default ImagesSlider;
+export default CastSlider;

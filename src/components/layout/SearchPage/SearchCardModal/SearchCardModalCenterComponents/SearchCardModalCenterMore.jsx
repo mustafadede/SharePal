@@ -1,8 +1,9 @@
 import React from "react";
 import Trailer from "../../../../common/Trailer";
 import ImagesSlider from "../../../../common/ImagesSlider";
+import CastSlider from "../../../../common/CastSlider";
 
-function SearchCardModalCenterMore({ overview, vote, providers, images, trailerID }) {
+function SearchCardModalCenterMore({ overview, vote, providers, images, trailerID, credits }) {
   return (
     <>
       <div className="flex flex-col md:gap-4 md:flex-row md:pr-4">
@@ -40,9 +41,11 @@ function SearchCardModalCenterMore({ overview, vote, providers, images, trailerI
       </div>
       <h3 className="pb-2 mt-4 mb-2 text-2xl md:text-4xl text-slate-200">Trailer</h3>
       <Trailer trailerID={trailerID} />
-      <h1 className="mt-4 text-4xl text-slate-200">Images</h1>
+      <div className="w-full h-full rounded-2xl">
+        <CastSlider data={credits} header={"Cast"} key="cast" />
+      </div>
       {images ? (
-        <ImagesSlider data={images} dataClassName="images" />
+        <ImagesSlider data={images} header={"Images"} dataClassName="images" />
       ) : (
         <p className="mt-4 text-lg text-slate-600">No image content found.</p>
       )}

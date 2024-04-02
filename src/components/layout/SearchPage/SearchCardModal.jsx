@@ -28,6 +28,7 @@ import { watchedActions } from "../../../store/watchedSlice";
 import useTrailer from "../../../hooks/useTrailer";
 import { unfinishedActions } from "../../../store/unfinishedSlice";
 import { useNavigate } from "react-router-dom";
+import { useCredits } from "../../../hooks/useCredits";
 
 function SearchCardModal() {
   const { id, title, poster, releaseDate, overview, vote, backdrop, genres, mediaType, upcoming } = useSelector(
@@ -41,6 +42,7 @@ function SearchCardModal() {
   const [providers, setProviders] = useState([]);
   const [wantToWatch, setWantToWatch] = useState(false);
   const [watched, setWatched] = useState(false);
+  const [credits, setCredits] = useState([]);
   const [unfinished, setUnfinished] = useState(false);
   const [trailerID, setTrailerID] = useState("");
   const { user } = useSelector((state) => state.user);
@@ -66,6 +68,9 @@ function SearchCardModal() {
       setTrailerID(data[0]?.key);
     });
 
+    useCredits(id, mediaType).then((data) => {
+      setCredits(data);
+    });
     getSelectedUserWantToWatch(localStorage.getItem("user")).then((res) => {
       if (res.length > 0) {
         const arr = res.find((item) => item.id === id);
@@ -262,6 +267,7 @@ function SearchCardModal() {
         clickAction2={clickAction2}
         clickAction3={clickAction3}
         images={images}
+        credits={credits}
       />
       <SearchCardModalBottom similar={similar} />
     </div>

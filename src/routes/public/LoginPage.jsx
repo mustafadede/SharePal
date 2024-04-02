@@ -19,6 +19,7 @@ function LoginPage() {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [status, setStatus] = useState("idle");
   const {
     register,
     handleSubmit,
@@ -28,12 +29,16 @@ function LoginPage() {
 
   const submitHandler = (data) => {
     if (data.email && data.password && data.password.length >= 6) {
+      setStatus("loading");
       signInWithEmailAction(data.email, data.password).then((res) => {
         if (res.operationType === "signIn") {
           toast("Logged in successfully!");
           localStorage.setItem("m", JSON.stringify(data.email));
+          setStatus("done");
           navigate("/feed");
           dispatch(authActions.login(res.user.uid));
+        } else {
+          setStatus("idle");
         }
       });
     } else {
@@ -124,8 +129,15 @@ function LoginPage() {
                   Forgot Password?
                 </motion.button>
               </div>
-              <button type="submit" className="w-full py-2 mt-2 text-xl rounded-lg md:w-3/4 bg-fuchsia-600 text-cWhite">
-                Log In
+              <button
+                type="submit"
+                className={
+                  status === "loading"
+                    ? "w-full py-2 mt-2 text-xl rounded-lg md:w-3/4 bg-slate-600 text-cWhite"
+                    : "w-full py-2 mt-2 text-xl rounded-lg md:w-3/4 bg-fuchsia-600 text-cWhite"
+                }
+              >
+                {status === "loading" ? "Loading..." : "Log In"}
               </button>
             </motion.form>
           </motion.div>

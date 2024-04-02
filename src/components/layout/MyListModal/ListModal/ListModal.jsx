@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ModalHeader from "../../ModalSkeleton/ModalHeader";
 import ListModalCard from "./ListModalCard";
-import { Reorder, motion } from "framer-motion";
+import { Reorder, m, motion } from "framer-motion";
 import ListChangesInfoCard from "../ListChangesInfoCard";
 
 function ListModal() {
   const { modalHasData, dragable } = useSelector((state) => state.modal);
   const [search, setSearch] = useState("");
-  const [list, setList] = useState(Object.values(modalHasData.list));
+  const [list, setList] = useState(modalHasData.list && Object.values(modalHasData.list));
   const [listChanged, setListChanged] = useState(false);
 
   const handleOrder = (values) => {
@@ -40,7 +40,7 @@ function ListModal() {
           </motion.p>
         )}
         <div className="pb-4 overflow-scroll h-[18rem] lg:h-80 no-scrollbar">
-          {!modalHasData.list && <p className="py-4 text-xl text-slate-600">Your list is empty.</p>}
+          {!modalHasData.list && <p className="text-xl text-slate-600">List is empty.</p>}
           {dragable ? (
             <Reorder.Group values={list} onReorder={handleOrder}>
               {list &&

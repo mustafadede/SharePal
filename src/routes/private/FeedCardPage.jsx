@@ -38,7 +38,7 @@ function FeedCardPage() {
       }
     };
     getData();
-  }, [incomingData.cardStat]);
+  }, [incomingData?.cardStat]);
 
   return (
     <>

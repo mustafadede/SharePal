@@ -4,7 +4,7 @@ import FeedCardActionsSkeleton from "./FeedCard/FeedCardActions/FeedCardActionsS
 import { DateFormatter } from "../../utils/formatter";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
-import { Cross1Icon, DotsHorizontalIcon, HeartIcon, Pencil1Icon } from "@radix-ui/react-icons";
+import { Cross1Icon, DotsHorizontalIcon, HeartFilledIcon, HeartIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import ActionDetailsCard from "./ActionDetailsCard";
 import { toast } from "react-toastify";
 import {
@@ -37,8 +37,8 @@ function FeedCardPageCommentCard({
   const { user } = useSelector((state) => state.user);
   const { cardData } = useSelector((state) => state.card);
   const [settings, setSettings] = useState(false);
+  const [liked, setLiked] = useState(false);
   const [rename, setRename] = useState(false);
-  const [isCommentVisible, setIsCommentVisible] = useState(false);
   const { state: incomingData } = useLocation();
   const [editedText, setEditedText] = useState(comment);
   const [isEdited, setIsEdited] = useState(false);
@@ -55,6 +55,10 @@ function FeedCardPageCommentCard({
       setRename(false);
       setSettings(false);
     }
+  };
+
+  const likeHandler = (e) => {
+    setLiked(!liked);
   };
 
   const deleteHandler = () => {
@@ -104,8 +108,8 @@ function FeedCardPageCommentCard({
               <div className="flex justify-between">
                 <p className="py-1 text-slate-200">{comment}</p>
                 <div className="flex items-center ">
-                  <button>
-                    <HeartIcon className="w-6 h-5 transition-all text-slate-400 hover:text-slate-200" />
+                  <button onClick={likeHandler}>
+                    {liked ? <HeartFilledIcon className="w-6 h-5 text-fuchsia-600" /> : <HeartIcon className="w-6 h-5 text-slate-400" />}
                   </button>
                 </div>
               </div>
@@ -127,7 +131,6 @@ function FeedCardPageCommentCard({
           </div>
         </div>
       </motion.div>
-      {isCommentVisible && <FeedCardPageMiniCommentSection pointer={nick} />}
       {settings && (
         <ActionDetailsCard
           haveBorder={false}
