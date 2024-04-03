@@ -1,20 +1,23 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SearchCard from "../layout/SearchPage/SearchCard";
+import { Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 
 function Slider({ data, header, dataClassName, sliderType }) {
   return (
     <div>
       <h1 className="mb-4 text-3xl text-fuchsia-200">{header}</h1>
-      <div className={`${dataClassName} w-full cursor-grab`}>
+      <div className={`${dataClassName} w-full`}>
         <Swiper
           className={`${dataClassName} w-full`}
           style={{
             height: "100%",
             "--swiper-navigation-color": "#A021B1",
           }}
+          grabCursor={true}
           slidesPerView={3}
+          loop={true}
           spaceBetween={30}
           breakpoints={{
             320: {
@@ -55,6 +58,7 @@ function Slider({ data, header, dataClassName, sliderType }) {
               spaceBetween: 60,
             },
           }}
+          modules={[Pagination, Navigation]}
         >
           {data?.map((movie) =>
             movie.first_air_date || movie.poster_path ? (

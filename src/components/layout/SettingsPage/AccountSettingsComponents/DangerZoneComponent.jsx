@@ -19,7 +19,7 @@ function DangerZoneComponent() {
     });
   };
   return (
-    <div>
+    <div className="px-5 py-4 bg-slate-900/50 rounded-2xl">
       <SettingsSubTitle title="✨ Danger Zone ✨" />
       {!comfirm && (
         <p className="flex items-center gap-2 my-2 text-md text-fuchsia-600">

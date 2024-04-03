@@ -63,57 +63,65 @@ function AccountSettings() {
   };
   return (
     <motion.div
-      className="h-full px-5 py-4 mb-10 sm:mt-4 lg:mt-0 lg:ml-4 lg:flex-col lg:w-full lg:flex bg-slate-900 rounded-2xl"
+      className="h-full mb-7 sm:mt-4 lg:mt-0 lg:ml-4 lg:flex-col lg:w-full lg:flex rounded-2xl"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
     >
-      <SettingsTitle title="Account" />
-      <div className="flex flex-col gap-2">
-        <InformationSectionComponent user={user} setNick={setNick} setEmail={setEmail} setQuote={setQuote} setTopOne={setTopOne} />
-        <SocialSectionComponent
-          instagram={instagram}
-          setInstagram={setInstagram}
-          github={github}
-          setGithub={setGithub}
-          linkedin={linkedin}
-          setLinkedin={setLinkedin}
-        />
-        <SettingsSubTitle title="Pictures" />
-        <div className="flex flex-row justify-center gap-10">
-          <div className="flex flex-row gap-4 rounded-2xl">
-            <div className="flex flex-col gap-2">
-              <p className="text-xl text-slate-300">Profile Picture</p>
-              <input type="file" accept="image/jpeg" onChange={handleProfileChange} style={{ display: "none" }} ref={photoRef} />
-              <button
-                className="px-4 py-3 text-lg transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl"
-                onClick={handleUploadPhotoButtonClick}
-              >
-                Upload
-              </button>
+      <div className="px-5 py-4 mb-4 bg-slate-900 rounded-2xl">
+        <SettingsTitle title="Account" />
+        <div className="flex flex-col gap-2">
+          <InformationSectionComponent user={user} setNick={setNick} setEmail={setEmail} setQuote={setQuote} setTopOne={setTopOne} />
+          <SocialSectionComponent
+            instagram={instagram}
+            setInstagram={setInstagram}
+            github={github}
+            setGithub={setGithub}
+            linkedin={linkedin}
+            setLinkedin={setLinkedin}
+          />
+          <SettingsSubTitle title="Pictures" />
+          <div className="flex flex-row justify-center gap-10">
+            <div className="flex flex-row gap-4 rounded-2xl">
+              <div className="flex flex-col gap-2">
+                <p className="text-xl text-slate-300">Profile Picture</p>
+                <input type="file" accept="image/jpeg" onChange={handleProfileChange} style={{ display: "none" }} ref={photoRef} />
+                <button
+                  className="px-4 py-3 text-lg transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl"
+                  onClick={handleUploadPhotoButtonClick}
+                >
+                  Upload
+                </button>
+              </div>
+            </div>
+            <div className="flex flex-row gap-4 rounded-2xl">
+              <div className="flex flex-col gap-2">
+                <p className="text-xl text-slate-300">Banner Picture</p>
+                <input
+                  type="file"
+                  accept="image/jpeg, image/gif"
+                  onChange={handleBannerChange}
+                  style={{ display: "none" }}
+                  ref={bannerRef}
+                />
+                <button
+                  className="px-4 py-3 text-lg transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl"
+                  onClick={handleUploadBannerButtonClick}
+                >
+                  Upload
+                </button>
+              </div>
             </div>
           </div>
-          <div className="flex flex-row gap-4 rounded-2xl">
-            <div className="flex flex-col gap-2">
-              <p className="text-xl text-slate-300">Banner Picture</p>
-              <input type="file" accept="image/jpeg, image/gif" onChange={handleBannerChange} style={{ display: "none" }} ref={bannerRef} />
-              <button
-                className="px-4 py-3 text-lg transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl"
-                onClick={handleUploadBannerButtonClick}
-              >
-                Upload
-              </button>
-            </div>
-          </div>
+          <button
+            className="w-full px-4 py-3 my-2 mt-4 text-xl transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl"
+            onClick={formHandler}
+          >
+            Save Changes
+          </button>
         </div>
-        <button
-          className="w-full px-4 py-3 my-2 mt-4 text-xl transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl"
-          onClick={formHandler}
-        >
-          Save Changes
-        </button>
-        <DangerZoneComponent />
       </div>
+      <DangerZoneComponent />
     </motion.div>
   );
 }
