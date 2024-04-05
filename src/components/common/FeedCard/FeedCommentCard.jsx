@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { DateFormatter } from "../../../utils/formatter";
 import FeedCardHeader from "./components/FeedCardHeader";
 import EditSpoilerButton from "./components/EditSpoilerButton";
+import FeedCardPageMiniCommentSection from "../../layout/FeedCardPage/FeedCardPageMiniCommentSection";
 
 function FeedCommentCard({ data, notification }) {
   const [settings, setSettings] = useState(false);
@@ -18,6 +19,7 @@ function FeedCommentCard({ data, notification }) {
   const [editedText, setEditedText] = useState(data.text);
   const [isEdited, setIsEdited] = useState(false);
   const [isSpoiler, setIsSpoiler] = useState(false);
+  const [isCommentVisible, setIsCommentVisible] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user?.nick);
   const date = DateFormatter(data);
@@ -87,9 +89,17 @@ function FeedCommentCard({ data, notification }) {
         )}
         {/*Comment Card Middle Bottom section: Stats end */}
         {/*Comment Card Bottom section: Buttons starts */}
-        {!notification && <FeedCardButtons data={data} />}
+        {!notification && <FeedCardButtons data={data} isCommentVisible={isCommentVisible} setCommentVisible={setIsCommentVisible} />}
         {/*Comment Card Bottom section: Buttons end */}
       </motion.div>
+      {isCommentVisible && (
+        <FeedCardPageMiniCommentSection
+          postId={data.postId}
+          userId={data.userId}
+          comments={data.comments}
+          setCommentVisible={setIsCommentVisible}
+        />
+      )}
       {settings && (
         <ActionDetailsCard
           haveBorder={false}

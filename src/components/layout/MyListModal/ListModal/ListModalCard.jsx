@@ -8,19 +8,14 @@ import { MyListsActions } from "../../../../store/myListsSlice";
 import useSearchWithYear from "../../../../hooks/useSearchWithYear";
 import { modalActions } from "../../../../store/modalSlice";
 
-function ListModalCard({ id, listId, findIndex, title, poster, releaseDate, backdrop, username, listNumber }) {
+function ListModalCard({ id, title, poster, releaseDate, backdrop, username, listNumber }) {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const { modalHasData, dragable } = useSelector((state) => state.modal);
   const deleteHandler = () => {
     deleteSelectedUserListsItem(localStorage.getItem("user"), id);
-    dispatch(
-      MyListsActions.deleteListItem({
-        listId: listId,
-        id: id,
-        findIndex: findIndex ? findIndex : Object.values(modalHasData.list).findIndex((item, index) => item.title === title),
-      })
-    ) && toast.success("Movie deleted successfully!");
+    dispatch(modalActions.closeModal({ name: "listModal" }));
+    toast.success("Movie deleted successfully!");
   };
 
   const movieInfoHandler = () => {

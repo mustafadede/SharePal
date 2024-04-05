@@ -39,6 +39,10 @@ const postsSlice = createSlice({
       state.posts[index].comments = action.payload.comments;
       state.posts[index].commentsList = action.payload.commentsList;
     },
+    updateSelectedCommentNumber: (state, action) => {
+      const index = state.posts.findIndex((post) => post.postId === action.payload.postId);
+      state.posts[index].comments = action.payload.comments;
+    },
     repostPost: (state, action) => {
       const index = state.posts.findIndex((post) => post.postId === action.payload.postId);
       state.posts[index].repost = action.payload.repost;

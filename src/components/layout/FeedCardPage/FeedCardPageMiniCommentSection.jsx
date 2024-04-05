@@ -4,8 +4,9 @@ import { toast } from "react-toastify";
 import { createCommentsList, createNotification, createUserCommentsList, updateSelectedPost } from "../../../firebase/firebaseActions";
 import { cardActions } from "../../../store/cardSlice";
 import { motion } from "framer-motion";
+import { postsActions } from "../../../store/postsSlice";
 
-function FeedCardPageMiniCommentSection({ cardPost, pointer = false }) {
+function FeedCardPageMiniCommentSection({ postId, userId, comments, setCommentVisible, pointer = false }) {
   const { user } = useSelector((state) => state.user);
   const [comment, setComment] = useState("");
   const dispatch = useDispatch();
@@ -13,47 +14,34 @@ function FeedCardPageMiniCommentSection({ cardPost, pointer = false }) {
   const handlePostComment = () => {
     const commentId = Date.now() + user.uid; // This is a temporary solution, it will be changed in the future
     if (comment.length === 0) return toast.error("Comment can't be empty");
-    // createCommentsList(cardPost[0]?.postId, {
-    //   commentId: commentId,
-    //   userId: user.uid,
-    //   comment: comment,
-    //   relatedPostId: cardPost[0]?.postId,
-    //   relatedUserId: cardPost[0]?.userId,
-    // }).then(() => {
-    //   updateSelectedPost(cardPost[0]?.userId.trim(""), cardPost[0]?.postId, { comments: cardPost[0]?.comments + 1 });
-    //   dispatch(
-    //     cardActions.updateComments({
-    //       commentId: commentId,
-    //       userId: user.uid,
-    //       comment: comment,
-    //       nick: user.nick,
-    //       photo: user.photoURL,
-    //       date: Date.now(),
-    //       likes: 0,
-    //       comments: 0,
-    //       isEdited: false,
-    //       relatedPostId: cardPost[0]?.postId,
-    //       relatedUserId: cardPost[0]?.userId,
-    //     })
-    //   );
-    //   if (user.uid !== cardPost[0]?.userId) {
-    //     createNotification(cardPost[0]?.userId, {
-    //       type: "comment",
-    //       from: { uid: user.uid, nick: user.nick, photo: user.photoURL, postId: cardPost[0]?.postId, comment: comment },
-    //       date: Date.now(),
-    //     });
-    //   }
-    //   toast("Comment posted");
-    //   dispatch(cardActions.updateCommentsState("done"));
-    //   createUserCommentsList(user.uid, {
-    //     commentId: commentId,
-    //     userId: user.uid,
-    //     comment: comment,
-    //     relatedPostId: cardPost[0]?.postId,
-    //     relatedUserId: cardPost[0]?.userId,
-    //   });
-    // });
+    createCommentsList(postId, {
+      commentId: commentId,
+      userId: user.uid,
+      comment: comment,
+      relatedPostId: postId,
+      relatedUserId: userId,
+    }).then(() => {
+      updateSelectedPost(userId.trim(""), postId, { comments: comments + 1 });
+      dispatch(postsActions.updateSelectedCommentNumber({ postId: postId, comments: comments + 1 }));
+      if (user.uid !== userId) {
+        createNotification(userId, {
+          type: "comment",
+          from: { uid: user.uid, nick: user.nick, photo: user.photoURL, postId: postId, comment: comment },
+          date: Date.now(),
+        });
+      }
+      toast("Comment posted");
+      dispatch(cardActions.updateCommentsState("done"));
+      createUserCommentsList(user.uid, {
+        commentId: commentId,
+        userId: user.uid,
+        comment: comment,
+        relatedPostId: postId,
+        relatedUserId: userId,
+      });
+    });
     setComment("");
+    setCommentVisible(false);
   };
 
   const handleKeyDown = (e) => {

@@ -51,8 +51,6 @@ function ListModal() {
                       <ListModalCard
                         key={index}
                         id={Object.keys(modalHasData.list)[index]}
-                        listId={modalHasData.listNum}
-                        findIndex={null}
                         title={item.title}
                         poster={item.poster}
                         releaseDate={item.releaseDate}
@@ -72,8 +70,6 @@ function ListModal() {
                 <ListModalCard
                   key={index}
                   id={Object.keys(modalHasData.list)[index]}
-                  listId={modalHasData.listNum}
-                  findIndex={null}
                   title={item.title}
                   poster={item.poster}
                   releaseDate={item.releaseDate}
@@ -93,8 +89,6 @@ function ListModal() {
                   <ListModalCard
                     key={index}
                     id={Object.keys(modalHasData.list)[searchedIndex]}
-                    listId={modalHasData.listNum}
-                    findIndex={searchedIndex}
                     title={item.title}
                     poster={item.poster}
                     releaseDate={item.releaseDate}

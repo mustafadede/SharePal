@@ -131,7 +131,14 @@ function FeedAttachedCard({ data, attachedData, notification }) {
         )}
         {!notification && <FeedCardButtons data={data} isCommentVisible={isCommentVisible} setCommentVisible={setIsCommentVisible} />}
       </motion.div>
-      {isCommentVisible && <FeedCardPageMiniCommentSection />}
+      {isCommentVisible && (
+        <FeedCardPageMiniCommentSection
+          postId={data.postId}
+          userId={data.userId}
+          comments={data.comments}
+          setCommentVisible={setIsCommentVisible}
+        />
+      )}
       {!notification && settings && (
         <ActionDetailsCard
           haveBorder={false}

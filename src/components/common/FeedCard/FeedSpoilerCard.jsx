@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { DateFormatter } from "../../../utils/formatter";
 import FeedCardOnlineStatus from "../FeedCardOnlineStatus";
 import EditSpoilerButton from "./components/EditSpoilerButton";
+import FeedCardPageMiniCommentSection from "../../layout/FeedCardPage/FeedCardPageMiniCommentSection";
 
 function FeedSpoilerCard({ data, notification }) {
   const [settings, setSettings] = useState(false);
@@ -19,6 +20,7 @@ function FeedSpoilerCard({ data, notification }) {
   const [editedText, setEditedText] = useState(data.text);
   const [isEdited, setIsEdited] = useState(false);
   const [isSpoiler, setIsSpoiler] = useState(false);
+  const [isCommentVisible, setIsCommentVisible] = useState(false);
   const user = useSelector((state) => state.user.user?.nick);
   const dispatch = useDispatch();
 
@@ -122,8 +124,16 @@ function FeedSpoilerCard({ data, notification }) {
             <FeedCardActionsSkeleton action={"reposts"} number={data.repost} data={data} />
           </div>
         )}
-        {!notification && <FeedCardButtons data={data} />}
+        {!notification && <FeedCardButtons data={data} isCommentVisible={isCommentVisible} setCommentVisible={setIsCommentVisible} />}
       </motion.div>
+      {isCommentVisible && (
+        <FeedCardPageMiniCommentSection
+          postId={data.postId}
+          userId={data.userId}
+          comments={data.comments}
+          setCommentVisible={setIsCommentVisible}
+        />
+      )}
       {settings && (
         <ActionDetailsCard
           haveBorder={false}
