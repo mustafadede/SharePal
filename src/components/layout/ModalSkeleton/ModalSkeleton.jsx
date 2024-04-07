@@ -56,6 +56,7 @@ function ModalSkeleton(props) {
   const closeModal = () => {
     dispatch(modalActions.closeModal());
     console.clear();
+    dispatch(modalActions.updateOrderDirection(true));
   };
 
   return <>{createPortal(<ModalOverlay closeModal={closeModal}>{props.children}</ModalOverlay>, portalElement)}</>;

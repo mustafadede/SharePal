@@ -6,7 +6,7 @@ import { Reorder, m, motion } from "framer-motion";
 import ListChangesInfoCard from "../ListChangesInfoCard";
 
 function ListModal() {
-  const { modalHasData, dragable } = useSelector((state) => state.modal);
+  const { modalHasData, dragable, orderDirection } = useSelector((state) => state.modal);
   const [search, setSearch] = useState("");
   const [list, setList] = useState(modalHasData.list && Object.values(modalHasData.list));
   const [listChanged, setListChanged] = useState(false);
@@ -16,8 +16,12 @@ function ListModal() {
     setList(values);
   };
 
+  useEffect(() => {
+    setList(list?.reverse());
+  }, [orderDirection]);
+
   return (
-    <div className="bg-slate-900 rounded-2xl px-8 pt-4 overflow-hidden w-[25rem] md:w-[35rem] h-[28rem] md:h-[30rem]">
+    <div className="bg-slate-900 rounded-2xl px-8 pt-4 w-[25rem] md:w-[35rem] h-[28rem] md:h-[30rem]">
       <ModalHeader options={true} username={modalHasData.username} />
       <div className="flex flex-col justify-center w-full py-2">
         <div className="flex flex-col justify-between md:flex-row"></div>

@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Cross1Icon, InfoCircledIcon, ShuffleIcon } from "@radix-ui/react-icons";
 import ActionDetailsCard from "../../../common/ActionDetailsCard";
-import { deleteSelectedUserListsItem, getSelectedUserSelectedList } from "../../../../firebase/firebaseActions";
+import { deleteSelectedUserListsItem } from "../../../../firebase/firebaseActions";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import { MyListsActions } from "../../../../store/myListsSlice";
+import { useDispatch } from "react-redux";
 import useSearchWithYear from "../../../../hooks/useSearchWithYear";
 import { modalActions } from "../../../../store/modalSlice";
 
 function ListModalCard({ id, title, poster, releaseDate, backdrop, username, listNumber }) {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
-  const { modalHasData, dragable } = useSelector((state) => state.modal);
   const deleteHandler = () => {
     deleteSelectedUserListsItem(localStorage.getItem("user"), id);
     dispatch(modalActions.closeModal({ name: "listModal" }));

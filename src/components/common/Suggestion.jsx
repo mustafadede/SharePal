@@ -4,7 +4,7 @@ function Suggestion({ title, suggestion1, suggestion2, suggestion3, handleSugges
   return (
     <>
       {/** Suggestion section start */}
-      <div className="flex flex-col gap-0 pt-2 pb-4 md:flex-row md:gap-2">
+      <div className="flex flex-col gap-0 py-2 md:flex-row md:gap-2">
         <p className="text-center md:text-left text-md text-slate-300">{title} suggestion:</p>
         <div className="flex flex-row flex-wrap justify-center gap-2">
           <button

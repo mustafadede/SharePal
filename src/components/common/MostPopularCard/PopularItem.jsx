@@ -8,7 +8,7 @@ function PopularItem({ data, dispatch }) {
         name: "searchCardModal",
         data: {
           id: data.id,
-          title: data.original_title || data.original_name,
+          title: data.name || data.original_title || data.original_name,
           poster: data.poster_path,
           releaseDate: data.release_date || data.first_air_date,
           overview: data.overview,
@@ -23,7 +23,7 @@ function PopularItem({ data, dispatch }) {
   };
   // utils functions
   const date = DateFormatter(data.release_date || data.first_air_date, "popular");
-  const title = TextShorter(data.original_title || data.original_name);
+  const title = TextShorter(data.name || data.original_title || data.original_name);
 
   return (
     <button className="py-2 mt-4 text-left cursor-pointer group" onClick={handleClick}>

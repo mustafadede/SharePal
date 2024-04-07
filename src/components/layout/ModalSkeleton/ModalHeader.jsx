@@ -1,4 +1,4 @@
-import { CheckIcon, Cross1Icon, DiscIcon, DotsHorizontalIcon, InfoCircledIcon, ListBulletIcon, Pencil1Icon } from "@radix-ui/react-icons";
+import { CheckIcon, Cross1Icon, DotsHorizontalIcon, InfoCircledIcon, ListBulletIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
@@ -7,6 +7,7 @@ import { changePinnedListTitle, removePinnedList } from "../../../firebase/fireb
 import { toast } from "react-toastify";
 import { MyListsActions } from "../../../store/myListsSlice";
 import { motion } from "framer-motion";
+import SortButton from "../../common/ModalHeader/SortButton";
 
 function ModalHeader({ title, options = false, username }) {
   const [settings, setSettings] = useState(false);
@@ -116,13 +117,21 @@ function ModalHeader({ title, options = false, username }) {
             </button>
           </div>
         )}
-        <div className="flex gap-2">
+        <div className="flex items-center justify-center gap-2">
           {localStorage.getItem("user") && !username && options && !rename && (
-            <button className="cursor-pointer" onClick={() => setSettings(!settings)}>
-              <DotsHorizontalIcon className="transition-all duration-300 w-7 h-7 text-slate-400 hover:text-slate-200" />
-            </button>
+            <>
+              <SortButton />
+              <button className="cursor-pointer" onClick={() => setSettings(!settings)}>
+                <DotsHorizontalIcon className="transition-all duration-300 w-7 h-7 text-slate-400 hover:text-slate-200" />
+              </button>
+            </>
           )}
-          {!rename && <Cross1Icon className="w-6 h-6 ml-auto cursor-pointer text-slate-200 hover:text-slate-100" onClick={handleClick} />}
+          {!rename && (
+            <>
+              {username && <SortButton />}
+              <Cross1Icon className="w-6 h-6 ml-auto cursor-pointer text-slate-200 hover:text-slate-100" onClick={handleClick} />
+            </>
+          )}
         </div>
       </div>
       {options && info && (

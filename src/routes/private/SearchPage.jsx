@@ -7,10 +7,13 @@ import Suggestion from "../../components/common/Suggestion";
 import { getUserBySearch } from "../../firebase/firebaseActions";
 import SearchUserCard from "../../components/layout/SearchPage/SearchUserCard";
 import PopularSection from "../../components/layout/PopularSection";
+import Searched from "../../components/common/Searched";
 function SearchPage() {
   const [search, setSearch] = useState("");
   const [movies, setMovies] = useState("");
   const [users, setUsers] = useState([]);
+  const [searched, setSearched] = useState(false);
+
   const handleSearch = (e) => {
     if (e.key === "Enter" && search.startsWith("@")) {
       setMovies("");
@@ -18,9 +21,18 @@ function SearchPage() {
         setUsers(res);
       });
     }
-    if (e.key === "Enter" && !search.startsWith("@")) {
+    if (e.key === "Enter" && !search.startsWith("@") && search !== "") {
       useSearch(search, setMovies);
+      const localStorageData = JSON.parse(localStorage.getItem("spsi"));
+      console.log(localStorageData);
+      if (localStorageData) {
+        localStorageData.push(search);
+        localStorage.setItem("spsi", JSON.stringify(localStorageData));
+      } else {
+        localStorage.setItem("spsi", JSON.stringify([search]));
+      }
       setUsers([]);
+      setSearched(true);
     }
   };
   const handleSuggestion = (suggestion) => {
@@ -52,6 +64,7 @@ function SearchPage() {
                 suggestion3="The Imitation Game"
                 handleSuggestion={handleSuggestion}
               />
+              {/* {(searched || localStorage.getItem("spsi")) && <Searched handleSuggestion={handleSuggestion} setSearched={setSearched} />} */}
             </div>
             {/* Search title and input end */}
           </motion.div>
