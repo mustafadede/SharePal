@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import FeedTabs from "../FeedPage/FeedTabs";
 import { motion } from "framer-motion";
 import NotificationSuggestionCard from "../../common/NotificationCard/NotificationSuggestionCard";
+import NotificationCommentLikeCard from "../../common/NotificationCard/NotificationCommentLikeCard";
 
 function ActivitiesSection({ user }) {
   const [tab, setTab] = useState(0);
@@ -25,6 +26,24 @@ function ActivitiesSection({ user }) {
           Try more {user?.nick}. Follow more people. Follow the rabbit hole.
         </motion.h1>
       )}
+      {status === "done" &&
+        tab === 1 &&
+        notificationList
+          ?.filter((notification) => notification?.type === "commentLike")
+          .reverse()
+          .map((notification, index) => (
+            <NotificationCommentLikeCard
+              key={index}
+              uid={notification.from?.uid}
+              nick={notification.from?.nick}
+              postId={notification.from?.postId}
+              commentId={notification.from?.commentId}
+              photoURL={notification.from?.photo}
+              date={notification?.date}
+              deleteId={notification.id}
+              attached={notification.from?.attached}
+            />
+          ))}
       {status === "done" &&
         tab === 0 &&
         notificationList

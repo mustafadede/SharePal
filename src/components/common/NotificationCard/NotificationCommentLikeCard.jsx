@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
-import { ChevronDownIcon, Cross1Icon, DotsVerticalIcon, HeartIcon } from "@radix-ui/react-icons";
-import { deleteSelectedNotification, getSelectedUserPost } from "../../../firebase/firebaseActions";
-import FeedCard from "../FeedCard";
+import { Cross1Icon, DotsVerticalIcon, HeartIcon, ChatBubbleIcon } from "@radix-ui/react-icons";
+import { deleteSelectedNotification } from "../../../firebase/firebaseActions";
 import { DateFormatter } from "../../../utils/formatter";
 import ActionDetailsCard from "../ActionDetailsCard";
 import { toast } from "react-toastify";
@@ -11,17 +10,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { notificationActions } from "../../../store/notificationSlice";
 import NotificationPhoto from "./components/NotificationPhoto";
 
-function NotificationLikeCard({ uid, nick, photoURL, date, postId, deleteId }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [post, setPost] = useState(null);
+function NotificationCommentLikeCard({ uid, nick, postId, photoURL, date, deleteId }) {
   const [settings, setSettings] = useState(false);
   const newDate = DateFormatter(date);
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  useEffect(() => {
-    getSelectedUserPost(localStorage.getItem("user"), postId).then((res) => setPost(res));
-  }, []);
   const handleClick = () => {
     navigate(`/feed/${user.nick}/${postId}`, { state: { uId: user.uid || uid, pId: postId } });
   };
@@ -50,37 +44,20 @@ function NotificationLikeCard({ uid, nick, photoURL, date, postId, deleteId }) {
                 </Link>
                 liked your
                 <button onClick={handleClick} className="hover:underline text-fuchsia-300">
-                  post
+                  comment
                 </button>
               </motion.p>
-
               <motion.p className="text-sm text-slate-400">{newDate}</motion.p>
             </motion.div>
           </div>
           <div className="flex items-center gap-2">
             <HeartIcon className="w-6 h-6 mr-2 text-slate-200" />
-            <button
-              className="flex items-center justify-center transition-all rounded-full w-7 h-7 bg-slate-800 hover:bg-fuchsia-700"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              <ChevronDownIcon className="w-6 h-6 text-slate-200" />
-            </button>
+            <ChatBubbleIcon className="w-6 h-6 mr-2 text-slate-200" />
             <button onClick={() => setSettings(!settings)}>
               <DotsVerticalIcon className="w-6 h-6 transition-colors text-slate-400 hover:text-slate-200" />
             </button>
           </div>
         </div>
-        {isOpen &&
-          post &&
-          post.map((data, index) => {
-            if (data.attachedFilm) {
-              return <FeedCard key={index} isAttached={true} data={data} notification={true} index={index} />;
-            } else if (data.spoiler) {
-              return <FeedCard key={index} isSpoiler={true} data={data} notification={true} index={index} />;
-            } else {
-              return <FeedCard key={index} isComment={true} data={data} notification={true} index={index} />;
-            }
-          })}
       </motion.div>
       {settings && (
         <ActionDetailsCard
@@ -100,4 +77,4 @@ function NotificationLikeCard({ uid, nick, photoURL, date, postId, deleteId }) {
   );
 }
 
-export default NotificationLikeCard;
+export default NotificationCommentLikeCard;

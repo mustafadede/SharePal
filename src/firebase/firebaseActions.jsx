@@ -587,6 +587,8 @@ const getAllSelectedUserPostLikeLists = async (userId) => {
         date: childSnapshot.val().date,
         id: childSnapshot.val().id,
         postId: childSnapshot.val().postId,
+        isComment: childSnapshot.val().isComment || false,
+        relatedPostId: childSnapshot.val().relatedPostId || null,
       });
     });
   }
@@ -605,7 +607,7 @@ const createSelectedUserPostLikeLists = async (data) => {
   }
 };
 
-const removeSelectedUserPostLikeLists = async (userId, postId) => {
+const removeSelectedUserPostLikeLists = async (postId) => {
   try {
     const userPost = getAuth().currentUser.uid;
     const postsRef = ref(database, `likesList/${userPost}/`);
@@ -765,6 +767,27 @@ const updateSelectedComment = async (postId, commentId, data) => {
   }
 };
 
+const updateSelectedCommentLikes = async (postId, commentId, data) => {
+  try {
+    const commentsRef = ref(database, `commentsList/${postId}`);
+    const snapshot = await get(commentsRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().commentId === commentId) {
+          const updates = {};
+          updates[`commentsList/${postId}/${childSnapshot.key}`] = { ...childSnapshot.val(), ...data };
+          update(ref(database), updates);
+        }
+      });
+      return true;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    return toast("Something went wrong!");
+  }
+};
+
 const getCommentsList = async (postId) => {
   const commentsRef = ref(database, `commentsList/${postId}`);
   const snapshot = await get(commentsRef);
@@ -772,6 +795,7 @@ const getCommentsList = async (postId) => {
   if (snapshot.exists()) {
     snapshot.forEach((childSnapshot) => {
       comments.push({
+        commentKey: childSnapshot.key,
         commentId: childSnapshot.val().commentId,
         userId: childSnapshot.val().userId,
         comment: childSnapshot.val().comment,
@@ -792,65 +816,27 @@ const getCommentsList = async (postId) => {
 };
 
 const getSelectedComment = async (postId, commentId) => {
-  const commentsRef = ref(database, `commentsList/${postId}`);
+  const commentsRef = ref(database, `commentsList/${postId}/${commentId}`);
   const snapshot = await get(commentsRef);
   const comments = [];
   if (snapshot.exists()) {
-    snapshot.forEach((childSnapshot) => {
-      if (childSnapshot.val().commentId === commentId) {
-        comments.push({
-          commentId: childSnapshot.val().commentId,
-          userId: childSnapshot.val().userId,
-          comment: childSnapshot.val().comment,
-          likes: childSnapshot.val().likes || 0,
-          likesList: childSnapshot.val().likesList || [],
-          comments: childSnapshot.val().comments || 0,
-          commentsList: childSnapshot.val().commentsList || [],
-          reposts: childSnapshot.val().reposts || 0,
-          repostsList: childSnapshot.val().repostsList || [],
-          date: childSnapshot.val().date,
-          isEdited: childSnapshot.val().isEdited || false,
-          relatedPostId: childSnapshot.val().relatedPostId,
-          relatedUserId: childSnapshot.val().relatedUserId,
-        });
-      }
+    comments.push({
+      commentId: snapshot.val().commentId,
+      userId: snapshot.val().userId,
+      comment: snapshot.val().comment,
+      likes: snapshot.val().likes || 0,
+      likesList: snapshot.val().likesList || [],
+      comments: snapshot.val().comments || 0,
+      commentsList: snapshot.val().commentsList || [],
+      reposts: snapshot.val().reposts || 0,
+      repostsList: snapshot.val().repostsList || [],
+      date: snapshot.val().date,
+      isEdited: snapshot.val().isEdited || false,
+      relatedPostId: snapshot.val().relatedPostId,
+      relatedUserId: snapshot.val().relatedUserId,
     });
   }
-  console.log(comments);
   return comments;
-};
-
-const createCommentLikeList = async (postId, commentId, data) => {
-  try {
-    const newCommentLikeRef = push(ref(database, `commentsList/${postId}/${commentId}/likesList/`));
-    set(newCommentLikeRef, {
-      uid: data.uid,
-      nick: data.nick,
-      date: Date.now(),
-    });
-    return true;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-const removeCommentLikeList = async (postId, commentId, data) => {
-  try {
-    const commentsRef = ref(database, `commentsList/${postId}/${commentId}/likesList/`);
-    const snapshot = await get(commentsRef);
-    if (snapshot.exists()) {
-      snapshot.forEach((childSnapshot) => {
-        if (childSnapshot.val().uid === data.uid) {
-          set(ref(database, `commentsList/${postId}/${commentId}/likesList/${childSnapshot.key}`), null);
-        }
-      });
-      return true;
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.error(error);
-  }
 };
 
 const createUserCommentsList = async (userId, data) => {
@@ -1011,6 +997,7 @@ const getNotifications = async (uid) => {
         from: childSnapshot.val().from,
         date: childSnapshot.val().date,
         type: childSnapshot.val().type,
+        isComment: childSnapshot.val().isComment || false,
         isRead: childSnapshot.val().isRead || false,
       });
     });
@@ -1534,6 +1521,7 @@ export {
   createCommentsList,
   deleteSelectedComment,
   updateSelectedComment,
+  updateSelectedCommentLikes,
   getCommentsList,
   getSelectedComment,
   createUserCommentsList,

@@ -9,7 +9,7 @@ function FeedCardActionsSkeleton({ action, number, data }) {
   const navigate = useNavigate();
   const handleClick = () => {
     if (action === "likes") {
-      dispatch(modalActions.openModal({ name: "likesModal", data: { title: "Likes", ids: data?.likesList } }));
+      dispatch(modalActions.openModal({ name: "likesModal", data: { title: "Likes", ids: data.likesList } }));
     } else if (action === "comments") {
       dispatch(cardActions.updateData([data]));
       navigate(`/feed/${data.nick}/${data.postId}`, { state: { uId: data.userId, pId: data.postId } });

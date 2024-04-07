@@ -66,16 +66,19 @@ function FeedCardPageCommentComponent() {
         cardComments.map((user, index) => (
           <FeedCardPageCommentCard
             key={index}
+            commentKey={user.commentKey}
             commentId={user.commentId}
             nick={user.nick}
             photo={user.photo}
             comment={user.comment}
             date={user.date}
             likes={user.likes}
+            likesList={user.likesList}
             comments={user.comments}
             dataEdited={user.isEdited}
             relatedPostId={incomingData.pId}
             relatedUserId={incomingData.uId}
+            userId={user.userId}
           />
         ))}
       {commentsState === "done" && cardComments.length === 0 && <InfoLabel text="No comments yet" />}

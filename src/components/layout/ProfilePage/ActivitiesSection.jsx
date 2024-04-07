@@ -4,6 +4,7 @@ import {
   getAllSelectedUserPostLikeLists,
   getAllSelectedUserPostRepostsLists,
   getProfilePhoto,
+  getSelectedComment,
   getSelectedUserCommentsList,
   getSpecificPost,
   getUserByTheIds,
@@ -17,14 +18,24 @@ function ActivitiesSection({ username, uid, accountPrivacyFlag }) {
   const [likes, setLikes] = useState([]);
   const [comments, setComments] = useState([]);
   const [reposts, setReposts] = useState([]);
-
   useEffect(() => {
     if (username && accountPrivacyFlag) {
       getAllSelectedUserPostLikeLists(uid).then((result) => {
         result.forEach((value) => {
-          getSpecificPost(value.id.trim(), value.postId).then((res) => {
-            res.length > 0 ? setLikes((prev) => [...prev, res]) : null;
-          });
+          if (value.isComment) {
+            getSelectedComment(value.relatedPostId, value.postId).then((res) => {
+              getUserByTheIds(res[0].userId).then((user) => {
+                getProfilePhoto(user.uid).then((photo) => {
+                  const data = [...res, user, photo];
+                  setLikes((prev) => [...prev, data]);
+                });
+              });
+            });
+          } else {
+            getSpecificPost(value.id.trim(), value.postId).then((res) => {
+              res.length > 0 ? setLikes((prev) => [...prev, res]) : null;
+            });
+          }
         });
       });
       getAllSelectedUserPostRepostsLists(uid).then((result) => {
@@ -51,9 +62,20 @@ function ActivitiesSection({ username, uid, accountPrivacyFlag }) {
     } else {
       getAllSelectedUserPostLikeLists(localStorage.getItem("user")).then((result) => {
         result.forEach((value) => {
-          getSpecificPost(value.id.trim(), value.postId).then((res) => {
-            res.length > 0 ? setLikes((prev) => [...prev, res]) : null;
-          });
+          if (value.isComment) {
+            getSelectedComment(value.relatedPostId, value.postId).then((res) => {
+              getUserByTheIds(res[0].userId).then((user) => {
+                getProfilePhoto(user.uid).then((photo) => {
+                  const data = [...res, user, photo];
+                  setLikes((prev) => [...prev, data]);
+                });
+              });
+            });
+          } else {
+            getSpecificPost(value.id.trim(), value.postId).then((res) => {
+              res.length > 0 ? setLikes((prev) => [...prev, res]) : null;
+            });
+          }
         });
       });
       getAllSelectedUserPostRepostsLists(localStorage.getItem("user")).then((result) => {
@@ -97,10 +119,28 @@ function ActivitiesSection({ username, uid, accountPrivacyFlag }) {
       {tab === 0 && likes.length > 0
         ? likes
             .map((data, index) => {
-              if (data[0].attachedFilm) {
+              if (data[0]?.attachedFilm) {
                 return <FeedCard key={index} isAttached={true} data={data[0]} index={index} />;
-              } else if (data[0].spoiler) {
+              } else if (data[0]?.spoiler) {
                 return <FeedCard key={index} isSpoiler={true} data={data[0]} index={index} />;
+              } else if (data[0]?.commentId) {
+                return (
+                  <FeedCardPageCommentCard
+                    key={index}
+                    commentId={data[0].commentId}
+                    nick={data[1].nick}
+                    photo={data[2]}
+                    comment={data[0].comment}
+                    date={data[0].date}
+                    likes={data[0].likes}
+                    likesList={data[0].likesList}
+                    comments={data[0].comments}
+                    dataEdited={data[0].isEdited}
+                    relatedPostId={data[0].relatedPostId}
+                    data={data}
+                    notification={true}
+                  />
+                );
               } else {
                 return <FeedCard key={index} isComment={true} data={data[0]} index={index} />;
               }

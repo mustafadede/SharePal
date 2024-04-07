@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
-import FeedCardActionsSkeleton from "./FeedCard/FeedCardActions/FeedCardActionsSkeleton";
+import { useLocation } from "react-router-dom";
 import { DateFormatter } from "../../utils/formatter";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
-import { Cross1Icon, DotsHorizontalIcon, HeartFilledIcon, HeartIcon, Pencil1Icon } from "@radix-ui/react-icons";
+import { Cross1Icon, Pencil1Icon } from "@radix-ui/react-icons";
 import ActionDetailsCard from "./ActionDetailsCard";
 import { toast } from "react-toastify";
 import {
@@ -15,29 +14,31 @@ import {
   updateUserCommentsList,
 } from "../../firebase/firebaseActions";
 import { cardActions } from "../../store/cardSlice";
-import FeedCardPageAction from "../layout/FeedCardPage/FeedCardPageAction";
-import FeedCardPageMiniCommentSection from "../layout/FeedCardPage/FeedCardPageMiniCommentSection";
-import FeedCardButtons from "./FeedCard/Buttons/FeedCardButtons";
+import FeedCardPhotoSection from "./FeedCardPageCommentCard/FeedCardPhotoSection";
+import FeedCardPageHeaderSection from "./FeedCardPageCommentCard/FeedCardPageHeaderSection";
+import FeedCardPageMainSection from "./FeedCardPageCommentCard/FeedCardPageMainSection";
 
 function FeedCardPageCommentCard({
+  commentKey,
   commentId,
   nick,
   photo,
   comment,
   date,
   likes,
-  comments,
+  likesList,
   notification = false,
   dataEdited = false,
   relatedPostId = false,
   relatedUserId = false,
   activities = false,
+  data = false,
+  userId,
 }) {
   const newDate = DateFormatter(date);
   const { user } = useSelector((state) => state.user);
   const { cardData } = useSelector((state) => state.card);
   const [settings, setSettings] = useState(false);
-  const [liked, setLiked] = useState(false);
   const [rename, setRename] = useState(false);
   const { state: incomingData } = useLocation();
   const [editedText, setEditedText] = useState(comment);
@@ -55,10 +56,6 @@ function FeedCardPageCommentCard({
       setRename(false);
       setSettings(false);
     }
-  };
-
-  const likeHandler = (e) => {
-    setLiked(!liked);
   };
 
   const deleteHandler = () => {
@@ -80,54 +77,35 @@ function FeedCardPageCommentCard({
         transition={{ delay: 0.3 }}
       >
         <div className="flex gap-2">
-          <div className="relative w-12 h-12">
-            {!photo && <div className="w-12 h-12 rounded-full bg-fuchsia-600"></div>}
-            {photo && <img src={photo} alt="profile" className="object-cover w-10 h-10 rounded-full" />}
-          </div>
+          <FeedCardPhotoSection photo={photo} />
           <div className="flex flex-col justify-center w-full">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <NavLink
-                  to={nick === user?.nick ? `/profile` : `/user/${nick}`}
-                  className="text-md hover:text-fuchsia-600 text-slate-200 hover:underline"
-                >
-                  @{nick}
-                </NavLink>
-                <p className="text-sm text-slate-400">{newDate}</p>
-              </div>
-              <div className="flex items-center gap-2">
-                {(isEdited || dataEdited) && <p className="text-xs text-slate-400">(Edited)</p>}
-                {!notification && nick === user?.nick && !activities && (
-                  <button onClick={() => setSettings(!settings)}>
-                    <DotsHorizontalIcon className="w-6 h-6 transition-colors text-slate-400 hover:text-slate-200" />
-                  </button>
-                )}
-              </div>
-            </div>
-            {!rename ? (
-              <div className="flex justify-between">
-                <p className="py-1 text-slate-200">{comment}</p>
-                <div className="flex items-center ">
-                  <button onClick={likeHandler}>
-                    {liked ? <HeartFilledIcon className="w-6 h-5 text-fuchsia-600" /> : <HeartIcon className="w-6 h-5 text-slate-400" />}
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <input
-                type="text"
-                placeholder="Edit your post..."
-                className="w-full px-4 py-2 my-4 transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
-                value={editedText !== undefined ? editedText : comment}
-                onChange={(e) => setEditedText(e.target.value)}
-                onKeyDown={(e) => handlePost(e)}
-              />
-            )}
-            {!notification && (
-              <div className="flex gap-2">
-                <FeedCardActionsSkeleton action={"likes"} number={likes} data={0} />
-              </div>
-            )}
+            <FeedCardPageHeaderSection
+              nick={nick}
+              newDate={newDate}
+              user={user}
+              isEdited={isEdited}
+              dataEdited={dataEdited}
+              settings={settings}
+              setSettings={setSettings}
+              activities={activities}
+              notification={notification}
+            />
+            <FeedCardPageMainSection
+              commentKey={commentKey}
+              commentId={commentId}
+              comment={comment}
+              likes={likes}
+              likesList={likesList}
+              notification={notification}
+              rename={rename}
+              editedText={editedText}
+              setEditedText={setEditedText}
+              handlePost={handlePost}
+              relatedPostId={relatedPostId}
+              relatedUserId={relatedUserId}
+              data={data}
+              userId={userId}
+            />
           </div>
         </div>
       </motion.div>

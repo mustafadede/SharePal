@@ -15,6 +15,11 @@ const cardSlice = createSlice({
     updateState: (state, action) => {
       state.cardState = action.payload;
     },
+    updateLikes: (state, action) => {
+      const index = state.cardComments.findIndex((card) => card.commentId === action.payload.commentId);
+      state.cardComments[index].likes = action.payload.likes;
+      state.cardComments[index].likesList = action.payload.likesList;
+    },
     initilizeComments: (state, action) => {
       state.cardComments.push(action.payload);
     },
