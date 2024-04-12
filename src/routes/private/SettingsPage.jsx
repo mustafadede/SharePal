@@ -33,9 +33,9 @@ function SettingsPage() {
     if (selectedSection === "Privacy") {
       return <PrivacySettings />;
     }
-    if (selectedSection === "Preferences") {
-      return <PreferencesSettings />;
-    }
+    // if (selectedSection === "Preferences") {
+    //   return <PreferencesSettings />;
+    // }
   };
 
   return (
@@ -54,7 +54,7 @@ function SettingsPage() {
             <SettingsButton title="Account" handleSelection={handleSelection} />
             <SettingsButton title="Password" handleSelection={handleSelection} />
             <SettingsButton title="Privacy" handleSelection={handleSelection} />
-            <SettingsButton title="Preferences" handleSelection={handleSelection} />
+            {/* <SettingsButton title="Preferences" handleSelection={handleSelection} /> */}
           </div>
         </motion.div>
         {handleSettingsBar()}

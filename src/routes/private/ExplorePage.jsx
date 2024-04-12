@@ -26,7 +26,7 @@ function ExplorePage() {
   return (
     <>
       <Navbar isNotLoggedin={false} additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30" />
-      <div className="flex gap-6 mx-5 md:mx-10">
+      <div className="flex gap-6 pb-5 mx-5 md:mx-10">
         <motion.div
           className="flex flex-col w-full lg:w-3/4 2xl:w-4/5"
           initial={{ opacity: 0, y: -20 }}
@@ -73,7 +73,6 @@ function ExplorePage() {
           >
             <Slider data={top10Series} sliderType="tv" header="Top 10 Series" dataClassName="topSeries" />
           </motion.div>
-          <h2 className="my-4 text-2xl text-slate-200">Users Lists</h2>
         </motion.div>
         {/* Most popular movies and series start */}
         <PopularSection />

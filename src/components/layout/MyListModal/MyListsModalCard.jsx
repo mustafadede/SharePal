@@ -1,5 +1,5 @@
 import { Cross1Icon, DrawingPinFilledIcon, DrawingPinIcon, PlusIcon } from "@radix-ui/react-icons";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MyListsActions } from "../../../store/myListsSlice";
 import { toast } from "react-toastify";
@@ -8,11 +8,22 @@ import { removePinnedList, updatePinnedList, updateSelectedUserLists } from "../
 import { useNavigate } from "react-router-dom";
 
 function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = false, list, date }) {
+  const [pinnedCount, setPinedCount] = useState(0);
   const dispatch = useDispatch();
   const { modalHasData } = useSelector((state) => state.modal);
   const { myLists } = useSelector((state) => state.myLists);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const pinnedLists = myLists.filter((list) => list.isPinned);
+    setPinedCount(pinnedLists.length);
+  }, [myLists]);
+
   const handlePin = (listNum) => {
+    if (!isPinned && pinnedCount === 2) {
+      toast.error("You can only pin 2 lists at a time.");
+      return;
+    }
     if (!isPinned) {
       dispatch(MyListsActions.setPinned(listNum));
       toast.success("List pinned successfully!");
@@ -72,7 +83,7 @@ function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = fal
         className={` text-slate-200 w-full ${disabled ? "text-md" : "group-hover:text-fuchsia-400 text-xl"}`}
         onClick={() => clickHandler(id, title, list, date)}
       >
-        {title}
+        {title.length > 28 ? title.slice(0, 28) + "..." : title}
       </p>
       <div className="flex items-center gap-2">
         {!disabled && (

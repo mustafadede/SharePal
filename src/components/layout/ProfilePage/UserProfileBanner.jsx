@@ -28,7 +28,7 @@ function UserProfileBanner({ user = { nick: "Loading...", quote: "Loading...", b
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             ></motion.div>
-            <ProfileOnlineStatus username={true} />
+            {/* <ProfileOnlineStatus username={true} /> */}
           </div>
         )}
         {photo && (
@@ -41,7 +41,7 @@ function UserProfileBanner({ user = { nick: "Loading...", quote: "Loading...", b
               loading="lazy"
               src={photo}
             ></motion.img>
-            <ProfileOnlineStatus username={true} />
+            {/* <ProfileOnlineStatus username={true} /> */}
           </div>
         )}
         {/*  Profile picture end */}

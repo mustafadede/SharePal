@@ -10,13 +10,13 @@ function FeedCardHeader({ data, date, isEdited, setSettings, settings, user, not
         {!data.photoURL && (
           <div className="relative w-12 h-12">
             <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" loading="lazy" src={data.photoURL}></img>
-            <FeedCardOnlineStatus username={!notification && data.nick === user ? false : true} data={data} />
+            {/* <FeedCardOnlineStatus username={!notification && data.nick === user ? false : true} data={data} /> */}
           </div>
         )}
         {data.photoURL && (
           <div className="relative w-12 h-12">
             <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" loading="lazy" src={data.photoURL}></img>
-            <FeedCardOnlineStatus username={!notification && data.nick === user ? false : true} data={data} />
+            {/* <FeedCardOnlineStatus username={!notification && data.nick === user ? false : true} data={data} /> */}
           </div>
         )}
         <div className="flex flex-col">

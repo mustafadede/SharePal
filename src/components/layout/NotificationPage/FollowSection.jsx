@@ -8,7 +8,7 @@ import InfoLabel from "../../common/InfoLabel";
 function FollowSection({ notificationList, status, activeTab, followRequestStatus }) {
   return (
     <div>
-      {!followRequestStatus && activeTab === 0 && <FollowRequestButton />}
+      {/* {!followRequestStatus && activeTab === 0 && <FollowRequestButton />} */}
       {status === "loading" && activeTab === 0 && <InfoLabel text="Loading..." />}
       {!followRequestStatus &&
         activeTab === 0 &&

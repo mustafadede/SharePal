@@ -13,6 +13,7 @@ import { DateFormatter } from "../../../utils/formatter";
 import FeedCardOnlineStatus from "../FeedCardOnlineStatus";
 import EditSpoilerButton from "./components/EditSpoilerButton";
 import FeedCardPageMiniCommentSection from "../../layout/FeedCardPage/FeedCardPageMiniCommentSection";
+import FeedCardHeader from "./components/FeedCardHeader";
 
 function FeedSpoilerCard({ data, notification }) {
   const [settings, setSettings] = useState(false);
@@ -60,46 +61,15 @@ function FeedSpoilerCard({ data, notification }) {
         initial={{ opacity: 0, y: -20, transition: { duration: 2 } }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <div className="flex flex-col justify-between w-full">
-          <div className="flex items-center justify-between gap-2">
-            <div className="flex gap-4">
-              {!data.photoURL && (
-                <div className="relative w-12 h-12">
-                  <div className="w-12 h-12 rounded-full bg-fuchsia-600"></div>
-                  <FeedCardOnlineStatus username={!notification && data.nick === user ? false : true} data={data} />
-                </div>
-              )}
-              {data.photoURL && (
-                <div className="relative w-12 h-12">
-                  <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" loading="lazy" src={data.photoURL}></img>
-                  <FeedCardOnlineStatus username={!notification && data.nick === user ? false : true} data={data} />
-                </div>
-              )}
-              <div className="flex flex-col">
-                <NavLink to={data.nick === user ? `/profile` : `/user/${data.nick}`}>
-                  <p className="transition-all duration-300 text-md text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600">
-                    @{data.nick}
-                  </p>
-                </NavLink>
-                <p className="text-sm text-slate-400">{date}</p>
-              </div>
-            </div>
-            <div className="flex items-center justify-center gap-4">
-              <div className="flex gap-2">
-                <LockClosedIcon className="w-4 h-4 text-slate-200" />
-                <p className="text-sm text-slate-400">Spoiler!</p>
-                {(isEdited || data.edited) && <p className="text-sm text-slate-400">(Edited)</p>}
-              </div>
-              {!notification && data.nick === user && (
-                <div className="flex flex-col">
-                  <button onClick={() => setSettings(!settings)}>
-                    <DotsHorizontalIcon className="w-6 h-6 transition-colors text-slate-400 hover:text-slate-200" />
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+        <FeedCardHeader
+          data={data}
+          date={date}
+          isEdited={isEdited}
+          setSettings={setSettings}
+          settings={settings}
+          user={user}
+          notification={notification}
+        />
         {!rename ? (
           <p className="py-4 transition-all duration-150 cursor-pointer select-none text-slate-200 blur-sm" onClick={handleSpoiler}>
             {data.text || data.content}

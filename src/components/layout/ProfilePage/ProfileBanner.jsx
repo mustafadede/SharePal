@@ -30,7 +30,7 @@ function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banne
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             ></motion.div>
-            <ProfileOnlineStatus username={username} />
+            {/* <ProfileOnlineStatus username={username} /> */}
           </div>
         )}
         {photo && (
@@ -43,7 +43,7 @@ function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banne
               loading="lazy"
               src={photo}
             ></motion.img>
-            <ProfileOnlineStatus username={username} />
+            {/* <ProfileOnlineStatus username={username} /> */}
           </div>
         )}
         {/*  Profile picture end */}
