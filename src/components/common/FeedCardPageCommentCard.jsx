@@ -17,6 +17,7 @@ import { cardActions } from "../../store/cardSlice";
 import FeedCardPhotoSection from "./FeedCardPageCommentCard/FeedCardPhotoSection";
 import FeedCardPageHeaderSection from "./FeedCardPageCommentCard/FeedCardPageHeaderSection";
 import FeedCardPageMainSection from "./FeedCardPageCommentCard/FeedCardPageMainSection";
+import { useTranslation } from "react-i18next";
 
 function FeedCardPageCommentCard({
   commentKey,
@@ -35,6 +36,7 @@ function FeedCardPageCommentCard({
   data = false,
   userId,
 }) {
+  const { t } = useTranslation();
   const newDate = DateFormatter(date);
   const { user } = useSelector((state) => state.user);
   const { cardData } = useSelector((state) => state.card);
@@ -118,7 +120,7 @@ function FeedCardPageCommentCard({
               onClick={() => setRename(!rename)}
             >
               <Pencil1Icon className="w-5 h-5 mr-2" />
-              Edit
+              {t("feedPost.edit")}
             </button>
           }
           icon2={
@@ -127,7 +129,7 @@ function FeedCardPageCommentCard({
               onClick={deleteHandler}
             >
               <Cross1Icon className="w-5 h-5 mr-2" />
-              Delete
+              {t("notification.delete")}
             </button>
           }
         />

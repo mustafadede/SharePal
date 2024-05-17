@@ -11,8 +11,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { notificationActions } from "../../../store/notificationSlice";
 import NotificationPhoto from "./components/NotificationPhoto";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 function NotificationSuggestionCard({ uid, nick, photoURL, date, deleteId, attached }) {
+  const { t, i18n } = useTranslation();
   const [settings, setSettings] = useState(false);
   const newDate = DateFormatter(date);
   const dispatch = useDispatch();
@@ -62,22 +64,41 @@ function NotificationSuggestionCard({ uid, nick, photoURL, date, deleteId, attac
           <div className="flex gap-4">
             <NotificationPhoto uid={uid} photoURL={photoURL} />
             <motion.div className="flex flex-col items-start justify-center">
-              <motion.p className="flex gap-1 text-base text-cWhite text-slate-20">
-                <Link
-                  to={`/user/${nick}`}
-                  className="text-base transition-all duration-300 text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600"
-                >
-                  <motion.span className="font-bold text-fuchsia-600 ">{nick}</motion.span>
-                </Link>
-                suggested
-                <button
-                  className="text-base transition-all duration-300 text-fuchsia-400 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600"
-                  onClick={handleClick}
-                >
-                  {attached.title.length > 24 ? attached.title.slice(0, 24) + "..." : attached.title}
-                </button>
-                to you.
-              </motion.p>
+              {i18n.language === "en" ? (
+                <motion.p className="flex gap-1 text-base text-cWhite text-slate-20">
+                  <Link
+                    to={`/user/${nick}`}
+                    className="text-base transition-all duration-300 text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600"
+                  >
+                    <motion.span className="font-bold text-fuchsia-600 ">{nick}</motion.span>
+                  </Link>
+                  suggested
+                  <button
+                    className="text-base transition-all duration-300 text-fuchsia-400 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600"
+                    onClick={handleClick}
+                  >
+                    {attached.title.length > 24 ? attached.title.slice(0, 24) + "..." : attached.title}
+                  </button>
+                  to you.
+                </motion.p>
+              ) : (
+                <motion.p className="flex gap-1 text-base text-cWhite text-slate-20">
+                  <Link
+                    to={`/user/${nick}`}
+                    className="text-base transition-all duration-300 text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600"
+                  >
+                    <motion.span className="font-bold text-fuchsia-600 ">{nick}</motion.span>
+                  </Link>
+                  sana
+                  <button
+                    className="text-base transition-all duration-300 text-fuchsia-400 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600"
+                    onClick={handleClick}
+                  >
+                    {attached.title.length > 24 ? attached.title.slice(0, 24) + "..." : attached.title}
+                  </button>
+                  önerdi.
+                </motion.p>
+              )}
 
               <motion.p className="text-sm text-slate-400">{newDate}</motion.p>
             </motion.div>
@@ -99,7 +120,7 @@ function NotificationSuggestionCard({ uid, nick, photoURL, date, deleteId, attac
               onClick={watchedHandler}
             >
               <CheckIcon className="w-5 h-5 mr-2" />
-              Watched
+              {t("notification.watched")}
             </button>
           }
         />

@@ -7,8 +7,10 @@ import useTop10 from "../../hooks/useTop10";
 import Slider from "../../components/common/Slider";
 import useNextYear from "../../hooks/useNextYear";
 import PopularSection from "../../components/layout/PopularSection";
+import { useTranslation } from "react-i18next";
 
 function ExplorePage() {
+  const { t } = useTranslation();
   const [nowPlaying, setNowPlaying] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
   const [nextYear, setNextYear] = useState([]);
@@ -39,7 +41,7 @@ function ExplorePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <Slider data={nowPlaying.results} sliderType="movie" header="Now Playing" dataClassName="topSeries" />
+            <Slider data={nowPlaying.results} sliderType="movie" header={t("explore.nowPlaying")} dataClassName="topSeries" />
           </motion.div>
           <motion.div
             className={`flex flex-col w-full h-full mt-4 gap-2`}
@@ -47,7 +49,7 @@ function ExplorePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <Slider data={upcoming.results} sliderType="movie" header="Upcoming" dataClassName="upcoming" />
+            <Slider data={upcoming.results} sliderType="movie" header={t("explore.upcoming")} dataClassName="upcoming" />
           </motion.div>
           <motion.div
             className={`flex flex-col w-full h-full mt-4 gap-2`}
@@ -55,7 +57,7 @@ function ExplorePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <Slider data={nextYear.results} sliderType="movie" header="Coming to next year" dataClassName="upcoming" />
+            <Slider data={nextYear.results} sliderType="movie" header={t("explore.nextYear")} dataClassName="upcoming" />
           </motion.div>
           <motion.div
             className={`flex flex-col w-full h-full mt-4 gap-2 overflow-hidden overflow-x-auto no-scrollbar`}
@@ -63,7 +65,7 @@ function ExplorePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <Slider data={top10Movies} sliderType="movie" header="Top 10 Movies" dataClassName="topMovies" />
+            <Slider data={top10Movies} sliderType="movie" header={t("explore.topMovies")} dataClassName="topMovies" />
           </motion.div>
           <motion.div
             className={`flex flex-col h-full mt-4 gap-2 overflow-hidden overflow-x-auto no-scrollbar`}
@@ -71,7 +73,7 @@ function ExplorePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <Slider data={top10Series} sliderType="tv" header="Top 10 Series" dataClassName="topSeries" />
+            <Slider data={top10Series} sliderType="tv" header={t("explore.topSeries")} dataClassName="topSeries" />
           </motion.div>
         </motion.div>
         {/* Most popular movies and series start */}

@@ -6,8 +6,10 @@ import { getCurrentUserData, getFollowersForUser, getSelectedUserFollowing } fro
 import { userActions } from "../../store/userSlice";
 import { followersActions } from "../../store/followersSlice";
 import { followingActions } from "../../store/followingSlice";
+import { useTranslation } from "react-i18next";
 
 const ProfileCard = () => {
+  const { t } = useTranslation();
   const photo = getAuth().currentUser?.photoURL;
   const { followingList } = useSelector((state) => state.following);
   const { followersLists } = useSelector((state) => state.followers);
@@ -56,15 +58,15 @@ const ProfileCard = () => {
       <div className="flex justify-around pt-2 text-center">
         <div className="flex flex-col ">
           <p className="text-lg text-slate-200">{followersLists?.length || 0}</p>
-          <p className="text-sm text-slate-300">Followers</p>
+          <p className="text-sm text-slate-300">{t("profileCard.followers")}</p>
         </div>
         <div className="flex flex-col">
           <p className="text-lg text-slate-200">{followingList?.length || 0}</p>
-          <p className="text-sm text-slate-300">Following</p>
+          <p className="text-sm text-slate-300">{t("profileCard.following")}</p>
         </div>
       </div>
       <p className="flex items-center justify-center py-4 text-lg transition-colors text-fuchsia-400 hover:text-slate-300">
-        <NavLink to={"/profile"}>Go to Profile</NavLink>
+        <NavLink to={"/profile"}>{t("profileCard.button")}</NavLink>
       </p>
     </div>
   );

@@ -10,8 +10,10 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { notificationActions } from "../../../store/notificationSlice";
 import NotificationPhoto from "./components/NotificationPhoto";
+import { useTranslation } from "react-i18next";
 
 function NotificationLikeCard({ uid, nick, photoURL, date, postId, deleteId }) {
+  const { i18n, t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [post, setPost] = useState(null);
   const [settings, setSettings] = useState(false);
@@ -41,19 +43,33 @@ function NotificationLikeCard({ uid, nick, photoURL, date, postId, deleteId }) {
           <div className="flex gap-4">
             <NotificationPhoto uid={uid} photoURL={photoURL} />
             <motion.div className="flex flex-col items-start justify-center">
-              <motion.p className="flex gap-1 text-base text-cWhite text-slate-20">
-                <Link
-                  to={`/user/${nick}`}
-                  className="text-base transition-all duration-300 text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600"
-                >
-                  <motion.span className="font-bold text-fuchsia-600 ">{nick}</motion.span>
-                </Link>
-                liked your
-                <button onClick={handleClick} className="hover:underline text-fuchsia-300">
-                  post
-                </button>
-              </motion.p>
-
+              {i18n.language === "en" ? (
+                <motion.p className="flex gap-1 text-base text-cWhite text-slate-20">
+                  <Link
+                    to={`/user/${nick}`}
+                    className="text-base transition-all duration-300 text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600"
+                  >
+                    <motion.span className="font-bold text-fuchsia-600 ">{nick}</motion.span>
+                  </Link>
+                  liked your
+                  <button onClick={handleClick} className="hover:underline text-fuchsia-300">
+                    post
+                  </button>
+                </motion.p>
+              ) : (
+                <motion.p className="flex gap-1 text-base text-cWhite text-slate-20">
+                  <Link
+                    to={`/user/${nick}`}
+                    className="text-base transition-all duration-300 text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600"
+                  >
+                    <motion.span className="font-bold text-fuchsia-600 ">{nick}</motion.span>
+                  </Link>
+                  <button onClick={handleClick} className="hover:underline text-fuchsia-300">
+                    gönderinizi
+                  </button>
+                  beğendi.
+                </motion.p>
+              )}
               <motion.p className="text-sm text-slate-400">{newDate}</motion.p>
             </motion.div>
           </div>
@@ -91,7 +107,7 @@ function NotificationLikeCard({ uid, nick, photoURL, date, postId, deleteId }) {
               onClick={deleteHandler}
             >
               <Cross1Icon className="w-5 h-5 mr-2" />
-              Delete
+              {t("notification.delete")}
             </button>
           }
         />

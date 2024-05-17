@@ -5,15 +5,16 @@ import FollowSection from "./FollowSection";
 import ActivitiesSection from "./ActivitiesSection";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 function NotificationsSection() {
   const { user } = useSelector((state) => state.user);
   const { notificationList, status, followRequestStatus } = useSelector((state) => state.notification);
   const [activeTab, setActiveTab] = useState(0);
-
+  const { t } = useTranslation();
   const tabs = [
-    { id: 0, name: "Follow Requests" },
-    { id: 1, name: "Activities" },
+    { id: 0, name: t("notification.followRequest") },
+    { id: 1, name: t("notification.activities") },
   ];
 
   return (

@@ -8,34 +8,41 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import ProfileWithListSection from "../../components/layout/ProfileWithListSection";
 import PasswordSettings from "../../components/layout/SettingsPage/PasswordSettings/PasswordSettings";
+import { useTranslation } from "react-i18next";
 
 function SettingsPage() {
+  const { t, i18n } = useTranslation();
   const [selectedSection, setSelectedSection] = useState("Account");
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.title = "SharePal | Settings";
+    document.title = t("settings.windowSettingsTitle");
     window.scrollTo(0, 0);
     if (localStorage.getItem("user") === null) navigate("/login");
   }, []);
+
+  useEffect(() => {
+    document.title = t("settings.windowSettingsTitle");
+    setSelectedSection(t("settings.account"));
+  }, [i18n.language, t]);
 
   const handleSelection = (title) => {
     setSelectedSection(title);
   };
 
   const handleSettingsBar = () => {
-    if (selectedSection === "Account") {
+    if (selectedSection === t("settings.account")) {
       return <AccountSettings />;
     }
-    if (selectedSection === "Password") {
+    if (selectedSection === t("settings.password")) {
       return <PasswordSettings />;
     }
-    if (selectedSection === "Privacy") {
+    if (selectedSection === t("settings.privacy")) {
       return <PrivacySettings />;
     }
-    // if (selectedSection === "Preferences") {
-    //   return <PreferencesSettings />;
-    // }
+    if (selectedSection === t("settings.preferences")) {
+      return <PreferencesSettings />;
+    }
   };
 
   return (
@@ -49,12 +56,12 @@ function SettingsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
-          <h1 className="mb-4 text-3xl text-slate-200">Settings</h1>
+          <h1 className="mb-4 text-3xl text-slate-200">{t("settings.header")}</h1>
           <div className="flex lg:flex-col">
-            <SettingsButton title="Account" handleSelection={handleSelection} />
-            <SettingsButton title="Password" handleSelection={handleSelection} />
-            <SettingsButton title="Privacy" handleSelection={handleSelection} />
-            {/* <SettingsButton title="Preferences" handleSelection={handleSelection} /> */}
+            <SettingsButton title={t("settings.account")} handleSelection={handleSelection} />
+            <SettingsButton title={t("settings.password")} handleSelection={handleSelection} />
+            <SettingsButton title={t("settings.privacy")} handleSelection={handleSelection} />
+            <SettingsButton title={t("settings.preferences")} handleSelection={handleSelection} />
           </div>
         </motion.div>
         {handleSettingsBar()}

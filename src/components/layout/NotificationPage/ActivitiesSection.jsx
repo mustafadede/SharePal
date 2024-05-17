@@ -7,8 +7,10 @@ import FeedTabs from "../FeedPage/FeedTabs";
 import { motion } from "framer-motion";
 import NotificationSuggestionCard from "../../common/NotificationCard/NotificationSuggestionCard";
 import NotificationCommentLikeCard from "../../common/NotificationCard/NotificationCommentLikeCard";
+import { useTranslation } from "react-i18next";
 
 function ActivitiesSection({ user }) {
+  const { i18n } = useTranslation();
   const [tab, setTab] = useState(0);
   const { notificationList, status } = useSelector((state) => state.notification);
   const commentTabLength = notificationList?.filter((notification) => notification?.type === "comment").length;
@@ -16,16 +18,26 @@ function ActivitiesSection({ user }) {
   return (
     <div className="mt-4">
       <FeedTabs tabInfo={tab} tab={setTab} />
-      {(status === "error" || (commentTabLength === 0 && tab === 2)) && (
-        <motion.h1
-          className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          Try more {user?.nick}. Follow more people. Follow the rabbit hole.
-        </motion.h1>
-      )}
+      {(status === "error" || (commentTabLength === 0 && tab === 2)) &&
+        (i18n.language === "en" ? (
+          <motion.h1
+            className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            Try more {user?.nick}. Follow more people. Follow the rabbit hole.
+          </motion.h1>
+        ) : (
+          <motion.h1
+            className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            Daha fazla dene {user?.nick}. Daha fazla kişiyi takip et.
+          </motion.h1>
+        ))}
       {status === "done" &&
         tab === 1 &&
         notificationList
@@ -76,26 +88,50 @@ function ActivitiesSection({ user }) {
               deleteId={notification.id}
             />
           ))}
-      {status === "done" && tab === 1 && notificationList?.filter((notification) => notification?.type === "like").length === 0 && (
-        <motion.h1
-          className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          Try more {user?.nick}. Follow more people. Follow the rabbit hole.
-        </motion.h1>
-      )}
-      {status === "done" && tab === 0 && notificationList?.filter((notification) => notification?.type === "suggest").length === 0 && (
-        <motion.h1
-          className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          Try more {user?.nick}. Follow more people. Follow the rabbit hole.
-        </motion.h1>
-      )}
+      {status === "done" &&
+        tab === 1 &&
+        notificationList?.filter((notification) => notification?.type === "like").length === 0 &&
+        (i18n.language === "en" ? (
+          <motion.h1
+            className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            Try more {user?.nick}. Follow more people. Follow the rabbit hole.
+          </motion.h1>
+        ) : (
+          <motion.h1
+            className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            Daha fazla dene {user?.nick}. Daha fazla kişiyi takip et.
+          </motion.h1>
+        ))}
+      {status === "done" &&
+        tab === 0 &&
+        notificationList?.filter((notification) => notification?.type === "suggest").length === 0 &&
+        (i18n.language === "en" ? (
+          <motion.h1
+            className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            Try more {user?.nick}. Follow more people. Follow the rabbit hole.
+          </motion.h1>
+        ) : (
+          <motion.h1
+            className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            Daha fazla dene {user?.nick}. Daha fazla kişiyi takip et.
+          </motion.h1>
+        ))}
       {status === "done" &&
         tab === 2 &&
         notificationList

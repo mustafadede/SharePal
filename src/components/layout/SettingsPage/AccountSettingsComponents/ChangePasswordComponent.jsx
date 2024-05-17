@@ -2,23 +2,25 @@ import { EmailAuthProvider, getAuth, reauthenticateWithCredential, updatePasswor
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import SettingsSubTitle from "../../../common/SettingsPage/SettingsSubTitle";
+import { useTranslation } from "react-i18next";
 
 function ChangePasswordComponent() {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const { t } = useTranslation();
 
   const formHandler = () => {
-    if (!currentPassword || !newPassword || !confirmNewPassword) return toast.error("You didn't fill all the fields!");
-    if (newPassword !== confirmNewPassword) return toast.error("New passwords don't match!");
-    if (newPassword.length < 6) return toast.error("Password must be at least 6 characters long!");
-    toast.info("Changing password...");
+    if (!currentPassword || !newPassword || !confirmNewPassword) return toast.error(t("password.fillAllFields"));
+    if (newPassword !== confirmNewPassword) return toast.error(t("password.passwordsDoNotMatch"));
+    if (newPassword.length < 6) return toast.error(t("password.passwordLengthError"));
+    toast.info(t("password.changingPassword"));
     const credential = EmailAuthProvider.credential(getAuth().currentUser.email, currentPassword);
     reauthenticateWithCredential(getAuth().currentUser, credential)
       .then(() => {
         updatePassword(getAuth().currentUser, newPassword)
           .then(() => {
-            toast.success("Password changed successfully!");
+            toast.success(t("password.passwordChanged"));
             setCurrentPassword("");
             setNewPassword("");
             setConfirmNewPassword("");
@@ -34,10 +36,10 @@ function ChangePasswordComponent() {
   };
   return (
     <>
-      <SettingsSubTitle title="Password" />
+      <SettingsSubTitle title={t("password.title")} />
       <input
         className="px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
-        placeholder="Current Password"
+        placeholder={t("password.currentPassword")}
         type="password"
         value={currentPassword}
         onChange={(e) => {
@@ -46,7 +48,7 @@ function ChangePasswordComponent() {
       />
       <input
         className="px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
-        placeholder="Your New Password"
+        placeholder={t("password.newPassword")}
         type="password"
         value={newPassword}
         onChange={(e) => {
@@ -55,7 +57,7 @@ function ChangePasswordComponent() {
       />
       <input
         className="px-4 py-3 my-2 text-xl transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
-        placeholder="Confirm New Password"
+        placeholder={t("password.confirmNewPassword")}
         type="password"
         value={confirmNewPassword}
         onChange={(e) => {
@@ -66,7 +68,7 @@ function ChangePasswordComponent() {
         className="w-full px-4 py-3 my-2 text-xl transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl"
         onClick={formHandler}
       >
-        Change Password
+        {t("password.change")}
       </button>
     </>
   );

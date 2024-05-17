@@ -1,4 +1,3 @@
-import { StrictMode } from "react";
 import Root from "./routes/Root";
 
 function App() {

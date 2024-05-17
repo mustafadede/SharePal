@@ -8,10 +8,12 @@ import { deleteSelectedNotification } from "../../../firebase/firebaseActions";
 import { toast } from "react-toastify";
 import { notificationActions } from "../../../store/notificationSlice";
 import NotificationPhoto from "./components/NotificationPhoto";
+import { useTranslation } from "react-i18next";
 
 function NotificationFollowCard({ uid, nick, photoURL, date, deleteId }) {
   const newDate = DateFormatter(date);
   const [settings, setSettings] = useState(false);
+  const { t } = useTranslation();
 
   const deleteHandler = () => {
     deleteSelectedNotification(deleteId).then(() => {
@@ -27,7 +29,7 @@ function NotificationFollowCard({ uid, nick, photoURL, date, deleteId }) {
         initial={{ opacity: 0, y: -5 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="flex flex-row items-center justify-between w-full p-4 mt-4 transition-all duration-150 border border-transparent bg-slate-900 rounded-xl hover:border-slate-400"
+        className="flex flex-row items-center justify-between w-full p-4 mt-4 mb-4 transition-all duration-150 border border-transparent bg-slate-900 rounded-xl hover:border-slate-400"
       >
         <div className="flex gap-4">
           <NotificationPhoto uid={uid} photoURL={photoURL} />
@@ -39,7 +41,7 @@ function NotificationFollowCard({ uid, nick, photoURL, date, deleteId }) {
               >
                 <motion.span className="font-bold text-fuchsia-600 ">{nick}</motion.span>
               </Link>
-              started following you.
+              {t("notification.followed")}
             </motion.p>
             <motion.p className="text-sm text-slate-400">{newDate}</motion.p>
           </motion.div>
@@ -60,7 +62,7 @@ function NotificationFollowCard({ uid, nick, photoURL, date, deleteId }) {
               onClick={deleteHandler}
             >
               <Cross1Icon className="w-5 h-5 mr-2" />
-              Delete
+              {t("notification.delete")}
             </button>
           }
         />

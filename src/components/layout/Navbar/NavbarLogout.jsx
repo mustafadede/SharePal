@@ -10,8 +10,10 @@ import { ExitIcon } from "@radix-ui/react-icons";
 import { authActions } from "../../../store/authSlice";
 import { followersActions } from "../../../store/followersSlice";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 function NavbarLogout() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const onLogoutHandler = () => {
@@ -38,7 +40,7 @@ function NavbarLogout() {
       role="menuitem"
     >
       <ExitIcon className="w-6 h-6" />
-      Log Out
+      {t("navbar.logout")}
     </button>
   );
 }

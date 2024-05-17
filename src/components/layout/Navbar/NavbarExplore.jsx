@@ -1,8 +1,10 @@
 import { LightningBoltIcon } from "@radix-ui/react-icons";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 function NavbarExplore() {
+  const { t } = useTranslation();
   return (
     <Link to={"/explore"}>
       <button
@@ -10,7 +12,7 @@ function NavbarExplore() {
         role="menuitem"
       >
         <LightningBoltIcon className="w-6 h-6" />
-        Explore
+        {t("navbar.explore")}
       </button>
     </Link>
   );

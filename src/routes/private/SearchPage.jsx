@@ -8,12 +8,14 @@ import { getUserBySearch } from "../../firebase/firebaseActions";
 import SearchUserCard from "../../components/layout/SearchPage/SearchUserCard";
 import PopularSection from "../../components/layout/PopularSection";
 import Searched from "../../components/common/Searched";
+import { useTranslation } from "react-i18next";
+
 function SearchPage() {
   const [search, setSearch] = useState("");
   const [movies, setMovies] = useState("");
   const [users, setUsers] = useState([]);
   const [searched, setSearched] = useState(false);
-
+  const { t } = useTranslation();
   const handleSearch = (e) => {
     if (e.key === "Enter" && search.startsWith("@")) {
       setMovies("");
@@ -49,16 +51,16 @@ function SearchPage() {
           {/* Search title and input start */}
           <motion.div className="sticky flex w-full" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
             <div className="w-full">
-              <h1 className="mb-4 text-3xl text-slate-200">Search</h1>
+              <h1 className="mb-4 text-3xl text-slate-200">{t("search.title")}</h1>
               <input
                 className="w-full py-2 text-2xl text-white transition-all bg-transparent border-b-2 outline-none focus-within:border-slate-900"
                 type="text"
-                placeholder="Search for a movie/series or user with @"
+                placeholder={t("search.placeholder")}
                 onChange={(e) => setSearch(e.target.value)}
                 onKeyDown={(e) => handleSearch(e)}
               />
               <Suggestion
-                title="Search"
+                title={t("search.suggestionText")}
                 suggestion1="Bates Motel"
                 suggestion2="The Boys"
                 suggestion3="The Imitation Game"
@@ -87,10 +89,12 @@ function SearchPage() {
                   />
                 ) : null
               )}
-            {movies.length === 0 && users.length === 0 && <p className="text-2xl text-slate-600">✨ Search something ✨</p>}
+            {movies.length === 0 && users.length === 0 && <p className="text-2xl text-slate-600">{t("search.searchSomething")}</p>}
           </div>
           {!movies && users.length > 0 && (
-            <h1 className="flex justify-end w-full mb-2 text-xl text-slate-400">Total User: {users.length}</h1>
+            <h1 className="flex justify-end w-full mb-2 text-xl text-slate-400">
+              {t("search.totalUsers")} {users.length}
+            </h1>
           )}
           <div className="flex flex-col w-full gap-7 mb-7">
             {!movies && users.map((user) => <SearchUserCard key={user.displayName} user={user} />)}

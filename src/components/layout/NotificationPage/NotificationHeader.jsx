@@ -1,8 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import DeleteNotificationButton from "./DeleteNotificationButton";
+import { useTranslation } from "react-i18next";
 
 function NotificationHeader({ activeTab }) {
+  const { t } = useTranslation();
   return (
     <motion.div className="flex">
       <motion.h1
@@ -11,7 +13,7 @@ function NotificationHeader({ activeTab }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        Notifications
+        {t("notification.header")}
       </motion.h1>
       {activeTab === 1 && <DeleteNotificationButton />}
     </motion.div>

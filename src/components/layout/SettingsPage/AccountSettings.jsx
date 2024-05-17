@@ -9,8 +9,10 @@ import InformationSectionComponent from "./AccountSettingsComponents/Information
 import SocialSectionComponent from "./AccountSettingsComponents/SocialSectionComponent";
 import SettingsSubTitle from "../../common/SettingsPage/SettingsSubTitle";
 import SettingsTitle from "../../common/SettingsPage/SettingsTitle";
+import { useTranslation } from "react-i18next";
 
 function AccountSettings() {
+  const { t } = useTranslation();
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const photoRef = useRef(null);
@@ -69,7 +71,7 @@ function AccountSettings() {
       transition={{ delay: 0.2 }}
     >
       <div className="px-5 py-4 mb-4 bg-slate-900 rounded-2xl">
-        <SettingsTitle title="Account" />
+        <SettingsTitle title={t("settings.account")} />
         <div className="flex flex-col gap-2">
           <InformationSectionComponent user={user} setNick={setNick} setEmail={setEmail} setQuote={setQuote} setTopOne={setTopOne} />
           <SocialSectionComponent
@@ -80,23 +82,23 @@ function AccountSettings() {
             linkedin={linkedin}
             setLinkedin={setLinkedin}
           />
-          <SettingsSubTitle title="Pictures" />
+          <SettingsSubTitle title={t("account.pictures")} />
           <div className="flex flex-row justify-center gap-10">
             <div className="flex flex-row gap-4 rounded-2xl">
               <div className="flex flex-col gap-2">
-                <p className="text-xl text-slate-300">Profile Picture</p>
+                <p className="text-xl text-slate-300">{t("account.profilePic")}</p>
                 <input type="file" accept="image/jpeg" onChange={handleProfileChange} style={{ display: "none" }} ref={photoRef} />
                 <button
                   className="px-4 py-3 text-lg transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl"
                   onClick={handleUploadPhotoButtonClick}
                 >
-                  Upload
+                  {t("account.upload")}
                 </button>
               </div>
             </div>
             <div className="flex flex-row gap-4 rounded-2xl">
               <div className="flex flex-col gap-2">
-                <p className="text-xl text-slate-300">Banner Picture</p>
+                <p className="text-xl text-slate-300">{t("account.profileBanner")}</p>
                 <input
                   type="file"
                   accept="image/jpeg, image/gif"
@@ -108,7 +110,7 @@ function AccountSettings() {
                   className="px-4 py-3 text-lg transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl"
                   onClick={handleUploadBannerButtonClick}
                 >
-                  Upload
+                  {t("account.upload")}
                 </button>
               </div>
             </div>
@@ -117,7 +119,7 @@ function AccountSettings() {
             className="w-full px-4 py-3 my-2 mt-4 text-xl transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl"
             onClick={formHandler}
           >
-            Save Changes
+            {t("account.save")}
           </button>
         </div>
       </div>

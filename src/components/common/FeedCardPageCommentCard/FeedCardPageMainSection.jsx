@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAuth } from "firebase/auth";
 import { cardActions } from "../../../store/cardSlice";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function FeedCardPageMainSection({
   commentKey,
@@ -28,6 +29,7 @@ function FeedCardPageMainSection({
   data,
   userId,
 }) {
+  const { t } = useTranslation();
   const [liked, setLiked] = useState(false);
   const { cardComments } = useSelector((state) => state.card);
   const { user } = useSelector((state) => state.user);
@@ -124,7 +126,7 @@ function FeedCardPageMainSection({
       ) : (
         <input
           type="text"
-          placeholder="Edit your post..."
+          placeholder={t("feedCardPageMainSection.placeholder")}
           className="w-full px-4 py-2 my-4 transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
           value={editedText !== undefined ? editedText : comment}
           onChange={(e) => setEditedText(e.target.value)}
@@ -133,13 +135,13 @@ function FeedCardPageMainSection({
       )}
       {!notification && (
         <div className="flex gap-2">
-          <FeedCardActionsSkeleton action={"likes"} number={likes} data={selectedComment[0]} />
+          <FeedCardActionsSkeleton action={t("feedPost.likes")} number={likes} data={selectedComment[0]} />
         </div>
       )}
       {notification && (
         <div className="flex gap-2">
           <button onClick={goToPostHandler} className="flex gap-2">
-            <p className="text-fuchsia-400">Go to post</p>
+            <p className="text-fuchsia-400">{t("notification.button")}</p>
           </button>
         </div>
       )}

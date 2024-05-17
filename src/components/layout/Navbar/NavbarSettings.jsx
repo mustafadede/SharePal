@@ -1,8 +1,10 @@
 import { GearIcon } from "@radix-ui/react-icons";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 function NavbarSettings() {
+  const { t } = useTranslation();
   return (
     <Link to={"/settings"}>
       <button
@@ -10,7 +12,7 @@ function NavbarSettings() {
         role="menuitem"
       >
         <GearIcon className="w-6 h-6" />
-        Settings
+        {t("settings.header")}
       </button>
     </Link>
   );
