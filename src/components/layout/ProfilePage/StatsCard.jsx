@@ -9,8 +9,10 @@ import WatchedFilmsStats from "./StatsSection/WatchedFilmsStats";
 import WatchedSeriesStats from "./StatsSection/WatchedSeriesStats";
 import FavMovieLastYear from "./StatsSection/FavMovieLastYear";
 import FavSeriesLastYear from "./StatsSection/FavSeriesLastYear";
+import { useTranslation } from "react-i18next";
 
 function StatsCard({ user, username }) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
@@ -33,7 +35,7 @@ function StatsCard({ user, username }) {
           <FavSeriesThisYear username={username} user={user} navigate={navigate} />
         </div>
       </div>
-      <p className="w-full my-4 text-xl font-bold md:text-3xl text-slate-200">Stats for last year</p>
+      <p className="w-full my-4 text-xl font-bold md:text-3xl text-slate-200">{t("stats.lastYearTitle")}</p>
       <div className="flex flex-row-reverse w-full gap-3">
         <div className="flex flex-col w-full gap-6">
           <FavMovieLastYear username={username} user={user} />

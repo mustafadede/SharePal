@@ -2,8 +2,10 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
+import { useTranslation } from "react-i18next";
 
 function InfoCard({ user = { followers: "Loading...", following: "Loading...", topOne: "Loading..." }, isCurrentUser = false }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const handleFollowing = () => {
     isCurrentUser && dispatch(modalActions.openModal({ name: "followerModal", data: { followType: "Following" } }));
@@ -34,7 +36,7 @@ function InfoCard({ user = { followers: "Loading...", following: "Loading...", t
           transition={{ delay: 0.4 }}
           onClick={handleFollowers}
         >
-          Followers
+          {t("profileCard.followers")}
         </motion.button>
       </div>
       <p className="border-l sm:text-lg md:text-2xl border-slate-600 h-14"></p>
@@ -54,7 +56,7 @@ function InfoCard({ user = { followers: "Loading...", following: "Loading...", t
           transition={{ delay: 0.4 }}
           onClick={handleFollowing}
         >
-          Following
+          {t("profileCard.following")}
         </motion.button>
       </div>
       <p className="border-l sm:text-lg md:text-2xl border-slate-600 h-14"></p>
@@ -73,7 +75,7 @@ function InfoCard({ user = { followers: "Loading...", following: "Loading...", t
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          {user?.topOne || "No data"}
+          {user?.topOne || t("stats.noData")}
         </motion.p>
       </div>
     </motion.div>

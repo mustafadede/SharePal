@@ -1,8 +1,10 @@
 import React from "react";
 import { PlusIcon } from "@radix-ui/react-icons";
 import FilmStats from "../../../common/FilmStats";
+import { useTranslation } from "react-i18next";
 
 function CurrentlyWatching({ username, user, navigate }) {
+  const { t } = useTranslation();
   const clickHandler = () => {
     navigate("/search");
   };
@@ -10,7 +12,7 @@ function CurrentlyWatching({ username, user, navigate }) {
   return (
     <div className="flex flex-col w-full gap-4 p-4 h-fit rounded-xl bg-slate-900">
       <div className="flex items-center justify-between w-full gap-4">
-        <p className="w-full text-3xl font-bold md:w-72 text-slate-200">Currently Watching</p>
+        <p className="w-full text-3xl font-bold md:w-72 text-slate-200">{t("stats.currently")}</p>
         {!username && (
           <button
             className="flex items-center justify-center w-8 h-full translate text-slate-400 hover:text-fuchsia-700"
@@ -27,7 +29,7 @@ function CurrentlyWatching({ username, user, navigate }) {
           releaseDate={user.currentlyWatching?.releaseDate}
         />
       ) : (
-        <p className="transition-all text-md md:text-xl text-slate-400">Not watching anything</p>
+        <p className="transition-all text-md md:text-xl text-slate-400">{t("stats.notWatching")}</p>
       )}
     </div>
   );

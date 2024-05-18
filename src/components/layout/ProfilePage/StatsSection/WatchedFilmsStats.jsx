@@ -1,18 +1,20 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../../../store/modalSlice";
+import { useTranslation } from "react-i18next";
 
 function WatchedFilmsStats({ username, user }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { watchedMovieList } = useSelector((state) => state.watched);
   const clickHandler = () => {
     if (!username) {
-      dispatch(modalActions.openModal({ name: "likesModal", data: { title: "Total Films", ids: watchedMovieList } }));
+      dispatch(modalActions.openModal({ name: "likesModal", data: { title: t("stats.totalFilms"), ids: watchedMovieList } }));
     } else {
       dispatch(
         modalActions.openModal({
           name: "likesModal",
-          data: { title: "Total Films", ids: user?.totalFilmsStats },
+          data: { title: t("stats.totalFilms"), ids: user?.totalFilmsStats },
         })
       );
     }
@@ -20,7 +22,7 @@ function WatchedFilmsStats({ username, user }) {
   return (
     <div className="flex flex-col w-full gap-4 p-4 h-fit rounded-xl bg-slate-900">
       <div className="flex items-center justify-between w-full gap-4">
-        <p className="text-xl font-bold md:text-3xl text-slate-200">Total Films</p>
+        <p className="text-xl font-bold md:text-3xl text-slate-200">{t("stats.totalFilms")}</p>
       </div>
       <button
         type="button"

@@ -16,13 +16,15 @@ import { modalActions } from "../../store/modalSlice";
 import { watchedActions } from "../../store/watchedSlice";
 import Snowfall from "react-snowfall";
 import PopularSection from "../../components/layout/PopularSection";
+import { useTranslation } from "react-i18next";
 
 function ProfilePage() {
+  const { t } = useTranslation();
   const tabs = [
-    { id: 0, name: "Stats" },
-    { id: 1, name: "Lists" },
-    { id: 2, name: "Posts" },
-    { id: 3, name: "Activities" },
+    { id: 0, name: t("profile.stats") },
+    { id: 1, name: t("profile.lists") },
+    { id: 2, name: t("profile.posts") },
+    { id: 3, name: t("profile.activities") },
   ];
   const [activeTab, setActiveTab] = useState(0);
   const dispatch = useDispatch();
