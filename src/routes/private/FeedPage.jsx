@@ -6,11 +6,13 @@ import { cardActions } from "../../store/cardSlice";
 import PopularSection from "../../components/layout/PopularSection";
 import FeedSection from "../../components/layout/FeedSection";
 import ProfileWithListSection from "../../components/layout/ProfileWithListSection";
+import { useTranslation } from "react-i18next";
 
 function FeedPage() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   useEffect(() => {
-    document.title = "SharePal | Feed";
+    document.title = t("feed.windowSettingsTitle");
     dispatch(cardActions.resetComments());
     // if (!localStorage.getItem("ss") || !userData.splash) {
     //   dispatch(modalActions.openModal({ name: "splashModal" }));

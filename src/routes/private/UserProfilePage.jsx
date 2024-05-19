@@ -19,14 +19,16 @@ import PopularCard from "../../components/common/MostPopularCard/PopularCard";
 import InfoLabel from "../../components/common/InfoLabel";
 import Snowfall from "react-snowfall";
 import AccountPrivacyHelperFunction from "../../utils/AccountPrivacy";
+import { useTranslation } from "react-i18next";
 
 function UserProfilePage() {
   const { username } = useParams();
+  const { t } = useTranslation();
   const tabs = [
-    { id: 0, name: "Stats" },
-    { id: 1, name: "Lists" },
-    { id: 2, name: "Posts" },
-    { id: 3, name: "Activities" },
+    { id: 0, name: t("profile.stats") },
+    { id: 1, name: t("profile.lists") },
+    { id: 2, name: t("profile.posts") },
+    { id: 3, name: t("profile.activities") },
   ];
   const [users, setUsers] = useState([]);
   const [activeTab, setActiveTab] = useState(0);
@@ -87,7 +89,7 @@ function UserProfilePage() {
       <div className="flex mx-5 md:mx-10">
         {profileState === "loading" && (
           <div className="flex flex-col w-full h-screen gap-4 mb-6 lg:mr-6">
-            <InfoLabel text="Loading..." additionalClasses="lg:mr-6 h-fit" />
+            <InfoLabel text={t("info.loading")} additionalClasses="lg:mr-6 h-fit" />
           </div>
         )}
         {profileState === "done" && (

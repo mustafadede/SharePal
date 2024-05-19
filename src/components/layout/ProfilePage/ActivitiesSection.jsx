@@ -14,7 +14,9 @@ import FeedTabs from "../FeedPage/FeedTabs";
 import InfoLabel from "../../common/InfoLabel";
 import LoginRestrictionComponent from "../../common/LoginRestrictionComponent";
 import FeedCardPageCommentCard from "../../common/FeedCardPageCommentCard";
+import { useTranslation } from "react-i18next";
 function ActivitiesSection({ username, uid, accountPrivacyFlag }) {
+  const { t } = useTranslation();
   const [likes, setLikes] = useState([]);
   const [comments, setComments] = useState([]);
   const [reposts, setReposts] = useState([]);
@@ -106,16 +108,12 @@ function ActivitiesSection({ username, uid, accountPrivacyFlag }) {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full overflow-y-scroll no-scrollbar">
       {localStorage.getItem("user") && <FeedTabs tabInfo={tab} tab={setTab} info={"activities"} />}
       {!localStorage.getItem("user") ? <LoginRestrictionComponent /> : null}
-      {username && likes.length === 0 && tab === 0 && localStorage.getItem("user") && (
-        <p className="w-full p-4 mt-1 text-xl text-center text-slate-400 bg-slate-900 rounded-2xl h-fit">
-          This user doesn't have any likes.
-        </p>
-      )}
-      {username && comments.length === 0 && tab === 1 && <InfoLabel text="This user doesn't have any comments." />}
-      {username && reposts.length === 0 && tab === 2 && <InfoLabel text="This user doesn't have any reposts." />}
-      {!username && likes.length === 0 && tab === 0 && <InfoLabel text="You don't have any likes." />}
-      {!username && comments.length === 0 && tab === 1 && <InfoLabel text="You don't have any comments." />}
-      {!username && reposts.length === 0 && tab === 2 && <InfoLabel text="You don't have any reposts." />}
+      {username && likes.length === 0 && tab === 0 && localStorage.getItem("user") && <InfoLabel text={t("activities.noLikeStat")} />}
+      {username && comments.length === 0 && tab === 1 && <InfoLabel text={t("activities.noCommentStat")} />}
+      {username && reposts.length === 0 && tab === 2 && <InfoLabel text={t("activities.noRepostStat")} />}
+      {!username && likes.length === 0 && tab === 0 && <InfoLabel text={t("activities.noMyLikeStat")} />}
+      {!username && comments.length === 0 && tab === 1 && <InfoLabel text={t("activities.noMyCommentStat")} />}
+      {!username && reposts.length === 0 && tab === 2 && <InfoLabel text={t("activities.noMyRepostStat")} />}
       {tab === 0 && likes.length > 0
         ? likes
             .map((data, index) => {

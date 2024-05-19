@@ -2,10 +2,11 @@ import React from "react";
 import { motion } from "framer-motion";
 import Socials from "./ProfileBannerSocials/Socials";
 import ProfileOnlineStatus from "../../common/ProfileOnlineStatus";
+import { useTranslation } from "react-i18next";
 
 function UserProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banner: "" } }) {
   const photo = user?.photoURL;
-
+  const { t } = useTranslation();
   return (
     <motion.div
       className="relative w-full h-64 overflow-hidden rounded-2xl bg-slate-900"
@@ -54,7 +55,7 @@ function UserProfileBanner({ user = { nick: "Loading...", quote: "Loading...", b
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            {user?.nick || "Loading..."}
+            {user?.nick || t("info.loading")}
           </motion.h1>
           {/*  Name section end */}
           {/* Quote section start */}

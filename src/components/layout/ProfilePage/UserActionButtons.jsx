@@ -14,8 +14,10 @@ import { userActions } from "../../../store/userSlice";
 import { profileActions } from "../../../store/profileSlice";
 import { useNavigate } from "react-router-dom";
 import { modalActions } from "../../../store/modalSlice";
+import { useTranslation } from "react-i18next";
 
 function UserActionButtons({ profileUser }) {
+  const { t, i18n } = useTranslation();
   const { user } = useSelector((state) => state.user);
   const { followingList } = useSelector((state) => state.following);
   const dispatch = useDispatch();
@@ -38,7 +40,11 @@ function UserActionButtons({ profileUser }) {
       await updateCurrentUserData(localStorage.getItem("user"), { following: followingList.length - 1 });
       await updateCurrentUserData(profileUser.uid, { followers: profileUser.followers - 1 });
       await unfollowUser(localStorage.getItem("user"), { uid: profileUser.uid });
-      toast.success(`You have unfollowed ${profileUser.nick}`);
+      if (i18n.language === "en") {
+        toast.success(`You have unfollowed ${profileUser.nick}`);
+      } else {
+        toast.success(`${profileUser.nick} takipten çıkarıldı`);
+      }
     } else {
       dispatch(followingActions.updateFollowing({ uid: profileUser.uid, nick: profileUser.nick, photo: profileUser.photo }));
       dispatch(userActions.followUser(followingList.length + 1));
@@ -46,7 +52,11 @@ function UserActionButtons({ profileUser }) {
       await updateCurrentUserData(localStorage.getItem("user"), { following: user.following + 1 });
       await updateCurrentUserData(profileUser.uid, { followers: profileUser.followers + 1 });
       await followUser(localStorage.getItem("user"), { following: followingList.length, uid: profileUser.uid });
-      toast.success(`You are now following ${profileUser.nick}`);
+      if (i18n.language === "en") {
+        toast.success(`You are now following ${profileUser.nick}`);
+      } else {
+        toast.success(`${profileUser.nick} takip ediliyor`);
+      }
       const date = new Date().toISOString();
       createNotification(profileUser.uid, {
         from: {
@@ -83,9 +93,9 @@ function UserActionButtons({ profileUser }) {
         onClick={onClickHandler}
       >
         {followingList.find((user) => user.uid === profileUser?.uid) ? (
-          <span className="text-xl text-slate-200">Unfollow</span>
+          <span className="text-xl text-slate-200">{t("user.unfollow")}</span>
         ) : (
-          <span className="text-xl text-slate-200">Follow</span>
+          <span className="text-xl text-slate-200">{t("user.follow")}</span>
         )}
       </motion>
       {followingList.find((user) => user.uid === profileUser?.uid) && (
@@ -97,7 +107,7 @@ function UserActionButtons({ profileUser }) {
             className="flex items-center justify-center w-full h-12 text-xl transition-all cursor-pointer text-slate-200 md:w-1/3 bg-slate-600 rounded-2xl hover:bg-slate-900"
             onClick={createListHandler}
           >
-            Create List
+            {t("user.createList")}
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: -10 }}
@@ -106,7 +116,7 @@ function UserActionButtons({ profileUser }) {
             className="flex items-center justify-center w-full h-12 text-xl transition-all cursor-pointer text-slate-200 md:w-1/3 bg-slate-600 rounded-2xl hover:bg-slate-900"
             onClick={suggestHandler}
           >
-            Suggest Movie/TV
+            {t("user.suggest")}
           </motion.div>
         </>
       )}

@@ -32,7 +32,7 @@ function ProfilePage() {
 
   useEffect(() => {
     dispatch(modalActions.closeModal());
-    document.title = "SharePal | Profile";
+    document.title = t("profile.windowSettingsTitle");
     window.scrollTo(0, 0);
     const getData = async () => {
       getCurrentUserData(localStorage.getItem("user")).then((userData) => {

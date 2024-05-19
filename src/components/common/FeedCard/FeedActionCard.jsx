@@ -8,8 +8,10 @@ import { deleteSelectedPost } from "../../../firebase/firebaseActions";
 import { toast } from "react-toastify";
 import { TextShorter } from "../../../utils/formatter";
 import FeedActionCardWantToWatchComponent from "./FeedActionCard/FeedActionCardWantToWatchComponent";
+import { useTranslation } from "react-i18next";
 
 function FeedActionCard({ data, notification }) {
+  const { t } = useTranslation();
   const [settings, setSettings] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user?.nick);
@@ -46,7 +48,7 @@ function FeedActionCard({ data, notification }) {
               onClick={deleteHandler}
             >
               <Cross1Icon className="w-5 h-5 mr-2" />
-              Delete
+              {t("notification.delete")}
             </button>
           }
         />

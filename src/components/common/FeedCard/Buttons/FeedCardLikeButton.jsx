@@ -11,8 +11,10 @@ import { getAuth } from "firebase/auth";
 import { postsActions } from "../../../../store/postsSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 function FeedCardLikeButton({ data }) {
+  const { t } = useTranslation();
   const [isLiked, setIsLiked] = useState(false);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
@@ -90,12 +92,12 @@ function FeedCardLikeButton({ data }) {
       {isLiked ? (
         <>
           <HeartFilledIcon className="w-6 h-5 transition-all text-fuchsia-600" />
-          <p className="hidden transition-all md:block text-md text-fuchsia-600">Like</p>
+          <p className="hidden transition-all md:block text-md text-fuchsia-600">{t("feedCard.like")}</p>
         </>
       ) : (
         <>
           <HeartIcon className="w-6 h-5 transition-all text-slate-400 hover:text-slate-200" />
-          <p className="hidden transition-all md:block text-md text-slate-400 hover:text-slate-200">Like</p>
+          <p className="hidden transition-all md:block text-md text-slate-400 hover:text-slate-200">{t("feedCard.like")}</p>
         </>
       )}
     </button>

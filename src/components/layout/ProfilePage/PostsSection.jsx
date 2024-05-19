@@ -3,8 +3,10 @@ import { motion } from "framer-motion";
 import { getSelectedUserPosts } from "../../../firebase/firebaseActions";
 import FeedCard from "../../common/FeedCard";
 import LoginRestrictionComponent from "../../common/LoginRestrictionComponent";
+import { useTranslation } from "react-i18next";
 
 function PostsSection({ username, uid, accountPrivacyFlag }) {
+  const { t } = useTranslation();
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     setTimeout(() => {
@@ -26,12 +28,10 @@ function PostsSection({ username, uid, accountPrivacyFlag }) {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full overflow-y-scroll no-scrollbar">
       {!localStorage.getItem("user") ? <LoginRestrictionComponent /> : null}
       {username && posts.length === 0 && localStorage.getItem("user") && (
-        <p className="w-full p-4 mt-1 text-xl text-center text-slate-400 bg-slate-900 rounded-2xl h-fit">
-          This user doesn't have any post.
-        </p>
+        <p className="w-full p-4 mt-1 text-xl text-center text-slate-400 bg-slate-900 rounded-2xl h-fit">{t("posts.noPosts")}</p>
       )}
       {!username && posts.length === 0 && (
-        <p className="w-full p-4 mt-1 text-xl text-center text-slate-400 bg-slate-900 rounded-2xl h-fit">You don't have any post.</p>
+        <p className="w-full p-4 mt-1 text-xl text-center text-slate-400 bg-slate-900 rounded-2xl h-fit">{t("posts.noMyPosts")}</p>
       )}
       {posts
         .map((data, index) => {

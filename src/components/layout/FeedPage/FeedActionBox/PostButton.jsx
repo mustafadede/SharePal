@@ -6,8 +6,10 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { createPostAction } from "../../../../firebase/firebaseActions";
 import { getAuth } from "firebase/auth";
+import { useTranslation } from "react-i18next";
 
 function PostButton() {
+  const { t, i18n } = useTranslation();
   const { attachedFilm, spoiler, text } = useSelector((state) => state.createPost);
   const { modalHasData } = useSelector((state) => state.modal);
   const { user } = useSelector((state) => state.user);
@@ -29,10 +31,19 @@ function PostButton() {
           date: new Date().toISOString(),
         })
       );
-      createPostAction(text, modalHasData, spoiler, user?.nick) && toast.success("Post created!");
+      createPostAction(text, modalHasData, spoiler, user?.nick);
+      if (i18n.language === "en") {
+        toast.success("Post created!");
+      } else {
+        toast.success("Gönderi oluşturuldu!");
+      }
       dispatch(modalActions.closeModal()) && dispatch(createPostActions.resetText());
     } else {
-      toast.error("Post field must be between 1 and 280 characters!");
+      if (i18n.language === "en") {
+        toast.error("Post cannot be empty or exceed 280 characters!");
+      } else {
+        toast.error("Gönderi boş olamaz veya 280 karakteri aşamaz!");
+      }
     }
   };
 
@@ -44,7 +55,7 @@ function PostButton() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3 }}
     >
-      Post
+      {t("feedCard.share")}
     </motion.button>
   );
 }

@@ -12,8 +12,10 @@ import { DateFormatter } from "../../../utils/formatter";
 import FeedCardHeader from "./components/FeedCardHeader";
 import EditSpoilerButton from "./components/EditSpoilerButton";
 import FeedCardPageMiniCommentSection from "../../layout/FeedCardPage/FeedCardPageMiniCommentSection";
+import { useTranslation } from "react-i18next";
 
 function FeedCommentCard({ data, notification }) {
+  const { t, i18n } = useTranslation();
   const [settings, setSettings] = useState(false);
   const [rename, setRename] = useState(false);
   const [editedText, setEditedText] = useState(data.text);
@@ -27,8 +29,12 @@ function FeedCommentCard({ data, notification }) {
   const handlePost = (e) => {
     if (e.key === "Enter") {
       editSelectedPost(data.postId, editedText, isSpoiler).then(() => {
-        dispatch(postsActions.editPost({ text: editedText, postId: data.postId, spoiler: isSpoiler })) &&
+        dispatch(postsActions.editPost({ text: editedText, postId: data.postId, spoiler: isSpoiler }));
+        if (i18n.language === "en") {
           toast.success("Post edited successfully");
+        } else {
+          toast.success("Gönderi başarıyla düzenlendi");
+        }
       });
       setRename(false);
       setSettings(false);
@@ -38,7 +44,12 @@ function FeedCommentCard({ data, notification }) {
 
   const deleteHandler = () => {
     deleteSelectedPost(localStorage.getItem("user"), data.postId).then(() => {
-      dispatch(postsActions.deletePost(data.postId)) && toast.success("Post deleted successfully");
+      dispatch(postsActions.deletePost(data.postId));
+      if (i18n.language === "en") {
+        toast.success("Post deleted successfully");
+      } else {
+        toast.success("Gönderi başarıyla silindi");
+      }
       setRename(false);
       setSettings(false);
     });
@@ -69,7 +80,7 @@ function FeedCommentCard({ data, notification }) {
           <div className="flex items-center justify-center gap-2">
             <input
               type="text"
-              placeholder="Edit your post..."
+              placeholder={t("feedCardPageMainSection.placeholder")}
               className="w-full px-4 py-2 my-4 transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
               value={editedText !== undefined ? editedText : data.text || data.content}
               onChange={(e) => setEditedText(e.target.value)}
@@ -82,8 +93,8 @@ function FeedCommentCard({ data, notification }) {
         {/*Comment Card Middle Bottom section: Stats start */}
         {!notification && (
           <div className="flex gap-2">
-            <FeedCardActionsSkeleton action={"likes"} number={data.likes} data={data} />
-            <FeedCardActionsSkeleton action={"comments"} number={data.comments} data={data} />
+            <FeedCardActionsSkeleton action={t("feedPost.likes")} number={data.likes} data={data} />
+            <FeedCardActionsSkeleton action={t("feedPost.comments")} number={data.comments} data={data} />
             <FeedCardActionsSkeleton action={"reposts"} number={data.reposts} data={data} />
           </div>
         )}
@@ -109,7 +120,7 @@ function FeedCommentCard({ data, notification }) {
               onClick={() => setRename(!rename)}
             >
               <Pencil1Icon className="w-5 h-5 mr-2" />
-              {rename ? "Cancel Edit" : "Edit"}
+              {rename ? t("feedPost.cancelEdit") : t("feedPost.edit")}
             </button>
           }
           icon2={
@@ -118,7 +129,7 @@ function FeedCommentCard({ data, notification }) {
               onClick={deleteHandler}
             >
               <Cross1Icon className="w-5 h-5 mr-2" />
-              Delete
+              {t("notification.delete")}
             </button>
           }
         />
