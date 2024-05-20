@@ -6,14 +6,16 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import useSearchWithYear from "../../../../hooks/useSearchWithYear";
 import { modalActions } from "../../../../store/modalSlice";
+import { useTranslation } from "react-i18next";
 
 function ListModalCard({ id, title, poster, releaseDate, backdrop, username, listNumber }) {
+  const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const deleteHandler = () => {
     deleteSelectedUserListsItem(localStorage.getItem("user"), id);
     dispatch(modalActions.closeModal({ name: "listModal" }));
-    toast.success("Movie deleted successfully!");
+    i18n.language === "tr" ? toast.success("Listeden başarıyla kaldırıldı!") : toast.success("Successfully removed from the list!");
   };
 
   const movieInfoHandler = () => {
@@ -75,22 +77,22 @@ function ListModalCard({ id, title, poster, releaseDate, backdrop, username, lis
       </button>
       {isOpen && !username && (
         <ActionDetailsCard
-          icon1={
-            <button
-              className="flex items-center w-full px-4 py-2 text-sm text-left transition-all text-slate-200 rounded-xl hover:bg-slate-800"
-              onClick={() => toast("Coming soon!")}
-            >
-              <ShuffleIcon className="w-5 h-5 mr-2" />
-              Swap
-            </button>
-          }
+          // icon1={
+          //   <button
+          //     className="flex items-center w-full px-4 py-2 text-sm text-left transition-all text-slate-200 rounded-xl hover:bg-slate-800"
+          //     onClick={() => toast("Coming soon!")}
+          //   >
+          //     <ShuffleIcon className="w-5 h-5 mr-2" />
+          //     Swap
+          //   </button>
+          // }
           icon2={
             <button
               className="flex items-center w-full px-4 py-2 text-sm text-left transition-all text-slate-200 rounded-xl hover:bg-slate-800"
               onClick={movieInfoHandler}
             >
               <InfoCircledIcon className="w-5 h-5 mr-2" />
-              Details
+              {t("list.details")}
             </button>
           }
           icon3={
@@ -99,7 +101,7 @@ function ListModalCard({ id, title, poster, releaseDate, backdrop, username, lis
               onClick={deleteHandler}
             >
               <Cross1Icon className="w-5 h-5 mr-2" />
-              Delete
+              {t("notification.delete")}
             </button>
           }
         />
@@ -112,7 +114,7 @@ function ListModalCard({ id, title, poster, releaseDate, backdrop, username, lis
               onClick={movieInfoHandler}
             >
               <InfoCircledIcon className="w-5 h-5 mr-2" />
-              Details
+              {t("list.details")}
             </button>
           }
         />

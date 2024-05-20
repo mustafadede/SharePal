@@ -8,10 +8,10 @@ function InfoCard({ user = { followers: "Loading...", following: "Loading...", t
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const handleFollowing = () => {
-    isCurrentUser && dispatch(modalActions.openModal({ name: "followerModal", data: { followType: "Following" } }));
+    isCurrentUser && dispatch(modalActions.openModal({ name: "followerModal", data: { followType: t("header.following") } }));
   };
   const handleFollowers = () => {
-    isCurrentUser && dispatch(modalActions.openModal({ name: "followerModal", data: { followType: "Followers" } }));
+    isCurrentUser && dispatch(modalActions.openModal({ name: "followerModal", data: { followType: t("header.followers") } }));
   };
   return (
     <motion.div

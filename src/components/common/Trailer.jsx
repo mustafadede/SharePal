@@ -1,7 +1,9 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import YouTube from "react-youtube";
 
 function Trailer({ trailerID }) {
+  const { t } = useTranslation();
   const opts = {
     height: "390",
     width: "100%",
@@ -19,7 +21,7 @@ function Trailer({ trailerID }) {
           <YouTube videoId={trailerID} opts={opts} onReady={onReady} />
         </div>
       ) : (
-        <p className="mt-4 text-lg text-slate-600">No Trailer Found.</p>
+        <p className="mt-4 text-lg text-slate-600">{t("trailer.notFound")}</p>
       )}
     </>
   );

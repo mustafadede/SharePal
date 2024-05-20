@@ -29,6 +29,7 @@ import useTrailer from "../../../hooks/useTrailer";
 import { unfinishedActions } from "../../../store/unfinishedSlice";
 import { useNavigate } from "react-router-dom";
 import { useCredits } from "../../../hooks/useCredits";
+import { useTranslation } from "react-i18next";
 
 function SearchCardModal() {
   const { id, title, poster, releaseDate, overview, vote, backdrop, genres, mediaType, upcoming } = useSelector(
@@ -49,7 +50,7 @@ function SearchCardModal() {
   const { followingList } = useSelector((state) => state.following);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { t, i18n } = useTranslation();
   useEffect(() => {
     dispatch(wantToWatchActions.reset());
     dispatch(watchedActions.reset());
@@ -135,7 +136,7 @@ function SearchCardModal() {
       currentlyWatching: { title, poster, releaseDate },
     };
     updateCurrentUserData(localStorage.getItem("user"), data).then(() => {
-      toast("Currently watching updated!");
+      i18n.language === "en" ? toast("Currently watching updated!") : toast("Şu an izlediğin güncellendi!");
       dispatch(userActions.updateUser({ ...user, currentlyWatching: data }));
     });
   };
@@ -145,7 +146,7 @@ function SearchCardModal() {
       bestMovieYear: { title, poster, releaseDate },
     };
     updateCurrentUserData(localStorage.getItem("user"), data).then(() => {
-      toast("Best movie updated!");
+      i18n.language === "en" ? toast("Best movie updated!") : toast("En iyi film güncellendi!");
       dispatch(userActions.updateUser({ ...user, bestMovieYear: data }));
     });
   };
@@ -155,7 +156,7 @@ function SearchCardModal() {
       bestSeriesYear: { title, poster, releaseDate },
     };
     updateCurrentUserData(localStorage.getItem("user"), data).then(() => {
-      toast("Best series updated!");
+      i18n.language === "en" ? toast("Best series updated!") : toast("En iyi dizi güncellendi!");
       dispatch(userActions.updateUser({ ...user, bestSeriesYear: data }));
     });
   };
@@ -180,14 +181,14 @@ function SearchCardModal() {
           nick: user?.nick,
           actionName: "wantToWatch",
         });
-        toast("Information attached to this!");
+        i18n.language === "en" ? toast("Information attached to this!") : toast("Bu içeriğe bilgi eklendi!");
       });
     } else {
       deleteWantToWatch({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
         setClickAction1(false);
         setWantToWatch(false);
         deleteSelectedPost(localStorage.getItem("user"), post);
-        toast("Information removed from this!");
+        i18n.language === "en" ? toast("Information removed from this!") : toast("Bu içerikten bilgi kaldırıldı!");
       });
     }
   };
@@ -197,13 +198,13 @@ function SearchCardModal() {
       updateWatched({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
         setClickAction2(true);
         setWatched(true);
-        toast("Information attached to this!");
+        i18n.language === "en" ? toast("Information attached to this!") : toast("Bu içeriğe bilgi eklendi!");
       });
     } else {
       deleteWatched({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
         setClickAction2(false);
         setWatched(false);
-        toast("Information removed from this!");
+        i18n.language === "en" ? toast("Information removed from this!") : toast("Bu içerikten bilgi kaldırıldı!");
       });
     }
   };
@@ -211,20 +212,20 @@ function SearchCardModal() {
   const attachHandler = () => {
     dispatch(modalActions.closeModal({ name: "attachedFilmModal", data: { title, poster, releaseDate, backdrop } }));
     navigate(`/feed`);
-    toast("Attached to your box!");
+    i18n.language === "en" ? toast("Attached to your post!") : toast("Paylaşacağın gönderiye eklendi!");
   };
   const unfinishedHandler = () => {
     if (!clickAction3) {
       createUnfinished({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
         setClickAction3(true);
         setUnfinished(true);
-        toast("Information attached to this!");
+        i18n.language === "en" ? toast("Information attached to this!") : toast("Bu içeriğe bilgi eklendi!");
       });
     } else {
       deleteUnfinished({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
         setClickAction3(false);
         setUnfinished(false);
-        toast("Information removed from this!");
+        i18n.language === "en" ? toast("Information removed from this!") : toast("Bu içerikten bilgi kaldırıldı!");
       });
     }
   };
@@ -232,7 +233,7 @@ function SearchCardModal() {
   return (
     <div className="bg-slate-900 w-96 h-[38rem] md:w-[45rem] lg:w-[50rem] md:h-[37rem] rounded-2xl relative overflow-hidden overflow-y-scroll no-scrollbar">
       <div className="absolute top-0 z-20 w-full p-6">
-        <ModalHeader title="Information" />
+        <ModalHeader title={t("searchCard.title")} />
       </div>
       {/* Image & Backdrop Image & title & release date */}
       <SeachCardModalTop

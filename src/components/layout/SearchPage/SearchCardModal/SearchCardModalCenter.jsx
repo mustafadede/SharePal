@@ -1,6 +1,7 @@
 import React from "react";
 import SearchCardModalCenterTop from "./SearchCardModalCenterComponents/SearchCardModalCenterTop";
 import SearchCardModalCenterMore from "./SearchCardModalCenterComponents/SearchCardModalCenterMore";
+import { useTranslation } from "react-i18next";
 
 function SearchCardModalCenter({
   mediaType,
@@ -26,6 +27,7 @@ function SearchCardModalCenter({
   images,
   credits,
 }) {
+  const { t } = useTranslation();
   const yearIndicator = new Date().getFullYear();
   const [seeMore, setSeeMore] = React.useState(false);
   return (
@@ -64,7 +66,7 @@ function SearchCardModalCenter({
               className="px-4 py-2 mt-4 text-lg transition-all duration-150 hover:bg-cGradient2/40 rounded-2xl text-slate-400 hover:text-slate-200"
               onClick={() => setSeeMore(false)}
             >
-              See Less
+              {t("searchCard.seeLess")}
             </button>
           </>
         ) : (
@@ -72,7 +74,7 @@ function SearchCardModalCenter({
             className="flex justify-center px-4 py-2 text-lg duration-150 text-slate-200 rounded-2xl bg-cGradient2/40 hover:bg-cGradient2/80"
             onClick={() => setSeeMore(true)}
           >
-            See More
+            {t("searchCard.seeMore")}
           </button>
         )}
       </div>

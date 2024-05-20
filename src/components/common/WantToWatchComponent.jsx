@@ -1,14 +1,15 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 function WantToWatchComponent() {
   const { modalHasData } = useSelector((state) => state.modal);
   const { wantToWatchList } = useSelector((state) => state.wantToWatch);
-
+  const { t, i18n } = useTranslation();
   return (
     <div>
       <h3 className="pb-1 mt-4 overflow-hidden text-xl md:mt-0 h-fit text-slate-200">
-        {wantToWatchList?.length > 0 ? wantToWatchList?.length + " user want to watch this 🤩" : "People's want to watch 🤩"}
+        {wantToWatchList?.length > 0 ? wantToWatchList?.length + t("wantToWatch.userWantToWatch") : t("wantToWatch.noUserWantToWatch")}
       </h3>
       <div className="flex flex-wrap justify-center gap-2 mt-2 mb-2 md:justify-start md:mt-0 md:mb-0">
         {wantToWatchList?.length > 0 ? (
@@ -19,6 +20,8 @@ function WantToWatchComponent() {
               </Link>
             );
           })
+        ) : i18n.language === "tr" ? (
+          <p className="text-slate-600">{t("wantToWatch.info")}</p>
         ) : (
           <p className="text-slate-600">
             None of your followings discover this

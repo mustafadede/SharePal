@@ -3,8 +3,10 @@ import { ArrowDownIcon, ArrowUpIcon } from "@radix-ui/react-icons";
 import { modalActions } from "../../../store/modalSlice";
 import { useDispatch, useSelector } from "react-redux";
 import HoverInfo from "../HoverInfo";
+import { useTranslation } from "react-i18next";
 
 function SortButton() {
+  const { t } = useTranslation();
   const { orderDirection } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
 
@@ -18,7 +20,7 @@ function SortButton() {
       ) : (
         <ArrowUpIcon className="flex items-center justify-center w-6 h-6 text-slate-200" />
       )}
-      <HoverInfo title="List Sort" />
+      <HoverInfo title={t("list.sortTitle")} />
     </button>
   );
 }

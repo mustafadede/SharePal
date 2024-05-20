@@ -4,8 +4,10 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import Casts from "../layout/SearchPage/Casts";
+import { useTranslation } from "react-i18next";
 
 function CastSlider({ data, header, dataClassName }) {
+  const { t } = useTranslation();
   return (
     <div>
       <h1 className="my-4 text-3xl text-slate-200">
@@ -69,7 +71,7 @@ function CastSlider({ data, header, dataClassName }) {
               <SwiperSlide key={i}>
                 <Casts data={item} />
               </SwiperSlide>
-            ))) || <p className="mt-4 text-lg text-slate-600">No cast found.</p>}
+            ))) || <p className="mt-4 text-lg text-slate-600">{t("cast.notFound")}</p>}
         </Swiper>
       </div>
     </div>

@@ -8,8 +8,10 @@ import { toast } from "react-toastify";
 import { MyListsActions } from "../../../store/myListsSlice";
 import { motion } from "framer-motion";
 import SortButton from "../../common/ModalHeader/SortButton";
+import { useTranslation } from "react-i18next";
 
 function ModalHeader({ title, options = false, username }) {
+  const { t, i18n } = useTranslation();
   const [settings, setSettings] = useState(false);
   const [name, setName] = useState("");
   const [rename, setRename] = useState(false);
@@ -32,7 +34,7 @@ function ModalHeader({ title, options = false, username }) {
   const deleteHandler = () => {
     removePinnedList(modalHasData.id).then(() => {
       dispatch(MyListsActions.deleteList(modalHasData.id));
-      toast.success("List removed successfully!");
+      i18n.language === "tr" ? toast.success("Liste başarıyla silindi") : toast.success("List deleted successfully");
     });
     dispatch(modalActions.closeModal());
   };
@@ -43,18 +45,18 @@ function ModalHeader({ title, options = false, username }) {
 
   const renameCheckHandler = () => {
     if (name === "") {
-      toast.error("Please enter a valid name");
+      i18n.language === "tr" ? toast.error("Lütfen geçerli bir isim girin") : toast.error("Please enter a valid name");
       return;
     }
     if (name === modalHasData.title) {
-      toast.error("Please enter a different name");
+      i18n.language === "tr" ? toast.error("Lütfen farklı bir isim girin") : toast.error("Please enter a different name");
       return;
     }
 
     changePinnedListTitle({ title: name, id: modalHasData.id }).then(() => {
       dispatch(modalActions.renameList(name));
       dispatch(MyListsActions.updateListTitle({ title: name, listId: modalHasData.id }));
-      toast.success("List renamed successfully");
+      i18n.language === "tr" ? toast.success("Liste başarıyla yeniden adlandırıldı") : toast.success("List renamed successfully");
       setRename(false);
     });
   };
@@ -64,18 +66,18 @@ function ModalHeader({ title, options = false, username }) {
       setRename(false);
     }
     if (e.key === "Enter" && e.target.value === "") {
-      toast.error("Please enter a valid name");
+      i18n.language === "tr" ? toast.error("Lütfen geçerli bir isim girin") : toast.error("Please enter a valid name");
       return;
     }
     if (e.key === "Enter" && e.target.value === modalHasData.title) {
-      toast.error("Please enter a different name");
+      i18n.language === "tr" ? toast.error("Lütfen farklı bir isim girin") : toast.error("Please enter a different name");
       return;
     }
     if (e.key === "Enter") {
       changePinnedListTitle({ title: e.target.value, id: modalHasData.id }).then(() => {
         dispatch(modalActions.renameList(e.target.value));
         dispatch(MyListsActions.updateListTitle({ title: name, listId: modalHasData.id }));
-        toast.success("List renamed successfully");
+        i18n.language === "tr" ? toast.success("Liste başarıyla yeniden adlandırıldı") : toast.success("List renamed successfully");
         setRename(false);
       });
     }
@@ -100,7 +102,7 @@ function ModalHeader({ title, options = false, username }) {
           <div className="flex w-full gap-4">
             <input
               type="text"
-              placeholder={`Rename ${modalHasData.title} to...`}
+              placeholder={i18n.language === "tr" ? `${modalHasData.title} listesinin yeni ismi...` : `Rename ${modalHasData.title} to...`}
               className="w-full py-1 text-lg text-white transition-all bg-transparent border-b-2 outline-none focus:border-slate-900"
               onChange={(e) => changeHandler(e)}
               autoFocus={true}
@@ -140,8 +142,12 @@ function ModalHeader({ title, options = false, username }) {
           initial={{ opacity: 0, y: -7 }}
           animate={{ opacity: 1, y: 0, transition: { duration: 0.2 } }}
         >
-          <p className="text-lg text-slate-500 ">Creation Time: {modalHasData.date}</p>
-          <p className="text-lg text-slate-500 ">Total Items: {modalHasData.list ? Object.keys(modalHasData.list)?.length : 0}</p>
+          <p className="text-lg text-slate-500 ">
+            {t("list.creation")} {modalHasData.date}
+          </p>
+          <p className="text-lg text-slate-500 ">
+            {t("list.totalItems")} {modalHasData.list ? Object.keys(modalHasData.list)?.length : 0}
+          </p>
         </motion.div>
       )}
       {localStorage.getItem("user") && settings && !rename && (
@@ -154,7 +160,7 @@ function ModalHeader({ title, options = false, username }) {
               onClick={renameHandler}
             >
               <Pencil1Icon className="w-5 h-5 mr-2" />
-              Rename
+              {t("list.rename").substring(0, 13).concat("...")}
             </button>
           }
           icon2={
@@ -163,7 +169,7 @@ function ModalHeader({ title, options = false, username }) {
               onClick={dragHandler}
             >
               <ListBulletIcon className="w-5 h-5 mr-2" />
-              Reorder
+              {t("list.drag")}
             </button>
           }
           icon3={
@@ -172,7 +178,7 @@ function ModalHeader({ title, options = false, username }) {
               onClick={deleteHandler}
             >
               <Cross1Icon className="w-5 h-5 mr-2" />
-              Delete
+              {t("notification.delete")}
             </button>
           }
         />

@@ -7,8 +7,10 @@ import { toast } from "react-toastify";
 import Suggestion from "../../common/Suggestion";
 import { createPinnedList, getSelectedUserLists } from "../../../firebase/firebaseActions";
 import { modalActions } from "../../../store/modalSlice";
+import { useTranslation } from "react-i18next";
 
 function MyListModal() {
+  const { t, i18n } = useTranslation();
   const [listname, setListname] = useState("");
   const dispatch = useDispatch();
   const { myLists } = useSelector((state) => state.myLists);
@@ -39,7 +41,7 @@ function MyListModal() {
         })
       );
     } else {
-      toast.error("List name cannot be empty.");
+      i18n.language === "tr" ? toast.error("Liste adı boş olamaz.") : toast.error("List name can't be empty.");
       return;
     }
   };
@@ -75,16 +77,16 @@ function MyListModal() {
 
   return (
     <div className="bg-slate-900 rounded-2xl px-4 md:px-8 pt-4 overflow-hidden w-[24rem] md:w-[35rem] h-[35rem] md:h-[27rem]">
-      <ModalHeader title="My Lists" />
+      <ModalHeader title={t("pinned.title")} />
       <div className="flex flex-col justify-center py-4 pt-4">
         {/** Create List section start */}
-        <div className="flex flex-col gap-4">
-          <p className="text-xl text-slate-300">Create List</p>
+        <div className="flex flex-col">
+          <p className="text-xl text-slate-300">{t("pinned.subtitle")}</p>
           <div className="flex gap-6 pt-2">
             <input
               className="px-2 py-1 bg-transparent border-b outline-none w-96 border-slate-300 text-slate-300"
               type="text"
-              placeholder="List Name"
+              placeholder={t("pinned.placeholder")}
               onChange={(e) => setListname(e.target.value)}
               onKeyDown={(e) => handleListener(e)}
             />
@@ -92,22 +94,22 @@ function MyListModal() {
               className="px-4 py-2 transition-all border rounded-lg border-slate-300 hover:border-fuchsia-600 text-slate-300 hover:text-fuchsia-600"
               onClick={handleCreateList}
             >
-              Create
+              {t("pinned.button")}
             </button>
           </div>
         </div>
         {/** Create List section end */}
         <Suggestion
-          title="Name"
-          suggestion1="My Watchlist"
-          suggestion2="My Top 10"
-          suggestion3="My Top 5"
+          title={t("pinned.suggestion")}
+          suggestion1={t("pinned.sug1")}
+          suggestion2={t("pinned.sug2")}
+          suggestion3={t("pinned.sug3")}
           handleSuggestion={handleSuggestion}
         />
         {/** My Lists section start */}
         <div className="overflow-scroll h-80 md:h-56 no-scrollbar">
           {/** My Lists map */}
-          {myLists.length === 0 && <p className="text-md text-slate-400">You have no lists yet.</p>}
+          {myLists.length === 0 && <p className="text-md text-slate-400">{t("pinned.noList")}</p>}
           {myLists.length > 0 &&
             myLists.map((list, i) => (
               <MyListsModalCard

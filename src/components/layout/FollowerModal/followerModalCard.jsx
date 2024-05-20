@@ -5,8 +5,10 @@ import { useSelector } from "react-redux";
 import useSearchWithMovieId from "../../../hooks/useSearchWithMovieId";
 import useSearchWithSeriesId from "../../../hooks/useSearchWithSeriesId";
 import ListModalCard from "../MyListModal/ListModal/ListModalCard";
+import { useTranslation } from "react-i18next";
 
 function FollowerModalCard({ identify, numbers, info }) {
+  const { t } = useTranslation();
   const [data, setData] = React.useState({});
   const user = useSelector((state) => state.user.user?.nick);
   useEffect(() => {
@@ -68,14 +70,14 @@ function FollowerModalCard({ identify, numbers, info }) {
       });
     };
 
-    identify === "Following" && getFollowingData();
-    identify === "Followers" && getFollowersData();
-    identify === "Likes" && getLikesData(info);
+    identify === t("header.following") && getFollowingData();
+    identify === t("header.followers") && getFollowersData();
+    identify === t("notification.likes") && getLikesData(info);
     identify === "Reposts" && getRepostsData(info);
-    identify === "Total Films" && getTotalFilms(info);
-    identify === "Total Series" && getTotalSeries(info);
+    identify === t("stats.totalFilms") && getTotalFilms(info);
+    identify === t("stats.totalSeries") && getTotalSeries(info);
   }, []);
-  return identify === "Total Films" || identify === "Total Series" ? (
+  return identify === t("stats.totalFilms") || identify === t("stats.totalSeries") ? (
     <ListModalCard
       id={data.id || data.uid}
       title={data.title || data.name}

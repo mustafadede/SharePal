@@ -4,8 +4,10 @@ import ModalHeader from "../../ModalSkeleton/ModalHeader";
 import ListModalCard from "./ListModalCard";
 import { Reorder, m, motion } from "framer-motion";
 import ListChangesInfoCard from "../ListChangesInfoCard";
+import { useTranslation } from "react-i18next";
 
 function ListModal() {
+  const { t } = useTranslation();
   const { modalHasData, dragable, orderDirection } = useSelector((state) => state.modal);
   const [search, setSearch] = useState("");
   const [list, setList] = useState(modalHasData.list && Object.values(modalHasData.list));
@@ -28,7 +30,7 @@ function ListModal() {
         <input
           type="text"
           className="w-full py-2 mb-4 text-lg text-white transition-all bg-transparent border-b-2 outline-none lg:text-2xl focus-within:border-slate-900"
-          placeholder="Search..."
+          placeholder={t("search.title")}
           onChange={(e) => setSearch(e.target.value)}
         />
         {listChanged && <ListChangesInfoCard data={list} onChangeHandler={setListChanged} />}
@@ -40,11 +42,11 @@ function ListModal() {
             exit={{ opacity: 0, height: "0%" }}
             transition={{ duration: 0.5 }}
           >
-            Drag and drop to reorder.
+            {t("list.dragInfo")}
           </motion.p>
         )}
         <div className="pb-4 overflow-scroll h-[18rem] lg:h-80 no-scrollbar">
-          {!modalHasData.list && <p className="text-xl text-slate-600">List is empty.</p>}
+          {!modalHasData.list && <p className="text-xl text-slate-600">{t("list.empty")}</p>}
           {dragable ? (
             <Reorder.Group values={list} onReorder={handleOrder}>
               {list &&

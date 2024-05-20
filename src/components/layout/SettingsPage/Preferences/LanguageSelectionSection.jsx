@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SettingsSubTitle from "../../../common/SettingsPage/SettingsSubTitle";
 import { useTranslation } from "react-i18next";
+import SelectionComponent from "./SelectionComponent";
 
 function LanguageSelectionSection() {
   const { i18n, t } = useTranslation();
@@ -14,18 +15,9 @@ function LanguageSelectionSection() {
 
   return (
     <div className="flex flex-row gap-4">
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-row justify-between w-full gap-2">
         <SettingsSubTitle title={t("preferences.language")} />
-        <select
-          className="px-4 py-2 mb-4 text-lg text-slate-300 bg-slate-600 rounded-2xl focus:outline-none"
-          name="language"
-          id="language"
-          value={selectedLanguage}
-          onChange={handleLanguageChange}
-        >
-          <option value="en">English</option>
-          <option value="tr">Türkçe</option>
-        </select>
+        <SelectionComponent selectedLanguage={selectedLanguage} handleLanguageChange={handleLanguageChange} />
       </div>
     </div>
   );

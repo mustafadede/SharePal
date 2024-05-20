@@ -6,8 +6,10 @@ import { toast } from "react-toastify";
 import { modalActions } from "../../../store/modalSlice";
 import { removePinnedList, updatePinnedList, updateSelectedUserLists } from "../../../firebase/firebaseActions";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = false, list, date }) {
+  const { i18n } = useTranslation();
   const [pinnedCount, setPinedCount] = useState(0);
   const dispatch = useDispatch();
   const { modalHasData } = useSelector((state) => state.modal);
@@ -21,24 +23,24 @@ function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = fal
 
   const handlePin = (listNum) => {
     if (!isPinned && pinnedCount === 2) {
-      toast.error("You can only pin 2 lists at a time.");
+      i18n.language === "tr" ? toast.error("En fazla 2 listeyi sabitleyebilirsiniz.") : toast.error("You can pin up to 2 lists.");
       return;
     }
     if (!isPinned) {
       dispatch(MyListsActions.setPinned(listNum));
-      toast.success("List pinned successfully!");
+      i18n.language === "tr" ? toast.success("Liste sabitlendi!") : toast.success("List pinned successfully!");
       updateSelectedUserLists(localStorage.getItem("user"), { isPinned: true, id });
     } else {
       dispatch(MyListsActions.setPinned(listNum));
       updateSelectedUserLists(localStorage.getItem("user"), { isPinned: false, id });
-      toast.error("List unpinned successfully!");
+      i18n.language === "tr" ? toast.success("Liste sabitlenenlerden kaldırıldı!") : ttoast.error("List unpinned successfully!");
     }
   };
 
   const handleRemove = (id) => {
     removePinnedList(id).then(() => {
       dispatch(MyListsActions.deleteList(id));
-      toast.success("List removed successfully!");
+      i18n.language === "tr" ? toast.success("Liste silindi!") : toast.success("List deleted successfully!");
     });
   };
 
@@ -66,11 +68,12 @@ function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = fal
           },
           listId: listNum,
         })
-      ) && toast.success("Movie added successfully!");
+      );
+      i18n.language === "en" ? toast.success("Movie added successfully!") : toast.success("Film başarıyla eklendi!");
     } else {
       navigate("/search");
       dispatch(modalActions.closeModal());
-      toast.error("Please select a movie/series first.");
+      i18n.language === "en" ? toast.error("Please select a movie/series first.") : toast.error("Lütfen önce bir film/dizi seçin.");
     }
   };
   return (

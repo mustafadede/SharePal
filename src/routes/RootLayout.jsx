@@ -81,11 +81,11 @@ function RootLayout() {
             <FeedCardActionModal />
           </ModalSkeleton>
         )}
-        {modalState && modalName === "commentsModal" && (
+        {/* {modalState && modalName === "commentsModal" && (
           <ModalSkeleton>
             <FeedCardActionModal />
           </ModalSkeleton>
-        )}
+        )} */}
         {modalState && modalName === "splashModal" && (
           <ModalSkeleton>
             <SplashModal />
