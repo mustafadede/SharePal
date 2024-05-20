@@ -62,7 +62,7 @@ function SearchCardModal() {
       setImages(data);
     });
     useProvider(id, mediaType).then((data) => {
-      setProviders(data?.US);
+      i18n.language === "en" ? setProviders(data?.US) : setProviders(data?.TR);
     });
 
     useTrailer(id, mediaType).then((data) => {
