@@ -52,7 +52,7 @@ function FeedActionCardWantToWatchComponent({ data, title, user }) {
               className="transition-all duration-300 w-fit text-md lg:text-lg text-fuchsia-600 hover:cursor-pointer hover:text-white hover:underline"
               onClick={onClickHandler}
             >
-              {title}
+              {title.length < 24 ? title : title.slice(0, 24) + "..."}
             </button>
           </>
         ) : (
@@ -66,7 +66,7 @@ function FeedActionCardWantToWatchComponent({ data, title, user }) {
               className="transition-all duration-300 w-fit text-md lg:text-lg text-fuchsia-400 hover:cursor-pointer hover:text-white hover:underline"
               onClick={onClickHandler}
             >
-              {title}
+              {title.length < 24 ? title : title.slice(0, 24) + "..."}
             </button>
             <span className="duration-150 text-md lg:text-lg text-slate-400 group-hover:text-slate-200">izlemek istiyor </span>
           </>

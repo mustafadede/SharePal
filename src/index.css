@@ -1,8 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap");
 @tailwind base;
+
 * {
   scrollbar-width: auto;
   scrollbar-color: #0f172a #0e0b13;
   scroll-behavior: smooth;
+  font-family: "Inter", sans-serif;
 }
 
 ::selection {
@@ -40,4 +43,3 @@
     }
   }
 }
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap");

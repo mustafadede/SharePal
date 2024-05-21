@@ -27,7 +27,7 @@ function SearchCardModalCenterMore({ overview, vote, providers, images, trailerI
               {providers?.buy?.length && (
                 <div className="flex flex-wrap justify-center gap-4 md:justify-start md:gap-2">
                   <div className="flex flex-wrap justify-center gap-4 md:justify-start md:gap-2">
-                    <p className="w-full text-2xl text-slate-200">{t("providers.buy")}</p>
+                    <p className="w-full text-2xl text-slate-400">{t("providers.buy")}</p>
                     {providers?.buy?.map((provider) => (
                       <img
                         key={provider.provider_id}
@@ -43,7 +43,7 @@ function SearchCardModalCenterMore({ overview, vote, providers, images, trailerI
               {providers?.rent?.length && (
                 <div className="flex flex-wrap justify-center gap-4 md:justify-start md:gap-2">
                   <div className="flex flex-wrap justify-center gap-4 md:justify-start md:gap-2">
-                    <p className="w-full text-2xl text-slate-200">{t("providers.rent")}</p>
+                    <p className="w-full text-2xl text-slate-400">{t("providers.rent")}</p>
                     {providers?.rent?.map((provider) => (
                       <img
                         key={provider.provider_id}
@@ -58,7 +58,7 @@ function SearchCardModalCenterMore({ overview, vote, providers, images, trailerI
               )}
               {providers?.flatrate?.length && (
                 <div className="flex flex-wrap justify-center gap-4 md:justify-start md:gap-2">
-                  <p className="w-full text-2xl text-slate-200">{t("providers.flatrate")}</p>
+                  <p className="w-full text-2xl text-slate-400">{t("providers.flatrate")}</p>
                   {providers?.flatrate?.map((provider) => (
                     <img
                       key={provider.provider_id}
@@ -72,7 +72,7 @@ function SearchCardModalCenterMore({ overview, vote, providers, images, trailerI
               )}
               {providers?.free?.length && (
                 <div className="flex flex-wrap justify-center gap-4 md:justify-start md:gap-2">
-                  <p className="w-full text-2xl text-slate-200">{t("providers.free")}</p>
+                  <p className="w-full text-2xl text-slate-400">{t("providers.free")}</p>
                   {providers?.free?.map((provider) => (
                     <img
                       key={provider.provider_id}
@@ -86,7 +86,7 @@ function SearchCardModalCenterMore({ overview, vote, providers, images, trailerI
               )}
               {providers?.ads?.length && (
                 <div className="flex flex-wrap justify-center gap-4 md:justify-start md:gap-2">
-                  <p className="w-full text-2xl text-slate-200">{t("providers.ads")}</p>
+                  <p className="w-full text-2xl text-slate-400">{t("providers.ads")}</p>
                   {providers?.ads?.map((provider) => (
                     <img
                       key={provider.provider_id}
@@ -100,7 +100,7 @@ function SearchCardModalCenterMore({ overview, vote, providers, images, trailerI
               )}
               {providers?.other?.length && (
                 <div className="flex flex-wrap justify-center gap-4 md:justify-start md:gap-2">
-                  <p className="w-full text-2xl text-slate-200">{t("providers.other")}</p>
+                  <p className="w-full text-2xl text-slate-400">{t("providers.other")}</p>
                   {providers?.other?.map((provider) => (
                     <img
                       key={provider.provider_id}
@@ -112,7 +112,7 @@ function SearchCardModalCenterMore({ overview, vote, providers, images, trailerI
                   ))}
                 </div>
               )}
-              {!providers ? <p className="mt-4 text-lg text-slate-600">{t("providers.notFound")}</p> : null}
+              {!providers ? <p className="text-lg text-slate-600">{t("providers.notFound")}</p> : null}
             </div>
           </div>
         </div>

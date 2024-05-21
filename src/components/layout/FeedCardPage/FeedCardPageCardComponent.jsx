@@ -2,8 +2,10 @@ import React from "react";
 import FeedCard from "../../common/FeedCard";
 import InfoLabel from "../../common/InfoLabel";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 function FeedCardPageCardComponent({ cardData }) {
+  const { t } = useTranslation();
   const { cardState } = useSelector((state) => state.card);
 
   return (
@@ -17,8 +19,8 @@ function FeedCardPageCardComponent({ cardData }) {
           return <FeedCard key={index} isComment={true} data={data} index={index} />;
         }
       })}
-      {cardData.length === 0 && cardState === "done" && <InfoLabel text="Not Found." />}
-      {cardState === "loading" && <InfoLabel text="Loading..." />}
+      {cardData.length === 0 && cardState === "done" && <InfoLabel text={t("feedCardPage.notFound")} />}
+      {cardState === "loading" && <InfoLabel text={t("info.loading")} />}
     </div>
   );
 }

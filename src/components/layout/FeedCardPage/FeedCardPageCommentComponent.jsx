@@ -8,11 +8,13 @@ import { postsActions } from "../../../store/postsSlice";
 import { cardActions } from "../../../store/cardSlice";
 import { useLocation } from "react-router-dom";
 import LoginRestrictionComponent from "../../common/LoginRestrictionComponent";
+import { useTranslation } from "react-i18next";
 
 function FeedCardPageCommentComponent() {
   const { cardComments, commentsState } = useSelector((state) => state.card);
   const { state: incomingData } = useLocation();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   useEffect(() => {
     const getData = async () => {
       const response = await getAllPosts();
@@ -57,10 +59,10 @@ function FeedCardPageCommentComponent() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
       >
-        Comments
+        {t("comments.comments")}
       </motion.h1>
-      {commentsState === "noComments" && <InfoLabel text="No comments yet" />}
-      {commentsState === "loading" && <InfoLabel text="Loading..." />}
+      {commentsState === "noComments" && <InfoLabel text={t("comments.notFound")} />}
+      {commentsState === "loading" && <InfoLabel text={t("info.loading")} />}
       {commentsState === "done" &&
         cardComments.length > 0 &&
         cardComments.map((user, index) => (
@@ -81,7 +83,7 @@ function FeedCardPageCommentComponent() {
             userId={user.userId}
           />
         ))}
-      {commentsState === "done" && cardComments.length === 0 && <InfoLabel text="No comments yet" />}
+      {commentsState === "done" && cardComments.length === 0 && <InfoLabel text={t("comments.notFound")} />}
       {commentsState === "login" && <LoginRestrictionComponent />}
     </motion.div>
   );

@@ -2,9 +2,12 @@ import { ExternalLinkIcon, GitHubLogoIcon, InstagramLogoIcon, LinkedInLogoIcon, 
 import React from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 function Socials({ user }) {
+  const { i18n } = useTranslation();
   const handleClick = (link) => {
-    navigator.clipboard.writeText(link) && toast.success("External profile link copied to clipboard!");
+    navigator.clipboard.writeText(link);
+    i18n.language === "tr" ? toast.success("Bağlantı kopyalandı!") : toast.success("Link copied!");
   };
 
   return (

@@ -95,7 +95,7 @@ function FeedCommentCard({ data, notification }) {
           <div className="flex gap-2">
             <FeedCardActionsSkeleton action={t("feedPost.likes")} number={data.likes} data={data} />
             <FeedCardActionsSkeleton action={t("feedPost.comments")} number={data.comments} data={data} />
-            <FeedCardActionsSkeleton action={"reposts"} number={data.reposts} data={data} />
+            <FeedCardActionsSkeleton action={"Reposts"} number={data.reposts} data={data} />
           </div>
         )}
         {/*Comment Card Middle Bottom section: Stats end */}

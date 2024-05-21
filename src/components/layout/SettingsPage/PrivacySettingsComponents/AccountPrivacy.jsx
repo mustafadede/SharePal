@@ -10,7 +10,7 @@ function AccountPrivacy() {
   const dispatch = useDispatch();
   const { AccountPrivacy } = useSelector((state) => state.privacy);
   const handlePrivacy = () => {
-    toast("Coming soon...");
+    toast(t("info.comingSoon"));
     // if (AccountPrivacy === "Public") {
     //   updateCurrentUserData(localStorage.getItem("user"), { accountPrivate: "Private" });
     // } else {

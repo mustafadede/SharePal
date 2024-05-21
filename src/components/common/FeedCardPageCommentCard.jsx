@@ -36,7 +36,7 @@ function FeedCardPageCommentCard({
   data = false,
   userId,
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const newDate = DateFormatter(date);
   const { user } = useSelector((state) => state.user);
   const { cardData } = useSelector((state) => state.card);
@@ -51,7 +51,7 @@ function FeedCardPageCommentCard({
     if (e.key === "Enter") {
       updateSelectedComment(incomingData.pId, commentId, editedText).then(() => {
         dispatch(cardActions.editComments({ text: editedText, commentId: commentId }));
-        toast("Comment edited");
+        i18n.language === "en" ? toast("Comment edited") : toast("Yorum düzenlendi");
         updateUserCommentsList(user.uid, commentId, editedText);
       });
       setIsEdited(true);
@@ -63,7 +63,7 @@ function FeedCardPageCommentCard({
   const deleteHandler = () => {
     deleteSelectedComment(incomingData.pId, commentId).then(() => {
       dispatch(cardActions.deleteComments(commentId));
-      toast("Comment deleted");
+      i18n.language === "en" ? toast("Comment deleted") : toast("Yorum silindi");
       setSettings(false);
       deleteUserCommentsList(user.uid, commentId);
     });

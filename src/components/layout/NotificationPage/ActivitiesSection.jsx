@@ -10,7 +10,7 @@ import NotificationCommentLikeCard from "../../common/NotificationCard/Notificat
 import { useTranslation } from "react-i18next";
 
 function ActivitiesSection({ user }) {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [tab, setTab] = useState(0);
   const { notificationList, status } = useSelector((state) => state.notification);
   const commentTabLength = notificationList?.filter((notification) => notification?.type === "comment").length;
@@ -165,7 +165,7 @@ function ActivitiesSection({ user }) {
               deleteId={notification.id}
             />
           ))}
-      {status === "done" && tab === 3 && <InfoLabel text="Coming soon..." />}
+      {status === "done" && tab === 3 && <InfoLabel text={t("info.comingSoon")} />}
     </div>
   );
 }

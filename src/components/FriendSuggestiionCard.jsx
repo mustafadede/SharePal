@@ -5,8 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { usersSuggestionsListActions } from "../store/UsersSuggestionsListSlice";
 import { deleteSelectedUserSuggestionList } from "../firebase/firebaseActions";
+import { useTranslation } from "react-i18next";
 
 function FriendSuggestionCard({ title, id, listNum, list, date }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { modalHasData } = useSelector((state) => state.modal);
   const { profileUser } = useSelector((state) => state.profile);
@@ -20,11 +22,11 @@ function FriendSuggestionCard({ title, id, listNum, list, date }) {
   };
 
   const clickHandler = (id, title, list, date) => {
-    toast("Coming soon...");
+    toast(t("info.comingSoon"));
   };
 
   const addHandler = () => {
-    toast("Coming soon...");
+    toast(t("info.comingSoon"));
   };
   return (
     <div

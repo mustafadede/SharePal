@@ -4,9 +4,11 @@ import video from "../../assets/video-playback.webm";
 import Navbar from "../../components/layout/Navbar";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 function HomePage() {
   const navigate = useNavigate();
+  const { i18n, t } = useTranslation();
   const cardsList = {
     hidden: {
       y: 10,
@@ -46,7 +48,9 @@ function HomePage() {
   useEffect(() => {
     document.title = "SharePal";
     if (localStorage.getItem("user")) {
-      toast.success("You are already logged in. Redirecting to feed.");
+      i18n.language === "tr"
+        ? toast.success("Zaten giriş yaptınız. Yönlendiriliyorsunuz.")
+        : toast.success("You are already logged in. Redirecting to feed.");
       const timeoutDirection = setTimeout(() => {
         navigate("/feed");
       }, 3000);
@@ -74,13 +78,13 @@ function HomePage() {
                 className="flex flex-col items-center justify-center h-full"
               >
                 <motion.h1 variants={item} className="mb-4 text-4xl font-bold text-white lg:text-5xl">
-                  List it,
+                  {t("home.topFirst")}
                 </motion.h1>
                 <motion.h2 variants={item} className="mb-4 text-4xl font-bold text-white lg:text-5xl">
-                  Track it,
+                  {t("home.topSecond")}
                 </motion.h2>
                 <motion.h2 variants={item} className="text-4xl font-bold text-white lg:text-5xl">
-                  Recommend it.
+                  {t("home.topThird")}
                 </motion.h2>
               </motion.div>
             </motion.div>

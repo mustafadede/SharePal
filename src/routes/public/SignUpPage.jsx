@@ -6,8 +6,10 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Navbar from "../../components/layout/Navbar";
+import { useTranslation } from "react-i18next";
 
 function SignUpPage() {
+  const { t, i18n } = useTranslation();
   const [step, setStep] = useState(1);
 
   const navigate = useNavigate();
@@ -26,19 +28,19 @@ function SignUpPage() {
 
   const submitHandler = (data) => {
     if (data.confirmPassword !== data.password) {
-      return toast("Passwords do not match!");
+      return i18n.language === "tr" ? toast.error("Şifreler eşleşmiyor!") : toast.error("Passwords do not match!");
     }
     if (data.password && data.password.length >= 6) {
       createUserWithEmailAction(data).then((res) => {
         if (res) {
           navigate("/login");
-          toast("Account created successfully!");
+          i18n.language === "tr" ? toast("Hesap oluşturuldu.") : toast("Account created successfully!");
         }
       });
     }
   };
   useEffect(() => {
-    document.title = "SharePal | Sign Up";
+    document.title = t("signup.windowSettingsTitle");
   }, []);
 
   const stepperFunction = (stepperInfo) => {
@@ -81,13 +83,13 @@ function SignUpPage() {
               >
                 {step}
               </motion.p>
-              <h1 className="mb-10 text-5xl font-bold text-center text-cWhite">Sign Up</h1>
+              <h1 className="mb-10 text-5xl font-bold text-center text-cWhite">{t("signup.title")}</h1>
               {step === 1 && (
                 <>
                   <motion.input
                     id="name"
                     type="text"
-                    placeholder="Nickname"
+                    placeholder={t("signup.namePlaceholder")}
                     className={onClassDefiner(errors.name)}
                     {...register("name", { required: true, minLength: 3 })}
                     aria-invalid={errors.name ? true : false}
@@ -103,7 +105,7 @@ function SignUpPage() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                   >
-                    Next
+                    {t("signup.next")}
                   </button>
                 </>
               )}
@@ -112,7 +114,7 @@ function SignUpPage() {
                   <motion.input
                     type="email"
                     id="email"
-                    placeholder="Email"
+                    placeholder={t("signup.emailPlaceholder")}
                     className={onClassDefiner(errors.email)}
                     {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
                     aria-invalid={() => (errors.email ? true : false)}
@@ -129,7 +131,7 @@ function SignUpPage() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                     >
-                      Back
+                      {t("signup.back")}
                     </button>
                     <button
                       type="submit"
@@ -139,7 +141,7 @@ function SignUpPage() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                     >
-                      Next
+                      {t("signup.next")}
                     </button>
                   </div>
                 </>
@@ -148,7 +150,7 @@ function SignUpPage() {
                 <>
                   <motion.input
                     type="password"
-                    placeholder="Password"
+                    placeholder={t("signup.passwordPlaceholder")}
                     className={onClassDefiner(errors.password)}
                     {...register("password", { required: true, minLength: 6 })}
                     aria-invalid={errors.password ? true : false}
@@ -159,7 +161,7 @@ function SignUpPage() {
                   <motion.input
                     type="password"
                     id="confirmPassword"
-                    placeholder="Confirm Password"
+                    placeholder={t("signup.confirmPasswordPlaceholder")}
                     className={onClassDefiner(errors.confirmPassword)}
                     {...register("confirmPassword", { required: true, minLength: 6 })}
                     aria-invalid={errors.confirmPassword ? true : false}
@@ -176,10 +178,10 @@ function SignUpPage() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                     >
-                      Back
+                      {t("signup.back")}
                     </button>
                     <button type="submit" className="w-full py-2 mt-2 text-xl rounded-lg md:w-3/4 bg-fuchsia-600 text-cWhite">
-                      Sign Up
+                      {t("signup.title")}
                     </button>
                   </div>
                 </>

@@ -4,8 +4,10 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { cardActions } from "../../../store/cardSlice";
 import { notificationActions } from "../../../store/notificationSlice";
+import { useTranslation } from "react-i18next";
 
 function FeedCardPageBackButton({ location = false }) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const clickHandler = () => {
@@ -19,7 +21,7 @@ function FeedCardPageBackButton({ location = false }) {
   return (
     <button className="flex items-center justify-start w-full gap-2 mb-2 group" onClick={clickHandler}>
       <ArrowLeftIcon className="w-5 h-5 duration-150 text-slate-200 group-hover:text-fuchsia-600" />
-      <p className="duration-150 text-md text-slate-200 group-hover:text-fuchsia-600">Back</p>
+      <p className="duration-150 text-md text-slate-200 group-hover:text-fuchsia-600">{t("signup.back")}</p>
     </button>
   );
 }
