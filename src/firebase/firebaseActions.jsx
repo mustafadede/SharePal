@@ -1240,7 +1240,7 @@ const deleteSelectedUserListsItem = async (userId, itemId) => {
     const snapshot = await get(pinnedListsRef);
     if (snapshot.exists()) {
       snapshot.forEach((childSnapshot) => {
-        if (childSnapshot.val().list[itemId]) {
+        if (childSnapshot.val()?.list[itemId]) {
           set(ref(database, `pinnedList/${userId}/${childSnapshot.key}/list/${itemId}`), null);
         }
       });

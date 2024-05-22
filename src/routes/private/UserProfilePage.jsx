@@ -7,7 +7,15 @@ import Tabs from "../../components/layout/ProfilePage/Tabs";
 import PostsSection from "../../components/layout/ProfilePage/PostsSection";
 import ListsSection from "../../components/layout/ProfilePage/ListsSection/ListsSection";
 import ActivitiesSection from "../../components/layout/ProfilePage/ActivitiesSection";
-import { getProfilePhoto, getSelectedUserWatched, getUserByTheUsername, getUsers } from "../../firebase/firebaseActions";
+import {
+  getCurrentUserData,
+  getFollowersForUser,
+  getProfilePhoto,
+  getSelectedUserFollowing,
+  getSelectedUserWatched,
+  getUserByTheUsername,
+  getUsers,
+} from "../../firebase/firebaseActions";
 import StatsCard from "../../components/layout/ProfilePage/StatsCard";
 import { useParams } from "react-router-dom";
 import { profileActions } from "../../store/profileSlice";
@@ -20,6 +28,9 @@ import InfoLabel from "../../components/common/InfoLabel";
 import Snowfall from "react-snowfall";
 import AccountPrivacyHelperFunction from "../../utils/AccountPrivacy";
 import { useTranslation } from "react-i18next";
+import { userActions } from "../../store/userSlice";
+import { followingActions } from "../../store/followingSlice";
+import { followersActions } from "../../store/followersSlice";
 
 function UserProfilePage() {
   const { username } = useParams();
@@ -71,6 +82,18 @@ function UserProfilePage() {
       dispatch(profileActions.updateState("done"));
     }, 500);
   }, [username, accountPrivacyFlag]);
+
+  useEffect(() => {
+    const getLoggeddInData = async () => {
+      const userData = await getCurrentUserData(localStorage.getItem("user"));
+      userData && dispatch(userActions.updateUser(userData));
+      const response = await getSelectedUserFollowing(localStorage.getItem("user"));
+      response && dispatch(followingActions.initialFollowing(response));
+      const followers = await getFollowersForUser(localStorage.getItem("user"));
+      followers && dispatch(followersActions.initialFollowers(followers));
+    };
+    getLoggeddInData();
+  }, []);
 
   return (
     <>

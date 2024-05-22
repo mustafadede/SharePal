@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../../../store/modalSlice";
 import EmptyCard from "../EmptyCard";
 import ListsSectionCard from "./ListsSectionCard";
-import { getSelectedUserLists } from "../../../../firebase/firebaseActions";
+import { getSelectedUserLists, getSelectedUserSuggestionLists } from "../../../../firebase/firebaseActions";
 import { MyListsActions } from "../../../../store/myListsSlice";
 import { useTranslation } from "react-i18next";
 
@@ -13,6 +13,7 @@ function ListsSection({ username, uid, accountPrivacyFlag }) {
   const dispatch = useDispatch();
   const { myLists, status } = useSelector((state) => state.myLists);
   const [userList, setUserList] = useState([]);
+  const [suggestionList, setSuggestionList] = useState([]);
   const clickHandler = () => {
     dispatch(modalActions.openModal({ name: "pinnedModal" }));
   };
@@ -22,6 +23,10 @@ function ListsSection({ username, uid, accountPrivacyFlag }) {
       const getData = async () => {
         getSelectedUserLists(uid).then((lists) => {
           setUserList(lists);
+        });
+        getSelectedUserSuggestionLists(uid).then((lists) => {
+          console.log(lists);
+          setSuggestionList(lists);
         });
       };
       getData();
@@ -77,6 +82,12 @@ function ListsSection({ username, uid, accountPrivacyFlag }) {
                   if (!list.isPinned) {
                     return <ListsSectionCard key={list.id} title={list.title} data={list} username={username} />;
                   }
+                })}
+              </div>
+              <p className="text-2xl text-white">{t("myLists.suggestions")}</p>
+              <div className="flex flex-row flex-wrap xl:gap-4 2xl:gap-4">
+                {suggestionList.map((list) => {
+                  return <ListsSectionCard key={list.id} title={list.title} data={list} username={username} />;
                 })}
               </div>
             </>

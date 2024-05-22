@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { usersSuggestionsListActions } from "../store/UsersSuggestionsListSlice";
 import { deleteSelectedUserSuggestionList } from "../firebase/firebaseActions";
 import { useTranslation } from "react-i18next";
+import { modalActions } from "../store/modalSlice";
 
 function FriendSuggestionCard({ title, id, listNum, list, date }) {
   const { t } = useTranslation();
@@ -26,7 +27,8 @@ function FriendSuggestionCard({ title, id, listNum, list, date }) {
   };
 
   const addHandler = () => {
-    toast(t("info.comingSoon"));
+    dispatch(modalActions.closeModal());
+    navigate("/search");
   };
   return (
     <div

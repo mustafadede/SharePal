@@ -8,7 +8,7 @@ import "./i18n";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <Suspense fallback="...is loading">
+    <Suspense>
       <App />
     </Suspense>
   </Provider>

@@ -9,6 +9,7 @@ import { MyListsActions } from "../../../store/myListsSlice";
 import { motion } from "framer-motion";
 import SortButton from "../../common/ModalHeader/SortButton";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 function ModalHeader({ title, options = false, username }) {
   const { t, i18n } = useTranslation();
@@ -18,6 +19,7 @@ function ModalHeader({ title, options = false, username }) {
   const [info, setInfo] = useState(true);
   const dispatch = useDispatch();
   const { modalHasData, dragable } = useSelector((state) => state.modal);
+  const { user: currentUser } = useSelector((state) => state.user);
 
   const handleClick = () => {
     dispatch(modalActions.closeModal());
@@ -142,9 +144,22 @@ function ModalHeader({ title, options = false, username }) {
           initial={{ opacity: 0, y: -7 }}
           animate={{ opacity: 1, y: 0, transition: { duration: 0.2 } }}
         >
-          <p className="text-lg text-slate-500 ">
-            {t("list.creation")} {modalHasData.date}
-          </p>
+          <div className="flex flex-col gap-1">
+            {modalHasData.from && (
+              <div className="text-lg text-slate-500 ">
+                {t("list.createdBy")}
+                <Link
+                  to={modalHasData.from.nick === currentUser?.nick ? "/profile" : `/user/${modalHasData.from.nick}`}
+                  className="transition-all duration-150 text-fuchsia-600 hover:underline hover:text-slate-200"
+                >
+                  {modalHasData.from.nick}
+                </Link>
+              </div>
+            )}
+            <p className="text-lg text-slate-500">
+              {t("list.creation")} {modalHasData.date}
+            </p>
+          </div>
           <p className="text-lg text-slate-500 ">
             {t("list.totalItems")} {modalHasData.list ? Object.keys(modalHasData.list)?.length : 0}
           </p>

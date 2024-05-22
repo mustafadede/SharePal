@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../../store/modalSlice";
 import { toast } from "react-toastify";
 import { createNotification } from "../../../firebase/firebaseActions";
+import { useTranslation } from "react-i18next";
 
 function AttachedCard({ title, poster, releaseDate, backdrop, isSuggest = false, id, mediaType }) {
   const { profileUser } = useSelector((state) => state.profile);
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const { i18n } = useTranslation();
 
   const handleClick = () => {
     if (isSuggest) {
@@ -29,7 +31,9 @@ function AttachedCard({ title, poster, releaseDate, backdrop, isSuggest = false,
         type: "suggest",
         date: Date.now(),
       }).then(() => {
-        toast.success(`You have suggested ${title} to ${profileUser.nick}`);
+        i18n.language === "en"
+          ? toast.success(`You have suggested ${title} to ${profileUser.nick}`)
+          : toast.success(`${profileUser.nick} kişisine ${title} önerildi.`);
         dispatch(modalActions.closeModal());
       });
     } else {

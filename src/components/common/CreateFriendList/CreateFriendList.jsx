@@ -7,8 +7,10 @@ import { createUserSuggestionLists, getSelectedUserSuggestionLists } from "../..
 import { usersSuggestionsListActions } from "../../../store/UsersSuggestionsListSlice";
 import FriendSuggestionCard from "../../FriendSuggestiionCard";
 import InfoLabel from "../InfoLabel";
+import { useTranslation } from "react-i18next";
 
 function CreateFriendList() {
+  const { t, i18n } = useTranslation();
   const { profileUser } = useSelector((state) => state.profile);
   const { user } = useSelector((state) => state.user);
   const { usersSuggestionsList } = useSelector((state) => state.usersSuggestionsList);
@@ -33,7 +35,7 @@ function CreateFriendList() {
           nick: user.nick,
         },
       }).then(() => {
-        toast.success("List created successfully!");
+        i18n.language === "en" ? toast.success("List created successfully!") : toast.success("Liste başarıyla oluşturuldu!");
         dispatch(
           usersSuggestionsListActions.updateUsersSuggestionsList({
             id: id,
@@ -47,7 +49,7 @@ function CreateFriendList() {
         );
       });
     } else {
-      return toast.error("List name cannot be empty.");
+      i18n.language === "en" ? toast.error("List name cannot be empty.") : toast.error("Liste adı boş olamaz.");
     }
   };
   const handleListener = (e) => {
@@ -65,9 +67,10 @@ function CreateFriendList() {
       from: {
         uid: localStorage.getItem("user"),
         nick: user.nick,
+        photoURL: user.photoURL,
       },
     }).then(() => {
-      toast.success("List created successfully!");
+      i18n.language === "en" ? toast.success("List created successfully!") : toast.success("Liste başarıyla oluşturuldu!");
       dispatch(
         usersSuggestionsListActions.updateUsersSuggestionsList({
           id: id,
@@ -88,7 +91,7 @@ function CreateFriendList() {
         <input
           className="w-full px-2 py-1 bg-transparent border-b outline-none border-slate-300 text-slate-300"
           type="text"
-          placeholder="List Name"
+          placeholder={t("friendList.suggestion")}
           onChange={(e) => setListname(e.target.value)}
           onKeyDown={(e) => handleListener(e)}
         />
@@ -96,14 +99,14 @@ function CreateFriendList() {
           className="px-4 py-2 transition-all border rounded-lg border-slate-300 hover:border-fuchsia-600 text-slate-300 hover:text-fuchsia-600"
           onClick={handleCreateList}
         >
-          Create
+          {t("friendList.create")}
         </button>
       </div>
       <Suggestion
-        title="List name"
-        suggestion1="Should Watch"
-        suggestion2="Maybe Later?"
-        suggestion3="Definitely Watch!"
+        title={t("friendList.suggestion")}
+        suggestion1={t("friendList.suggestion1")}
+        suggestion2={t("friendList.suggestion2")}
+        suggestion3={t("friendList.suggestion3")}
         handleSuggestion={handleSuggestion}
       />
       <div className="overflow-scroll h-80 md:h-72 no-scrollbar">
@@ -119,9 +122,7 @@ function CreateFriendList() {
               from={list.from}
             />
           ))}
-        {usersSuggestionsList.length === 0 && (
-          <InfoLabel text="You don't have any suggested lists to this person!" additionalClasses="mt-0" />
-        )}
+        {usersSuggestionsList.length === 0 && <InfoLabel text={t("friendList.noList")} additionalClasses="mt-0" />}
       </div>
     </div>
   );
