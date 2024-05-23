@@ -125,9 +125,11 @@ function ModalHeader({ title, options = false, username }) {
           {localStorage.getItem("user") && !username && options && !rename && (
             <>
               <SortButton />
-              <button className="cursor-pointer" onClick={() => setSettings(!settings)}>
-                <DotsHorizontalIcon className="transition-all duration-300 w-7 h-7 text-slate-400 hover:text-slate-200" />
-              </button>
+              {modalHasData?.from && modalHasData?.from?.uid !== localStorage.getItem("user") ? null : (
+                <button className="cursor-pointer" onClick={() => setSettings(!settings)}>
+                  <DotsHorizontalIcon className="transition-all duration-300 w-7 h-7 text-slate-400 hover:text-slate-200" />
+                </button>
+              )}
             </>
           )}
           {!rename && (
@@ -175,7 +177,7 @@ function ModalHeader({ title, options = false, username }) {
               onClick={renameHandler}
             >
               <Pencil1Icon className="w-5 h-5 mr-2" />
-              {t("list.rename").substring(0, 13).concat("...")}
+              {t("list.rename").substring(0, 12).concat("...")}
             </button>
           }
           icon2={

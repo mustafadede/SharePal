@@ -1441,10 +1441,65 @@ const getSelectedUserUnfinished = async (userId) => {
   return selectedUserUnfinished;
 };
 
+const getSelectedUserSharedList = async (userId) => {
+  const sharedListRef = ref(database, `sharedList/${userId}`);
+  const snapshot = await get(sharedListRef);
+  const selectedUserSharedList = [];
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      selectedUserSharedList.push({
+        id: childSnapshot.val().id,
+        referenceId: childSnapshot.val().referenceId,
+      });
+    });
+  }
+  return selectedUserSharedList;
+};
+
+const deleteSelectedSharedList = async (userId, referenceId) => {
+  try {
+    const sharedListRef = ref(database, `sharedList/${userId}`);
+    const snapshot = await get(sharedListRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().referenceId === referenceId) {
+          set(ref(database, `sharedList/${userId}/${childSnapshot.key}`), null);
+        }
+      });
+    }
+    return true;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const createUserSuggestionLists = async (userId, data) => {
   try {
     const newSuggestionListRef = push(ref(database, `userSuggestionLists/${userId}`));
-    set(newSuggestionListRef, data);
+    await set(newSuggestionListRef, data);
+    const refData = {
+      id: userId,
+      referenceId: newSuggestionListRef.key,
+    };
+    const newSharedListRef = push(ref(database, `sharedList/${data.from.uid}`));
+    await set(newSharedListRef, refData);
+    return true;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const deleteUserSuggestionLists = async (userId, referenceId) => {
+  try {
+    const suggestionListsRef = ref(database, `userSuggestionLists/${userId}`);
+    const snapshot = await get(suggestionListsRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().id === referenceId) {
+          set(ref(database, `userSuggestionLists/${userId}/${childSnapshot.key}`), null);
+        }
+      });
+    }
     return true;
   } catch (error) {
     console.error(error);
@@ -1452,7 +1507,7 @@ const createUserSuggestionLists = async (userId, data) => {
 };
 
 const getSelectedUserSuggestionLists = async (userId) => {
-  const suggestionListsRef = ref(database, `userSuggestionLists/${userId}`);
+  const suggestionListsRef = ref(database, `userSuggestionLists/${userId}/`);
   const snapshot = await get(suggestionListsRef);
   const selectedUserSuggestionLists = [];
   if (snapshot.exists()) {
@@ -1462,10 +1517,36 @@ const getSelectedUserSuggestionLists = async (userId) => {
         title: childSnapshot.val().title,
         date: childSnapshot.val().date,
         from: childSnapshot.val().from,
+        list: childSnapshot.val().list || null,
+        userId: childSnapshot.val().userId,
+        nodeId: childSnapshot.key,
       });
     });
   }
   return selectedUserSuggestionLists;
+};
+
+const updateSelectedUserSuggestionLists = async (userId, listId, data) => {
+  try {
+    console.log(userId, listId, data);
+    const suggestionListsRef = ref(database, `userSuggestionLists/${userId}`);
+    const snapshot = await get(suggestionListsRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.key === listId) {
+          const newSuggestionListsListRef = push(ref(database, `userSuggestionLists/${userId}/${listId}/list`));
+          set(newSuggestionListsListRef, data);
+        }
+      });
+      return true;
+    } else {
+      console.log("No data available");
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };
 
 const deleteSelectedUserSuggestionList = async (userId, listId) => {
@@ -1560,8 +1641,12 @@ export {
   getSelectedUserWantToWatch,
   getSelectedUserWatched,
   getSelectedUserUnfinished,
+  getSelectedUserSharedList,
+  deleteSelectedSharedList,
   createUserSuggestionLists,
+  deleteUserSuggestionLists,
   getSelectedUserSuggestionLists,
+  updateSelectedUserSuggestionLists,
   deleteSelectedUserSuggestionList,
   deleteAccount,
 };

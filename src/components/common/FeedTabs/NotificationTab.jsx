@@ -1,4 +1,4 @@
-import { ChatBubbleIcon, HeartIcon, LoopIcon, RocketIcon } from "@radix-ui/react-icons";
+import { ChatBubbleIcon, HeartIcon, ListBulletIcon, RocketIcon } from "@radix-ui/react-icons";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -46,9 +46,9 @@ function NotificationTab({ tabInfo, tab }) {
         onClick={() => tab(3)}
       >
         <span className={`text-lg hidden md:block font-semibold ${tabInfo === 3 ? "text-fuchsia-400" : null}`}>
-          {t("notification.reposts")}
+          {t("notification.list")}
         </span>
-        <LoopIcon className={`w-8 h-6 md:hidden ${tabInfo === 3 ? "text-fuchsia-400" : null}`} />
+        <ListBulletIcon className={`w-8 h-6 md:hidden ${tabInfo === 3 ? "text-fuchsia-400" : null}`} />
       </button>
     </>
   );

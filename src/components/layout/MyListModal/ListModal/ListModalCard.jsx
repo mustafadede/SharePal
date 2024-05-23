@@ -17,7 +17,6 @@ function ListModalCard({ id, title, poster, releaseDate, backdrop, username, lis
     dispatch(modalActions.closeModal({ name: "listModal" }));
     i18n.language === "tr" ? toast.success("Listeden başarıyla kaldırıldı!") : toast.success("Successfully removed from the list!");
   };
-
   const movieInfoHandler = () => {
     useSearchWithYear(title, releaseDate).then((data) => {
       if (data) {

@@ -9,11 +9,13 @@ import { toast } from "react-toastify";
 import { notificationActions } from "../../../store/notificationSlice";
 import NotificationPhoto from "./components/NotificationPhoto";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 
 function NotificationFollowCard({ uid, nick, photoURL, date, deleteId }) {
   const newDate = DateFormatter(date);
   const [settings, setSettings] = useState(false);
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const deleteHandler = () => {
     deleteSelectedNotification(deleteId).then(() => {

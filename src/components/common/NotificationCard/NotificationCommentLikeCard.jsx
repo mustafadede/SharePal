@@ -25,7 +25,7 @@ function NotificationCommentLikeCard({ uid, nick, postId, photoURL, date, delete
   const deleteHandler = () => {
     deleteSelectedNotification(deleteId).then(() => {
       setSettings(false);
-      toast.success("Notification deleted successfully");
+      i18n.language === "en" ? toast.success("Notification deleted successfully") : toast.success("Bildirim silindi");
       dispatch(notificationActions.deleteSelectedNotification(deleteId));
     });
   };

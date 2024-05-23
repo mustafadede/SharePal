@@ -46,10 +46,9 @@ function NotificationSuggestionCard({ uid, nick, photoURL, date, deleteId, attac
     };
     movieInfoHandler();
   };
-  console.log(attached);
   const watchedHandler = () => {
     updateWatched({ id: attached.id, mediaType: attached.mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
-      toast("Added to your stats!");
+      i18n.language === "en" ? toast("Added to your stats!") : toast("İstatistiklerinize eklendi!");
       deleteSelectedNotification(deleteId).then(() => {
         setSettings(false);
         dispatch(notificationActions.deleteSelectedNotification(deleteId));

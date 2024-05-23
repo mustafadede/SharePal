@@ -7,6 +7,7 @@ import ListsSectionCard from "./ListsSectionCard";
 import { getSelectedUserLists, getSelectedUserSuggestionLists } from "../../../../firebase/firebaseActions";
 import { MyListsActions } from "../../../../store/myListsSlice";
 import { useTranslation } from "react-i18next";
+import InfoLabel from "../../../common/InfoLabel";
 
 function ListsSection({ username, uid, accountPrivacyFlag }) {
   const { t } = useTranslation();
@@ -25,7 +26,6 @@ function ListsSection({ username, uid, accountPrivacyFlag }) {
           setUserList(lists);
         });
         getSelectedUserSuggestionLists(uid).then((lists) => {
-          console.log(lists);
           setSuggestionList(lists);
         });
       };
@@ -40,6 +40,9 @@ function ListsSection({ username, uid, accountPrivacyFlag }) {
           .then(() => {
             dispatch(MyListsActions.updateStatus("done"));
           });
+        getSelectedUserSuggestionLists(localStorage.getItem("user")).then((lists) => {
+          setSuggestionList(lists);
+        });
       };
       getData();
     }
@@ -56,6 +59,9 @@ function ListsSection({ username, uid, accountPrivacyFlag }) {
                 {myLists.map((list, index) => {
                   if (list.isPinned) return <ListsSectionCard key={index} title={list.title} isPinned={list.isPinned} data={list} />;
                 })}
+                {myLists.filter((list) => list.isPinned).length === 0 && (
+                  <p className="w-full text-md lg:text-lg text-slate-400">{t("list.pinedMyNoList")}</p>
+                )}
               </div>
               <p className="text-2xl text-white">{t("myLists.lists")}</p>
               <div className="flex flex-row flex-wrap xl:gap-4 2xl:gap-4">
@@ -63,6 +69,15 @@ function ListsSection({ username, uid, accountPrivacyFlag }) {
                   if (!list.isPinned) {
                     return <ListsSectionCard key={index} title={list.title} data={list} />;
                   }
+                })}
+                {myLists.filter((list) => !list.isPinned).length === 0 && (
+                  <p className="w-full text-md lg:text-lg text-slate-400">{t("list.noMyList")}</p>
+                )}
+              </div>
+              {suggestionList.length > 0 && <p className="text-2xl text-white">{t("myLists.mySuggestions")}</p>}
+              <div className="flex flex-row flex-wrap xl:gap-4 2xl:gap-4">
+                {suggestionList.map((list) => {
+                  return <ListsSectionCard key={list.id} title={list.title} data={list} username={username} />;
                 })}
               </div>
             </>
@@ -75,6 +90,9 @@ function ListsSection({ username, uid, accountPrivacyFlag }) {
                   if (list.isPinned)
                     return <ListsSectionCard key={list.id} title={list.title} isPinned={list.isPinned} data={list} username={username} />;
                 })}
+                {userList.filter((list) => list.isPinned).length === 0 && (
+                  <p className="w-full text-md lg:text-lg text-slate-400">{t("list.pinedNoList")}</p>
+                )}
               </div>
               <p className="text-2xl text-white">{t("myLists.lists")}</p>
               <div className="flex flex-row flex-wrap xl:gap-4 2xl:gap-4">
@@ -83,8 +101,11 @@ function ListsSection({ username, uid, accountPrivacyFlag }) {
                     return <ListsSectionCard key={list.id} title={list.title} data={list} username={username} />;
                   }
                 })}
+                {userList.filter((list) => !list.isPinned).length === 0 && (
+                  <p className="w-full text-md lg:text-lg text-slate-400">{t("list.noList")}</p>
+                )}
               </div>
-              <p className="text-2xl text-white">{t("myLists.suggestions")}</p>
+              {suggestionList.length > 0 && <p className="text-2xl text-white">{t("myLists.suggestions")}</p>}
               <div className="flex flex-row flex-wrap xl:gap-4 2xl:gap-4">
                 {suggestionList.map((list) => {
                   return <ListsSectionCard key={list.id} title={list.title} data={list} username={username} />;

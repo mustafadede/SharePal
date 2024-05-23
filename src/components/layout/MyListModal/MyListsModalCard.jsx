@@ -4,11 +4,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { MyListsActions } from "../../../store/myListsSlice";
 import { toast } from "react-toastify";
 import { modalActions } from "../../../store/modalSlice";
-import { removePinnedList, updatePinnedList, updateSelectedUserLists } from "../../../firebase/firebaseActions";
+import {
+  removePinnedList,
+  updatePinnedList,
+  updateSelectedUserLists,
+  updateSelectedUserSuggestionLists,
+} from "../../../firebase/firebaseActions";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = false, list, date }) {
+function MyListsModalCard({
+  title,
+  id,
+  listNum,
+  disabled = false,
+  isPinned = false,
+  list,
+  date,
+  pinnedDisabled = false,
+  suggestionList = false,
+  from,
+  userId,
+  nodeId,
+}) {
   const { i18n } = useTranslation();
   const [pinnedCount, setPinedCount] = useState(0);
   const dispatch = useDispatch();
@@ -45,11 +63,13 @@ function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = fal
   };
 
   const clickHandler = (id, title, list, date) => {
-    dispatch(modalActions.openModal({ name: "listModal", data: { id, title, list, date, listNum } }));
+    dispatch(
+      modalActions.openModal({ name: "listModal", data: suggestionList ? { id, title, list, date, from } : { id, title, list, date } })
+    );
   };
 
   const addHandler = () => {
-    if (modalHasData.releaseDate) {
+    if (modalHasData.releaseDate && !suggestionList) {
       updatePinnedList({
         id: myLists[listNum].id,
         title: modalHasData.title,
@@ -70,6 +90,17 @@ function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = fal
         })
       );
       i18n.language === "en" ? toast.success("Movie added successfully!") : toast.success("Film başarıyla eklendi!");
+    } else if (suggestionList && modalHasData.releaseDate) {
+      updateSelectedUserSuggestionLists(userId, nodeId, {
+        id: modalHasData.movieId || modalHasData.id,
+        title: modalHasData.title,
+        mediaType: modalHasData.mediaType,
+        poster: modalHasData.poster,
+        releaseDate: modalHasData.releaseDate,
+        backdrop: modalHasData.backdrop,
+      });
+      i18n.language === "en" ? toast.success("Movie added successfully!") : toast.success("Film başarıyla eklendi!");
+      dispatch(modalActions.closeModal());
     } else {
       navigate("/search");
       dispatch(modalActions.closeModal());
@@ -86,22 +117,24 @@ function MyListsModalCard({ title, id, listNum, disabled = false, isPinned = fal
         className={` text-slate-200 w-full ${disabled ? "text-md" : "group-hover:text-fuchsia-400 text-xl"}`}
         onClick={() => clickHandler(id, title, list, date)}
       >
-        {title.length > 28 ? title.slice(0, 28) + "..." : title}
+        {title?.length > 28 ? title.slice(0, 28) + "..." : title}
       </p>
       <div className="flex items-center gap-2">
-        {!disabled && (
+        {!disabled && from?.uid === localStorage.getItem("user") && (
           <button className="ml-auto transition-all rounded-lg" onClick={() => addHandler()}>
             <PlusIcon className="w-6 h-6 ml-auto transition-all text-slate-200 hover:text-fuchsia-600" />
           </button>
         )}
-        <button className="ml-auto rounded-lg" onClick={() => handlePin(listNum)}>
-          {!isPinned ? (
-            <DrawingPinIcon className="w-6 h-6 ml-auto transition-all text-slate-200 hover:text-fuchsia-600" />
-          ) : (
-            <DrawingPinFilledIcon className={`w-6 h-6 ml-auto text-fuchsia-600`} />
-          )}
-        </button>
-        {!disabled && (
+        {!pinnedDisabled && (
+          <button className="ml-auto rounded-lg" onClick={() => handlePin(listNum)}>
+            {!isPinned ? (
+              <DrawingPinIcon className="w-6 h-6 ml-auto transition-all text-slate-200 hover:text-fuchsia-600" />
+            ) : (
+              <DrawingPinFilledIcon className={`w-6 h-6 ml-auto text-fuchsia-600`} />
+            )}
+          </button>
+        )}
+        {!disabled && !pinnedDisabled && (
           <button className="ml-auto rounded-lg" onClick={() => handleRemove(id)}>
             <Cross1Icon className="w-6 h-6 ml-auto transition-all text-slate-200 hover:text-red-600" />
           </button>

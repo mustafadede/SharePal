@@ -4,26 +4,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { usersSuggestionsListActions } from "../store/UsersSuggestionsListSlice";
-import { deleteSelectedUserSuggestionList } from "../firebase/firebaseActions";
+import { deleteSelectedSharedList, deleteSelectedUserSuggestionList, deleteUserSuggestionLists } from "../firebase/firebaseActions";
 import { useTranslation } from "react-i18next";
 import { modalActions } from "../store/modalSlice";
 
-function FriendSuggestionCard({ title, id, listNum, list, date }) {
-  const { t } = useTranslation();
+function FriendSuggestionCard({ title, id, nodeId }) {
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
-  const { modalHasData } = useSelector((state) => state.modal);
   const { profileUser } = useSelector((state) => state.profile);
   const navigate = useNavigate();
 
   const handleRemove = (id) => {
     dispatch(usersSuggestionsListActions.removeUsersSuggestionsList(id));
     deleteSelectedUserSuggestionList(profileUser.uid, id).then(() => {
-      toast.success("List removed successfully!");
+      i18n.language === "en" ? toast.success("List removed successfully!") : toast.success("Liste başarıyla silindi!");
     });
-  };
-
-  const clickHandler = (id, title, list, date) => {
-    toast(t("info.comingSoon"));
+    deleteSelectedSharedList(profileUser.uid, nodeId);
   };
 
   const addHandler = () => {
@@ -32,11 +28,9 @@ function FriendSuggestionCard({ title, id, listNum, list, date }) {
   };
   return (
     <div
-      className={`flex items-center cursor-pointer justify-between w-full h-10  overflow-hidden group hover:border-fuchsia-400 border-slate-200 border px-4 py-6 mb-4 rounded-xl`}
+      className={`flex items-center justify-between w-full h-10  overflow-hidden group hover:border-fuchsia-400 border-slate-200 border px-4 py-6 mb-4 rounded-xl`}
     >
-      <p className={` text-slate-200 w-fullgroup-hover:text-fuchsia-400 text-xl`} onClick={() => clickHandler(id, title, list, date)}>
-        {title}
-      </p>
+      <p className={` text-slate-200 w-full select-none group-hover:text-fuchsia-400 text-xl`}>{title}</p>
       <div className="flex items-center gap-2">
         {
           <button className="ml-auto transition-all rounded-lg" onClick={() => addHandler()}>

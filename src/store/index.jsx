@@ -16,12 +16,14 @@ import splashSlice from "./splashSlice";
 import cardSlice from "./cardSlice";
 import privacySlice from "./privacySlice";
 import UsersSuggestionsListSlice from "./UsersSuggestionsListSlice";
+import suggestedList from "./suggestedList";
 
 const store = configureStore({
   reducer: {
     auth: authSlice,
     user: userSlice,
     profile: profileSlice,
+    suggestedList: suggestedList,
     createPost: createPostSlice,
     modal: modalSlice,
     myLists: myListsSlice,

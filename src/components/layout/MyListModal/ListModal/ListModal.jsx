@@ -23,7 +23,7 @@ function ListModal() {
   }, [orderDirection]);
 
   return (
-    <div className="bg-slate-900 rounded-2xl px-8 pt-4 w-[25rem] md:w-[35rem] h-[28rem] md:h-[30rem]">
+    <div className="bg-slate-900 rounded-2xl px-8 pt-4 w-[25rem] md:w-[35rem] h-[28rem] md:h-fit">
       <ModalHeader options={true} username={modalHasData.username} />
       <div className="flex flex-col justify-center w-full py-2">
         <div className="flex flex-col justify-between md:flex-row"></div>
@@ -45,7 +45,7 @@ function ListModal() {
             {t("list.dragInfo")}
           </motion.p>
         )}
-        <div className="pb-4 overflow-scroll h-[18rem] lg:h-80 no-scrollbar">
+        <div className="pb-4 overflow-scroll h-[18rem] lg:h-72 no-scrollbar">
           {!modalHasData.list && <p className="text-xl text-slate-600">{t("list.empty")}</p>}
           {dragable ? (
             <Reorder.Group values={list} onReorder={handleOrder}>

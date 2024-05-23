@@ -12,6 +12,7 @@ function MyListsSection() {
   const { t, i18n } = useTranslation();
   const [listname, setListname] = useState("");
   const { myLists } = useSelector((state) => state.myLists);
+  const { suggestedList } = useSelector((state) => state.suggestedList);
   const dispatch = useDispatch();
 
   const handleCreateList = () => {
@@ -60,7 +61,6 @@ function MyListsSection() {
       );
     }
   };
-
   const clickHandler = (id, title, list, date) => {
     dispatch(modalActions.closeModal());
     dispatch(modalActions.openModal({ name: "listModal", data: { id, title, list, date } }));
@@ -98,6 +98,22 @@ function MyListsSection() {
       <div className="overflow-scroll h-80 md:h-56 no-scrollbar">
         {/** My Lists map */}
         {myLists.length === 0 && <p className="text-md text-slate-400">{t("pinned.noList")}</p>}
+        {suggestedList.length > 0 &&
+          suggestedList.map((list, i) => (
+            <MyListsModalCard
+              key={list.id}
+              listNum={i}
+              title={list.title}
+              from={list.from}
+              id={list.id}
+              userId={list.userId}
+              date={list.date}
+              list={list.list}
+              clickHandler={clickHandler}
+              suggestionList={true}
+              pinnedDisabled={true}
+            />
+          ))}
         {myLists.length > 0 &&
           myLists.map((list, i) => (
             <MyListsModalCard
@@ -105,7 +121,6 @@ function MyListsSection() {
               listNum={i}
               title={list.title}
               id={list.id}
-              isPinned={list.isPinned}
               date={list.date}
               list={list.list}
               clickHandler={clickHandler}

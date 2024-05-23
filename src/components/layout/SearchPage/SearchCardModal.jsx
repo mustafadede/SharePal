@@ -128,7 +128,7 @@ function SearchCardModal() {
   }, []);
 
   const watchlistHandler = () => {
-    dispatch(modalActions.openModal({ name: "pinnedModal", data: { title, poster, releaseDate, vote, backdrop } }));
+    dispatch(modalActions.openModal({ name: "pinnedModal", data: { id, mediaType, title, poster, releaseDate, vote, backdrop } }));
   };
 
   const currentlyWatchingHandler = () => {

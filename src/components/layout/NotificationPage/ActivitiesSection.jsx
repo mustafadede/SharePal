@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import NotificationSuggestionCard from "../../common/NotificationCard/NotificationSuggestionCard";
 import NotificationCommentLikeCard from "../../common/NotificationCard/NotificationCommentLikeCard";
 import { useTranslation } from "react-i18next";
+import NotificationListCard from "../../common/NotificationCard/NotificationListCard";
 
 function ActivitiesSection({ user }) {
   const { i18n, t } = useTranslation();
@@ -152,10 +153,10 @@ function ActivitiesSection({ user }) {
       {status === "done" &&
         tab === 3 &&
         notificationList
-          ?.filter((notification) => notification?.type === "repost")
+          ?.filter((notification) => notification?.type === "list")
           .reverse()
           .map((notification, index) => (
-            <NotificationLikeCard
+            <NotificationListCard
               key={index}
               uid={notification.from?.uid}
               nick={notification.from?.nick}
@@ -165,7 +166,28 @@ function ActivitiesSection({ user }) {
               deleteId={notification.id}
             />
           ))}
-      {status === "done" && tab === 3 && <InfoLabel text={t("info.comingSoon")} />}
+      {status === "done" &&
+        tab === 3 &&
+        notificationList?.filter((notification) => notification?.type === "list").length === 0 &&
+        (i18n.language === "en" ? (
+          <motion.h1
+            className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            Try more {user?.nick}. Follow more people. Follow the rabbit hole.
+          </motion.h1>
+        ) : (
+          <motion.h1
+            className="w-full p-4 mt-1 text-lg text-center text-slate-400 bg-slate-900 rounded-2xl h-fit"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            Daha fazla dene {user?.nick}. Daha fazla kişiyi takip et.
+          </motion.h1>
+        ))}
     </div>
   );
 }

@@ -3,7 +3,7 @@ import ModalHeader from "../../layout/ModalSkeleton/ModalHeader";
 import { useDispatch, useSelector } from "react-redux";
 import Suggestion from "../Suggestion";
 import { toast } from "react-toastify";
-import { createUserSuggestionLists, getSelectedUserSuggestionLists } from "../../../firebase/firebaseActions";
+import { createNotification, createUserSuggestionLists, getSelectedUserSuggestionLists } from "../../../firebase/firebaseActions";
 import { usersSuggestionsListActions } from "../../../store/UsersSuggestionsListSlice";
 import FriendSuggestionCard from "../../FriendSuggestiionCard";
 import InfoLabel from "../InfoLabel";
@@ -34,6 +34,7 @@ function CreateFriendList() {
           uid: localStorage.getItem("user"),
           nick: user.nick,
         },
+        userId: profileUser.uid,
       }).then(() => {
         i18n.language === "en" ? toast.success("List created successfully!") : toast.success("Liste başarıyla oluşturuldu!");
         dispatch(
@@ -45,8 +46,20 @@ function CreateFriendList() {
               uid: localStorage.getItem("user"),
               nick: user.nick,
             },
+            userId: profileUser.uid,
           })
         );
+        createNotification(profileUser.uid, {
+          id: id,
+          title: listname,
+          date: new Date().toLocaleDateString(),
+          from: {
+            uid: localStorage.getItem("user"),
+            nick: user.nick,
+          },
+          type: "list",
+          userId: profileUser.uid,
+        });
       });
     } else {
       i18n.language === "en" ? toast.error("List name cannot be empty.") : toast.error("Liste adı boş olamaz.");
@@ -67,8 +80,8 @@ function CreateFriendList() {
       from: {
         uid: localStorage.getItem("user"),
         nick: user.nick,
-        photoURL: user.photoURL,
       },
+      userId: profileUser.uid,
     }).then(() => {
       i18n.language === "en" ? toast.success("List created successfully!") : toast.success("Liste başarıyla oluşturuldu!");
       dispatch(
@@ -80,10 +93,24 @@ function CreateFriendList() {
             uid: localStorage.getItem("user"),
             nick: user.nick,
           },
+          userId: profileUser.uid,
         })
       );
+      createNotification(profileUser.uid, {
+        id: id,
+        title: listname,
+        date: new Date().toLocaleDateString(),
+        from: {
+          uid: localStorage.getItem("user"),
+          photo: user.photoURL,
+          nick: user.nick,
+        },
+        type: "list",
+        userId: profileUser.uid,
+      });
     });
   };
+
   return (
     <div className="p-4 w-80 md:w-[35rem] h-[35rem] md:h-[27rem] bg-slate-900 rounded-2xl overflow-hidden">
       <ModalHeader title={`Create List for ${profileUser.nick} ✨`} />
@@ -117,9 +144,9 @@ function CreateFriendList() {
               listNum={i}
               title={list.title}
               id={list.id}
-              list={list.list}
               date={list.date}
               from={list.from}
+              nodeId={list.nodeId}
             />
           ))}
         {usersSuggestionsList.length === 0 && <InfoLabel text={t("friendList.noList")} additionalClasses="mt-0" />}
