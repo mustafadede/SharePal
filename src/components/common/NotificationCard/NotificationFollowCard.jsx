@@ -41,9 +41,9 @@ function NotificationFollowCard({ uid, nick, photoURL, date, deleteId }) {
                 to={`/user/${nick}`}
                 className="text-base transition-all duration-300 text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600"
               >
-                <motion.span className="font-bold text-fuchsia-600 ">{nick}</motion.span>
+                <motion.span className="inline font-bold text-fuchsia-600 ">{nick + " "}</motion.span>
+                {t("notification.followed")}
               </Link>
-              {t("notification.followed")}
             </motion.p>
             <motion.p className="text-sm text-slate-400">{newDate}</motion.p>
           </motion.div>

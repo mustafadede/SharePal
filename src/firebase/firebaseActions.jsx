@@ -58,6 +58,25 @@ const createUserWithEmailAction = async (data) => {
   }
 };
 
+function createNickForUser(nick) {
+  const nickRef = push(ref(database, `usernicks/`));
+  set(nickRef, nick);
+  return true;
+}
+
+async function isNickUnique(nick) {
+  const nickRef = ref(database, `usernicks/`);
+  return get(nickRef).then((snapshot) => {
+    if (snapshot.exists()) {
+      const nicks = [];
+      snapshot.forEach((childSnapshot) => {
+        nicks.push(childSnapshot.val());
+      });
+      return !nicks.includes(nick);
+    }
+  });
+}
+
 const signInWithEmailAction = async (email, password) => {
   try {
     const user = await signInWithEmailAndPassword(auth, email, password);
@@ -412,13 +431,11 @@ const unfollowUser = async (userId, data) => {
     const followersSnapshotData = await get(followersSnapshot);
     followersSnapshotData.forEach((childSnapshot) => {
       if (childSnapshot.val().uid === userId) {
-        console.log("hello");
         set(ref(database, `followers/${data.uid}/${childSnapshot.key}`), null);
       }
     });
     followingSnapshotData.forEach((childSnapshot) => {
       if (childSnapshot.val().uid === data.uid) {
-        console.log("hello");
         set(ref(database, `following/${userId}/${childSnapshot.key}`), null);
       }
     });
@@ -864,7 +881,6 @@ const createUserCommentsList = async (userId, data) => {
 };
 
 const updateUserCommentsList = async (userId, commentId, data) => {
-  console.log(userId, commentId, data);
   try {
     const commentsRef = ref(database, `userCommentsList/${userId}`);
     const snapshot = await get(commentsRef);
@@ -1107,7 +1123,6 @@ const changedListupdatePinnedList = async (data) => {
 
     if (snapshot.exists()) {
       snapshot.forEach((childSnapshot) => {
-        console.log(data[0].id);
         if (childSnapshot.val().id === data[0].id) {
           const newChildRef = ref(database, `pinnedList/${userId}/${childSnapshot.key}/list`);
           set(newChildRef, data);
@@ -1266,7 +1281,6 @@ const uploadProfilePhoto = async (file) => {
         updateProfile(auth.currentUser, { photoURL: url });
         if (snapshot.exists()) {
           snapshot.forEach((childSnapshot) => {
-            console.log(childSnapshot.key);
             update(ref(database, `posts/${userId}/${childSnapshot.key}`), {
               ...childSnapshot.val(),
               photoURL: url,
@@ -1526,9 +1540,29 @@ const getSelectedUserSuggestionLists = async (userId) => {
   return selectedUserSuggestionLists;
 };
 
+const deleteSelectedUserSuggestionListsListItem = async (userId, listId, id) => {
+  try {
+    const suggestionListsRef = ref(database, `userSuggestionLists/${userId}`);
+    const snapshot = await get(suggestionListsRef);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().id === listId) {
+          set(ref(database, `userSuggestionLists/${userId}/${childSnapshot.key}/list/${id}`), null);
+        }
+      });
+      return true;
+    } else {
+      console.log("No data available");
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 const updateSelectedUserSuggestionLists = async (userId, listId, data) => {
   try {
-    console.log(userId, listId, data);
     const suggestionListsRef = ref(database, `userSuggestionLists/${userId}`);
     const snapshot = await get(suggestionListsRef);
     if (snapshot.exists()) {
@@ -1578,6 +1612,8 @@ const deleteAccount = async () => {
 
 export {
   createUserWithEmailAction,
+  createNickForUser,
+  isNickUnique,
   signInWithEmailAction,
   getCurrentUserData,
   setOnlineStatus,
@@ -1646,6 +1682,7 @@ export {
   createUserSuggestionLists,
   deleteUserSuggestionLists,
   getSelectedUserSuggestionLists,
+  deleteSelectedUserSuggestionListsListItem,
   updateSelectedUserSuggestionLists,
   deleteSelectedUserSuggestionList,
   deleteAccount,

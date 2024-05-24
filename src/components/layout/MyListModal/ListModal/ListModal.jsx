@@ -23,7 +23,7 @@ function ListModal() {
   }, [orderDirection]);
 
   return (
-    <div className="bg-slate-900 rounded-2xl px-8 pt-4 w-[25rem] md:w-[35rem] h-[28rem] md:h-fit">
+    <div className="bg-slate-900 rounded-2xl px-8 pt-4 w-[25rem] md:w-[35rem] h-fit">
       <ModalHeader options={true} username={modalHasData.username} />
       <div className="flex flex-col justify-center w-full py-2">
         <div className="flex flex-col justify-between md:flex-row"></div>
@@ -57,10 +57,12 @@ function ListModal() {
                       <ListModalCard
                         key={index}
                         id={Object.keys(modalHasData.list)[index]}
+                        itemId={item?.id}
                         title={item.title}
                         poster={item.poster}
                         releaseDate={item.releaseDate}
                         backdrop={item.backdrop}
+                        mediaType={item.mediaType}
                         username={modalHasData.username}
                         listNumber={index + 1}
                       />
@@ -76,10 +78,12 @@ function ListModal() {
                 <ListModalCard
                   key={index}
                   id={Object.keys(modalHasData.list)[index]}
+                  itemId={item?.id}
                   title={item.title}
                   poster={item.poster}
                   releaseDate={item.releaseDate}
                   backdrop={item.backdrop}
+                  mediaType={item.mediaType}
                   username={modalHasData.username}
                   listNumber={index + 1}
                 />
@@ -94,7 +98,7 @@ function ListModal() {
                 return (
                   <ListModalCard
                     key={index}
-                    id={Object.keys(modalHasData.list)[searchedIndex]}
+                    id={modalHasData?.from ? item.id : Object.keys(modalHasData.list)[index]}
                     title={item.title}
                     poster={item.poster}
                     releaseDate={item.releaseDate}

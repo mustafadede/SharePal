@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import video from "../../assets/video-playback.webm";
-import { createUserWithEmailAction } from "../../firebase/firebaseActions";
+import { createNickForUser, createUserWithEmailAction, isNickUnique } from "../../firebase/firebaseActions";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -31,10 +31,17 @@ function SignUpPage() {
       return i18n.language === "tr" ? toast.error("Şifreler eşleşmiyor!") : toast.error("Passwords do not match!");
     }
     if (data.password && data.password.length >= 6) {
-      createUserWithEmailAction(data).then((res) => {
+      isNickUnique(data.name).then((res) => {
         if (res) {
-          navigate("/login");
-          i18n.language === "tr" ? toast("Hesap oluşturuldu.") : toast("Account created successfully!");
+          createUserWithEmailAction(data).then((res) => {
+            if (res) {
+              createNickForUser(data.name);
+              navigate("/login");
+              i18n.language === "tr" ? toast("Hesap oluşturuldu.") : toast("Account created successfully!");
+            }
+          });
+        } else {
+          i18n.language === "tr" ? toast.error("Kullanıcı adı kullanılmaktadır.") : toast.error("Username is taken.");
         }
       });
     }

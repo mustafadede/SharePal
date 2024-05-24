@@ -93,9 +93,9 @@ function UserActionButtons({ profileUser }) {
         onClick={onClickHandler}
       >
         {followingList.find((user) => user.uid === profileUser?.uid) ? (
-          <span className="text-xl text-slate-200">{t("user.unfollow")}</span>
+          <span className="text-md lg:text-xl text-slate-200">{t("user.unfollow")}</span>
         ) : (
-          <span className="text-xl text-slate-200">{t("user.follow")}</span>
+          <span className="text-md lg:text-xl text-slate-200">{t("user.follow")}</span>
         )}
       </motion>
       {followingList.find((user) => user.uid === profileUser?.uid) && (
@@ -104,19 +104,19 @@ function UserActionButtons({ profileUser }) {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="flex items-center justify-center w-full h-12 text-xl transition-all cursor-pointer text-slate-200 md:w-1/3 bg-slate-600 rounded-2xl hover:bg-slate-900"
+            className="flex items-center justify-center w-full h-12 transition-all cursor-pointer text-slate-200 md:w-1/3 bg-slate-600 rounded-2xl hover:bg-slate-900"
             onClick={createListHandler}
           >
-            {t("user.createList")}
+            <span className="text-md lg:text-xl">{t("user.createList")}</span>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="flex items-center justify-center w-full h-12 text-xl transition-all cursor-pointer text-slate-200 md:w-1/3 bg-slate-600 rounded-2xl hover:bg-slate-900"
+            className="flex items-center justify-center w-full h-12 transition-all cursor-pointer text-slate-200 md:w-1/3 bg-slate-600 rounded-2xl hover:bg-slate-900"
             onClick={suggestHandler}
           >
-            {t("user.suggest")}
+            <span className="text-md lg:text-xl">{t("user.suggest")}</span>
           </motion.div>
         </>
       )}

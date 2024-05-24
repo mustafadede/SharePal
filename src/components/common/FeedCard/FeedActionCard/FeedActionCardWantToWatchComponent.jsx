@@ -35,19 +35,19 @@ function FeedActionCardWantToWatchComponent({ data, title, user }) {
     movieInfoHandler();
   };
   return (
-    <div className="flex">
-      <div className="flex items-center gap-1">
-        <NavLink to={data?.nick === user ? `/profile` : `/user/${data?.nick}`}>
-          <img className="object-cover w-10 h-10 mr-1 rounded-full cursor-pointer" src={data?.photoURL} alt="avatar" />
+    <>
+      <div className="inline md:flex md:items-center">
+        <NavLink to={data?.nick === user ? `/profile` : `/user/${data?.nick}`} className="hidden lg:block">
+          <img className="inline object-cover w-10 h-10 mr-4 rounded-full cursor-pointer" src={data?.photoURL} alt="avatar" />
         </NavLink>
         {i18n.language === "en" ? (
           <>
-            <NavLink to={data?.nick === user ? `/profile` : `/user/${data?.nick}`}>
-              <p className="w-full transition-all duration-300 hover:underline text-md lg:text-lg text-end text-fuchsia-600 hover:cursor-pointer hover:text-white">
+            <NavLink to={data?.nick === user ? `/profile` : `/user/${data?.nick}`} className="inline">
+              <p className="inline transition-all duration-300 hover:underline text-md lg:text-lg text-end text-fuchsia-600 hover:cursor-pointer hover:text-white">
                 {data?.nick.length < 14 ? data?.nick : data?.nick.slice(0, 14) + "..."}
               </p>
             </NavLink>
-            <span className="duration-150 text-md lg:text-lg text-slate-400 group-hover:text-slate-200">wants to watch</span>
+            <span className="inline duration-150 text-md lg:text-lg text-slate-400 group-hover:text-slate-200">{" wants to watch"}</span>
             <button
               className="transition-all duration-300 w-fit text-md lg:text-lg text-fuchsia-600 hover:cursor-pointer hover:text-white hover:underline"
               onClick={onClickHandler}
@@ -56,10 +56,10 @@ function FeedActionCardWantToWatchComponent({ data, title, user }) {
             </button>
           </>
         ) : (
-          <>
-            <NavLink to={data?.nick === user ? `/profile` : `/user/${data?.nick}`}>
-              <p className="w-full transition-all duration-300 hover:underline text-md lg:text-lg text-end text-fuchsia-600 hover:cursor-pointer hover:text-white">
-                {data?.nick.length < 14 ? data?.nick : data?.nick.slice(0, 14) + "..."}
+          <div className="w-fit">
+            <NavLink to={data?.nick === user ? `/profile` : `/user/${data?.nick}`} className="inline">
+              <p className="inline w-full transition-all duration-300 hover:underline text-md lg:text-lg text-end text-fuchsia-600 hover:cursor-pointer hover:text-white">
+                {data?.nick.length < 14 ? data?.nick + " " : data?.nick.slice(0, 14) + "... "}
               </p>
             </NavLink>
             <button
@@ -68,11 +68,11 @@ function FeedActionCardWantToWatchComponent({ data, title, user }) {
             >
               {title.length < 24 ? title : title.slice(0, 24) + "..."}
             </button>
-            <span className="duration-150 text-md lg:text-lg text-slate-400 group-hover:text-slate-200">izlemek istiyor </span>
-          </>
+            <span className="duration-150 text-md lg:text-lg text-slate-400 group-hover:text-slate-200">{" izlemek istiyor "}</span>
+          </div>
         )}
       </div>
-    </div>
+    </>
   );
 }
 

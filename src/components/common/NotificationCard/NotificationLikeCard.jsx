@@ -74,9 +74,9 @@ function NotificationLikeCard({ uid, nick, photoURL, date, postId, deleteId }) {
             </motion.div>
           </div>
           <div className="flex items-center gap-2">
-            <HeartIcon className="w-6 h-6 mr-2 text-slate-200" />
+            <HeartIcon className="hidden w-6 h-6 mr-2 md:block text-slate-200" />
             <button
-              className="flex items-center justify-center transition-all rounded-full w-7 h-7 bg-slate-800 hover:bg-fuchsia-700"
+              className="items-center justify-center hidden transition-all rounded-full md:flex w-7 h-7 bg-slate-800 hover:bg-fuchsia-700"
               onClick={() => setIsOpen(!isOpen)}
             >
               <ChevronDownIcon className="w-6 h-6 text-slate-200" />

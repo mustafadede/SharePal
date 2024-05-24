@@ -1,17 +1,23 @@
 import React, { useState } from "react";
-import { Cross1Icon, InfoCircledIcon, ShuffleIcon } from "@radix-ui/react-icons";
+import { CheckIcon, Cross1Icon, InfoCircledIcon, ShuffleIcon } from "@radix-ui/react-icons";
 import ActionDetailsCard from "../../../common/ActionDetailsCard";
-import { deleteSelectedUserListsItem } from "../../../../firebase/firebaseActions";
+import {
+  deleteSelectedUserListsItem,
+  deleteSelectedUserSuggestionListsListItem,
+  updateWatched,
+} from "../../../../firebase/firebaseActions";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useSearchWithYear from "../../../../hooks/useSearchWithYear";
 import { modalActions } from "../../../../store/modalSlice";
 import { useTranslation } from "react-i18next";
 
-function ListModalCard({ id, title, poster, releaseDate, backdrop, username, listNumber }) {
+function ListModalCard({ id, itemId, title, poster, releaseDate, backdrop, mediaType, username, listNumber }) {
   const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
+  const { modalHasData } = useSelector((state) => state.modal);
+  const { user } = useSelector((state) => state.user);
   const deleteHandler = () => {
     deleteSelectedUserListsItem(localStorage.getItem("user"), id);
     dispatch(modalActions.closeModal({ name: "listModal" }));
@@ -39,6 +45,14 @@ function ListModalCard({ id, title, poster, releaseDate, backdrop, username, lis
         );
       }
     });
+  };
+
+  const watchedHandler = () => {
+    updateWatched({ id: itemId, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
+      dispatch(modalActions.closeModal({ name: "listModal" }));
+      i18n.language === "en" ? toast("Added to your stats!") : toast("İstatistiklerinize eklendi!");
+    });
+    deleteSelectedUserSuggestionListsListItem(localStorage.getItem("user"), modalHasData?.id, id);
   };
 
   return (
@@ -74,7 +88,7 @@ function ListModalCard({ id, title, poster, releaseDate, backdrop, username, lis
           <p className="z-10 text-lg text-slate-400">({releaseDate?.slice(0, 4)})</p>
         </div>
       </button>
-      {isOpen && !username && (
+      {isOpen && !username && !modalHasData?.from && (
         <ActionDetailsCard
           // icon1={
           //   <button
@@ -105,7 +119,20 @@ function ListModalCard({ id, title, poster, releaseDate, backdrop, username, lis
           }
         />
       )}
-      {isOpen && username && (
+      {isOpen && !username && modalHasData?.from && modalHasData?.from?.uid !== localStorage.getItem("user") && (
+        <ActionDetailsCard
+          icon2={
+            <button
+              className="flex items-center w-full px-4 py-2 text-sm text-left transition-all text-slate-200 rounded-xl hover:bg-slate-800"
+              onClick={watchedHandler}
+            >
+              <CheckIcon className="w-5 h-5 mr-2" />
+              {t("notification.watched")}
+            </button>
+          }
+        />
+      )}
+      {isOpen && username && !modalHasData?.from && (
         <ActionDetailsCard
           icon2={
             <button

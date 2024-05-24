@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { MyListsActions } from "../../../store/myListsSlice";
 import { createPinnedList } from "../../../firebase/firebaseActions";
 import { toast } from "react-toastify";
+import { PlusIcon } from "@radix-ui/react-icons";
 
 function MyListsSection() {
   const { t, i18n } = useTranslation();
@@ -82,7 +83,10 @@ function MyListsSection() {
             className="px-4 py-2 transition-all border rounded-lg border-slate-300 hover:border-fuchsia-600 text-slate-300 hover:text-fuchsia-600"
             onClick={handleCreateList}
           >
-            {t("pinned.button")}
+            <span className="block md:hidden">
+              <PlusIcon className="w-6 h-6" />
+            </span>
+            <span className="hidden md:block">{t("pinned.button")}</span>
           </button>
         </div>
       </div>

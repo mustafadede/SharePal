@@ -41,39 +41,39 @@ function NotificationCommentCard({ uid, nick, postId, photoURL, date, comment, d
             <NotificationPhoto uid={uid} photoURL={photoURL} />
             <motion.div className="flex flex-col items-start justify-center">
               {i18n.language === "en" ? (
-                <motion.p className="flex gap-1 text-base text-cWhite text-slate-20">
+                <motion.p className="inline text-base text-cWhite text-slate-20">
                   <Link
                     to={`/user/${nick}`}
                     className="text-base transition-all duration-300 text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600"
                   >
-                    <motion.span className="font-bold text-fuchsia-600 ">{nick}</motion.span>
+                    <motion.span className="font-bold text-fuchsia-600 ">{nick + " "}</motion.span>
                   </Link>
-                  commented on your
+                  {" commented on your "}
                   <button onClick={handleClick} className="hover:underline text-fuchsia-300">
                     post
                   </button>
                 </motion.p>
               ) : (
-                <motion.p className="flex gap-1 text-base text-cWhite text-slate-20">
+                <motion.p className="inline text-base text-cWhite text-slate-20">
                   <Link
                     to={`/user/${nick}`}
                     className="text-base transition-all duration-300 text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600"
                   >
-                    <motion.span className="font-bold text-fuchsia-600 ">{nick}</motion.span>
+                    <motion.span className="font-bold text-fuchsia-600 ">{nick + " "}</motion.span>
                   </Link>
                   <button onClick={handleClick} className="hover:underline text-fuchsia-300">
                     gönderinize
                   </button>
-                  yorum yaptı.
+                  {" yorum yaptı."}
                 </motion.p>
               )}
               <motion.p className="text-sm text-slate-400">{newDate}</motion.p>
             </motion.div>
           </div>
           <div className="flex items-center gap-2">
-            <ChatBubbleIcon className="w-6 h-6 mr-2 text-slate-200" />
+            <ChatBubbleIcon className="hidden w-6 h-6 mr-2 md:block text-slate-200" />
             <button
-              className="flex items-center justify-center transition-all rounded-full w-7 h-7 bg-slate-800 hover:bg-fuchsia-700"
+              className="items-center justify-center hidden transition-all rounded-full md:flex w-7 h-7 bg-slate-800 hover:bg-fuchsia-700"
               onClick={() => setIsOpen(!isOpen)}
             >
               <ChevronDownIcon className="w-6 h-6 text-slate-200" />

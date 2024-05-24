@@ -29,7 +29,6 @@ function FeedCardPage() {
         });
       } else {
         getUserByTheUsername(window.location.hash.split("/")[2]).then((res) => {
-          console.log(window.location.hash.split("/")[3], res[0].uid.trim(""));
           getSpecificPost(res[0].uid.trim(""), window.location.hash.split("/")[3]).then((res) => {
             dispatch(cardActions.updateState("done"));
             dispatch(cardActions.updateData(res));

@@ -34,12 +34,12 @@ function NotificationListCard({ uid, nick, postId, photoURL, date, deleteId }) {
             loading="lazy"
           ></motion.img>
           <motion.div className="flex flex-col items-start justify-center text-cWhite">
-            <motion.p className="flex gap-1 text-base text-slate-20">
+            <motion.p className="inline text-base text-slate-20">
               <Link
                 to={`/user/${nick}`}
                 className="text-base transition-all duration-300 text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600"
               >
-                <motion.span className="font-bold text-fuchsia-600 ">{nick}</motion.span>
+                <motion.span className="font-bold text-fuchsia-600 ">{nick + " "}</motion.span>
               </Link>
               <span>{t("notification.listCreated")}</span>
             </motion.p>

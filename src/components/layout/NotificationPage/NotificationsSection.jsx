@@ -6,6 +6,7 @@ import ActivitiesSection from "./ActivitiesSection";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { CounterClockwiseClockIcon, PersonIcon } from "@radix-ui/react-icons";
 
 function NotificationsSection() {
   const { user } = useSelector((state) => state.user);
@@ -13,8 +14,8 @@ function NotificationsSection() {
   const [activeTab, setActiveTab] = useState(0);
   const { t } = useTranslation();
   const tabs = [
-    { id: 0, name: t("notification.followRequest") },
-    { id: 1, name: t("notification.activities") },
+    { id: 0, name: t("notification.followRequest"), icon: <PersonIcon className="w-6 h-6" /> },
+    { id: 1, name: t("notification.activities"), icon: <CounterClockwiseClockIcon className="w-6 h-6" /> },
   ];
 
   return (

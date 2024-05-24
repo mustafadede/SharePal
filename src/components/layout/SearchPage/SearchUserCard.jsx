@@ -35,9 +35,9 @@ function SearchUserCard({ user }) {
         {!photoURL && <div className="w-16 h-16 rounded-full bg-fuchsia-600"></div>}
         {photoURL && <img className="object-cover w-16 h-16 rounded-full" src={photoURL} loading="lazy" alt="user" />}
         <div className="flex flex-col items-start">
-          <h1 className="text-xl text-white">{user?.displayName}</h1>
+          <h1 className="text-white text-md">{user?.displayName}</h1>
           {user.banner ? (
-            <p className="text-lg transition-all duration-700 xl:text-md text-slate-300 text-opacity-70 group-hover:text-opacity-0">
+            <p className="text-sm transition-all duration-700 xl:text-md text-slate-300 text-opacity-70 group-hover:text-opacity-0">
               {user?.quote}
             </p>
           ) : (

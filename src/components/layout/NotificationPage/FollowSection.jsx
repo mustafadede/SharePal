@@ -1,7 +1,6 @@
 import React from "react";
 import FollowRequestButton from "./FollowRequestButton";
 import NotificationFollowCard from "../../common/NotificationCard/NotificationFollowCard";
-import { motion } from "framer-motion";
 import FeedCardPageBackButton from "../FeedCardPage/FeedCardPageBackButton";
 import InfoLabel from "../../common/InfoLabel";
 

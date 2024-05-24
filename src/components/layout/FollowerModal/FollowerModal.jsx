@@ -11,7 +11,7 @@ function FollowerModal() {
   const { followersLists } = useSelector((state) => state.followers);
 
   return (
-    <div className="px-8 pt-4 overflow-hidden bg-slate-900 rounded-2xl w-[30rem] h-96">
+    <div className="pt-4 px-4 pb-4 md:px-8 overflow-hidden bg-slate-900 rounded-2xl w-80 md:w-[30rem] h-fit">
       <ModalHeader title={modalHasData.followType} />
       <div className="overflow-y-auto no-scrollbar h-[20rem]">
         {modalHasData.followType === t("header.following") &&

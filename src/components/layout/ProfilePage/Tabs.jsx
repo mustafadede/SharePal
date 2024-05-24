@@ -28,10 +28,21 @@ function Tabs({ tabs, activeTab, setActiveTab }) {
             )}
             <span
               className={`${
-                activeTab === tab.id ? "relative z-10 text-slate-900 duration-500" : "relative text-slate-200 transition-all z-10"
+                activeTab === tab.id
+                  ? "relative hidden md:block z-10 text-slate-900 duration-500"
+                  : "relative hidden md:block text-slate-200 transition-all z-10"
               }`}
             >
               {tab.name}
+            </span>
+            <span
+              className={`${
+                activeTab === tab.id
+                  ? "relative block md:hidden z-10 text-slate-900 duration-500"
+                  : "relative block md:hidden text-slate-200 transition-all z-10"
+              }`}
+            >
+              {tab.icon}
             </span>
           </button>
         ))}

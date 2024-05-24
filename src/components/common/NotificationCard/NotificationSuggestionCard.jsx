@@ -64,38 +64,38 @@ function NotificationSuggestionCard({ uid, nick, photoURL, date, deleteId, attac
             <NotificationPhoto uid={uid} photoURL={photoURL} />
             <motion.div className="flex flex-col items-start justify-center">
               {i18n.language === "en" ? (
-                <motion.p className="flex gap-1 text-base text-cWhite text-slate-20">
+                <motion.p className="inline text-base text-cWhite text-slate-20">
                   <Link
                     to={`/user/${nick}`}
                     className="text-base transition-all duration-300 text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600"
                   >
-                    <motion.span className="font-bold text-fuchsia-600 ">{nick}</motion.span>
+                    <motion.span className="font-bold text-fuchsia-600 ">{nick + " "}</motion.span>
                   </Link>
-                  suggested
+                  {" suggested "}
                   <button
                     className="text-base transition-all duration-300 text-fuchsia-400 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600"
                     onClick={handleClick}
                   >
                     {attached.title.length > 24 ? attached.title.slice(0, 24) + "..." : attached.title}
                   </button>
-                  to you.
+                  {" to you."}
                 </motion.p>
               ) : (
-                <motion.p className="flex gap-1 text-base text-cWhite text-slate-20">
+                <motion.p className="inline text-base text-cWhite text-slate-20">
                   <Link
                     to={`/user/${nick}`}
                     className="text-base transition-all duration-300 text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600"
                   >
-                    <motion.span className="font-bold text-fuchsia-600 ">{nick}</motion.span>
+                    <motion.span className="font-bold text-fuchsia-600 ">{nick + " "}</motion.span>
                   </Link>
-                  sana
+                  {" sana "}
                   <button
                     className="text-base transition-all duration-300 text-fuchsia-400 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600"
                     onClick={handleClick}
                   >
                     {attached.title.length > 24 ? attached.title.slice(0, 24) + "..." : attached.title}
                   </button>
-                  önerdi.
+                  {" önerdi."}
                 </motion.p>
               )}
 

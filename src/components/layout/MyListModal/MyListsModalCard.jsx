@@ -114,13 +114,13 @@ function MyListsModalCard({
       } rounded-xl`}
     >
       <p
-        className={` text-slate-200 w-full ${disabled ? "text-md" : "group-hover:text-fuchsia-400 text-xl"}`}
+        className={` text-slate-200 w-full ${disabled ? "text-md" : "group-hover:text-fuchsia-400 text-lg"}`}
         onClick={() => clickHandler(id, title, list, date)}
       >
         {title?.length > 28 ? title.slice(0, 28) + "..." : title}
       </p>
       <div className="flex items-center gap-2">
-        {!disabled && from?.uid === localStorage.getItem("user") && (
+        {!disabled && (
           <button className="ml-auto transition-all rounded-lg" onClick={() => addHandler()}>
             <PlusIcon className="w-6 h-6 ml-auto transition-all text-slate-200 hover:text-fuchsia-600" />
           </button>

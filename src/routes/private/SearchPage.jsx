@@ -26,7 +26,6 @@ function SearchPage() {
     if (e.key === "Enter" && !search.startsWith("@") && search !== "") {
       useSearch(search, setMovies);
       const localStorageData = JSON.parse(localStorage.getItem("spsi"));
-      console.log(localStorageData);
       if (localStorageData) {
         localStorageData.push(search);
         localStorage.setItem("spsi", JSON.stringify(localStorageData));
