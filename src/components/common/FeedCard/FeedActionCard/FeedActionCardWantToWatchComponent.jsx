@@ -43,11 +43,11 @@ function FeedActionCardWantToWatchComponent({ data, title, user }) {
         {i18n.language === "en" ? (
           <>
             <NavLink to={data?.nick === user ? `/profile` : `/user/${data?.nick}`} className="inline">
-              <p className="inline transition-all duration-300 hover:underline text-md lg:text-lg text-end text-fuchsia-600 hover:cursor-pointer hover:text-white">
+              <p className="inline pr-2 transition-all duration-300 hover:underline text-md lg:text-lg text-end text-fuchsia-600 hover:cursor-pointer hover:text-white">
                 {data?.nick.length < 14 ? data?.nick : data?.nick.slice(0, 14) + "..."}
               </p>
             </NavLink>
-            <span className="inline duration-150 text-md lg:text-lg text-slate-400 group-hover:text-slate-200">{" wants to watch"}</span>
+            <span className="inline pr-2 duration-150 text-md lg:text-lg text-slate-400 group-hover:text-slate-200">wants to watch</span>
             <button
               className="transition-all duration-300 w-fit text-md lg:text-lg text-fuchsia-600 hover:cursor-pointer hover:text-white hover:underline"
               onClick={onClickHandler}

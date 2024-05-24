@@ -20,7 +20,8 @@ function FeedActionCard({ data, notification }) {
 
   const deleteHandler = () => {
     deleteSelectedPost(localStorage.getItem("user"), data.postId).then(() => {
-      dispatch(postsActions.deletePost(data.postId)) && toast.success("Post deleted successfully");
+      dispatch(postsActions.deletePost(data.postId));
+      toast.success("Post deleted successfully");
     });
   };
 

@@ -15,11 +15,12 @@ import FeedCardActionModal from "../components/layout/FeedCardActionModal/FeedCa
 import SplashModal from "../components/layout/SplashModal/SplashModal";
 import SuggestFilmModal from "../components/common/SuggestFılmModal/suggestFilmModal";
 import CreateFriendList from "../components/common/CreateFriendList/CreateFriendList";
+import { useTranslation } from "react-i18next";
 
 function RootLayout() {
   const { modalState, modalName } = useSelector((state) => state.modal);
   const [isClosed, setIsClosed] = useState(false);
-
+  const { t } = useTranslation();
   const handleClose = () => {
     setIsClosed(true);
     localStorage.setItem("isClosed", true);
@@ -27,11 +28,7 @@ function RootLayout() {
   return (
     <>
       {!localStorage.getItem("isClosed") && !isClosed && (
-        <LabelInfo
-          info="This site is currently under development. If you see any buggedy buggedy bug bug, please contact"
-          data="mustafadededev@gmail.com"
-          handleClose={handleClose}
-        />
+        <LabelInfo info={t("info.contact")} data="mustafadededev@gmail.com" handleClose={handleClose} />
       )}
       <div className="container mx-auto">
         <ToastContainer
