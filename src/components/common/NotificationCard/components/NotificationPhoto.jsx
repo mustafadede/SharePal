@@ -8,7 +8,7 @@ function NotificationPhoto({ uid, photoURL }) {
       {!photoURL && (
         <div className="relative w-12 h-12 lg:w-16 lg:h-16">
           <motion.div className="w-12 h-12 rounded-full lg:w-16 lg:h-16 bg-fuchsia-600"></motion.div>
-          <FeedCardOnlineStatus username={true} data={uid} />
+          {/* <FeedCardOnlineStatus username={true} data={uid} /> */}
         </div>
       )}
       {photoURL && (
@@ -18,7 +18,7 @@ function NotificationPhoto({ uid, photoURL }) {
             loading="lazy"
             src={photoURL}
           ></motion.img>
-          <FeedCardOnlineStatus username={true} data={uid} />
+          {/* <FeedCardOnlineStatus username={true} data={uid} /> */}
         </div>
       )}
     </div>
