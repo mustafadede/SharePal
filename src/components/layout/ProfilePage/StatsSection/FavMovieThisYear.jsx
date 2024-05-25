@@ -26,7 +26,7 @@ function FavMovieThisYear({ username, user, navigate }) {
           </button>
         )}
       </div>
-      {user?.bestMovieYear && user?.bestMovieYear.releaseDate.slice(0, 4) === yearIndicator ? (
+      {user?.bestMovieYear && Number(user?.bestMovieYear?.releaseDate?.slice(0, 4)) === yearIndicator ? (
         <FilmStats poster={user.bestMovieYear?.poster} title={user.bestMovieYear?.title} releaseDate={user.bestMovieYear?.releaseDate} />
       ) : (
         <p className="pb-1 transition-all text-md md:text-xl text-slate-400">{t("stats.favMovieNaN")}</p>
