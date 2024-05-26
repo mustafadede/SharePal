@@ -55,6 +55,7 @@ function CreateFriendList() {
           date: new Date().toLocaleDateString(),
           from: {
             uid: localStorage.getItem("user"),
+            photo: user.photoURL,
             nick: user.nick,
           },
           type: "list",
