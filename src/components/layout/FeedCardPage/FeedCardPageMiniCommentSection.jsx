@@ -5,15 +5,17 @@ import { createCommentsList, createNotification, createUserCommentsList, updateS
 import { cardActions } from "../../../store/cardSlice";
 import { motion } from "framer-motion";
 import { postsActions } from "../../../store/postsSlice";
+import { useTranslation } from "react-i18next";
 
 function FeedCardPageMiniCommentSection({ postId, userId, comments, setCommentVisible, pointer = false }) {
   const { user } = useSelector((state) => state.user);
   const [comment, setComment] = useState("");
   const dispatch = useDispatch();
+  const { i18n, t } = useTranslation();
 
   const handlePostComment = () => {
     const commentId = Date.now() + user.uid; // This is a temporary solution, it will be changed in the future
-    if (comment.length === 0) return toast.error("Comment can't be empty");
+    if (comment.length === 0) return i18n.language === "en" ? toast.error("Comment cannot be empty") : toast.error("Yorum boş olamaz");
     createCommentsList(postId, {
       commentId: commentId,
       userId: user.uid,
@@ -30,7 +32,7 @@ function FeedCardPageMiniCommentSection({ postId, userId, comments, setCommentVi
           date: Date.now(),
         });
       }
-      toast("Comment posted");
+      i18n.language === "en" ? toast.success("Comment posted successfully") : toast.success("Yorum başarıyla gönderildi");
       dispatch(cardActions.updateCommentsState("done"));
       createUserCommentsList(user.uid, {
         commentId: commentId,
@@ -53,7 +55,7 @@ function FeedCardPageMiniCommentSection({ postId, userId, comments, setCommentVi
     <motion.div className="flex w-full gap-2 p-4 mb-4 rounded-2xl bg-slate-900" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <input
         type="text"
-        placeholder={pointer ? `Add a comment to @${pointer}` : "Add a comment"}
+        placeholder={t("feedCardPage.addComment")}
         className="w-full h-10 p-2 duration-300 bg-transparent rounded-lg outline-none hover:bg-slate-800 text-md text-slate-200 focus:outline-none"
         value={comment}
         onChange={(e) => setComment(e.target.value)}
@@ -65,7 +67,7 @@ function FeedCardPageMiniCommentSection({ postId, userId, comments, setCommentVi
         className="w-32 h-10 px-4 py-2 duration-150 rounded-lg hover:bg-slate-600 text-md text-cWhite bg-fuchsia-800 focus:outline-none"
         onClick={handlePostComment}
       >
-        Reply
+        {t("feedCard.share")}
       </button>
     </motion.div>
   );
