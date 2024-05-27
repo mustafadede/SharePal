@@ -6,9 +6,11 @@ import { useForm } from "react-hook-form";
 import Navbar from "../../components/layout/Navbar";
 import LoginPill from "../../components/common/LoginPill";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { useTranslation } from "react-i18next";
 
 function ResetPassword() {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
 
   const {
     register,
@@ -18,8 +20,8 @@ function ResetPassword() {
   } = useForm();
 
   useEffect(() => {
-    document.title = "SharePal | Reset Password";
-  }, []);
+    document.title = t("forgot.windowSettingsTitle");
+  }, [i18n.language]);
 
   const onClassDefiner = (value) => {
     const definer = value
@@ -33,7 +35,7 @@ function ResetPassword() {
       const auth = getAuth();
       sendPasswordResetEmail(auth, data.email)
         .then(() => {
-          toast("Reset link sent to your email!");
+          i18n.language === "tr" ? toast("Şifre sıfırlama e-postası gönderildi!") : toast("Password reset email sent!");
           navigate("/login");
         })
         .catch((error) => {
@@ -48,12 +50,12 @@ function ResetPassword() {
     <>
       <Navbar />
       <motion.div className="flex flex-col items-center justify-center mt-10 h-96">
-        <h1 className="mb-4 text-3xl font-bold text-center md:text-4xl lg:text-5xl text-cWhite">Reset Password</h1>
+        <h1 className="mb-4 text-3xl font-bold text-center md:text-4xl lg:text-5xl text-cWhite">{t("forgot.title")}</h1>
         <motion.form className="w-[46rem] flex flex-col items-center" onSubmit={handleSubmit(submitHandler)}>
           <motion.input
             type="email"
             id="email"
-            placeholder="Email"
+            placeholder={t("login.emailPlaceholder")}
             className={onClassDefiner(errors.email)}
             {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
             aria-invalid={errors.email ? true : false}
@@ -71,7 +73,7 @@ function ResetPassword() {
             ) : null}
           </div>
           <button type="submit" className="w-1/3 py-2 mt-4 text-xl rounded-lg md:w-3/4 bg-fuchsia-800 text-cWhite">
-            Send Reset Link
+            {t("forgot.button")}
           </button>
         </motion.form>
       </motion.div>

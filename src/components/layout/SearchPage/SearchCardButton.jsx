@@ -1,7 +1,7 @@
 import React from "react";
 
-function SearchCardButton({ title, icon, clickHandler, haveAdded }) {
-  return (
+function SearchCardButton({ title, icon, clickHandler, haveAdded, home = false }) {
+  return !home ? (
     <button
       className={
         haveAdded
@@ -21,6 +21,11 @@ function SearchCardButton({ title, icon, clickHandler, haveAdded }) {
         {title}
       </p>
     </button>
+  ) : (
+    <div className="flex items-center gap-2 p-2 transition-all border border-slate-400 rounded-2xl group w-fit">
+      {icon}
+      <p className={"hidden transition-all md:block text-slate-400"}>{title}</p>
+    </div>
   );
 }
 

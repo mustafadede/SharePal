@@ -2,32 +2,47 @@ import { useSelector } from "react-redux";
 import { DateFormatter } from "../../../utils/formatter";
 import { ChatBubbleIcon, HeartIcon, LockClosedIcon, LoopIcon, RocketIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 
 const data = {
+  attachedFilm: {
+    backdrop: "/abwxHfymXGAbbH3lo9PDEJEfvtW.jpg",
+    id: 1894,
+    mediaType: "movie",
+    poster: "/oZNPzxqM2s5DyVWab09NTQScDQt.jpg",
+    releaseDate: "2002-05-15",
+    title: "Star Wars: Episode II - Attack of the Clones",
+  },
+  comments: 0,
+  content:
+    "Dün akşam ikinci filmi izledim. Birinci filme göre daha akıcıydı bence. Anakin'in tripleri biraz beni sinir etti ama birazcık sanki haklı ? Bilemedim... Yoda çok iyi karakter😄",
+  date: 1716573924168,
+  edited: true,
+  likes: 1,
+  likesList: [
+    {
+      id: "QzsaB0PheOfjGYexmdzK3dYtkMl2",
+      nick: "Bleagle13",
+    },
+  ],
+  nick: "Mustafa",
   photoURL:
     "https://firebasestorage.googleapis.com/v0/b/sharepal-5d528.appspot.com/o/profilePhotos%2F3wbvLT6UkNSy2E3pYBtSfHwjUu82?alt=media&token=80111a1b-802d-4cd8-9848-4a345815fa55",
-  postId: "-NoJI2zbKpRPpWUYwEsI",
-  nick: "Mustafa",
-  content: "Gerçekten çok farklı, güzel bir deneyimdi ve izlerken karışık duygulara kapıldım.",
-  attachedFilm: {
-    backdrop: "/rrfBenawPGhkt5yvb124NSZwnAC.jpg",
-    poster: "/qjhahNLSZ705B5JP92YMEYPocPz.jpg",
-    releaseDate: "2023-11-16",
-    title: "Saltburn",
-  },
-  likes: 1,
-  comments: 0,
-  edited: false,
-  repost: 0,
-  repostsList: null,
-  date: 1705442562467,
-  userId: "1",
-  attachedAction: null,
-  actionName: null,
+  repost: 2,
+  repostsList: [
+    {
+      id: "QzsaB0PheOfjGYexmdzK3dYtkMl2",
+      nick: "Bleagle13",
+    },
+    {
+      id: "V6TG3dhBIzYRIFCCdBPr03Lz9Nb2",
+      nick: "Tesy",
+    },
+  ],
+  spoiler: true,
+  userId: "3wbvLT6UkNSy2E3pYBtSfHwjUu82",
 };
 
-function HomeAttachCard({ attachedData, notification }) {
+function HomeAttachCard1({ attachedData, notification }) {
   const user = useSelector((state) => state.user.user?.nick);
   const date = DateFormatter(data);
 
@@ -37,10 +52,10 @@ function HomeAttachCard({ attachedData, notification }) {
   // };
 
   return (
-    <div className="flex flex-col w-[1/3] opacity-40 scale-90">
+    <div className="flex flex-col shadow-xl opacity-50 select-none scale-75 w-[45rem]">
       <motion.div
         className="flex flex-col w-full p-4 mb-4 bg-slate-900 rounded-xl"
-        initial={{ opacity: 0, y: -20, transition: { duration: 2 } }}
+        initial={{ opacity: 0, y: -20, transition: { duration: 3 } }}
         animate={{ opacity: 1, y: 0 }}
       >
         <div className="flex justify-between w-full">
@@ -51,12 +66,7 @@ function HomeAttachCard({ attachedData, notification }) {
               </div>
             )}
             <div className="flex flex-col">
-              <Link
-                to={"https://sharepal.dev/#/user/Mustafa"}
-                className="transition-all duration-300 text-md hover:underline hover:text-fuchsia-600 text-slate-200 w-fit"
-              >
-                @{data.nick}
-              </Link>
+              <p className="transition-all duration-300 text-md text-slate-200 w-fit">@{data.nick}</p>
               <p className="text-xs text-slate-400">{date}</p>
             </div>
           </div>
@@ -70,11 +80,9 @@ function HomeAttachCard({ attachedData, notification }) {
           </div>
         </div>
         {data.spoiler && (
-          <p className={"py-4 select-none text-slate-200 cursor-pointer duration-150 transition-all blur-sm"} onClick={handleSpoiler}>
-            {data.text || data.content}
-          </p>
+          <p className={"py-4 text-slate-200 duration-150 transition-all  blur-sm select-none"}>{data.text || data.content}</p>
         )}
-        {!data.spoiler && <p className="py-4 select-none text-slate-200">{data.text || data.content}</p>}
+        {!data.spoiler && <p className="py-4 text-slate-200">{data.text || data.content}</p>}
         <button className="flex items-center justify-between w-full gap-4 p-2 border cursor-default rounded-2xl border-slate-700 group">
           <div className="flex items-center gap-4">
             <img
@@ -102,15 +110,15 @@ function HomeAttachCard({ attachedData, notification }) {
         {!notification && (
           <div className="flex gap-2">
             <button className="flex gap-1 cursor-default group">
-              <p className="transition-all text-slate-400">6</p>
+              <p className="transition-all text-slate-400">9</p>
               <p className="transition-all text-slate-400">likes</p>
             </button>
             <button className="flex gap-1 cursor-default group">
-              <p className="transition-all text-slate-400">2</p>
+              <p className="transition-all text-slate-400">4</p>
               <p className="transition-all text-slate-400">comments</p>
             </button>
             <button className="flex gap-1 cursor-default group">
-              <p className="transition-all text-slate-400">1</p>
+              <p className="transition-all text-slate-400">2</p>
               <p className="transition-all text-slate-400">reposts</p>
             </button>
           </div>
@@ -138,4 +146,4 @@ function HomeAttachCard({ attachedData, notification }) {
   );
 }
 
-export default HomeAttachCard;
+export default HomeAttachCard1;

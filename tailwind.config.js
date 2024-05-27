@@ -26,6 +26,7 @@ export default {
       },
       animation: {
         text: "text 5s ease infinite",
+        box: "text 5s ease infinite",
         scrollDown: "scrollDown 3s ease infinite",
         scrollText: "scrollText 3s ease infinite",
       },
@@ -38,6 +39,20 @@ export default {
           "50%": {
             "background-size": "200% 200%",
             "background-position": "right center",
+          },
+          "25%": {
+            "background-size": "200% 200%",
+            "background-position": "top center",
+          },
+        },
+        box: {
+          "0%, 100%": {
+            "background-size": "200% 200%",
+            "background-position": "top center",
+          },
+          "50%": {
+            "background-size": "200% 200%",
+            "background-position": "bottom center",
           },
           "25%": {
             "background-size": "200% 200%",

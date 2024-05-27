@@ -66,7 +66,7 @@ function LoginPage() {
 
   useEffect(() => {
     document.title = t("login.windowSettingsTitle");
-  }, []);
+  }, [i18n.language]);
   return (
     <>
       <Navbar />
