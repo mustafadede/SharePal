@@ -7,6 +7,7 @@ import PopularSection from "../../components/layout/PopularSection";
 import FeedSection from "../../components/layout/FeedSection";
 import ProfileWithListSection from "../../components/layout/ProfileWithListSection";
 import { useTranslation } from "react-i18next";
+import { modalActions } from "../../store/modalSlice";
 
 function FeedPage() {
   const { t } = useTranslation();

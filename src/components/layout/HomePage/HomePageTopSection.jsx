@@ -48,7 +48,7 @@ function HomePageTopSection() {
           initial="hidden"
           animate="visible"
           variants={cardInfoList}
-          className="flex flex-col items-center justify-center h-full gap-4"
+          className="flex flex-col items-center justify-center h-full gap-2 lg:gap-4"
         >
           <motion.h1 variants={item} className="text-4xl font-bold text-white lg:text-5xl">
             {t("home.topFirst")}
