@@ -29,8 +29,13 @@ export default {
         box: "text 5s ease infinite",
         scrollDown: "scrollDown 3s ease infinite",
         scrollText: "scrollText 3s ease infinite",
+        marquee: "marquee 10s linear forwards",
       },
       keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
         text: {
           "0%, 100%": {
             "background-size": "200% 200%",

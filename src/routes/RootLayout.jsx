@@ -12,7 +12,6 @@ import LabelInfo from "../components/layout/LabelInfo";
 import ShareModal from "../components/layout/ShareModal/ShareModal";
 import FollowerModal from "../components/layout/FollowerModal/FollowerModal";
 import FeedCardActionModal from "../components/layout/FeedCardActionModal/FeedCardActionModal";
-import SplashModal from "../components/layout/SplashModal/SplashModal";
 import SuggestFilmModal from "../components/common/SuggestFılmModal/suggestFilmModal";
 import CreateFriendList from "../components/common/CreateFriendList/CreateFriendList";
 import { useTranslation } from "react-i18next";
@@ -83,11 +82,6 @@ function RootLayout() {
             <FeedCardActionModal />
           </ModalSkeleton>
         )} */}
-        {modalState && modalName === "splashModal" && (
-          <ModalSkeleton>
-            <SplashModal />
-          </ModalSkeleton>
-        )}
         {modalState && modalName === "suggestFilmModal" && (
           <ModalSkeleton>
             <SuggestFilmModal />

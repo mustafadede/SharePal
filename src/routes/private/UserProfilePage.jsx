@@ -31,15 +31,16 @@ import { useTranslation } from "react-i18next";
 import { userActions } from "../../store/userSlice";
 import { followingActions } from "../../store/followingSlice";
 import { followersActions } from "../../store/followersSlice";
+import { BarChartIcon, ChatBubbleIcon, CounterClockwiseClockIcon, TextAlignCenterIcon } from "@radix-ui/react-icons";
 
 function UserProfilePage() {
   const { username } = useParams();
   const { t } = useTranslation();
   const tabs = [
-    { id: 0, name: t("profile.stats") },
-    { id: 1, name: t("profile.lists") },
-    { id: 2, name: t("profile.posts") },
-    { id: 3, name: t("profile.activities") },
+    { id: 0, name: t("profile.stats"), icon: <BarChartIcon className="w-6 h-6" /> },
+    { id: 1, name: t("profile.lists"), icon: <TextAlignCenterIcon className="w-6 h-6" /> },
+    { id: 2, name: t("profile.posts"), icon: <ChatBubbleIcon className="w-6 h-6" /> },
+    { id: 3, name: t("profile.activities"), icon: <CounterClockwiseClockIcon className="w-6 h-6" /> },
   ];
   const [users, setUsers] = useState([]);
   const [activeTab, setActiveTab] = useState(0);

@@ -7,7 +7,6 @@ import PopularSection from "../../components/layout/PopularSection";
 import FeedSection from "../../components/layout/FeedSection";
 import ProfileWithListSection from "../../components/layout/ProfileWithListSection";
 import { useTranslation } from "react-i18next";
-import { modalActions } from "../../store/modalSlice";
 
 function FeedPage() {
   const { t } = useTranslation();
@@ -15,11 +14,9 @@ function FeedPage() {
   useEffect(() => {
     document.title = t("feed.windowSettingsTitle");
     dispatch(cardActions.resetComments());
-    // if (!localStorage.getItem("ss") || !userData.splash) {
-    //   dispatch(modalActions.openModal({ name: "splashModal" }));
-    // }
     dispatch(profileActions.removeUser(null));
   }, []);
+
   return (
     <>
       <Navbar

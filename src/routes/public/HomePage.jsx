@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import HomePageTopSection from "../../components/layout/HomePage/HomePageTopSection";
 import HomePageMiddleTopSection from "../../components/layout/HomePage/HomePageMiddleTopSection";
+import HomePageBottomMiddleSection from "../../components/layout/HomePage/HomePageBottomMiddleSection";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ function HomePage() {
         >
           <HomePageTopSection />
           <HomePageMiddleTopSection />
+          {/* <HomePageBottomMiddleSection /> */}
         </motion.div>
       </AnimatePresence>
     </>

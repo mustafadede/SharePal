@@ -13,7 +13,7 @@ function HomePageMiddleTopSection() {
       className="flex flex-col items-center justify-center relative top-[-16rem] md:top-[-14rem] lg:top-[-5rem] h-full"
     >
       <motion.div
-        className="hidden lg:absolute lg:left-10 h-1/2"
+        className="hidden lg:flex lg:absolute lg:left-10 h-1/2"
         initial={{ opacity: 0, transition: { duration: 2 } }}
         animate={{ opacity: 1 }}
         transition={{ delay: 3.1, duration: 0.4 }}
@@ -23,7 +23,7 @@ function HomePageMiddleTopSection() {
       </motion.div>
       <SearchCardModalAsset />
       <motion.div
-        className="hidden lg:absolute right-[-4rem] lg:right-0"
+        className="hidden lg:flex lg:absolute right-[-4rem] lg:right-0"
         initial={{ opacity: 0, transition: { duration: 2 } }}
         animate={{ opacity: 1 }}
         transition={{ delay: 3.4, duration: 0.4 }}
