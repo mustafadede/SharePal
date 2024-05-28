@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   createNotification,
@@ -85,7 +85,7 @@ function UserActionButtons({ profileUser }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.4 }}
     >
-      <motion
+      <motion.div
         className="flex items-center justify-center w-full h-12 transition-all cursor-pointer md:w-1/3 bg-fuchsia-800 rounded-2xl hover:bg-slate-900"
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -97,7 +97,7 @@ function UserActionButtons({ profileUser }) {
         ) : (
           <span className="text-md lg:text-xl text-slate-200">{t("user.follow")}</span>
         )}
-      </motion>
+      </motion.div>
       {followingList.find((user) => user.uid === profileUser?.uid) && (
         <>
           <motion.div

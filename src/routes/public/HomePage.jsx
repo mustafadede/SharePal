@@ -37,7 +37,7 @@ function HomePage() {
         >
           <HomePageTopSection />
           <HomePageMiddleTopSection />
-          {/* <HomePageBottomMiddleSection /> */}
+          <HomePageBottomMiddleSection />
         </motion.div>
       </AnimatePresence>
     </>

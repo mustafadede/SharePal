@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { authActions } from "../store/authSlice";
 import { useDispatch } from "react-redux";
-import { setOnlineStatus } from "../firebase/firebaseActions";
 import { cardActions } from "../store/cardSlice";
 
 function PrivateRoute(props) {
@@ -13,12 +12,10 @@ function PrivateRoute(props) {
       dispatch(authActions.logout());
       navigate("/login");
     } else {
-      setOnlineStatus(localStorage.getItem("user"), true);
+      dispatch(cardActions.resetComments());
+      dispatch(cardActions.updateData([]));
     }
-  }, [localStorage.getItem("user")]);
-  dispatch(cardActions.resetComments());
-  dispatch(cardActions.updateCommentsState("loading"));
-  dispatch(cardActions.updateData([]));
+  }, [navigate, dispatch]);
   return <>{localStorage.getItem("user") && props.children}</>;
 }
 

@@ -17,7 +17,16 @@ function WatchedComponent() {
           watchedList.map((item, i) => {
             return (
               <Link to={`/user/${item?.name}`} key={i}>
-                <img src={item?.photoURL} className="object-cover w-12 h-12 rounded-full" loading="lazy" alt={item?.name} />;
+                {item?.photoURL ? (
+                  <img src={item?.photoURL} className="object-cover w-12 h-12 rounded-full" loading="lazy" alt={item?.name} />
+                ) : (
+                  <div
+                    className="flex items-center justify-center w-12 h-12 text-2xl rounded-full text-slate-200 bg-fuchsia-600"
+                    alt={item?.name}
+                  >
+                    {item?.name?.charAt(0)}
+                  </div>
+                )}
               </Link>
             );
           })

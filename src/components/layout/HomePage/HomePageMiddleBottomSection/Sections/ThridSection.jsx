@@ -1,6 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 function ThirdSection() {
+  const { t } = useTranslation();
   return (
     <div className="flex">
       <motion.div
@@ -9,12 +11,8 @@ function ThirdSection() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
       >
-        <h1 className="text-4xl font-bold text-slate-300">Recommend it!</h1>
-        <p className="text-lg text-slate-300">
-          We've mentioned before that you can create lists for your friends on SharePal. 🤓 You can add and update any movie or series to
-          your lists, and make real-time recommendations to your friends. Share posts and let all users know about what you're watching. Of
-          course, don't forget to attach the show or movie in your post. 😊
-        </p>
+        <h1 className="text-4xl font-bold text-slate-300">{t("tab.thirdTitle")}</h1>
+        <p className="text-lg text-slate-300">{t("tab.thirdText")}</p>
       </motion.div>
     </div>
   );
