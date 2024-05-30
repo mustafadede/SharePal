@@ -63,7 +63,7 @@ function FirstSection() {
 
   const { t } = useTranslation();
   return (
-    <div className="flex flex-col-reverse gap-4 lg:flex-row h-fit">
+    <div className="flex flex-col gap-4 lg:flex-row h-fit">
       <motion.div
         className="flex flex-col justify-center w-full h-auto gap-4 px-6 py-4 lg:py-0 lg:w-1/2 bg-slate-900 rounded-2xl"
         initial={{ opacity: 0 }}

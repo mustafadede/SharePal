@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { DateFormatter } from "../../../utils/formatter";
 import { ChatBubbleIcon, HeartIcon, LockClosedIcon, LoopIcon, RocketIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
@@ -27,8 +26,7 @@ const data = {
   actionName: null,
 };
 
-function HomeAttachCard({ attachedData, notification }) {
-  const user = useSelector((state) => state.user.user?.nick);
+function HomeAttachCard() {
   const date = DateFormatter(data);
 
   // const onClickHandler = () => {
@@ -78,16 +76,14 @@ function HomeAttachCard({ attachedData, notification }) {
         <button className="flex items-center justify-between w-full gap-4 p-2 border cursor-default rounded-2xl border-slate-700 group">
           <div className="flex items-center gap-4">
             <img
-              src={`https://image.tmdb.org/t/p/w500/${attachedData?.poster || data.attachedFilm.poster}`}
+              src={`https://image.tmdb.org/t/p/w500/${data.attachedFilm.poster}`}
               className="object-cover rounded-full w-14 h-14 grayscale"
               loading="lazy"
             ></img>
             <div className="flex items-center justify-center gap-1">
+              <p className="transition-all duration-700 text-slate-400 group-hover:text-slate-200">{data.attachedFilm.title}</p>
               <p className="transition-all duration-700 text-slate-400 group-hover:text-slate-200">
-                {attachedData?.title || data.attachedFilm.title}
-              </p>
-              <p className="transition-all duration-700 text-slate-400 group-hover:text-slate-200">
-                ({attachedData?.releaseDate.slice(0, 4) || data.attachedFilm.releaseDate.slice(0, 4)})
+                ({data.attachedFilm.releaseDate.slice(0, 4)})
               </p>
             </div>
           </div>
@@ -99,22 +95,20 @@ function HomeAttachCard({ attachedData, notification }) {
           )}
         </button> */}
         </button>
-        {!notification && (
-          <div className="flex gap-2">
-            <button className="flex gap-1 cursor-default group">
-              <p className="transition-all text-slate-400">6</p>
-              <p className="transition-all text-slate-400">likes</p>
-            </button>
-            <button className="flex gap-1 cursor-default group">
-              <p className="transition-all text-slate-400">2</p>
-              <p className="transition-all text-slate-400">comments</p>
-            </button>
-            <button className="flex gap-1 cursor-default group">
-              <p className="transition-all text-slate-400">1</p>
-              <p className="transition-all text-slate-400">reposts</p>
-            </button>
-          </div>
-        )}
+        <div className="flex gap-2">
+          <button className="flex gap-1 cursor-default group">
+            <p className="transition-all text-slate-400">6</p>
+            <p className="transition-all text-slate-400">likes</p>
+          </button>
+          <button className="flex gap-1 cursor-default group">
+            <p className="transition-all text-slate-400">2</p>
+            <p className="transition-all text-slate-400">comments</p>
+          </button>
+          <button className="flex gap-1 cursor-default group">
+            <p className="transition-all text-slate-400">1</p>
+            <p className="transition-all text-slate-400">reposts</p>
+          </button>
+        </div>
         <div className="flex justify-around mt-4">
           <button className="flex items-center gap-2 cursor-default">
             <HeartIcon className="w-6 h-5 transition-all text-slate-400" />

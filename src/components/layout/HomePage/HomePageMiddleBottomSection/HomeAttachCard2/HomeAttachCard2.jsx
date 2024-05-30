@@ -1,6 +1,7 @@
-import { DateFormatter } from "../../../utils/formatter";
 import { ChatBubbleIcon, HeartIcon, LockClosedIcon, LoopIcon, RocketIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
+import { DateFormatter } from "../../../../../utils/formatter";
+import { useTranslation } from "react-i18next";
 
 const data = {
   attachedFilm: {
@@ -41,13 +42,14 @@ const data = {
   userId: "3wbvLT6UkNSy2E3pYBtSfHwjUu82",
 };
 
-function HomeAttachCard1() {
+function HomeAttachCard2() {
+  const { t } = useTranslation();
   const date = DateFormatter(data);
 
   return (
-    <div className="flex flex-col shadow-xl opacity-50 select-none scale-75 w-[45rem]">
+    <div className="flex flex-col select-none lg:scale-95 w-ful opacity-95">
       <motion.div
-        className="flex flex-col w-full p-4 mb-4 bg-slate-900 rounded-xl"
+        className="flex flex-col w-full p-4 bg-slate-900 rounded-xl"
         initial={{ opacity: 0, y: -20, transition: { duration: 3 } }}
         animate={{ opacity: 1, y: 0 }}
       >
@@ -98,28 +100,28 @@ function HomeAttachCard1() {
           )}
         </button> */}
         </button>
-        <div className="flex gap-2">
+        <div className="flex gap-2 mt-1">
           <button className="flex gap-1 cursor-default group">
             <p className="transition-all text-slate-400">9</p>
-            <p className="transition-all text-slate-400">likes</p>
+            <p className="transition-all text-slate-400">{t("feedPost.likes")}</p>
           </button>
           <button className="flex gap-1 cursor-default group">
             <p className="transition-all text-slate-400">4</p>
-            <p className="transition-all text-slate-400">comments</p>
+            <p className="transition-all text-slate-400">{t("feedPost.comments")}</p>
           </button>
           <button className="flex gap-1 cursor-default group">
             <p className="transition-all text-slate-400">2</p>
-            <p className="transition-all text-slate-400">reposts</p>
+            <p className="transition-all text-slate-400">Reposts</p>
           </button>
         </div>
-        <div className="flex justify-around mt-4">
+        <div className="flex justify-around mt-3">
           <button className="flex items-center gap-2 cursor-default">
             <HeartIcon className="w-6 h-5 transition-all text-slate-400" />
-            <p className="hidden transition-all md:block text-md text-slate-400">Like</p>
+            <p className="hidden transition-all md:block text-md text-slate-400">{t("feedCard.like")}</p>
           </button>
           <button className="flex items-center gap-2 cursor-default">
             <ChatBubbleIcon className="w-5 h-5 text-slate-400" />
-            <p className="hidden text-md md:block text-slate-400">Reply</p>
+            <p className="hidden text-md md:block text-slate-400">{t("feedCard.reply")}</p>
           </button>
           <button className="flex items-center gap-2 cursor-default">
             <LoopIcon className="w-6 h-5 transition-all text-slate-400" />
@@ -127,7 +129,7 @@ function HomeAttachCard1() {
           </button>
           <button className="flex items-center gap-2 cursor-default">
             <RocketIcon className="w-5 h-5 text-slate-400" />
-            <p className="hidden text-md md:block text-slate-400">Share</p>
+            <p className="hidden text-md md:block text-slate-400">{t("feedCard.share")}</p>
           </button>
         </div>
       </motion.div>
@@ -135,4 +137,4 @@ function HomeAttachCard1() {
   );
 }
 
-export default HomeAttachCard1;
+export default HomeAttachCard2;

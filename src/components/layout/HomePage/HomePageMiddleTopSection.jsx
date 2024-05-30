@@ -19,7 +19,7 @@ function HomePageMiddleTopSection() {
         transition={{ delay: 3.1, duration: 0.4 }}
         exit={{ opacity: 0 }}
       >
-        <HomeAttachCard key={"1"} isAttached={true} index={"1"} display={true} />;
+        <HomeAttachCard />;
       </motion.div>
       <SearchCardModalAsset />
       <motion.div
@@ -29,7 +29,7 @@ function HomePageMiddleTopSection() {
         transition={{ delay: 3.4, duration: 0.4 }}
         exit={{ opacity: 0 }}
       >
-        <HomeAttachCard1 key={"1"} isAttached={true} index={"1"} display={true} />;
+        <HomeAttachCard1 />;
       </motion.div>
     </motion.div>
   );

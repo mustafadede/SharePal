@@ -33,7 +33,7 @@ function HomePage() {
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -100 }}
-          className="flex flex-col h-full gap-4 mx-10 overflow-hidden"
+          className="flex flex-col gap-4 mx-10 overflow-hidden h-max"
         >
           <HomePageTopSection />
           <HomePageMiddleTopSection />

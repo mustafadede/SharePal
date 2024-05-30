@@ -8,13 +8,9 @@ function HomePageBottomMiddleSection() {
   const [tab, setTab] = useState(0);
   return (
     <motion.div className="w-full px-4 py-2 h-fit flex flex-col gap-4 relative top-[-26rem] md:top-[-23rem] lg:top-[-4rem]">
-      {/* <HomeTabs tabInfo={tab} tab={setTab} /> */}
+      <HomeTabs tabInfo={tab} tab={setTab} />
       {tab === 0 && <FirstSection />}
-      {tab === 1 && (
-        <div className="flex flex-row-reverse">
-          <SecondSection />
-        </div>
-      )}
+      {tab === 1 && <SecondSection />}
       {tab === 2 && <ThirdSection />}
     </motion.div>
   );
