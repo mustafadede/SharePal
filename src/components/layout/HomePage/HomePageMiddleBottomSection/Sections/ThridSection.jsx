@@ -12,8 +12,8 @@ function ThirdSection() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
       >
-        <h1 className="text-4xl font-bold text-slate-300">{t("tab.thirdTitle")}</h1>
-        <p className="text-lg text-slate-300">{t("tab.thirdText")}</p>
+        <h1 className="text-xl font-bold lg:text-4xl text-slate-300">{t("tab.thirdTitle")}</h1>
+        <p className="text-sm lg:text-lg text-slate-500">{t("tab.thirdText")}</p>
       </motion.div>
       <motion.div
         className="flex items-center justify-center w-full lg:w-1/2"

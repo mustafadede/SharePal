@@ -70,8 +70,8 @@ function FirstSection() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
       >
-        <h1 className="text-4xl font-bold text-slate-300">{t("tab.firstTitle")}</h1>
-        <p className="text-lg text-slate-500">{t("tab.firstText")}</p>
+        <h1 className="text-xl font-bold lg:text-4xl text-slate-300">{t("tab.firstTitle")}</h1>
+        <p className="text-sm lg:text-lg text-slate-500">{t("tab.firstText")}</p>
       </motion.div>
       <motion.div
         className="container flex-col w-full px-2 pt-2 lg:w-1/2 lg:flex h-fit bg-slate-600/20 rounded-2xl"

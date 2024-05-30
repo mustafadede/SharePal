@@ -15,12 +15,12 @@ function SecondSection() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
       >
-        <h1 className="text-4xl font-bold text-slate-300">{t("tab.secondTitle")}</h1>
-        <p className="text-lg text-slate-300">{t("tab.secondText")}</p>
+        <h1 className="text-xl font-bold lg:text-4xl text-slate-300">{t("tab.secondTitle")}</h1>
+        <p className="text-sm lg:text-lg text-slate-500">{t("tab.secondText")}</p>
       </motion.div>
       <motion.div className="flex flex-col justify-center w-full select-none lg:w-1/2" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         <motion.div
-          className="relative z-30 top-4 left-[300px] xl:left-80 2xl:left-[420px]"
+          className="relative z-30 top-4 left-40 md:left-72 2xl:left-96"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
