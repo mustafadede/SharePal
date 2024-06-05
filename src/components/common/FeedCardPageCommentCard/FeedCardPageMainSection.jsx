@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 function FeedCardPageMainSection({
+  nick,
   commentKey,
   commentId,
   comment,
@@ -107,7 +108,9 @@ function FeedCardPageMainSection({
   }, []);
 
   const goToPostHandler = () => {
-    navigate(`/feed/${data[1]?.nick}/${data[0].relatedPostId}`, { state: { uId: data[0]?.relatedUserId, pId: data[0].relatedPostId } });
+    data
+      ? navigate(`/feed/${data[1]?.nick}/${data[0].relatedPostId}`, { state: { uId: data[0]?.relatedUserId, pId: data[0].relatedPostId } })
+      : navigate(`/feed/${nick || data}/${relatedPostId}`, { state: { uId: relatedUserId, pId: relatedPostId } });
   };
 
   return (

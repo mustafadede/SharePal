@@ -9,12 +9,7 @@ function FeedCardHeader({ data, date, isEdited, setSettings, settings, user, not
   return (
     <div className="flex justify-between w-full">
       <div className="flex gap-4">
-        {!data.photoURL && (
-          <div className="relative w-12 h-12">
-            <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" loading="lazy" src={data.photoURL}></img>
-            {/* <FeedCardOnlineStatus username={!notification && data.nick === user ? false : true} data={data} /> */}
-          </div>
-        )}
+        {!data.photoURL && <div className="w-12 h-12 rounded-full bg-fuchsia-600"></div>}
         {data.photoURL && (
           <div className="relative w-12 h-12">
             <img className="object-cover w-12 h-12 rounded-full bg-fuchsia-600" loading="lazy" src={data.photoURL}></img>

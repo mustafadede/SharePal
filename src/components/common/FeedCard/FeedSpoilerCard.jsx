@@ -88,10 +88,10 @@ function FeedSpoilerCard({ data, notification }) {
           </p>
         ) : (
           <div className="flex items-center justify-center gap-2">
-            <input
+            <textarea
               type="text"
               placeholder={t("feedCardPageMainSection.placeholder")}
-              className="w-full px-4 py-2 my-4 transition-colors bg-slate-800 text-cWhite focus:outline-none focus:bg-opacity-40 rounded-2xl"
+              className="w-full h-20 px-4 py-2 my-4 transition-colors outline-none max-h-28 bg-slate-800 text-cWhite focus:bg-opacity-40 rounded-2xl"
               value={editedText !== undefined ? editedText : data.text || data.content}
               onChange={(e) => setEditedText(e.target.value)}
               onKeyDown={(e) => handlePost(e)}

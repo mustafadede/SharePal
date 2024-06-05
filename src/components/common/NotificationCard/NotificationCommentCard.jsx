@@ -83,7 +83,17 @@ function NotificationCommentCard({ uid, nick, postId, photoURL, date, comment, d
             </button>
           </div>
         </div>
-        {isOpen && <FeedCardPageCommentCard nick={nick} photo={photoURL} comment={comment} date={date} notification={true} />}
+        {isOpen && (
+          <FeedCardPageCommentCard
+            nick={nick}
+            relatedUserId={user.uid}
+            relatedPostId={postId}
+            photo={photoURL}
+            comment={comment}
+            date={date}
+            notification={true}
+          />
+        )}
       </motion.div>
       {settings && (
         <ActionDetailsCard

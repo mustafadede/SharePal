@@ -93,6 +93,7 @@ function FeedCardPageCommentCard({
               notification={notification}
             />
             <FeedCardPageMainSection
+              nick={nick}
               commentKey={commentKey}
               commentId={commentId}
               comment={comment}
