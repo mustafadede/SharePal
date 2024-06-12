@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAuth } from "firebase/auth";
 import { useTranslation } from "react-i18next";
 
-function ActionTextArea() {
-  const { attachedFilm, spoiler, text } = useSelector((state) => state.createPost);
+function ActionTextArea({ text, setText }) {
+  const { attachedFilm, spoiler } = useSelector((state) => state.createPost);
   const { modalHasData } = useSelector((state) => state.modal);
   const { user } = useSelector((state) => state.user);
   const { t, i18n } = useTranslation();
@@ -31,12 +31,15 @@ function ActionTextArea() {
         })
       );
       createPostAction(text, modalHasData ? modalHasData : attachedFilm, spoiler, user?.nick);
+      setText("");
+      spoiler && dispatch(createPostActions.updateSpoiler(false));
       if (i18n.language === "en") {
         toast.success("Post created!");
       } else {
         toast.success("Gönderi oluşturuldu!");
       }
       dispatch(modalActions.closeModal()) && dispatch(createPostActions.resetText());
+      modalHasData && dispatch(modalActions.openModal({ name: "watchedThisModal", data: modalHasData }));
     } else {
       if (i18n.language === "en") {
         toast.error("Post cannot be empty or exceed 280 characters!");
@@ -46,13 +49,6 @@ function ActionTextArea() {
     }
   };
   const handlePost = (e) => {
-    // TODO: Add tagFlag for people tagging
-    // if (e.key === "@") {
-    //   dispatch(createPostActions.tagFlag(true));
-    // }
-    // if (e.key === " " || e.key === "Escape" || e.key === "Backspace") {
-    //   dispatch(createPostActions.tagFlag(false));
-    // }
     if (e.ctrlKey && e.key === "Enter") {
       createPost();
     }
@@ -67,9 +63,7 @@ function ActionTextArea() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.3 }}
-      onChange={(e) => {
-        e.target.value.length >= 0 && e.target.value.length <= 280 && dispatch(createPostActions.updateText(e.target.value));
-      }}
+      onChange={(e) => setText(e.target.value)}
       onKeyDown={(e) => handlePost(e)}
     />
   );

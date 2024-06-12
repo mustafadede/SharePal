@@ -15,6 +15,7 @@ import FeedCardActionModal from "../components/layout/FeedCardActionModal/FeedCa
 import SuggestFilmModal from "../components/common/SuggestFılmModal/suggestFilmModal";
 import CreateFriendList from "../components/common/CreateFriendList/CreateFriendList";
 import { useTranslation } from "react-i18next";
+import WatchedThisModal from "../components/common/watchedThis/WatchedThisModal";
 
 function RootLayout() {
   const { modalState, modalName } = useSelector((state) => state.modal);
@@ -82,6 +83,11 @@ function RootLayout() {
             <FeedCardActionModal />
           </ModalSkeleton>
         )} */}
+        {modalState && modalName === "watchedThisModal" && (
+          <ModalSkeleton>
+            <WatchedThisModal />
+          </ModalSkeleton>
+        )}
         {modalState && modalName === "suggestFilmModal" && (
           <ModalSkeleton>
             <SuggestFilmModal />

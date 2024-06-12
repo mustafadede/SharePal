@@ -8,13 +8,12 @@ import { createPostAction } from "../../../../firebase/firebaseActions";
 import { getAuth } from "firebase/auth";
 import { useTranslation } from "react-i18next";
 
-function PostButton() {
+function PostButton({ text, setText }) {
   const { t, i18n } = useTranslation();
-  const { attachedFilm, spoiler, text } = useSelector((state) => state.createPost);
+  const { spoiler } = useSelector((state) => state.createPost);
   const { modalHasData } = useSelector((state) => state.modal);
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
   const createPost = () => {
     if (text.length > 0 && text.length <= 280) {
       dispatch(
@@ -32,12 +31,15 @@ function PostButton() {
         })
       );
       createPostAction(text, modalHasData, spoiler, user?.nick);
+      setText("");
+      spoiler && dispatch(createPostActions.updateSpoiler(false));
       if (i18n.language === "en") {
         toast.success("Post created!");
       } else {
         toast.success("Gönderi oluşturuldu!");
       }
       dispatch(modalActions.closeModal()) && dispatch(createPostActions.resetText());
+      modalHasData && dispatch(modalActions.openModal({ name: "watchedThisModal", data: modalHasData }));
     } else {
       if (i18n.language === "en") {
         toast.error("Post cannot be empty or exceed 280 characters!");

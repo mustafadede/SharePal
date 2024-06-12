@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import FeedActionBoxTag from "../../common/FeedActionBoxTag/FeedActionBoxTag";
@@ -10,7 +10,7 @@ import ActionTextArea from "./FeedActionBox/ActionTextArea";
 function FeedActionBox() {
   const { tagFlag } = useSelector((state) => state.createPost);
   const { modalHasData, lastModalName } = useSelector((state) => state.modal);
-
+  const [text, setText] = useState("");
   return (
     <>
       <motion.div
@@ -19,12 +19,12 @@ function FeedActionBox() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
       >
-        <ActionTextArea />
+        <ActionTextArea text={text} setText={setText} />
         {lastModalName === "attachedFilmModal" && modalHasData && <AttachedModal />}
         {tagFlag && <FeedActionBoxTag />}
         <div className="flex justify-end w-full gap-2">
           <ActionBoxButtons />
-          <PostButton />
+          <PostButton text={text} setText={setText} />
         </div>
       </motion.div>
     </>
