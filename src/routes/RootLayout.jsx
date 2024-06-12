@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,28 +8,20 @@ import ModalSkeleton from "../components/layout/ModalSkeleton/ModalSkeleton";
 import AttachedFilmModal from "../components/layout/AttachedFilmModal/AttachedFilmModal";
 import SearchCardModal from "../components/layout/SearchPage/SearchCardModal";
 import ListModal from "../components/layout/MyListModal/ListModal/ListModal";
-import LabelInfo from "../components/layout/LabelInfo";
 import ShareModal from "../components/layout/ShareModal/ShareModal";
 import FollowerModal from "../components/layout/FollowerModal/FollowerModal";
 import FeedCardActionModal from "../components/layout/FeedCardActionModal/FeedCardActionModal";
 import SuggestFilmModal from "../components/common/SuggestFılmModal/suggestFilmModal";
 import CreateFriendList from "../components/common/CreateFriendList/CreateFriendList";
-import { useTranslation } from "react-i18next";
 import WatchedThisModal from "../components/common/watchedThis/WatchedThisModal";
 
 function RootLayout() {
   const { modalState, modalName } = useSelector((state) => state.modal);
-  const [isClosed, setIsClosed] = useState(false);
-  const { t } = useTranslation();
-  const handleClose = () => {
-    setIsClosed(true);
-    localStorage.setItem("isClosed", true);
-  };
   return (
     <>
-      {!localStorage.getItem("isClosed") && !isClosed && (
+      {/* {!localStorage.getItem("isClosed") && !isClosed && (
         <LabelInfo info={t("info.contact")} data="mustafadededev@gmail.com" handleClose={handleClose} />
-      )}
+      )} */}
       <div className="container mx-auto">
         <ToastContainer
           position="top-right"
