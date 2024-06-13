@@ -17,7 +17,7 @@ import FeedCardPageMiniCommentSection from "../../layout/FeedCardPage/FeedCardPa
 import EditSpoilerButton from "./components/EditSpoilerButton";
 import { useTranslation } from "react-i18next";
 
-function FeedAttachedCard({ data, attachedData, notification }) {
+function FeedAttachedCard({ data, attachedData, notification, share }) {
   const { t, i18n } = useTranslation();
   const [settings, setSettings] = useState(false);
   const [rename, setRename] = useState(false);
@@ -112,6 +112,7 @@ function FeedAttachedCard({ data, attachedData, notification }) {
           settings={settings}
           user={user}
           notification={notification}
+          share={share}
         />
         {data.spoiler && !rename && (
           <p className={"py-4 text-slate-200 cursor-pointer duration-150 transition-all  blur-sm select-none"} onClick={handleSpoiler}>

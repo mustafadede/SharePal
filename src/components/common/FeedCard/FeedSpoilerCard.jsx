@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import FeedCardButtons from "./Buttons/FeedCardButtons";
 import { motion } from "framer-motion";
 import FeedCardActionsSkeleton from "./FeedCardActions/FeedCardActionsSkeleton";
-import { NavLink } from "react-router-dom";
 import { Cross1Icon, DotsHorizontalIcon, LockClosedIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import { useDispatch, useSelector } from "react-redux";
 import ActionDetailsCard from "../ActionDetailsCard";
@@ -10,13 +9,12 @@ import { postsActions } from "../../../store/postsSlice";
 import { deleteSelectedPost, editSelectedPost } from "../../../firebase/firebaseActions";
 import { toast } from "react-toastify";
 import { DateFormatter } from "../../../utils/formatter";
-import FeedCardOnlineStatus from "../FeedCardOnlineStatus";
 import EditSpoilerButton from "./components/EditSpoilerButton";
 import FeedCardPageMiniCommentSection from "../../layout/FeedCardPage/FeedCardPageMiniCommentSection";
 import FeedCardHeader from "./components/FeedCardHeader";
 import { useTranslation } from "react-i18next";
 
-function FeedSpoilerCard({ data, notification }) {
+function FeedSpoilerCard({ data, notification, share }) {
   const { t, i18n } = useTranslation();
   const [settings, setSettings] = useState(false);
   const [rename, setRename] = useState(false);
@@ -81,6 +79,7 @@ function FeedSpoilerCard({ data, notification }) {
           settings={settings}
           user={user}
           notification={notification}
+          share={share}
         />
         {!rename ? (
           <p className="py-4 transition-all duration-150 cursor-pointer select-none text-slate-200 blur-sm" onClick={handleSpoiler}>

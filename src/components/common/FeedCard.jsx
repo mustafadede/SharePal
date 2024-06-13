@@ -13,13 +13,14 @@ function FeedCard({
   index,
   attachedData,
   notification = false,
+  share = false,
 }) {
   return isComment ? (
-    <FeedCommentCard data={data} index={index} notification={notification} />
+    <FeedCommentCard data={data} index={index} notification={notification} share={share} />
   ) : isAttached ? (
-    <FeedAttachedCard data={data} attachedData={attachedData} index={index} notification={notification} />
+    <FeedAttachedCard data={data} attachedData={attachedData} index={index} notification={notification} share={share} />
   ) : isSpoiler ? (
-    <FeedSpoilerCard data={data} index={index} notification={notification} />
+    <FeedSpoilerCard data={data} index={index} notification={notification} share={share} />
   ) : isAction ? (
     <FeedActionCard data={data} index={index} notification={notification} />
   ) : null;

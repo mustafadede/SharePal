@@ -1,10 +1,9 @@
 import React from "react";
-import FeedCardOnlineStatus from "../../FeedCardOnlineStatus";
 import { DotsHorizontalIcon, LockClosedIcon } from "@radix-ui/react-icons";
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-function FeedCardHeader({ data, date, isEdited, setSettings, settings, user, notification }) {
+function FeedCardHeader({ data, date, isEdited, setSettings, settings, user, notification, share }) {
   const { t } = useTranslation();
   return (
     <div className="flex justify-between w-full">
@@ -16,9 +15,15 @@ function FeedCardHeader({ data, date, isEdited, setSettings, settings, user, not
             {/* <FeedCardOnlineStatus username={!notification && data.nick === user ? false : true} data={data} /> */}
           </div>
         )}
-        <div className="flex flex-col">
+        <div className="flex flex-col justify-center">
           <NavLink to={data.nick === user ? `/profile` : `/user/${data.nick}`}>
-            <p className="transition-all duration-300 text-md text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600">
+            <p
+              className={
+                share
+                  ? "transition-all duration-300 text-md hover:cursor-pointer w-fit text-fuchsia-600"
+                  : "transition-all duration-300 text-md text-slate-200 hover:cursor-pointer w-fit hover:underline hover:text-fuchsia-600"
+              }
+            >
               @{data.nick}
             </p>
           </NavLink>

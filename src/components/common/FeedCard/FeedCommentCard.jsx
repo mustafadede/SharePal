@@ -14,7 +14,7 @@ import EditSpoilerButton from "./components/EditSpoilerButton";
 import FeedCardPageMiniCommentSection from "../../layout/FeedCardPage/FeedCardPageMiniCommentSection";
 import { useTranslation } from "react-i18next";
 
-function FeedCommentCard({ data, notification }) {
+function FeedCommentCard({ data, notification, share }) {
   const { t, i18n } = useTranslation();
   const [settings, setSettings] = useState(false);
   const [rename, setRename] = useState(false);
@@ -71,6 +71,7 @@ function FeedCommentCard({ data, notification }) {
           settings={settings}
           user={user}
           notification={notification}
+          share={share}
         />
         {/*Comment Card Top section: Profile Picture and Name end */}
         {/*Comment Card Middle Top section: Input start */}
