@@ -8,7 +8,6 @@ function FeedCardShareButton({ data }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const handleClick = () => {
-    console.log("Share button clicked");
     dispatch(modalActions.openModal({ name: "shareModal", data: data }));
   };
   return (

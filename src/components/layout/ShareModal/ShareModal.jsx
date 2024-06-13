@@ -1,31 +1,34 @@
 import React from "react";
 import ModalHeader from "../ModalSkeleton/ModalHeader";
-import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
-import { CopyIcon } from "@radix-ui/react-icons";
 import { useTranslation } from "react-i18next";
+import CardViewSection from "./CardViewSection/CardViewSection";
+import ShareButtons from "./ShareButton/ShareButtons";
+import { createFileName } from "use-react-screenshot";
+import html2canvas from "html2canvas";
+
 function ShareModal() {
-  const { t, i18n } = useTranslation();
-  const { modalHasData } = useSelector((state) => state.modal);
-  const handleCopy = () => {
-    navigator.clipboard.writeText(`https://sharepal.dev/#/feed/${modalHasData.nick}/${modalHasData.postId}`);
-    if (i18n.language === "en") {
-      toast.success("Copied to clipboard");
-    } else {
-      toast.success("Panoya kopyalandı");
-    }
+  const { t } = useTranslation();
+  const ref = React.createRef();
+  const download = (image, { name = "img", extension = "jpg" } = {}) => {
+    const a = document.createElement("a");
+    a.href = image;
+    a.download = createFileName(extension, name);
+    a.click();
   };
 
+  const downloadScreenshot = () => {
+    html2canvas(ref.current, { logging: true, letterRendering: 1, allowTaint: false, useCORS: true }).then((canvas) => {
+      const image = canvas.toDataURL("image/jpeg", 1.0);
+      download(image);
+    });
+  };
   return (
-    <div className="px-8 pt-4 overflow-hidden bg-slate-900 rounded-2xl w-[30rem] h-96">
+    <div className="px-8 pt-4 overflow-hidden overflow-y-auto no-scrollbar bg-slate-900 rounded-2xl w-[25rem] md:w-[45rem] h-fit">
       <ModalHeader title={t("feedCard.share")} />
-      <button
-        className="flex items-center justify-center w-full h-12 mt-4 text-sm font-semibold duration-150 rounded-lg text-fuchsia-600 hover:text-slate-400 bg-slate-800"
-        onClick={handleCopy}
-      >
-        <CopyIcon className="w-5 h-5 mr-2" />
-        {t("share.clipboard")}
-      </button>
+      <div className="flex flex-col mt-2">
+        <CardViewSection referance={ref} />
+        <ShareButtons referance={ref} downloadHandler={downloadScreenshot} />
+      </div>
     </div>
   );
 }
