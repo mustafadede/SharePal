@@ -134,13 +134,11 @@ function FeedAttachedCard({ data, attachedData, notification, share }) {
           </div>
         )}
         <AttachedItem data={data} attachedData={attachedData} onClickHandler={onClickHandler} />
-        {!notification && (
-          <div className="flex gap-2">
-            <FeedCardActionsSkeleton action={t("feedPost.likes")} number={data.likes} data={data} />
-            <FeedCardActionsSkeleton action={t("feedPost.comments")} number={data.comments} data={data} />
-            <FeedCardActionsSkeleton action={"Reposts"} number={data.repost} data={data} />
-          </div>
-        )}
+        <div className="flex gap-2 mt-1">
+          <FeedCardActionsSkeleton action={t("feedPost.likes")} number={data.likes} data={data} />
+          <FeedCardActionsSkeleton action={t("feedPost.comments")} number={data.comments} data={data} />
+          <FeedCardActionsSkeleton action={"Reposts"} number={data.repost} data={data} />
+        </div>
         {!notification && <FeedCardButtons data={data} isCommentVisible={isCommentVisible} setCommentVisible={setIsCommentVisible} />}
       </motion.div>
       {isCommentVisible && (

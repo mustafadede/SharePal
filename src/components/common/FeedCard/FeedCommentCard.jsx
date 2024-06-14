@@ -92,13 +92,11 @@ function FeedCommentCard({ data, notification, share }) {
         )}
         {/*Comment Card Middle Top section: Input end */}
         {/*Comment Card Middle Bottom section: Stats start */}
-        {!notification && (
-          <div className="flex gap-2">
-            <FeedCardActionsSkeleton action={t("feedPost.likes")} number={data.likes} data={data} />
-            <FeedCardActionsSkeleton action={t("feedPost.comments")} number={data.comments} data={data} />
-            <FeedCardActionsSkeleton action={"Reposts"} number={data.reposts} data={data} />
-          </div>
-        )}
+        <div className="flex gap-2">
+          <FeedCardActionsSkeleton action={t("feedPost.likes")} number={data.likes} data={data} />
+          <FeedCardActionsSkeleton action={t("feedPost.comments")} number={data.comments} data={data} />
+          <FeedCardActionsSkeleton action={"Reposts"} number={data.reposts} data={data} />
+        </div>
         {/*Comment Card Middle Bottom section: Stats end */}
         {/*Comment Card Bottom section: Buttons starts */}
         {!notification && <FeedCardButtons data={data} isCommentVisible={isCommentVisible} setCommentVisible={setIsCommentVisible} />}
