@@ -242,5 +242,11 @@
   "preferences.language": "Dil",
   "preferences.popular": "Popüler",
   "preferences.popularFirst": "Filmler",
-  "preferences.popularSecond": "Diziler"
+  "preferences.popularSecond": "Diziler",
+  "dangerZone.title": "Tehlikeli Bölge",
+  "dangerZone.subTitle": "Bu işlem geri alınamaz.",
+  "dangerZone.delete": "Hesabı Sil",
+  "dangerZone.deleteText": "Hesabınızı silmek istediğinizden emin misiniz?",
+  "dangerZone.confirm": "Evet",
+  "dangerZone.cancel": "Hayır"
 }

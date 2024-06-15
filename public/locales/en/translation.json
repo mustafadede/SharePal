@@ -243,5 +243,11 @@
   "preferences.language": "Language",
   "preferences.popular": "Popular",
   "preferences.popularFirst": "Movies",
-  "preferences.popularSecond": "Series"
+  "preferences.popularSecond": "Series",
+  "dangerZone.title": "Danger Zone",
+  "dangerZone.subTitle": " You can't undo this action and this action will be applied to your account immediately.",
+  "dangerZone.delete": "Delete Account",
+  "dangerZone.deleteText": "Are you sure you want to delete your account?",
+  "dangerZone.confirm": "Yes",
+  "dangerZone.cancel": "No"
 }
