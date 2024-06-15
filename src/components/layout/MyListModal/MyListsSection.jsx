@@ -124,6 +124,7 @@ function MyListsSection() {
               key={list.id}
               listNum={i}
               title={list.title}
+              isPinned={list.isPinned}
               id={list.id}
               date={list.date}
               list={list.list}

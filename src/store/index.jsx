@@ -17,6 +17,7 @@ import cardSlice from "./cardSlice";
 import privacySlice from "./privacySlice";
 import UsersSuggestionsListSlice from "./UsersSuggestionsListSlice";
 import suggestedList from "./suggestedList";
+import popularSlice from "./popularSlice";
 
 const store = configureStore({
   reducer: {
@@ -38,6 +39,7 @@ const store = configureStore({
     card: cardSlice,
     privacy: privacySlice,
     usersSuggestionsList: UsersSuggestionsListSlice,
+    popular: popularSlice,
   },
 });
 

@@ -239,5 +239,8 @@
   "privacy.currentPrivacy": "Mevcut Gizlilik",
   "privacy.currentText": "Kimin profilinizi görebileceğini seçin.",
   "preferences.title": "Tercihler",
-  "preferences.language": "Dil"
+  "preferences.language": "Dil",
+  "preferences.popular": "Popüler",
+  "preferences.popularFirst": "Filmler",
+  "preferences.popularSecond": "Diziler"
 }

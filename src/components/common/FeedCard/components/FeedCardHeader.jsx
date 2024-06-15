@@ -3,8 +3,12 @@ import { DotsHorizontalIcon, LockClosedIcon } from "@radix-ui/react-icons";
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-function FeedCardHeader({ data, date, isEdited, setSettings, settings, user, notification, share }) {
+function FeedCardHeader({ data, date, isEdited, setSettings, settings, user, notification, share, setRename }) {
   const { t } = useTranslation();
+  const handleClick = () => {
+    setSettings(!settings);
+    setRename(false);
+  };
   return (
     <div className="flex justify-between w-full">
       <div className="flex gap-4">
@@ -40,7 +44,7 @@ function FeedCardHeader({ data, date, isEdited, setSettings, settings, user, not
         {!notification && data.nick === user && (
           <div className="flex items-center justify-center gap-2">
             {(isEdited || data.edited) && <p className="text-sm text-slate-400">({t("feedCard.edit")})</p>}
-            <button onClick={() => setSettings(!settings)}>
+            <button onClick={handleClick}>
               <DotsHorizontalIcon className="w-6 h-6 transition-colors text-slate-400 hover:text-slate-200" />
             </button>
           </div>

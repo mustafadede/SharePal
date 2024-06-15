@@ -240,5 +240,8 @@
   "privacy.currentPrivacy": "Current Profile Privacy :",
   "privacy.currentText": "Choose who can see your profile.",
   "preferences.title": "Preferences",
-  "preferences.language": "Language"
+  "preferences.language": "Language",
+  "preferences.popular": "Popular",
+  "preferences.popularFirst": "Movies",
+  "preferences.popularSecond": "Series"
 }

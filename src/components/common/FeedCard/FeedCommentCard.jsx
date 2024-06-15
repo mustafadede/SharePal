@@ -72,6 +72,7 @@ function FeedCommentCard({ data, notification, share }) {
           user={user}
           notification={notification}
           share={share}
+          setRename={setRename}
         />
         {/*Comment Card Top section: Profile Picture and Name end */}
         {/*Comment Card Middle Top section: Input start */}

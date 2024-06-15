@@ -80,6 +80,7 @@ function FeedSpoilerCard({ data, notification, share }) {
           user={user}
           notification={notification}
           share={share}
+          setRename={setRename}
         />
         {!rename ? (
           <p className="py-4 transition-all duration-150 cursor-pointer select-none text-slate-200 blur-sm" onClick={handleSpoiler}>

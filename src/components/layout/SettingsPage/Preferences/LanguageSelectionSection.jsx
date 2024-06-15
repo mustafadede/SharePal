@@ -17,7 +17,15 @@ function LanguageSelectionSection() {
     <div className="flex flex-row gap-4">
       <div className="flex flex-row justify-between w-full gap-2">
         <SettingsSubTitle title={t("preferences.language")} />
-        <SelectionComponent selectedLanguage={selectedLanguage} handleLanguageChange={handleLanguageChange} />
+        <SelectionComponent
+          selectedLanguage={selectedLanguage}
+          handleLanguageChange={handleLanguageChange}
+          selectionType={"language"}
+          firstTitle={"English"}
+          secondTitle={"Türkçe"}
+          FirstVal={"en"}
+          SecVal={"tr"}
+        />
       </div>
     </div>
   );

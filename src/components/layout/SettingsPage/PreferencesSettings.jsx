@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import SettingsTitle from "../../common/SettingsPage/SettingsTitle";
 import LanguageSelectionSection from "./Preferences/LanguageSelectionSection";
 import { useTranslation } from "react-i18next";
+import PopularSelectionSection from "./Preferences/PopularSelectionSection";
 
 function PreferencesSettings() {
   const { t } = useTranslation();
@@ -16,6 +17,7 @@ function PreferencesSettings() {
       <SettingsTitle title={t("preferences.title")} />
       <div className="flex flex-col">
         <LanguageSelectionSection />
+        <PopularSelectionSection />
       </div>
     </motion.div>
   );

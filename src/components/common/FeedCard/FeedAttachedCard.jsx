@@ -113,6 +113,7 @@ function FeedAttachedCard({ data, attachedData, notification, share }) {
           user={user}
           notification={notification}
           share={share}
+          setRename={setRename}
         />
         {data.spoiler && !rename && (
           <p className={"py-4 text-slate-200 cursor-pointer duration-150 transition-all  blur-sm select-none"} onClick={handleSpoiler}>
