@@ -51,12 +51,12 @@ function SettingsPage() {
       <div className="flex flex-col mx-5 lg:flex-row md:mx-10">
         <ProfileWithListSection />
         <motion.div
-          className="lg:sticky px-5 mb-4 py-4 lg:ml-4 top-[4.7rem] w-full lg:w-72 bg-slate-900 rounded-2xl h-fit lg:h-[31rem]"
+          className="lg:sticky px-5 mb-4 py-4 lg:ml-4 top-[4.7rem] w-full lg:w-72 bg-slate-900 rounded-2xl h-fit lg:h-[32.5rem]"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
-          <h1 className="mb-4 text-3xl text-slate-200">{t("settings.header")}</h1>
+          <h1 className="hidden mb-4 text-3xl lg:block text-slate-200">{t("settings.header")}</h1>
           <div className="flex lg:flex-col">
             <SettingsButton title={t("settings.account")} handleSelection={handleSelection} />
             <SettingsButton title={t("settings.password")} handleSelection={handleSelection} />

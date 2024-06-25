@@ -11,7 +11,7 @@ function FriendsLists() {
     getSelectedUserSharedList(localStorage.getItem("user")).then((res) => {
       res.forEach((list) => {
         getSelectedUserSuggestionLists(list.id).then((res) => {
-          setLists(res);
+          setLists((prev) => [...prev, res]);
         });
       });
     });
@@ -21,24 +21,25 @@ function FriendsLists() {
     dispatch(modalActions.closeModal());
     dispatch(modalActions.openModal({ name: "listModal", data: { id, title, list, date } }));
   };
+  console.log(lists);
   return (
     <div className="mt-4 overflow-scroll h-80 md:h-fit no-scrollbar">
       {lists.map((list, i) => {
         return (
           <MyListsModalCard
-            key={list.id}
+            key={i}
             listNum={i}
-            title={list.title}
-            id={list.id}
-            isPinned={list.isPinned || false}
-            date={list.date}
-            list={list.list}
+            title={list[0].title}
+            id={list[0].id}
+            isPinned={list[0].isPinned || false}
+            date={list[0].date}
+            list={list[0].list}
             clickHandler={clickHandler}
             pinnedDisabled={true}
             suggestionList={true}
-            from={list.from}
-            userId={list.userId}
-            nodeId={list.nodeId}
+            from={list[0].from}
+            userId={list[0].userId}
+            nodeId={list[0].nodeId}
           />
         );
       })}
