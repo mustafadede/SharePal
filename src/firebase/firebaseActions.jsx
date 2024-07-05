@@ -45,16 +45,7 @@ const createUserWithEmailAction = async (data) => {
       return true;
     }
   } catch (error) {
-    const errorCode = error.code;
-    if (errorCode === "auth/email-already-in-use") {
-      return toast("This email is already in use");
-    }
-    if (errorCode === "auth/wrong-password") {
-      return toast("Password is wrong!");
-    }
-    if (errorCode === "auth/invalid-email") {
-      return toast("Email is wrong!");
-    }
+    return error.code;
   }
 };
 
@@ -82,17 +73,7 @@ const signInWithEmailAction = async (email, password) => {
     const user = await signInWithEmailAndPassword(auth, email, password);
     return user;
   } catch (error) {
-    const errorCode = error.code;
-    if (error.code === "auth/user-not-found") {
-      toast("User not found!");
-    }
-    if (errorCode === "auth/wrong-password") {
-      return toast("Password is wrong!");
-    }
-    if (errorCode === "auth/invalid-email") {
-      return toast("Email is wrong!");
-    }
-    return false;
+    return error.code;
   }
 };
 

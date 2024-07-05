@@ -15,6 +15,15 @@ import SuggestFilmModal from "../components/common/SuggestFılmModal/suggestFilm
 import CreateFriendList from "../components/common/CreateFriendList/CreateFriendList";
 import WatchedThisModal from "../components/common/watchedThis/WatchedThisModal";
 
+const contextClass = {
+  success: "backdrop-blur-lg",
+  error: "backdrop-blur-lg",
+  info: "backdrop-blur-lg",
+  warning: "backdrop-blur-lg",
+  default: "backdrop-blur-lg",
+  dark: "bg-white-600 font-slate-200",
+};
+
 function RootLayout() {
   const { modalState, modalName } = useSelector((state) => state.modal);
   return (
@@ -24,6 +33,9 @@ function RootLayout() {
       )} */}
       <div className="container mx-auto">
         <ToastContainer
+          toastClassName={(context) =>
+            contextClass[context?.type || "default"] + " relative flex p-1 h-16 rounded-md justify-between overflow-hidden cursor-pointer"
+          }
           position="top-right"
           autoClose={5000}
           hideProgressBar={false}

@@ -39,7 +39,17 @@ function ResetPassword() {
           navigate("/login");
         })
         .catch((error) => {
-          toast(error.message);
+          if (error.code === "auth/user-not-found") {
+            i18n.language === "tr" ? toast.error("Kullanıcı bulunamadı!") : toast.error("User not found!");
+          }
+          if (error.code === "auth/invalid-email") {
+            i18n.language === "tr" ? toast.error("Geçersiz e-posta!") : toast.error("Invalid email!");
+          }
+          if (error.code === "auth/too-many-requests") {
+            i18n.language === "tr"
+              ? toast.error("Çok fazla deneme yaptınız, lütfen daha sonra tekrar deneyin!")
+              : toast.error("You have tried too many times, please try again later!");
+          }
         });
     } else {
       toast("Please fill all the fields correctly!");

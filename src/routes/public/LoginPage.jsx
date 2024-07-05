@@ -42,6 +42,20 @@ function LoginPage() {
         } else {
           setStatus("idle");
         }
+        if (res === "auth/wrong-password") {
+          i18n.language === "tr" ? toast.error("Şifre yanlış!") : toast.error("Wrong password!");
+        }
+        if (res === "auth/user-not-found") {
+          i18n.language === "tr" ? toast.error("Kullanıcı bulunamadı!") : toast.error("User not found!");
+        }
+        if (res === "auth/too-many-requests") {
+          i18n.language === "tr"
+            ? toast.error("Çok fazla deneme yaptınız, lütfen daha sonra tekrar deneyin!")
+            : toast.error("You have tried too many times, please try again later!");
+        }
+        if (res === "auth/invalid-email") {
+          i18n.language === "tr" ? toast.error("Geçersiz e-posta!") : toast.error("Invalid email!");
+        }
       });
     } else {
       i18n.language === "tr" ? toast.error("Lütfen tüm alanları doldurun!") : toast.error("Please fill in all fields!");

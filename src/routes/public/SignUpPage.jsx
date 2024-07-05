@@ -40,6 +40,20 @@ function SignUpPage() {
               i18n.language === "tr" ? toast("Hesap oluşturuldu.") : toast("Account created successfully!");
             }
           });
+          if (res === "auth/wrong-password") {
+            i18n.language === "tr" ? toast.error("Şifre yanlış!") : toast.error("Wrong password!");
+          }
+          if (res === "auth/user-not-found") {
+            i18n.language === "tr" ? toast.error("Kullanıcı bulunamadı!") : toast.error("User not found!");
+          }
+          if (res === "auth/too-many-requests") {
+            i18n.language === "tr"
+              ? toast.error("Çok fazla deneme yaptınız, lütfen daha sonra tekrar deneyin!")
+              : toast.error("You have tried too many times, please try again later!");
+          }
+          if (res === "auth/invalid-email") {
+            i18n.language === "tr" ? toast.error("Geçersiz e-posta!") : toast.error("Invalid email!");
+          }
         } else {
           i18n.language === "tr" ? toast.error("Kullanıcı adı kullanılmaktadır.") : toast.error("Username is taken.");
         }
@@ -96,6 +110,7 @@ function SignUpPage() {
                   <motion.input
                     id="name"
                     type="text"
+                    required
                     placeholder={t("signup.namePlaceholder")}
                     className={onClassDefiner(errors.name)}
                     {...register("name", { required: true, minLength: 3 })}
@@ -121,6 +136,7 @@ function SignUpPage() {
                   <motion.input
                     type="email"
                     id="email"
+                    required
                     placeholder={t("signup.emailPlaceholder")}
                     className={onClassDefiner(errors.email)}
                     {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
@@ -158,6 +174,7 @@ function SignUpPage() {
                   <motion.input
                     type="password"
                     placeholder={t("signup.passwordPlaceholder")}
+                    required
                     className={onClassDefiner(errors.password)}
                     {...register("password", { required: true, minLength: 6 })}
                     aria-invalid={errors.password ? true : false}
@@ -168,6 +185,7 @@ function SignUpPage() {
                   <motion.input
                     type="password"
                     id="confirmPassword"
+                    required
                     placeholder={t("signup.confirmPasswordPlaceholder")}
                     className={onClassDefiner(errors.confirmPassword)}
                     {...register("confirmPassword", { required: true, minLength: 6 })}
