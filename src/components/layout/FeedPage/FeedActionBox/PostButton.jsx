@@ -51,7 +51,11 @@ function PostButton({ text, setText }) {
 
   return (
     <motion.button
-      className="w-full p-2 text-lg transition-colors duration-300 rounded-lg select-none h-100 bg-fuchsia-800 hover:bg-slate-700 text-cWhite"
+      className={
+        text.length > 280
+          ? "w-full p-2 text-lg transition-colors duration-300 rounded-lg select-none h-100 bg-red-800 hover:bg-slate-700 text-cWhite"
+          : "w-full p-2 text-lg transition-colors duration-300 rounded-lg select-none h-100 bg-fuchsia-800 hover:bg-slate-700 text-cWhite"
+      }
       onClick={createPost}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}

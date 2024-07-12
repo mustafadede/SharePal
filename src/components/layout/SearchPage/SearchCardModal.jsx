@@ -211,6 +211,7 @@ function SearchCardModal() {
 
   const attachHandler = () => {
     dispatch(modalActions.closeModal({ name: "attachedFilmModal", data: { title, poster, releaseDate, backdrop } }));
+    dispatch(modalActions.assignLastModalName("attachedFilmModal"));
     navigate(`/feed`);
     i18n.language === "en" ? toast("Attached to your post!") : toast("Paylaşacağın gönderiye eklendi!");
   };
