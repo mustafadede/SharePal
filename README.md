@@ -10,7 +10,7 @@
 ![chrome_gKM3NhZWIk](https://github.com/mustafadede/SharePal/assets/95627279/24b42e10-3b75-44c4-9398-a8ff2aceb02f)
 
 
-This is a Film/Series social media app with React, Redux Toolkit and Firebase. You can share your thoughts in the feed with attachment, text or with a spoiler. Follow your friends, create a list for them or suggest a film/series as you like. You can update your profile, add banner, profile photo etc. Explore upcoming films/series with explore page. Search and find users in the search page or films/series! WWhen you search any film or series as you like you can give it an action. Actions appear you profile status section. (How many films/series you watched, currently watching, best film/series in this year etc.) 
+This is a Film/Series social media app with React, Redux Toolkit and Firebase. You can share your thoughts in the feed with attachment, text or with a spoiler. Follow your friends, create a list for them or suggest a film/series as you like. You can update your profile, add banner, profile photo etc. Explore upcoming films/series with explore page. Search and find users in the search page or films/series! When you search any film or series as you like you can give it an action. Actions appear you profile status section. (How many films/series you watched, currently watching, best film/series in this year etc.) 
 
 If you want to dive deeper here is :
 - For the design, thoughts, wireframing: [Figma](https://www.figma.com/file/Aj2NOVzUCGzkp1G5YzCnim/SharePal?type=whiteboard&t=Ggv7qDKmgEpDcZPE-1)
