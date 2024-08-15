@@ -14,6 +14,7 @@ function ActionTextArea({ text, setText }) {
   const { user } = useSelector((state) => state.user);
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
+
   const createPost = () => {
     if (text.length > 0 && text.length <= 280) {
       dispatch(
@@ -48,6 +49,7 @@ function ActionTextArea({ text, setText }) {
       }
     }
   };
+
   const handlePost = (e) => {
     if (e.ctrlKey && e.key === "Enter") {
       createPost();
@@ -55,17 +57,22 @@ function ActionTextArea({ text, setText }) {
   };
 
   return (
-    <motion.textarea
-      name="post"
-      className="w-full h-20 px-4 py-2 my-2 rounded-lg outline-none resize-none text-md text-cWhite bg-slate-800"
-      placeholder={t("box.wp")}
-      value={text}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.3 }}
-      onChange={(e) => setText(e.target.value)}
-      onKeyDown={(e) => handlePost(e)}
-    />
+    <motion.div className="relative">
+      <motion.textarea
+        name="post"
+        className="w-full h-20 px-4 py-2 my-2 rounded-lg outline-none resize-none text-md text-cWhite bg-slate-800"
+        placeholder={t("box.wp")}
+        value={text}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3 }}
+        onChange={(e) => setText(e.target.value)}
+        onKeyDown={(e) => handlePost(e)}
+      />
+      <motion.div className="absolute px-2 select-none right-1 bg-black/30 rounded-2xl bottom-4">
+        <motion.p className="text-sm text-white/40">{text.length}/280</motion.p>
+      </motion.div>
+    </motion.div>
   );
 }
 
