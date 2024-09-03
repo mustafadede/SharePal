@@ -11,7 +11,7 @@ function HomeTabs({ tabInfo, tab }) {
         }`}
         onClick={() => tab(0)}
       >
-        <span className={`text-lg font-semibold ${tabInfo === 0 ? "text-fuchsia-400" : null}`}>{t("home.firstTab")}</span>
+        <span className={`text-sm lg:text-lg font-semibold ${tabInfo === 0 ? "text-fuchsia-400" : null}`}>{t("home.firstTab")}</span>
       </button>
       <button
         className={`flex items-center justify-center w-1/2 h-full transition-all text-slate-300 hover:text-fuchsia-600 ${
@@ -19,7 +19,9 @@ function HomeTabs({ tabInfo, tab }) {
         }`}
         onClick={() => tab(1)}
       >
-        <span className={`text-lg font-semibold ${tabInfo === 1 ? "text-fuchsia-400" : null}`}>{t("home.secondTab")}</span>
+        <span className={`text-sm md:text-md lg:text-lg font-semibold ${tabInfo === 1 ? "text-fuchsia-400" : null}`}>
+          {t("home.secondTab")}
+        </span>
       </button>
       <button
         className={`flex items-center justify-center w-1/2 h-full transition-all rounded-tr-xl text-slate-300 hover:text-fuchsia-600 ${
@@ -27,7 +29,7 @@ function HomeTabs({ tabInfo, tab }) {
         }`}
         onClick={() => tab(2)}
       >
-        <span className={`text-lg font-semibold ${tabInfo === 2 ? "text-fuchsia-400" : null}`}>{t("home.thirdTab")}</span>
+        <span className={`text-sm lg:text-lg font-semibold ${tabInfo === 2 ? "text-fuchsia-400" : null}`}>{t("home.thirdTab")}</span>
       </button>
     </div>
   );
