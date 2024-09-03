@@ -5,7 +5,7 @@ import { BookmarkFilledIcon, BookmarkIcon, EyeOpenIcon, Link2Icon, PauseIcon, Pl
 import { motion } from "framer-motion";
 
 function SearchCardModalAsset() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   return (
     <div className="bg-slate-900 z-20 scale-[0.4] md:scale-50 lg:scale-100 shadow-md w-[50rem] h-[37rem] rounded-2xl relative overflow-hidden select-none no-scrollbar">
@@ -43,7 +43,7 @@ function SearchCardModalAsset() {
           <h2 className="mb-2 text-2xl text-slate-300">2021</h2>
           <h3 className="px-3 text-xl border rounded-md w-fit border-slate-300 text-slate-300">TV</h3>
           <div className="relative flex flex-wrap items-center gap-2 top-4">
-            {["Animation", "Sci-Fi & Fantasy", "Action & Adventure", "Drama"].map((item, i) => (
+            {[t("home.animation"), t("home.scifi"), t("home.action"), t("home.drama")].map((item, i) => (
               <p key={i} className="px-3 py-2 text-sm border rounded-lg 2xl:text-md border-slate-300 text-slate-300">
                 {item}
               </p>
@@ -101,13 +101,13 @@ function SearchCardModalAsset() {
               <h3 className="pb-1 mt-0 overflow-hidden text-xl h-fit text-slate-200">{t("wantToWatch.noUserWantToWatch")}</h3>
 
               <div className="flex flex-wrap justify-start gap-2 mt-0 mb-0">
-                <p className="text-slate-600">None of your followings discover this show</p>
+                <p className="text-slate-600">{i18n.language === "en" ? t("wantToWatch.info") + " TV Show" : t("wantToWatch.info")}</p>
               </div>
             </div>
             <div>
               <h3 className="pb-1 mt-0 overflow-hidden text-xl h-fit text-slate-200">{t("watched.noUserWatched")}</h3>
               <div className="flex flex-wrap justify-start gap-2 mt-0 mb-0 yt-2">
-                <p className="text-slate-600">None of your followings discover this show</p>
+                <p className="text-slate-600">{i18n.language === "en" ? t("wantToWatch.info") + " TV Show" : t("wantToWatch.info")}</p>
               </div>
             </div>
           </div>

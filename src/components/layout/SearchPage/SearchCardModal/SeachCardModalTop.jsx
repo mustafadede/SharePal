@@ -1,7 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { movieGenresJSON, tvGenresJSON } from "../../../../assets/genreData";
+import { movieGenresTRJSON, tvGenresTRJSON } from "../../../../assets/genreDataTR";
+import { useTranslation } from "react-i18next";
 function SeachCardModalTop({ poster, backdrop, title, releaseDate, genres, mediaType, upcoming }) {
+  const { i18n } = useTranslation();
   return (
     <div className="relative flex flex-row-reverse w-full h-full md:h-[21rem]">
       {/* Image */}
@@ -35,6 +38,7 @@ function SeachCardModalTop({ poster, backdrop, title, releaseDate, genres, media
         </h3>
         <div className="relative flex items-center gap-2 flex-nowrap md:flex-wrap top-4">
           {mediaType === "movie" &&
+            i18n.language === "en" &&
             genres
               .filter((genre) => movieGenresJSON.some((movieGenre) => movieGenre.id === genre))
               .map((filteredGenre) => (
@@ -42,12 +46,31 @@ function SeachCardModalTop({ poster, backdrop, title, releaseDate, genres, media
                   {movieGenresJSON.find((movieGenre) => movieGenre.id === filteredGenre).name}
                 </p>
               ))}
+          {mediaType === "movie" &&
+            i18n.language === "tr" &&
+            genres
+              .filter((genre) => movieGenresTRJSON.some((movieGenre) => movieGenre.id === genre))
+              .map((filteredGenre) => (
+                <p key={filteredGenre} className="px-3 py-2 text-sm border rounded-lg 2xl:text-md border-slate-300 text-slate-300">
+                  {movieGenresTRJSON.find((movieGenre) => movieGenre.id === filteredGenre).name}
+                </p>
+              ))}
           {mediaType === "tv" &&
+            i18n.language === "en" &&
             genres
               .filter((genre) => tvGenresJSON.some((tvGenre) => tvGenre.id === genre))
               .map((filteredGenre) => (
                 <p key={filteredGenre} className="px-3 py-2 text-sm border rounded-lg 2xl:text-md border-slate-300 text-slate-300">
                   {tvGenresJSON.find((tvGenre) => tvGenre.id === filteredGenre).name}
+                </p>
+              ))}
+          {mediaType === "tv" &&
+            i18n.language === "tr" &&
+            genres
+              .filter((genre) => tvGenresTRJSON.some((tvGenre) => tvGenre.id === genre))
+              .map((filteredGenre) => (
+                <p key={filteredGenre} className="px-3 py-2 text-sm border rounded-lg 2xl:text-md border-slate-300 text-slate-300">
+                  {tvGenresTRJSON.find((tvGenre) => tvGenre.id === filteredGenre).name}
                 </p>
               ))}
         </div>

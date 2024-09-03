@@ -34,7 +34,7 @@ function WatchedComponent() {
           <p className="text-slate-600">{t("wantToWatch.info")}</p>
         ) : (
           <p className="text-slate-600">
-            None of your followings discover this
+            {t("wantToWatch.info")}
             {modalHasData.mediaType === "tv" ? " " + modalHasData.mediaType.toUpperCase() + " Show" : " " + modalHasData.mediaType}.
           </p>
         )}

@@ -14,6 +14,7 @@ import FeedCardActionModal from "../components/layout/FeedCardActionModal/FeedCa
 import SuggestFilmModal from "../components/common/SuggestFılmModal/suggestFilmModal";
 import CreateFriendList from "../components/common/CreateFriendList/CreateFriendList";
 import WatchedThisModal from "../components/common/watchedThis/WatchedThisModal";
+import SearchModal from "../components/common/SearchModal/SearchModal";
 
 const contextClass = {
   success: "backdrop-blur-lg",
@@ -102,6 +103,11 @@ function RootLayout() {
             <CreateFriendList />
           </ModalSkeleton>
         )}
+        {/* {modalState && modalName === "searchModal" && (
+          <ModalSkeleton>
+            <SearchModal />
+          </ModalSkeleton>
+        )} */}
         <Outlet />
       </div>
     </>
