@@ -10,7 +10,7 @@ function HomePageMiddleTopSection() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
       transition={{ delay: 2.7, duration: 0.4 }}
-      className="flex flex-col items-center justify-center relative top-[-16rem] md:top-[-14rem] lg:top-[-5rem] h-full"
+      className="flex flex-col items-center justify-center relative top-[-16rem] md:top-[-14rem] lg:top-[-5rem] h-fit"
     >
       <motion.div
         className="hidden lg:flex lg:absolute lg:left-10 h-1/2"

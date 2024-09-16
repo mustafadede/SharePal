@@ -8,7 +8,7 @@ function SearchCardModalAsset() {
   const { t, i18n } = useTranslation();
 
   return (
-    <div className="bg-slate-900 z-20 scale-[0.4] md:scale-50 lg:scale-100 shadow-md w-[50rem] h-[37rem] rounded-2xl relative overflow-hidden select-none no-scrollbar">
+    <div className="bg-slate-900 z-20 md:scale-50 lg:scale-100 hidden md:block shadow-md w-[50rem] h-[37rem] rounded-2xl relative overflow-hidden select-none no-scrollbar">
       <div className="absolute top-0 z-20 w-full p-6">
         <div className="flex items-center justify-between w-full">
           <div className="flex justify-center gap-1">

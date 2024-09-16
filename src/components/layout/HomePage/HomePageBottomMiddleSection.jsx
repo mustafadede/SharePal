@@ -12,7 +12,7 @@ function HomePageBottomMiddleSection() {
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: transitionDelay }}
-      className="w-full px-4 py-2 h-fit flex flex-col gap-4 relative top-[-26rem] md:top-[-23rem] lg:top-[-4rem]"
+      className="w-full px-4 py-2 flex flex-col gap-4 relative md:top-[-23rem] lg:top-[-4rem]"
     >
       <HomeTabs tabInfo={tab} tab={setTab} />
       {tab === 0 && <FirstSection />}

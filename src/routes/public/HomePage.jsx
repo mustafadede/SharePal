@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import HomePageTopSection from "../../components/layout/HomePage/HomePageTopSection";
 import HomePageMiddleTopSection from "../../components/layout/HomePage/HomePageMiddleTopSection";
 import HomePageBottomMiddleSection from "../../components/layout/HomePage/HomePageBottomMiddleSection";
+import Footer from "../../components/common/Footer";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -33,11 +34,12 @@ function HomePage() {
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -100 }}
-          className="flex flex-col gap-4 mx-4 overflow-hidden lg:mx-10 h-fit"
+          className="flex flex-col min-h-screen gap-4 mx-4 overflow-hidden lg:mx-10"
         >
           <HomePageTopSection />
           <HomePageMiddleTopSection />
           <HomePageBottomMiddleSection />
+          <Footer />
         </motion.div>
       </AnimatePresence>
     </>

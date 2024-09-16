@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { getUserBySearch } from "../../../firebase/firebaseActions";
-import useSearch from "../../../hooks/useSearch";
 import SearchUserCard from "../../layout/SearchPage/SearchUserCard";
 import SearchCard from "../../layout/SearchPage/SearchCard";
 import { toast } from "react-toastify";
