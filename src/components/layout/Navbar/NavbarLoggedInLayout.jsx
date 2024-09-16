@@ -9,7 +9,7 @@ import { modalActions } from "../../../store/modalSlice";
 function NavbarLoggedInLayout() {
   const dispatch = useDispatch();
   const searchListenFunction = (e) => {
-    if (e.altKey && e.key === "k") {
+    if ((e.altKey && e.key === "k") || e.key === "K") {
       dispatch(modalActions.openModal({ name: "searchModal" }));
     }
   };

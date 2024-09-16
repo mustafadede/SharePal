@@ -8,12 +8,12 @@ function NavbarOptions() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="relative">
+    <div className="relative flex justify-center">
       <button onClick={() => setIsOpen(!isOpen)} className="flex items-center justify-center rounded w-7 h-7">
         <GearIcon className="w-10 h-10 md:w-7 md:h-7 text-cWhite hover:text-fuchsia-700 hover:transition-colors" />
       </button>
       <div
-        className={`absolute text-center right-0 z-10 w-32 mt-2 origin-top-right bg-slate-900 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 ${
+        className={`absolute text-center right-0 z-10 w-32 mt-11 border border-1 border-slate-200/20 origin-top-right bg-slate-900 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 ${
           isOpen ? "block" : "hidden"
         }`}
       >

@@ -103,11 +103,11 @@ function RootLayout() {
             <CreateFriendList />
           </ModalSkeleton>
         )}
-        {/* {modalState && modalName === "searchModal" && (
+        {modalState && modalName === "searchModal" && (
           <ModalSkeleton>
             <SearchModal />
           </ModalSkeleton>
-        )} */}
+        )}
         <Outlet />
       </div>
     </>

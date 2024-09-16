@@ -21,7 +21,7 @@ function SearchUserCard({ user }) {
   return (
     <button
       onClick={handleUserClick}
-      className="relative flex flex-row items-center justify-between w-full overflow-hidden bg-gray-900 rounded-2xl group h-28"
+      className="relative flex flex-row items-center justify-between w-full overflow-hidden bg-gray-800 rounded-2xl group h-28"
     >
       {user.banner ? (
         <img

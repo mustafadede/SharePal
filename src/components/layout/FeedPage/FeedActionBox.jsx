@@ -11,7 +11,6 @@ function FeedActionBox() {
   const { tagFlag } = useSelector((state) => state.createPost);
   const { modalHasData, lastModalName } = useSelector((state) => state.modal);
   const [text, setText] = useState("");
-  console.log(modalHasData);
   return (
     <>
       <motion.div

@@ -20,7 +20,7 @@ function NavbarNotification() {
   return (
     <Link to={"/notifications"}>
       <button className="relative flex items-center justify-center rounded w-7 h-7">
-        <BellIcon className="w-10 h-10 md:w-6 md:h-6 text-cWhite hover:text-fuchsia-700 hover:transition-colors" />
+        <BellIcon className="w-8 h-8 md:w-6 md:h-6 text-cWhite hover:text-fuchsia-700 hover:transition-colors" />
         {/* {notify && (
         <div className="absolute flex items-center justify-center w-2 h-2 text-xs text-center rounded-full text-cWhite bg-fuchsia-700 -top-0 -right-0"></div>
         )} */}

@@ -50,7 +50,7 @@ function HomeAttachCard() {
             )}
             <div className="flex flex-col">
               <Link
-                to={"https://sharepal.dev/#/user/Mustafa"}
+                to={"/user/Mustafa"}
                 className="transition-all duration-300 text-md hover:underline hover:text-fuchsia-600 text-slate-200 w-fit"
               >
                 @{data.nick}
