@@ -23,13 +23,13 @@ function FeedCardPage() {
     const getData = async () => {
       cardData.length === 0 && dispatch(cardActions.updateState("loading"));
       if (incomingData) {
-        getSpecificPost(incomingData?.uId.trim(""), incomingData?.pId).then((res) => {
+        getSpecificPost(incomingData?.pId).then((res) => {
           dispatch(cardActions.updateState("done"));
           dispatch(cardActions.updateData(res));
         });
       } else {
         getUserByTheUsername(window.location.hash.split("/")[2]).then((res) => {
-          getSpecificPost(res[0].uid.trim(""), window.location.hash.split("/")[3]).then((res) => {
+          getSpecificPost(window.location.hash.split("/")[3]).then((res) => {
             dispatch(cardActions.updateState("done"));
             dispatch(cardActions.updateData(res));
           });

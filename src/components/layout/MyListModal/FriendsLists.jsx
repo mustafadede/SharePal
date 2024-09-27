@@ -21,7 +21,6 @@ function FriendsLists() {
     dispatch(modalActions.closeModal());
     dispatch(modalActions.openModal({ name: "listModal", data: { id, title, list, date } }));
   };
-  console.log(lists);
   return (
     <div className="mt-4 overflow-scroll h-80 md:h-fit no-scrollbar">
       {lists.map((list, i) => {

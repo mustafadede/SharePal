@@ -22,7 +22,7 @@ function NotificationLikeCard({ uid, nick, photoURL, date, postId, deleteId }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    getSelectedUserPost(localStorage.getItem("user"), postId).then((res) => setPost(res));
+    getSelectedUserPost(postId).then((res) => setPost(res));
   }, []);
   const handleClick = () => {
     navigate(`/feed/${user.nick}/${postId}`, { state: { uId: user.uid || uid, pId: postId } });

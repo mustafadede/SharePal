@@ -42,8 +42,6 @@ function SearchModal() {
 
     if (e.key === "Enter" && selectedFilter === "people") {
       useSearchCast(search, setMovies);
-      console.log(movies);
-
       setUsers([]);
     }
 

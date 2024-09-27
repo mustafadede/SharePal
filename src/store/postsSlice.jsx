@@ -12,8 +12,14 @@ const postsSlice = createSlice({
       state.posts = action.payload;
       state.status = "success";
     },
+    addMorePosts: (state, action) => {
+      const newPosts = action.payload.filter((newPost) => !state.posts.some((existingPost) => existingPost.postId === newPost.postId));
+      state.posts = [...state.posts, ...newPosts];
+    },
+
     resetPosts: (state) => {
       state.posts = [];
+      state.status = null;
     },
     editPost: (state, action) => {
       const index = state.posts.findIndex((post) => post.postId === action.payload.postId);

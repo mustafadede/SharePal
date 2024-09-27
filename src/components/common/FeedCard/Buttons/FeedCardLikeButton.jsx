@@ -36,7 +36,7 @@ function FeedCardLikeButton({ data }) {
             : [{ id: getAuth().currentUser.uid, nick: getAuth().currentUser.displayName }],
         })
       );
-      updateSelectedPost(data.userId, data.postId, {
+      updateSelectedPost(data.postId, {
         likes: data.likes + 1,
         likesList: data.likesList
           ? [...data.likesList, { id: getAuth().currentUser.uid, nick: getAuth().currentUser.displayName }]
@@ -71,12 +71,11 @@ function FeedCardLikeButton({ data }) {
           likesList: data.likesList?.filter((val) => val.id !== getAuth().currentUser.uid),
         })
       );
-      updateSelectedPost(data.userId, data.postId, {
+      updateSelectedPost(data.postId, {
         likes: data.likes - 1,
         likesList: data.likesList?.filter((val) => val.id !== getAuth().currentUser.uid),
-      }).then(() => {
-        removeSelectedUserPostLikeLists(data.userId, data.postId);
       });
+      removeSelectedUserPostLikeLists(data.userId, data.postId);
     }
   };
 

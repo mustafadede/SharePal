@@ -187,7 +187,7 @@ function SearchCardModal() {
       deleteWantToWatch({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
         setClickAction1(false);
         setWantToWatch(false);
-        deleteSelectedPost(localStorage.getItem("user"), post);
+        deleteSelectedPost(post);
         i18n.language === "en" ? toast("Information removed from this!") : toast("Bu içerikten bilgi kaldırıldı!");
       });
     }

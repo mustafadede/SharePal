@@ -9,7 +9,20 @@ import {
 } from "firebase/auth";
 import { auth, database, storage } from "./firebaseConfig";
 import { toast } from "react-toastify";
-import { child, get, getDatabase, orderByValue, push, query, ref, set, update } from "firebase/database";
+import {
+  child,
+  endBefore,
+  get,
+  getDatabase,
+  limitToLast,
+  orderByChild,
+  orderByValue,
+  push,
+  query,
+  ref,
+  set,
+  update,
+} from "firebase/database";
 import { getDownloadURL, ref as sRef, uploadBytes } from "firebase/storage";
 
 const dbRef = ref(getDatabase());
@@ -429,9 +442,11 @@ const unfollowUser = async (userId, data) => {
 const createPostAction = async (text, attachedFilm, spoiler, nick) => {
   try {
     const userId = getAuth().currentUser.uid;
-    const newPostRef = push(ref(database, `posts/${userId}`));
+    const newPostRef = push(ref(database, `posts/`));
+    const newUserPostRef = push(ref(database, `userPostsList/${userId}/posts/`));
     set(newPostRef, {
       userId: userId,
+      postId: newPostRef.key,
       photoURL: getAuth().currentUser.photoURL || null,
       nick: nick,
       spoiler: spoiler || null,
@@ -446,6 +461,9 @@ const createPostAction = async (text, attachedFilm, spoiler, nick) => {
       repostList: [],
       date: Date.now(),
     });
+    await update(newUserPostRef, {
+      [newPostRef.key]: true, // Post ID'yi key olarak ekle
+    });
     return true;
   } catch (error) {
     console.error(error);
@@ -456,8 +474,9 @@ const createPostAction = async (text, attachedFilm, spoiler, nick) => {
 const createFeedAction = async (data) => {
   try {
     const userId = getAuth().currentUser.uid;
-    const newPostRef = push(ref(database, `posts/${userId}`));
+    const newPostRef = push(ref(database, `posts/`));
     set(newPostRef, {
+      postId: newPostRef.key,
       userId: userId,
       photoURL: getAuth().currentUser.photoURL || null,
       nick: data.nick,
@@ -474,22 +493,16 @@ const createFeedAction = async (data) => {
 
 const editSelectedPost = async (postId, text, spoiler) => {
   try {
-    const userId = getAuth().currentUser.uid;
-    const postsRef = ref(database, `posts/${userId}/`);
-    const snapshot = await get(postsRef);
+    const postRef = ref(database, `posts/${postId}`);
+    const snapshot = await get(postRef);
     if (snapshot.exists()) {
-      snapshot.forEach((childSnapshot) => {
-        if (childSnapshot.key === postId) {
-          const updates = {};
-          updates[`posts/${userId}/${childSnapshot.key}`] = {
-            ...childSnapshot.val(),
-            content: text ? text : childSnapshot.val().content,
-            edited: true,
-            spoiler: spoiler,
-          };
-          update(ref(database), updates);
-        }
-      });
+      const postData = snapshot.val();
+      const updates = {
+        content: text ? text : postData.content,
+        edited: true,
+        spoiler: spoiler,
+      };
+      await update(postRef, updates);
       return true;
     } else {
       console.log("No data available");
@@ -501,46 +514,117 @@ const editSelectedPost = async (postId, text, spoiler) => {
   }
 };
 
+const getInitialPosts = async () => {
+  const postsRef = ref(database, "posts");
+  const sortedPostsRef = query(postsRef, orderByChild("date"), limitToLast(15));
+  const snapshot = await get(sortedPostsRef);
+  const allPosts = [];
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      const posts = childSnapshot.val();
+      const postId = childSnapshot.key;
+      allPosts.push({
+        photoURL: posts.photoURL || null,
+        postId: postId,
+        nick: posts.nick,
+        content: posts.content,
+        spoiler: posts.spoiler,
+        attachedFilm: posts.attachedFilm,
+        likesList: posts.likesList || null,
+        likes: posts.likes,
+        comments: posts.comments,
+        edited: posts.edited || false,
+        repost: posts.repost,
+        repostsList: posts.repostsList || null,
+        date: posts.date,
+        userId: posts.userId.trim(),
+        attachedAction: posts.attachedAction || null,
+        actionName: posts.actionName || null,
+      });
+    });
+  }
+  return allPosts.reverse();
+};
+
 const getAllPosts = async () => {
   const postsRef = ref(database, "posts");
-  const sortedPostsRef = query(postsRef, orderByValue());
+  const sortedPostsRef = query(postsRef, orderByChild("date"));
+
   const snapshot = await get(sortedPostsRef);
 
   const allPosts = [];
   if (snapshot.exists()) {
     snapshot.forEach((childSnapshot) => {
       const posts = childSnapshot.val();
-      Object.entries(posts).forEach(([key, value]) => {
-        allPosts.push({
-          photoURL: value.photoURL || null,
-          postId: key,
-          nick: value.nick,
-          content: value.content,
-          spoiler: value.spoiler,
-          attachedFilm: value.attachedFilm,
-          likesList: value.likesList || null,
-          likes: value.likes,
-          comments: value.comments,
-          edited: value.edited || false,
-          repost: value.repost,
-          repostsList: value.repostsList || null,
-          date: value.date,
-          userId: value.userId.trim(),
-          attachedAction: value.attachedAction || null,
-          actionName: value.actionName || null,
-        });
+      const postId = childSnapshot.key;
+      allPosts.push({
+        photoURL: posts.photoURL || null,
+        postId: postId,
+        nick: posts.nick,
+        content: posts.content,
+        spoiler: posts.spoiler,
+        attachedFilm: posts.attachedFilm,
+        likesList: posts.likesList || null,
+        likes: posts.likes,
+        comments: posts.comments,
+        edited: posts.edited || false,
+        repost: posts.repost,
+        repostsList: posts.repostsList || null,
+        date: posts.date,
+        userId: posts.userId.trim(),
+        attachedAction: posts.attachedAction || null,
+        actionName: posts.actionName || null,
       });
     });
   }
-  return allPosts.sort((a, b) => a.date - b.date);
+  return allPosts;
 };
 
-const deleteSelectedPost = async (userId, postId) => {
+const getPreviousPosts = async (lastPostDate) => {
+  const postsRef = ref(database, "posts");
+  // lastPostDate'den önceki verileri getirmek için endBefore kullanıyoruz.
+  const sortedPostsRef = query(
+    postsRef,
+    orderByChild("date"),
+    endBefore(lastPostDate), // Bu, belirli bir tarihten önceki verileri getirir.
+    limitToLast(15) // Son 15 veriyi getiriyoruz (önceki sayfa)
+  );
+
+  const snapshot = await get(sortedPostsRef);
+  const allPosts = [];
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      const posts = childSnapshot.val();
+      const postId = childSnapshot.key;
+      allPosts.push({
+        photoURL: posts.photoURL || null,
+        postId: postId,
+        nick: posts.nick,
+        content: posts.content,
+        spoiler: posts.spoiler,
+        attachedFilm: posts.attachedFilm,
+        likesList: posts.likesList || null,
+        likes: posts.likes,
+        comments: posts.comments,
+        edited: posts.edited || false,
+        repost: posts.repost,
+        repostsList: posts.repostsList || null,
+        date: posts.date,
+        userId: posts.userId.trim(),
+        attachedAction: posts.attachedAction || null,
+        actionName: posts.actionName || null,
+      });
+    });
+  }
+  return allPosts;
+};
+
+const deleteSelectedPost = async (postId) => {
   try {
-    const postsRef = ref(database, `posts/${userId}/${postId}`);
+    const postsRef = ref(database, `posts/${postId}`);
     const snapshot = await get(postsRef);
     if (snapshot.exists()) {
-      set(ref(database, `posts/${userId}/${postId}`), null);
+      set(ref(database, `posts/${postId}`), null);
       return true;
     } else {
       console.log("No data available");
@@ -552,18 +636,15 @@ const deleteSelectedPost = async (userId, postId) => {
   }
 };
 
-const updateSelectedPost = async (userId, postId, data) => {
+const updateSelectedPost = async (postId, data) => {
   try {
-    const postsRef = ref(database, `posts/${userId}/`);
-    const snapshot = await get(postsRef);
+    const postRef = ref(database, `posts/${postId}/`);
+    const snapshot = await get(postRef);
     if (snapshot.exists()) {
-      snapshot.forEach((childSnapshot) => {
-        if (childSnapshot.key === postId) {
-          const updates = {};
-          updates[`posts/${userId}/${childSnapshot.key}`] = { ...childSnapshot.val(), ...data };
-          update(ref(database), updates);
-        }
-      });
+      const updates = {
+        ...data,
+      };
+      await update(postRef, updates);
       return true;
     } else {
       console.log("No data available");
@@ -577,7 +658,7 @@ const updateSelectedPost = async (userId, postId, data) => {
 
 const getAllSelectedUserPostLikeLists = async (userId) => {
   const postsRef = ref(database, `likesList/${userId}`);
-  const snapshot = await get(postsRef);
+  const snapshot = await get(postsRef, orderByChild("date"));
   const allPosts = [];
   if (snapshot.exists()) {
     snapshot.forEach((childSnapshot) => {
@@ -613,7 +694,7 @@ const removeSelectedUserPostLikeLists = async (postId) => {
     if (snapshot.exists()) {
       snapshot.forEach((childSnapshot) => {
         if (childSnapshot.val().postId === postId) {
-          set(ref(database, `likesList/${userPost}/${childSnapshot.key}`), null);
+          set(ref(database, `likesList/${userPost}/${postId}`), null);
         }
       });
     }
@@ -670,8 +751,8 @@ const removeSelectedUserPostRepostsLists = async (userId, postId, data) => {
   }
 };
 
-const getSpecificPost = async (userId, postId) => {
-  const postsRef = ref(database, `posts/${userId}/${postId}`);
+const getSpecificPost = async (postId) => {
+  const postsRef = ref(database, `posts/${postId}`);
   const snapshot = await get(postsRef);
   const post = [];
   if (snapshot.exists()) {
@@ -928,38 +1009,31 @@ const getSelectedUserCommentsList = async (userId) => {
   return comments;
 };
 
-const getSelectedUserPosts = async (userId) => {
-  const selectedUserPosts = ref(database, `posts/${userId}`);
+const getSelectedUserPostsList = async (userId) => {
+  const postsRef = ref(database, `userPostsList/${userId}/posts/`);
+  const snapshot = await get(postsRef);
+  const posts = [];
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      posts.push(childSnapshot.val());
+    });
+  }
+
+  return posts;
+};
+
+const getSelectedUserPosts = async (postId) => {
+  const selectedUserPosts = ref(database, `posts/${postId}`);
   const snapshot = await get(selectedUserPosts);
   const allPosts = [];
   if (snapshot.exists()) {
-    snapshot.forEach((childSnapshot) => {
-      allPosts.push({
-        postId: childSnapshot.key,
-        photoURL: childSnapshot.val().photoURL,
-        nick: childSnapshot.val().nick,
-        content: childSnapshot.val().content,
-        spoiler: childSnapshot.val().spoiler,
-        attachedFilm: childSnapshot.val().attachedFilm,
-        likes: childSnapshot.val().likes,
-        likesList: childSnapshot.val().likesList,
-        comments: childSnapshot.val().comments,
-        edited: childSnapshot.val().edited,
-        commentsList: childSnapshot.val().commentsList || [],
-        repost: childSnapshot.val().repost,
-        repostsList: childSnapshot.val().repostsList,
-        date: childSnapshot.val().date,
-        userId: childSnapshot.val().userId,
-        attachedAction: childSnapshot.val().attachedAction || null,
-        actionName: childSnapshot.val().actionName || null,
-      });
-    });
+    allPosts.push(snapshot.val());
   }
   return allPosts;
 };
 
-const getSelectedUserPost = async (userId, postId) => {
-  const selectedUserPosts = ref(database, `posts/${userId}/${postId}`);
+const getSelectedUserPost = async (postId) => {
+  const selectedUserPosts = ref(database, `posts/${postId}`);
   const snapshot = await get(selectedUserPosts);
   const post = [];
   if (snapshot.exists()) {
@@ -1612,7 +1686,9 @@ export {
   createPostAction,
   createFeedAction,
   editSelectedPost,
+  getInitialPosts,
   getAllPosts,
+  getPreviousPosts,
   deleteSelectedPost,
   updateSelectedPost,
   getSpecificPost,
@@ -1626,6 +1702,7 @@ export {
   updateUserCommentsList,
   deleteUserCommentsList,
   getSelectedUserCommentsList,
+  getSelectedUserPostsList,
   getSelectedUserPosts,
   getSelectedUserPost,
   getNotifications,

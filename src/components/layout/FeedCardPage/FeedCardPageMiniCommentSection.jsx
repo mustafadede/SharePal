@@ -23,7 +23,7 @@ function FeedCardPageMiniCommentSection({ postId, userId, comments, setCommentVi
       relatedPostId: postId,
       relatedUserId: userId,
     }).then(() => {
-      updateSelectedPost(userId.trim(""), postId, { comments: comments + 1 });
+      updateSelectedPost(postId, { comments: comments + 1 });
       dispatch(postsActions.updateSelectedCommentNumber({ postId: postId, comments: comments + 1 }));
       if (user.uid !== userId) {
         createNotification(userId, {

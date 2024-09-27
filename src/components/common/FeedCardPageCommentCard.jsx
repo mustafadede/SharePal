@@ -67,7 +67,7 @@ function FeedCardPageCommentCard({
       setSettings(false);
       deleteUserCommentsList(user.uid, commentId);
     });
-    cardData[0]?.comments > 0 && updateSelectedPost(cardData[0]?.userId, cardData[0]?.postId, { comments: cardData[0]?.comments - 1 });
+    cardData[0]?.comments > 0 && updateSelectedPost(cardData[0]?.postId, { comments: cardData[0]?.comments - 1 });
   };
 
   return (

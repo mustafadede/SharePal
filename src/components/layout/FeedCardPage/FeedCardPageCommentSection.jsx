@@ -21,7 +21,7 @@ function FeedCardPageCommentSection({ cardPost }) {
       relatedPostId: cardPost[0]?.postId,
       relatedUserId: cardPost[0]?.userId,
     }).then(() => {
-      updateSelectedPost(cardPost[0]?.userId.trim(""), cardPost[0]?.postId, { comments: cardPost[0]?.comments + 1 });
+      updateSelectedPost(cardPost[0]?.postId, { comments: cardPost[0]?.comments + 1 });
       dispatch(
         cardActions.updateComments({
           commentId: commentId,

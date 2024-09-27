@@ -31,7 +31,7 @@ function FeedCardRepostButton({ data }) {
             : [{ id: getAuth().currentUser.uid, nick: getAuth().currentUser.displayName }],
         })
       );
-      updateSelectedPost(data.userId, data.postId, {
+      updateSelectedPost(data.postId, {
         repost: data.repost + 1,
         repostsList: data.repostsList
           ? [...data.repostsList, { id: getAuth().currentUser.uid, nick: getAuth().currentUser.displayName }]
@@ -46,7 +46,7 @@ function FeedCardRepostButton({ data }) {
         ]);
       });
     } else {
-      updateSelectedPost(data.userId, data.postId, {
+      updateSelectedPost(data.postId, {
         repost: data.repost - 1,
         repostsList: data.repostsList?.filter((val) => val.id !== getAuth().currentUser.uid),
       }).then(() => {

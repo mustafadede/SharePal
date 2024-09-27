@@ -34,7 +34,7 @@ function ActivitiesSection({ username, uid, accountPrivacyFlag }) {
               });
             });
           } else {
-            getSpecificPost(value.id.trim(), value.postId).then((res) => {
+            getSpecificPost(value.postId).then((res) => {
               res.length > 0 ? setLikes((prev) => [...prev, res]) : null;
             });
           }
@@ -42,7 +42,7 @@ function ActivitiesSection({ username, uid, accountPrivacyFlag }) {
       });
       getAllSelectedUserPostRepostsLists(uid).then((result) => {
         result.forEach((value) => {
-          getSpecificPost(value.id.trim(), value.postId).then((res) => {
+          getSpecificPost(value.postId).then((res) => {
             res.length > 0 ? setReposts((prev) => [...prev, res]) : null;
           });
         });
@@ -74,7 +74,7 @@ function ActivitiesSection({ username, uid, accountPrivacyFlag }) {
               });
             });
           } else {
-            getSpecificPost(value.id.trim(), value.postId).then((res) => {
+            getSpecificPost(value.postId).then((res) => {
               res.length > 0 ? setLikes((prev) => [...prev, res]) : null;
             });
           }
@@ -82,7 +82,7 @@ function ActivitiesSection({ username, uid, accountPrivacyFlag }) {
       });
       getAllSelectedUserPostRepostsLists(localStorage.getItem("user")).then((result) => {
         result.forEach((value) => {
-          getSpecificPost(value.id.trim(), value.postId).then((res) => {
+          getSpecificPost(value.postId).then((res) => {
             res.length > 0 ? setReposts((prev) => [...prev, res]) : null;
           });
         });

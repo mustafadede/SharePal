@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import NotificationCommentCard from "../../common/NotificationCard/NotificationCommentCard";
 import NotificationLikeCard from "../../common/NotificationCard/NotificationLikeCard";
-import InfoLabel from "../../common/InfoLabel";
 import { useSelector } from "react-redux";
 import FeedTabs from "../FeedPage/FeedTabs";
 import { motion } from "framer-motion";

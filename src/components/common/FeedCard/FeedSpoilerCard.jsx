@@ -53,7 +53,7 @@ function FeedSpoilerCard({ data, notification, share }) {
   };
 
   const deleteHandler = () => {
-    deleteSelectedPost(localStorage.getItem("user"), data.postId).then((res) => {
+    deleteSelectedPost(data.postId).then((res) => {
       if (res) {
         dispatch(postsActions.deletePost(data.postId));
         if (i18n.language === "en") {

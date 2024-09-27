@@ -43,7 +43,7 @@ function FeedCommentCard({ data, notification, share }) {
   };
 
   const deleteHandler = () => {
-    deleteSelectedPost(localStorage.getItem("user"), data.postId).then(() => {
+    deleteSelectedPost(data.postId).then(() => {
       dispatch(postsActions.deletePost(data.postId));
       if (i18n.language === "en") {
         toast.success("Post deleted successfully");
