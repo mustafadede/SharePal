@@ -30,7 +30,7 @@ function Footer() {
             <p className="flex items-center justify-center text-xs">GitHub</p>
           </a>
           <a href="#" className="flex items-center justify-center w-full gap-2 px-4 py-2 rounded-md h-fit bg-slate-800">
-            <img src="../../../../public/images/google.png" alt="Google Play" className="w-6 h-6" />
+            <img src="images/google.png" alt="Google Play" className="w-6 h-6" />
             <p className="flex items-center justify-center text-xs">Coming Soon</p>
           </a>
         </div>
