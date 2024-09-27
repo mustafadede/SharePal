@@ -3,7 +3,6 @@ import FeedCard from "../../common/FeedCard";
 import { getPreviousPosts, getInitialPosts } from "../../../firebase/firebaseActions";
 import { postsActions } from "../../../store/postsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import throttle from "lodash/throttle";
 import { useTranslation } from "react-i18next";
 
 function Feeds({ tab }) {
@@ -31,7 +30,7 @@ function Feeds({ tab }) {
     getData();
   }, [tab, post]);
 
-  const handleScroll = throttle(() => {
+  const handleScroll = () => {
     if (loadMore || status !== "done") return;
 
     const isBottom = window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 100;
@@ -55,7 +54,7 @@ function Feeds({ tab }) {
       };
       getData();
     }
-  }, 300); // 300ms throttling
+  };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
