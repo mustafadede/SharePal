@@ -1,16 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Navbar from "../../components/layout/Navbar";
-import LoginPill from "../../components/common/LoginPill";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { useTranslation } from "react-i18next";
+import { Cross2Icon } from "@radix-ui/react-icons";
 
 function ResetPassword() {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+  const [localStorageAdress, setLocalStorageAdress] = useState(localStorage.getItem("PInf") ? true : false);
 
   const {
     register,
@@ -31,9 +32,11 @@ function ResetPassword() {
   };
 
   const submitHandler = (data) => {
-    if (data.email) {
+    const localMail = JSON.parse(localStorage.getItem("PInf"))?.m || data.email;
+
+    if (localMail) {
       const auth = getAuth();
-      sendPasswordResetEmail(auth, data.email)
+      sendPasswordResetEmail(auth, localMail)
         .then(() => {
           i18n.language === "tr" ? toast("Şifre sıfırlama e-postası gönderildi!") : toast("Password reset email sent!");
           navigate("/login");
@@ -56,32 +59,44 @@ function ResetPassword() {
     }
   };
 
+  const handleStorage = () => {
+    localStorage.removeItem("PInf");
+    setLocalStorageAdress(!localStorageAdress);
+  };
+
   return (
     <>
       <Navbar />
       <motion.div className="flex flex-col items-center justify-center mt-10 h-96">
         <h1 className="mb-4 text-3xl font-bold text-center md:text-4xl lg:text-5xl text-cWhite">{t("forgot.title")}</h1>
         <motion.form className="w-[46rem] flex flex-col items-center" onSubmit={handleSubmit(submitHandler)}>
-          <motion.input
-            type="email"
-            id="email"
-            placeholder={t("login.emailPlaceholder")}
-            className={onClassDefiner(errors.email)}
-            {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
-            aria-invalid={errors.email ? true : false}
-          />
-          <div className="flex w-1/3 md:w-3/4">
-            {localStorage.getItem("m") ? (
-              <div className="flex justify-start">
-                <LoginPill
-                  text={JSON.parse(localStorage.getItem("m"))}
-                  onClickHandler={() => {
-                    setValue("email", JSON.parse(localStorage.getItem("m")), { shouldValidate: true });
-                  }}
-                />
+          {!localStorageAdress && (
+            <motion.input
+              type="email"
+              id="email"
+              placeholder={t("login.emailPlaceholder")}
+              className={onClassDefiner(errors.email)}
+              {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
+              aria-invalid={errors.email ? true : false}
+            />
+          )}
+          {localStorageAdress && (
+            <motion.div className="flex items-center justify-between w-1/3 h-20 px-4 text-xl transition-colors duration-300 border cursor-pointer md:w-3/4 hover:bg-slate-900 border-slate-600 text-cWhite bg-slate-950 rounded-2xl">
+              <div className="flex items-center justify-start gap-4 select-none">
+                <img src={JSON.parse(localStorage.getItem("PInf")).p} alt="profile" className="object-cover rounded-full w-14 h-14" />
+                <p>{JSON.parse(localStorage.getItem("PInf")).n}</p>
               </div>
-            ) : null}
-          </div>
+              <button
+                type="button"
+                className="text-md text-slate-400"
+                onClick={() => {
+                  handleStorage();
+                }}
+              >
+                <Cross2Icon className="w-6 h-6" />
+              </button>
+            </motion.div>
+          )}
           <button type="submit" className="w-1/3 py-2 mt-4 text-xl rounded-lg md:w-3/4 bg-fuchsia-800 text-cWhite">
             {t("forgot.button")}
           </button>

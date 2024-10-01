@@ -8,9 +8,8 @@ import { useForm } from "react-hook-form";
 import Navbar from "../../components/layout/Navbar";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/authSlice";
-import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
+import { Cross2Icon, EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import CheckBox from "../../components/common/CheckBox";
-import LoginPill from "../../components/common/LoginPill";
 import { browserLocalPersistence, browserSessionPersistence, setPersistence } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import { useTranslation } from "react-i18next";
@@ -22,6 +21,7 @@ function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [status, setStatus] = useState("idle");
+  const [localStorageAdress, setLocalStorageAdress] = useState(localStorage.getItem("PInf") ? true : false);
   const {
     register,
     handleSubmit,
@@ -30,12 +30,14 @@ function LoginPage() {
   } = useForm();
 
   const submitHandler = (data) => {
-    if (data.email && data.password && data.password.length >= 6) {
+    const localMail = JSON.parse(localStorage.getItem("PInf"))?.m || data.email;
+    if (localMail && data.password && data.password.length >= 6) {
+      localStorageAdress && setValue("email", localMail, { shouldValidate: true });
       setStatus("loading");
-      signInWithEmailAction(data.email, data.password).then((res) => {
+      signInWithEmailAction(localMail, data.password).then((res) => {
         if (res.operationType === "signIn") {
           i18n.language === "tr" ? toast("Giriş başarılı!") : toast("Login successful!");
-          localStorage.setItem("m", JSON.stringify(data.email));
+          localStorage.setItem("m", JSON.stringify(localMail));
           setStatus("done");
           navigate("/feed");
           dispatch(authActions.login(res.user.uid));
@@ -78,6 +80,11 @@ function LoginPage() {
     setPersistence(auth, rememberMe ? browserSessionPersistence : browserLocalPersistence);
   };
 
+  const handleStorage = () => {
+    localStorage.removeItem("PInf");
+    setLocalStorageAdress(!localStorageAdress);
+  };
+
   useEffect(() => {
     document.title = t("login.windowSettingsTitle");
   }, [i18n.language]);
@@ -99,24 +106,33 @@ function LoginPage() {
           <motion.div className="md:w-1/2 max-h-[calc(100vh-16vh)] mx-10">
             <motion.form className="flex flex-col items-center justify-center w-full h-96 md:h-full" onSubmit={handleSubmit(submitHandler)}>
               <h1 className="mb-10 text-5xl font-bold text-center text-cWhite">{t("login.title")}</h1>
-              <motion.input
-                type="email"
-                id="email"
-                placeholder={t("login.emailPlaceholder")}
-                className={onClassDefiner(errors.email)}
-                {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
-                aria-invalid={errors.email ? true : false}
-              />
-              {localStorage.getItem("m") ? (
-                <div className="flex justify-start w-full md:w-3/4">
-                  <LoginPill
-                    text={JSON.parse(localStorage.getItem("m"))}
-                    onClickHandler={() => {
-                      setValue("email", JSON.parse(localStorage.getItem("m")), { shouldValidate: true });
+              {!localStorageAdress && (
+                <motion.input
+                  type="email"
+                  id="email"
+                  placeholder={t("login.emailPlaceholder")}
+                  className={onClassDefiner(errors.email)}
+                  {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
+                  aria-invalid={errors.email ? true : false}
+                />
+              )}
+              {localStorageAdress && (
+                <motion.div className="flex items-center justify-between w-full h-20 px-4 text-xl transition-colors duration-300 border cursor-pointer md:w-3/4 hover:bg-slate-900 border-slate-600 text-cWhite bg-slate-950 rounded-2xl">
+                  <div className="flex items-center justify-start gap-4 select-none">
+                    <img src={JSON.parse(localStorage.getItem("PInf")).p} alt="profile" className="object-cover rounded-full w-14 h-14" />
+                    <p>{JSON.parse(localStorage.getItem("PInf")).n}</p>
+                  </div>
+                  <button
+                    type="button"
+                    className="text-md text-slate-400"
+                    onClick={() => {
+                      handleStorage();
                     }}
-                  />
-                </div>
-              ) : null}
+                  >
+                    <Cross2Icon className="w-6 h-6" />
+                  </button>
+                </motion.div>
+              )}
               <div className="relative flex justify-center w-full">
                 <motion.input
                   type={showPassword ? "text" : "password"}
@@ -133,11 +149,11 @@ function LoginPage() {
                   {showPassword ? <EyeOpenIcon className="w-6 h-6" /> : <EyeClosedIcon className="w-6 h-6" />}
                 </button>
               </div>
-              <div className="flex justify-around w-full ml-2">
+              <div className="flex justify-between w-full sm:justify-around md:ml-2">
                 <CheckBox label={t("login.remember")} onClickHandler={StateHandler} />
                 <motion.button
                   type="button"
-                  className="mr-4 duration-150 text-md lg:text-lg hover:underline text-fuchsia-400 focus:outline-none"
+                  className="duration-150 md:mr-4 text-md lg:text-lg hover:underline text-fuchsia-400 focus:outline-none"
                   onClick={() => {
                     navigate("/reset");
                   }}

@@ -117,7 +117,7 @@ function MyListsModalCard({
         className={` text-slate-200 w-full ${disabled ? "text-md" : "group-hover:text-fuchsia-400 text-lg"}`}
         onClick={() => clickHandler(id, title, list, date)}
       >
-        {title?.length > 28 ? title.slice(0, 28) + "..." : title}
+        {window.innerWidth > 768 ? title : title?.slice(0, 24) + "..."}
       </p>
       <div className="flex items-center gap-2">
         {!disabled && (

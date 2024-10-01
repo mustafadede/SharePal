@@ -18,6 +18,14 @@ const ProfileCard = () => {
   useEffect(() => {
     const getData = async () => {
       const userData = await getCurrentUserData(localStorage.getItem("user"));
+      localStorage.setItem(
+        "PInf",
+        JSON.stringify({
+          n: userData?.nick,
+          p: userData?.photoURL,
+          m: userData?.email,
+        })
+      );
       userData && dispatch(userActions.updateUser(userData));
       const response = await getSelectedUserFollowing(localStorage.getItem("user"));
       response && dispatch(followingActions.initialFollowing(response));
