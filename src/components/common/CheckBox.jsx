@@ -26,7 +26,7 @@ function CheckBox({ label, onClickHandler }) {
           </svg>
         </div>
       </label>
-      <label htmlFor="checkbox-1" className="cursor-pointer select-none md:ml-2 text-md md:text-lg text-cWhite">
+      <label htmlFor="checkbox-1" className="cursor-pointer select-none text-start md:ml-2 text-md md:text-lg text-cWhite">
         {label}
       </label>
     </button>

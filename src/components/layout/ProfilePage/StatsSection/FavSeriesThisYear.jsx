@@ -13,7 +13,7 @@ function FavSeriesThisYear({ username, user, navigate }) {
   return (
     <div className="flex flex-col w-full gap-4 p-4 h-fit rounded-xl bg-slate-900">
       <div className="flex items-center justify-between w-full gap-4">
-        {i18n === "en" ? (
+        {i18n.language === "en" ? (
           <p className="w-full text-xl font-bold md:text-3xl text-slate-200">IMHO, {yearIndicator} Best Series!</p>
         ) : (
           <p className="w-full text-xl font-bold text-slate-200">Bana göre {yearIndicator} yılının en iyi serisi!</p>

@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import video from "../../assets/video-playback.webm";
 import { createNickForUser, createUserWithEmailAction, isNickUnique } from "../../firebase/firebaseActions";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Navbar from "../../components/layout/Navbar";
 import { useTranslation } from "react-i18next";
+import Footer from "../../components/common/Footer";
+
+const images = ["/public/images/0.jpg", "/public/images/1.jpg", "/public/images/2.jpg", "/public/images/3.jpg"];
 
 function SignUpPage() {
+  const [imageState, setImageState] = useState(0);
   const { t, i18n } = useTranslation();
   const [step, setStep] = useState(1);
 
@@ -62,6 +65,10 @@ function SignUpPage() {
   };
   useEffect(() => {
     document.title = t("signup.windowSettingsTitle");
+    const interval = setInterval(() => {
+      setImageState((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   const stepperFunction = (stepperInfo) => {
@@ -74,51 +81,88 @@ function SignUpPage() {
   return (
     <>
       <Navbar />
-      <AnimatePresence>
-        <div className="relative flex flex-col items-center justify-center overflow-hidden md:flex-row">
+      <div className="relative flex flex-col items-center justify-center h-screen mx-6 mb-4 overflow-hidden md:flex-row">
+        <AnimatePresence mode="wait">
           <motion.div
-            key={"signupVideo"}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 40 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="w-[22rem] md:w-1/2 max-h-24 md:max-h-[calc(100vh-16vh)] mx-10 overflow-hidden rounded-3xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="relative items-center justify-center hidden w-1/2 overflow-hidden rounded-2xl md:flex"
           >
-            <motion.div className="h-screen overflow-hidden opacity-0 bg-gradient-to-br to-cGradient1 from-pink-800 md:opacity-100">
-              <video src={video} autoPlay loop muted height="100%" className="object-cover h-full "></video>
-            </motion.div>
+            <img src="public/images/phone.png" alt="phone" className="object-cover w-[1640px] rounded-2xl" />
+            <motion.img
+              key={imageState}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0.7 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              src={images[imageState]}
+              alt="screen"
+              className="absolute z-10 object-cover w-8/12 top-32 lg:top-40 xl:top-52 2xl:top-60"
+            />
           </motion.div>
-          <motion.div className="md:w-1/2 max-h-[calc(100vh-16vh)] mx-10 rounded-3xl ">
-            <motion.form
-              className="flex flex-col items-center justify-center w-full h-96 md:h-full"
-              onSubmit={handleSubmit(submitHandler)}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.4 }}
-            >
-              <motion.p
-                className="absolute hidden md:left-[26rem] xl:left-[34rem] 2xl:left-[42rem] lg:flex items-center w-fit h-full select-none font-bold text-[20rem] text-cWhite"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.4, duration: 0.4 }}
-              >
-                {step}
-              </motion.p>
-              <h1 className="mb-10 text-5xl font-bold text-center text-cWhite">{t("signup.title")}</h1>
-              {step === 1 && (
-                <>
-                  <motion.input
-                    id="name"
-                    type="text"
-                    required
-                    placeholder={t("signup.namePlaceholder")}
-                    className={onClassDefiner(errors.name)}
-                    {...register("name", { required: true, minLength: 3 })}
-                    aria-invalid={errors.name ? true : false}
+        </AnimatePresence>
+        <motion.div className="md:w-1/2 max-h-[calc(100vh-16vh)] mx-10 rounded-3xl ">
+          <motion.form
+            className="flex flex-col items-center justify-center w-full h-96 md:h-full"
+            onSubmit={handleSubmit(submitHandler)}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.4 }}
+          >
+            <h1 className="mb-10 text-5xl font-bold text-center text-cWhite">{t("signup.title")}</h1>
+            {step === 1 && (
+              <>
+                <motion.input
+                  id="name"
+                  type="text"
+                  required
+                  placeholder={t("signup.namePlaceholder")}
+                  className={onClassDefiner(errors.name)}
+                  {...register("name", { required: true, minLength: 3 })}
+                  aria-invalid={errors.name ? true : false}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                />
+                <button
+                  type="submit"
+                  className="w-full py-2 mt-2 text-xl rounded-lg md:w-3/4 bg-fuchsia-600 text-cWhite"
+                  onClick={() => stepperFunction("next")}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  {t("signup.next")}
+                </button>
+              </>
+            )}
+            {step === 2 && (
+              <>
+                <motion.input
+                  type="email"
+                  id="email"
+                  required
+                  placeholder={t("signup.emailPlaceholder")}
+                  className={onClassDefiner(errors.email)}
+                  {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
+                  aria-invalid={() => (errors.email ? true : false)}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                />
+                <div className="flex w-64 md:w-[26rem] gap-4">
+                  <button
+                    type="submit"
+                    className="w-full py-2 mt-2 text-xl rounded-lg md:w-3/4 bg-slate-800 text-cWhite"
+                    onClick={() => stepperFunction("back")}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                  />
+                  >
+                    {t("signup.back")}
+                  </button>
                   <button
                     type="submit"
                     className="w-full py-2 mt-2 text-xl rounded-lg md:w-3/4 bg-fuchsia-600 text-cWhite"
@@ -129,92 +173,55 @@ function SignUpPage() {
                   >
                     {t("signup.next")}
                   </button>
-                </>
-              )}
-              {step === 2 && (
-                <>
-                  <motion.input
-                    type="email"
-                    id="email"
-                    required
-                    placeholder={t("signup.emailPlaceholder")}
-                    className={onClassDefiner(errors.email)}
-                    {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
-                    aria-invalid={() => (errors.email ? true : false)}
+                </div>
+              </>
+            )}
+            {step === 3 && (
+              <>
+                <motion.input
+                  type="password"
+                  placeholder={t("signup.passwordPlaceholder")}
+                  required
+                  className={onClassDefiner(errors.password)}
+                  {...register("password", { required: true, minLength: 6 })}
+                  aria-invalid={errors.password ? true : false}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                />
+                <motion.input
+                  type="password"
+                  id="confirmPassword"
+                  required
+                  placeholder={t("signup.confirmPasswordPlaceholder")}
+                  className={onClassDefiner(errors.confirmPassword)}
+                  {...register("confirmPassword", { required: true, minLength: 6 })}
+                  aria-invalid={errors.confirmPassword ? true : false}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                />
+                <div className="flex w-64 md:w-[26rem] gap-4">
+                  <button
+                    type="submit"
+                    className="w-full py-2 mt-2 text-xl rounded-lg md:w-3/4 bg-slate-800 text-cWhite"
+                    onClick={() => stepperFunction("back")}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                  />
-                  <div className="flex w-64 md:w-[26rem] gap-4">
-                    <button
-                      type="submit"
-                      className="w-full py-2 mt-2 text-xl rounded-lg md:w-3/4 bg-slate-800 text-cWhite"
-                      onClick={() => stepperFunction("back")}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                    >
-                      {t("signup.back")}
-                    </button>
-                    <button
-                      type="submit"
-                      className="w-full py-2 mt-2 text-xl rounded-lg md:w-3/4 bg-fuchsia-600 text-cWhite"
-                      onClick={() => stepperFunction("next")}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                    >
-                      {t("signup.next")}
-                    </button>
-                  </div>
-                </>
-              )}
-              {step === 3 && (
-                <>
-                  <motion.input
-                    type="password"
-                    placeholder={t("signup.passwordPlaceholder")}
-                    required
-                    className={onClassDefiner(errors.password)}
-                    {...register("password", { required: true, minLength: 6 })}
-                    aria-invalid={errors.password ? true : false}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  />
-                  <motion.input
-                    type="password"
-                    id="confirmPassword"
-                    required
-                    placeholder={t("signup.confirmPasswordPlaceholder")}
-                    className={onClassDefiner(errors.confirmPassword)}
-                    {...register("confirmPassword", { required: true, minLength: 6 })}
-                    aria-invalid={errors.confirmPassword ? true : false}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  />
-                  <div className="flex w-64 md:w-[26rem] gap-4">
-                    <button
-                      type="submit"
-                      className="w-full py-2 mt-2 text-xl rounded-lg md:w-3/4 bg-slate-800 text-cWhite"
-                      onClick={() => stepperFunction("back")}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                    >
-                      {t("signup.back")}
-                    </button>
-                    <button type="submit" className="w-full py-2 mt-2 text-xl rounded-lg md:w-3/4 bg-fuchsia-600 text-cWhite">
-                      {t("signup.title")}
-                    </button>
-                  </div>
-                </>
-              )}
-            </motion.form>
-          </motion.div>
-        </div>
-      </AnimatePresence>
+                  >
+                    {t("signup.back")}
+                  </button>
+                  <button type="submit" className="w-full py-2 mt-2 text-xl rounded-lg md:w-3/4 bg-fuchsia-600 text-cWhite">
+                    {t("signup.title")}
+                  </button>
+                </div>
+              </>
+            )}
+          </motion.form>
+        </motion.div>
+      </div>
+      <Footer />
     </>
   );
 }
