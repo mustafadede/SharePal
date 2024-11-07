@@ -8,7 +8,7 @@ import Navbar from "../../components/layout/Navbar";
 import { useTranslation } from "react-i18next";
 import Footer from "../../components/common/Footer";
 
-const images = ["/public/images/0.jpg", "/public/images/1.jpg", "/public/images/2.jpg", "/public/images/3.jpg"];
+const images = ["/images/0.jpg", "/images/1.jpg", "/images/2.jpg", "/images/3.jpg"];
 
 function SignUpPage() {
   const [imageState, setImageState] = useState(0);
@@ -90,7 +90,7 @@ function SignUpPage() {
             transition={{ duration: 0.5 }}
             className="relative items-center justify-center hidden w-1/2 overflow-hidden rounded-2xl md:flex"
           >
-            <img src="public/images/phone.png" alt="phone" className="object-cover w-[1640px] rounded-2xl" />
+            <img src="/images/phone.png" alt="phone" className="object-cover w-full rounded-2xl" />
             <motion.img
               key={imageState}
               initial={{ opacity: 0 }}
@@ -99,11 +99,11 @@ function SignUpPage() {
               transition={{ duration: 0.5, delay: 0.1 }}
               src={images[imageState]}
               alt="screen"
-              className="absolute z-10 object-cover w-8/12 top-32 lg:top-40 xl:top-52 2xl:top-60"
+              className="absolute z-10 object-cover w-[225px] lg:w-[300px] xl:w-[390px] 2xl:w-[480px] top-28 lg:top-36 xl:top-48 2xl:top-60"
             />
           </motion.div>
         </AnimatePresence>
-        <motion.div className="md:w-1/2 max-h-[calc(100vh-16vh)] mx-10 rounded-3xl ">
+        <motion.div className="md:w-1/2 max-h-[calc(100vh-16vh)] ml-10 rounded-3xl ">
           <motion.form
             className="flex flex-col items-center justify-center w-full h-96 md:h-full"
             onSubmit={handleSubmit(submitHandler)}

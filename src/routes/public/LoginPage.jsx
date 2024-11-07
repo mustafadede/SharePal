@@ -14,7 +14,7 @@ import { auth } from "../../firebase/firebaseConfig";
 import { useTranslation } from "react-i18next";
 import Footer from "../../components/common/Footer";
 
-const images = ["/public/images/0.jpg", "/public/images/1.jpg", "/public/images/2.jpg", "/public/images/3.jpg"];
+const images = ["/images/0.jpg", "/images/1.jpg", "/images/2.jpg", "/images/3.jpg"];
 
 function LoginPage() {
   const [imageState, setImageState] = useState(0);
@@ -102,7 +102,7 @@ function LoginPage() {
   return (
     <>
       <Navbar />
-      <div className="relative flex flex-col items-center justify-center h-screen mx-6 overflow-hidden md:mb-4 md:flex-row">
+      <div className="relative flex flex-col items-center justify-center h-screen mx-10 overflow-hidden md:mb-4 md:flex-row">
         <AnimatePresence mode="wait">
           <motion.div
             initial={{ opacity: 0 }}
@@ -111,7 +111,7 @@ function LoginPage() {
             transition={{ duration: 0.5 }}
             className="relative items-center justify-center hidden w-1/2 overflow-hidden rounded-2xl md:flex"
           >
-            <img src="public/images/phone.png" alt="phone" className="object-cover w-[1640px] rounded-2xl" />
+            <img src="/images/phone.png" alt="phone" className="object-cover w-full rounded-2xl" />
             <motion.img
               key={imageState}
               initial={{ opacity: 0 }}
@@ -120,7 +120,7 @@ function LoginPage() {
               transition={{ duration: 0.5, delay: 0.1 }}
               src={images[imageState]}
               alt="screen"
-              className="absolute z-10 object-cover w-8/12 top-32 lg:top-40 xl:top-52 2xl:top-60"
+              className="absolute z-10 object-cover w-[235px] lg:w-[320px] xl:w-[400px] 2xl:w-[480px] top-28 lg:top-40 xl:top-48 2xl:top-60"
             />
           </motion.div>
         </AnimatePresence>
