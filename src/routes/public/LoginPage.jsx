@@ -102,7 +102,7 @@ function LoginPage() {
   return (
     <>
       <Navbar />
-      <div className="relative flex flex-col items-center justify-center h-screen mx-10 overflow-hidden md:mb-4 md:flex-row">
+      <div className="relative flex flex-col items-center justify-center h-screen mx-6 overflow-hidden md:mb-4 md:flex-row">
         <AnimatePresence mode="wait">
           <motion.div
             initial={{ opacity: 0 }}
