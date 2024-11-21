@@ -15,7 +15,7 @@ function Socials({ user }) {
       <div className="absolute flex flex-row-reverse items-center justify-center h-12 gap-2 w-fit md:right-5 bottom-2 md:bottom-3">
         <div className="flex flex-row-reverse w-full gap-2">
           {user && localStorage.getItem("user") && (
-            <button onClick={() => handleClick(`https://sharepal.dev/#/user/${user?.nick}`)}>
+            <button onClick={() => handleClick(`https://sharepal.dev/user/${user?.nick}`)}>
               <motion.div
                 className="relative p-2 text-lg transition-all bg-transparent border-2 rounded-lg border-slate-400 text-slate-400 hover:border-fuchsia-800 hover:bg-fuchsia-800 hover:text-cWhite"
                 initial={{ opacity: 0 }}

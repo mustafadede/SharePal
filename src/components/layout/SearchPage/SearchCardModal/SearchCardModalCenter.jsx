@@ -125,10 +125,10 @@ function SearchCardModalCenter({
         </div>
       ) : (
         <>
-          {status === "loading" && <InfoLabel text="Loading comments..." additionalClasses="mt-6" />}
+          {status === "loading" && <InfoLabel text={t("info.loading")} additionalClasses="mt-6" />}
           {status === "done" && comments?.length === 0 && (
             <div>
-              <InfoLabel text="Nothing happening in here" additionalClasses="mt-6" />
+              <InfoLabel text={t("searchCard.noComments")} additionalClasses="mt-6" />
             </div>
           )}
           {comments?.length > 0 && (
