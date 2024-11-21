@@ -109,9 +109,9 @@ function LoginPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className="relative items-center justify-center hidden w-1/2 overflow-hidden rounded-2xl md:flex"
+            className="relative items-center justify-center hidden w-1/2 rounded-2xl md:flex"
           >
-            <img src="/images/phone.png" alt="phone" className="object-cover w-full rounded-2xl" />
+            <img src="/images/phone.png" alt="phone" className="object-cover w-full h-fit rounded-2xl" />
             <motion.img
               key={imageState}
               initial={{ opacity: 0 }}

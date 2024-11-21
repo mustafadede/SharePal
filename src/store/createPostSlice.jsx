@@ -6,6 +6,7 @@ const createPostSlice = createSlice({
     text: "",
     post: [],
     attachedFilm: null,
+    attachedFilmId: null,
     attachedPhoto: null,
     postsLength: -1,
     spoiler: false,

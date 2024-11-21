@@ -248,6 +248,7 @@ function SearchCardModal() {
       />
       {/* Actions & Overview & Rating */}
       <SearchCardModalCenter
+        id={id}
         mediaType={mediaType}
         releaseDate={releaseDate}
         vote={vote}

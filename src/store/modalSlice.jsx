@@ -11,6 +11,10 @@ const modalSlice = createSlice({
     orderDirection: true,
   },
   reducers: {
+    assignModalData: (state, action) => {
+      state.modalName = action.payload.name;
+      state.modalHasData = action.payload?.data ? action.payload.data : false;
+    },
     openModal: (state, action) => {
       state.modalState = true;
       state.modalName = action.payload.name;

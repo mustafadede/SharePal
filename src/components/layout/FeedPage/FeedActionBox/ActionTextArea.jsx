@@ -24,6 +24,7 @@ function ActionTextArea({ text, setText }) {
           text: text,
           attachedFilm: modalHasData ? modalHasData : attachedFilm,
           spoiler: spoiler,
+          attachedFilmId: modalHasData ? modalHasData.id : attachedFilm?.id,
           nick: user?.nick,
           likes: 0,
           comments: 0,

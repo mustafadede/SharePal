@@ -21,8 +21,7 @@ function Slider({ data, header, dataClassName, sliderType }) {
           spaceBetween={30}
           breakpoints={{
             320: {
-              width: 320,
-              spaceBetween: 80,
+              width: 460,
               slidesPerView: 2,
             },
             500: {
@@ -32,7 +31,7 @@ function Slider({ data, header, dataClassName, sliderType }) {
             },
             640: {
               slidesPerView: 3,
-              spaceBetween: 30,
+              spaceBetween: 20,
             },
             768: {
               slidesPerView: 3,

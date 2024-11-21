@@ -1,28 +1,7 @@
-import {
-  EmailAuthProvider,
-  createUserWithEmailAndPassword,
-  deleteUser,
-  getAuth,
-  reauthenticateWithCredential,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, deleteUser, getAuth, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, database, storage } from "./firebaseConfig";
 import { toast } from "react-toastify";
-import {
-  child,
-  endBefore,
-  get,
-  getDatabase,
-  limitToLast,
-  orderByChild,
-  orderByValue,
-  push,
-  query,
-  ref,
-  set,
-  update,
-} from "firebase/database";
+import { child, endBefore, equalTo, get, getDatabase, limitToLast, orderByChild, push, query, ref, set, update } from "firebase/database";
 import { getDownloadURL, ref as sRef, uploadBytes } from "firebase/storage";
 
 const dbRef = ref(getDatabase());
@@ -451,6 +430,7 @@ const createPostAction = async (text, attachedFilm, spoiler, nick) => {
       nick: nick,
       spoiler: spoiler || null,
       attachedFilm: attachedFilm || null,
+      attachedFilmId: attachedFilm.id || null,
       content: text,
       likes: 0,
       likesList: [],
@@ -462,7 +442,7 @@ const createPostAction = async (text, attachedFilm, spoiler, nick) => {
       date: Date.now(),
     });
     await update(newUserPostRef, {
-      [newPostRef.key]: true, // Post ID'yi key olarak ekle
+      [newPostRef.ref.key]: newPostRef.key,
     });
     return true;
   } catch (error) {
@@ -1018,8 +998,39 @@ const getSelectedUserPostsList = async (userId) => {
       posts.push(childSnapshot.val());
     });
   }
-
   return posts;
+};
+
+const getSelectedFilmComments = async (filmId) => {
+  const postsRef = ref(database, "posts");
+  const postQuery = query(postsRef, orderByChild("attachedFilmId"), equalTo(filmId));
+  const snapshot = await get(postQuery);
+
+  const allPosts = [];
+  snapshot.forEach((childSnapshot) => {
+    const post = childSnapshot.val();
+    const postId = childSnapshot.key;
+    allPosts.push({
+      photoURL: post.photoURL || null,
+      postId: postId,
+      nick: post.nick,
+      content: post.content,
+      spoiler: post.spoiler,
+      attachedFilm: post.attachedFilm,
+      likesList: post.likesList || null,
+      likes: post.likes,
+      comments: post.comments,
+      edited: post.edited || false,
+      repost: post.repost,
+      repostList: post.repostList || null,
+      date: post.date,
+      userId: post.userId.trim(),
+      attachedAction: post.attachedAction || null,
+      actionName: post.actionName || null,
+    });
+  });
+
+  return allPosts;
 };
 
 const getSelectedUserPosts = async (postId) => {
@@ -1703,6 +1714,7 @@ export {
   deleteUserCommentsList,
   getSelectedUserCommentsList,
   getSelectedUserPostsList,
+  getSelectedFilmComments,
   getSelectedUserPosts,
   getSelectedUserPost,
   getNotifications,

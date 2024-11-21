@@ -25,6 +25,7 @@ function PostButton({ text, setText }) {
           spoiler: spoiler,
           nick: user?.nick,
           likes: 0,
+          attachedFilmId: modalHasData.id,
           comments: 0,
           reposts: 0,
           date: new Date().toISOString(),

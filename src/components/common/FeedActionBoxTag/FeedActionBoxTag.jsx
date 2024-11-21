@@ -17,12 +17,6 @@ function FeedActionBoxTag() {
         }
         nick={"Mustafa"}
       />
-      <FeedActionBoxTagItem
-        img={
-          "https://firebasestorage.googleapis.com/v0/b/sharepal-5d528.appspot.com/o/profilePhotos%2FMZSyNTLkp4Xr4zvNpVacjxXcFHm2?alt=media&token=1335fa46-db0a-49c4-8008-dfc2fe13852c"
-        }
-        nick={"TheSilverLion"}
-      />
     </motion.div>
   );
 }

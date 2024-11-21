@@ -27,7 +27,7 @@ function SearchCardModalCenterTop({
 }) {
   const { t, i18n } = useTranslation();
   return (
-    <div className="relative flex justify-center gap-2 px-6 py-4 text-center md:justify-start md:text-left top-6">
+    <div className="relative flex justify-center gap-2 px-6 pb-4 text-center md:justify-start md:text-left top-6">
       <div className="flex flex-col gap-4 md:flex-row">
         <div className="w-full md:min-w-[28rem] md:max-w-[30rem]">
           <h2 className="mb-2 text-3xl text-slate-200">{t("searchCard.actions")}</h2>
