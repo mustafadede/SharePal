@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { getUserBySearch } from "../../../firebase/firebaseActions";
@@ -9,6 +9,7 @@ import { Cross2Icon, ViewGridIcon, ViewHorizontalIcon } from "@radix-ui/react-ic
 import useSearchTV from "../../../hooks/useSearchTV";
 import useSearchMovies from "../../../hooks/useSearchMovies";
 import useSearchCast from "../../../hooks/useSearchCast";
+import SearchButton from "./SearchButton";
 
 function SearchModal() {
   const { t } = useTranslation();
@@ -17,13 +18,7 @@ function SearchModal() {
   const [toggleFilter, setToggleFilter] = useState(false);
   const [users, setUsers] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState("movie");
-
-  const handleFilter = (title) => {
-    setSelectedFilter(title);
-    setSearch("");
-    setMovies("");
-    setUsers([]);
-  };
+  const [showIndicators, setShowIndicators] = useState(false);
 
   const handleSearch = (e) => {
     if (e.key === "Enter" && search.length === 0) {
@@ -58,6 +53,42 @@ function SearchModal() {
   };
   // TODO: Implement search for people
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Alt") {
+        setShowIndicators(true);
+      }
+    };
+
+    const handleKeyDownSelected = (e) => {
+      console.log(typeof e.key);
+
+      if (e.altKey && e.key === "1") {
+        setSelectedFilter("movie");
+      } else if (e.altKey && e.key === "2") {
+        setSelectedFilter("tv");
+      } else if (e.altKey && e.key === "3") {
+        setSelectedFilter("user");
+      }
+    };
+
+    const handleKeyUp = (e) => {
+      if (e.key === "Alt") {
+        setShowIndicators(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keydown", handleKeyDownSelected);
+    window.addEventListener("keyup", handleKeyUp);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDownSelected);
+      window.removeEventListener("keyup", handleKeyUp);
+    };
+  }, [selectedFilter]);
+
   const clearSearch = () => setSearch("");
   return (
     <div className="p-[2px] w-80 md:w-[37rem] lg:w-[50rem] h-[35rem] md:h-[30rem] border border-slate-400/20 bg-slate-900 rounded-2xl overflow-hidden">
@@ -83,26 +114,24 @@ function SearchModal() {
         </div>
         <motion.div className="relative flex w-full p-2 mt-2 h-fit bg-slate-950/40 rounded-xl">
           <div className="flex gap-2">
-            <button
-              className={
-                selectedFilter === "movie"
-                  ? "flex px-2 py-1 bg-transparent rounded-md text-slate-200"
-                  : "flex px-2 py-1 bg-transparent rounded-md text-slate-400"
-              }
-              onClick={() => handleFilter("movie")}
-            >
-              Movie
-            </button>
-            <button
-              className={
-                selectedFilter === "tv"
-                  ? "flex px-2 py-1 bg-transparent rounded-md text-slate-200"
-                  : "flex px-2 py-1 bg-transparent rounded-md text-slate-400"
-              }
-              onClick={() => handleFilter("tv")}
-            >
-              TV
-            </button>
+            <SearchButton
+              mediaType="movie"
+              text={t("search.movies")}
+              indicatorName="Alt + 1"
+              selectedFilter={selectedFilter}
+              setUsers={setUsers}
+              setMovies={setMovies}
+              showIndicators={showIndicators}
+            />
+            <SearchButton
+              mediaType="tv"
+              text={t("search.series")}
+              indicatorName="Alt + 2"
+              selectedFilter={selectedFilter}
+              setUsers={setUsers}
+              setMovies={setMovies}
+              showIndicators={showIndicators}
+            />
             {/* <button
               className={
                 selectedFilter === "people"
@@ -113,16 +142,15 @@ function SearchModal() {
             >
               People
             </button> */}
-            <button
-              className={
-                selectedFilter === "user"
-                  ? "flex px-2 py-1 bg-transparent rounded-md text-slate-200"
-                  : "flex px-2 py-1 bg-transparent rounded-md text-slate-400"
-              }
-              onClick={() => handleFilter("user")}
-            >
-              User
-            </button>
+            <SearchButton
+              mediaType="user"
+              text={t("search.users")}
+              indicatorName="Alt + 3"
+              selectedFilter={selectedFilter}
+              setUsers={setUsers}
+              setMovies={setMovies}
+              showIndicators={showIndicators}
+            />
           </div>
           {selectedFilter !== "user" ? (
             <div className="absolute right-2">
