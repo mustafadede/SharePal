@@ -1,5 +1,5 @@
 import React from "react";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createHashRouter } from "react-router-dom";
 import RootLayout from "./RootLayout";
 import NotFound from "./NotFound";
 import HomePage from "./public/HomePage";
@@ -16,7 +16,7 @@ import UserProfilePage from "./private/UserProfilePage";
 import FeedCardPage from "./private/FeedCardPage";
 import ResetPassword from "./public/ResetPassword";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <RootLayout />,

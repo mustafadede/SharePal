@@ -8,7 +8,7 @@ function ShareButtons({ downloadHandler }) {
   const { modalHasData } = useSelector((state) => state.modal);
   const { i18n, t } = useTranslation();
   const handleCopy = () => {
-    navigator.clipboard.writeText(`https://sharepal.dev/feed/${modalHasData.nick}/${modalHasData.postId}`);
+    navigator.clipboard.writeText(`https://sharepal.dev/#/feed/${modalHasData.nick}/${modalHasData.postId}`);
     if (i18n.language === "en") {
       toast.success("Copied to clipboard");
     } else {
