@@ -163,7 +163,7 @@ function SearchCardModal() {
 
   const wantToWatchHandler = () => {
     if (!clickAction1) {
-      updateWantToWatch({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
+      updateWantToWatch({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL, additionDate: Date.now() }).then(() => {
         setClickAction1(true);
         setWantToWatch(true);
         createFeedAction({
@@ -181,7 +181,6 @@ function SearchCardModal() {
           nick: user?.nick,
           actionName: "wantToWatch",
         });
-        i18n.language === "en" ? toast("Information attached to this!") : toast("Bu içeriğe bilgi eklendi!");
       });
     } else {
       deleteWantToWatch({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
@@ -195,10 +194,9 @@ function SearchCardModal() {
 
   const watchedHandler = () => {
     if (!clickAction2) {
-      updateWatched({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
+      updateWatched({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL, additionDate: Date.now() }).then(() => {
         setClickAction2(true);
         setWatched(true);
-        i18n.language === "en" ? toast("Information attached to this!") : toast("Bu içeriğe bilgi eklendi!");
       });
     } else {
       deleteWatched({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
@@ -217,10 +215,9 @@ function SearchCardModal() {
   };
   const unfinishedHandler = () => {
     if (!clickAction3) {
-      createUnfinished({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
+      createUnfinished({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL, additionDate: Date.now() }).then(() => {
         setClickAction3(true);
         setUnfinished(true);
-        i18n.language === "en" ? toast("Information attached to this!") : toast("Bu içeriğe bilgi eklendi!");
       });
     } else {
       deleteUnfinished({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {

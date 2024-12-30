@@ -98,14 +98,14 @@ function UserProfilePage() {
 
   return (
     <>
-      {/* <Snowfall
+      <Snowfall
         style={{
           position: "fixed",
           width: "100vw",
           height: "100vh",
           zIndex: "999",
         }}
-      /> */}
+      />
       <Navbar
         isNotLoggedin={localStorage.getItem("user") ? false : true}
         additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30"

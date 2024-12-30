@@ -86,7 +86,7 @@ function AccountSettings() {
           <div className="flex flex-row justify-center gap-10">
             <div className="flex flex-row gap-4 rounded-2xl">
               <div className="flex flex-col gap-2">
-                <p className="text-xl text-slate-300">{t("account.profilePic")}</p>
+                <p className="text-xl text-center text-slate-300">{t("account.profilePic")}</p>
                 <input type="file" accept="image/jpeg" onChange={handleProfileChange} style={{ display: "none" }} ref={photoRef} />
                 <button
                   className="px-4 py-3 text-lg transition-all hover:bg-fuchsia-800 bg-slate-600 text-cWhite focus:outline-none rounded-2xl"
@@ -98,7 +98,7 @@ function AccountSettings() {
             </div>
             <div className="flex flex-row gap-4 rounded-2xl">
               <div className="flex flex-col gap-2">
-                <p className="text-xl text-slate-300">{t("account.profileBanner")}</p>
+                <p className="text-xl text-center text-slate-300">{t("account.profileBanner")}</p>
                 <input
                   type="file"
                   accept="image/jpeg, image/gif"

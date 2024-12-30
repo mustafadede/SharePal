@@ -84,6 +84,7 @@
   "search.toast": "Lütfen bir şey arayın.",
   "search.movies": "Filmler",
   "search.series": "Diziler",
+  "search.people": "Oyuncular",
   "search.users": "Kullanıcılar",
   "search.placeholder": "Dizi/Film ya da @ işareti ile kullanıcı ara",
   "search.suggestionText": "Arama",
@@ -121,6 +122,7 @@
   "stats.totalFilms": "Tüm Filmler",
   "stats.totalSeries": "Tüm Diziler",
   "stats.favMovieNaN": "Bu sene bu konuda favori bulunmuyor",
+  "stats.favSeriesNaN": "Bu sene bu konuda favori bulunmuyor",
   "stats.lastYearTitle": "Geçen yılın İstatistikleri",
   "profileCard.followers": "Takipçiler",
   "profileCard.following": "Takip edilenler",
@@ -260,5 +262,12 @@
   "dangerZone.delete": "Hesabı Sil",
   "dangerZone.deleteText": "Hesabınızı silmek istediğinizden emin misiniz?",
   "dangerZone.confirm": "Evet",
-  "dangerZone.cancel": "Hayır"
+  "dangerZone.cancel": "Hayır",
+  "person": {
+    "knownFor": "Bilinen Eserleri",
+    "noKnownFor": "Bilinen eseri yok",
+    "filmography": "Filmografi",
+    "crewRoles": "Ekip Rolleri",
+    "actingRoles": "Oyunculuk Rolleri"
+  }
 }

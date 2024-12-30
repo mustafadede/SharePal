@@ -48,9 +48,8 @@ function ListModalCard({ id, itemId, title, poster, releaseDate, backdrop, media
   };
 
   const watchedHandler = () => {
-    updateWatched({ id: itemId, mediaType: mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
+    updateWatched({ id: itemId, mediaType: mediaType, name: user.nick, photoURL: user.photoURL, additionDate: Date.now() }).then(() => {
       dispatch(modalActions.closeModal({ name: "listModal" }));
-      i18n.language === "en" ? toast("Added to your stats!") : toast("İstatistiklerinize eklendi!");
     });
     deleteSelectedUserSuggestionListsListItem(localStorage.getItem("user"), modalHasData?.id, id);
   };

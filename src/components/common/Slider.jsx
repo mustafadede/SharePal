@@ -61,7 +61,7 @@ function Slider({ data, header, dataClassName, sliderType }) {
         >
           {data?.map((movie) =>
             movie.first_air_date || movie.poster_path ? (
-              <SwiperSlide key={movie.id}>
+              <SwiperSlide key={movie.uniqueKey || movie.id}>
                 <SearchCard
                   key={movie.id}
                   title={movie.title || movie.name}

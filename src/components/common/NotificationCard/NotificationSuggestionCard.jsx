@@ -47,8 +47,13 @@ function NotificationSuggestionCard({ uid, nick, photoURL, date, deleteId, attac
     movieInfoHandler();
   };
   const watchedHandler = () => {
-    updateWatched({ id: attached.id, mediaType: attached.mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
-      i18n.language === "en" ? toast("Added to your stats!") : toast("İstatistiklerinize eklendi!");
+    updateWatched({
+      id: attached.id,
+      mediaType: attached.mediaType,
+      name: user.nick,
+      photoURL: user.photoURL,
+      additionDate: Date.now(),
+    }).then(() => {
       deleteSelectedNotification(deleteId).then(() => {
         setSettings(false);
         dispatch(notificationActions.deleteSelectedNotification(deleteId));

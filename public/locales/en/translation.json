@@ -83,6 +83,7 @@
   "feedCardPageMainSection.placeholder": "Edit your post...",
   "search.title": "Search",
   "search.movies": "Movies",
+  "search.people": "People",
   "search.series": "Series",
   "search.users": "Users",
   "search.toast": "Please enter a search term.",
@@ -122,6 +123,7 @@
   "stats.totalFilms": "Total Films",
   "stats.totalSeries": "Total Series",
   "stats.favMovieNaN": "There is no best movie this year.",
+  "stats.favSeriesNaN": "There is no best series this year.",
   "stats.lastYearTitle": "Stats for last year",
   "profileCard.followers": "Followers",
   "profileCard.following": "Following",
@@ -261,5 +263,12 @@
   "dangerZone.delete": "Delete Account",
   "dangerZone.deleteText": "Are you sure you want to delete your account?",
   "dangerZone.confirm": "Yes",
-  "dangerZone.cancel": "No"
+  "dangerZone.cancel": "No",
+  "person": {
+    "knownFor": "Known For",
+    "noKnownFor": "No known works",
+    "filmography": "Filmography",
+    "actingRoles": "Acting Roles",
+    "crewRoles": "Crew Roles"
+  }
 }

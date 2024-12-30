@@ -14,9 +14,14 @@ function WatchedThisActions() {
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
   const watchedHandler = () => {
-    updateWatched({ id: modalHasData.id, mediaType: modalHasData.mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
+    updateWatched({
+      id: modalHasData.id,
+      mediaType: modalHasData.mediaType,
+      name: user.nick,
+      photoURL: user.photoURL,
+      additionDate: Date.now(),
+    }).then(() => {
       dispatch(modalActions.closeModal());
-      i18n.language === "en" ? toast("Information added to your stats!") : toast("Bilgi profiline eklendi!");
     });
     return true;
   };
@@ -42,9 +47,14 @@ function WatchedThisActions() {
   };
 
   const unfinishedHandler = () => {
-    createUnfinished({ id: modalHasData.id, mediaType: modalHasData.mediaType, name: user.nick, photoURL: user.photoURL }).then(() => {
+    createUnfinished({
+      id: modalHasData.id,
+      mediaType: modalHasData.mediaType,
+      name: user.nick,
+      photoURL: user.photoURL,
+      additionDate: Date.now(),
+    }).then(() => {
       dispatch(modalActions.closeModal());
-      i18n.language === "en" ? toast("Information added to your stats!") : toast("Bu içeriğe bilgi eklendi!");
     });
     return true;
   };

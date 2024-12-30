@@ -15,6 +15,7 @@ import SuggestFilmModal from "../components/common/SuggestFılmModal/suggestFilm
 import CreateFriendList from "../components/common/CreateFriendList/CreateFriendList";
 import WatchedThisModal from "../components/common/watchedThis/WatchedThisModal";
 import SearchModal from "../components/common/SearchModal/SearchModal";
+import PersonModal from "../components/layout/SearchPage/PersonModal";
 
 const contextClass = {
   success: "backdrop-blur-lg",
@@ -106,6 +107,11 @@ function RootLayout() {
         {modalState && modalName === "searchModal" && (
           <ModalSkeleton>
             <SearchModal />
+          </ModalSkeleton>
+        )}
+        {modalState && modalName === "personModal" && (
+          <ModalSkeleton>
+            <PersonModal />
           </ModalSkeleton>
         )}
         <Outlet />

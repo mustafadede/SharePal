@@ -4,15 +4,20 @@
 ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)
-![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
 ![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white)
 
-![chrome_gKM3NhZWIk](https://github.com/mustafadede/SharePal/assets/95627279/24b42e10-3b75-44c4-9398-a8ff2aceb02f)
+Share your thoughts, interact with your followers and create lists to keep track of your favorite films and series. Make lists for your friends or suggest films and series to them. Just a tip: make sure to check the "Spoiler" button when posting. 🤗
 
+## ✨ Why you should use `SharePal` ?
 
-This is a Film/Series social media app with React, Redux Toolkit and Firebase. You can share your thoughts in the feed with attachment, text or with a spoiler. Follow your friends, create a list for them or suggest a film/series as you like. You can update your profile, add banner, profile photo etc. Explore upcoming films/series with explore page. Search and find users in the search page or films/series! When you search any film or series as you like you can give it an action. Actions appear you profile status section. (How many films/series you watched, currently watching, best film/series in this year etc.) 
+1.  SharePal is designed only for film and series related content. Not a social media platform where you can share everything. Just films and series. 🎬
 
-If you want to dive deeper here is :
+2.  No more spoilers! You can mark your posts as spoilers. So, your friends can decide whether to see your post or not. 🤫
+
+3.  Say goodbye to the chaos of spending hours searching for the perfect film or series. View your friends' lists for personalized recommendations, or discover new types of content every day. 🎥
+
+If you want to dive deeper for how I building this project here is :
+
 - For the design, thoughts, wireframing: [Figma](https://www.figma.com/file/Aj2NOVzUCGzkp1G5YzCnim/SharePal?type=whiteboard&t=Ggv7qDKmgEpDcZPE-1)
 
 ![chrome_QiXRw1qb5v](https://github.com/mustafadede/SharePal/assets/95627279/eb9f08a5-e052-4e03-9b2f-cee0c925cbce)
