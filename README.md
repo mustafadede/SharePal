@@ -25,3 +25,15 @@ If you want to dive deeper for how I building this project here is :
 - For the tracing features like a Kanban Board : [Trello](https://trello.com/invite/b/uEoQWrG3/ATTI988e741921e2d5ae415c5180903a57f23BF8B636/sharepal)
 
 ![image](https://github.com/mustafadede/SharePal/assets/95627279/9f2c5d5d-6fdc-4615-b14a-9ffb9fe2be73)
+
+
+## ⚠️ License Notice
+
+This project was previously distributed under the MIT License.  
+However, as of the current version, **all rights are reserved**.
+
+You are **not permitted** to copy, distribute, modify, or use this software without **explicit written permission** from the author.
+
+Unauthorized use, reproduction, or redistribution of any part of this codebase is strictly prohibited.
+
+For licensing inquiries, please contact the repository owner.
