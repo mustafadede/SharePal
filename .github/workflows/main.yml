@@ -29,9 +29,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: 'npm'
@@ -51,7 +51,7 @@ jobs:
           VITE_REACT_APP_FIREBASE_APP_MEASUREMENT_ID: ${{ secrets.VITE_REACT_APP_FIREBASE_APP_MEASUREMENT_ID }}
           VITE_REACT_APP_FIREBASE_APP_DATABASE_URL: ${{ secrets.VITE_REACT_APP_FIREBASE_APP_DATABASE_URL }}
       - name: Setup Pages
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v4
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
