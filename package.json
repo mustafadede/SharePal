@@ -33,7 +33,7 @@
     "react-virtuoso": "^4.7.11",
     "react-youtube": "^10.1.0",
     "sort-by": "^0.0.2",
-    "swiper": "^10.3.0"
+    "swiper": "^12.1.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.14",
