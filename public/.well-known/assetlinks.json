@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.mustafadede.SharePal",
+      "sha256_cert_fingerprints": [
+        "20:79:6F:3F:EA:4D:97:51:ED:3B:76:59:8E:07:5E:D7:00:0E:20:25:B7:47:6B:8F:9A:0C:36:74:33:67:93:EC",
+        "FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C"
+      ]
+    }
+  }
+]
