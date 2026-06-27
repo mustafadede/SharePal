@@ -160,7 +160,6 @@ function SearchCardModal() {
       dispatch(userActions.updateUser({ ...user, bestSeriesYear: data }));
     });
   };
-
   const wantToWatchHandler = () => {
     if (!clickAction1) {
       updateWantToWatch({ id: id, mediaType: mediaType, name: user.nick, photoURL: user.photoURL, additionDate: Date.now() }).then(() => {

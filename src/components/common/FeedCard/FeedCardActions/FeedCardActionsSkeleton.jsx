@@ -14,7 +14,7 @@ function FeedCardActionsSkeleton({ action, number, data }) {
       dispatch(modalActions.openModal({ name: "likesModal", data: { title: t("notification.likes"), ids: data.likesList } }));
     } else if (action === t("feedPost.comments")) {
       dispatch(cardActions.updateData([data]));
-      navigate(`/feed/${data.nick}/${data.postId}`, { state: { uId: data.userId, pId: data.postId } });
+      navigate(`/post/${data.postId}`, { state: { uId: data.userId, pId: data.postId } });
     } else if (action === "reposts") {
       dispatch(modalActions.openModal({ name: "likesModal", data: { title: "Reposts", ids: data.repostsList } }));
     }

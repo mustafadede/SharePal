@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { DateFormatter } from "../../utils/formatter";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
@@ -42,14 +42,14 @@ function FeedCardPageCommentCard({
   const { cardData } = useSelector((state) => state.card);
   const [settings, setSettings] = useState(false);
   const [rename, setRename] = useState(false);
-  const { state: incomingData } = useLocation();
+  const { id } = useParams();
   const [editedText, setEditedText] = useState(comment);
   const [isEdited, setIsEdited] = useState(false);
   const dispatch = useDispatch();
 
   const handlePost = (e) => {
     if (e.key === "Enter") {
-      updateSelectedComment(incomingData.pId, commentId, editedText).then(() => {
+      updateSelectedComment(id, commentId, editedText).then(() => {
         dispatch(cardActions.editComments({ text: editedText, commentId: commentId }));
         i18n.language === "en" ? toast("Comment edited") : toast("Yorum düzenlendi");
         updateUserCommentsList(user.uid, commentId, editedText);
@@ -61,7 +61,7 @@ function FeedCardPageCommentCard({
   };
 
   const deleteHandler = () => {
-    deleteSelectedComment(incomingData.pId, commentId).then(() => {
+    deleteSelectedComment(id, commentId).then(() => {
       dispatch(cardActions.deleteComments(commentId));
       i18n.language === "en" ? toast("Comment deleted") : toast("Yorum silindi");
       setSettings(false);

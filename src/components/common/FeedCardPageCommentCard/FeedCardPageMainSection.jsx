@@ -75,7 +75,7 @@ function FeedCardPageMainSection({
               from: {
                 uid: getAuth().currentUser.uid,
                 nick: user.nick,
-                photo: getAuth().currentUser.photoURL,
+                photo: user.photoURL,
                 postId: relatedPostId,
               },
               date: new Date().toISOString(),

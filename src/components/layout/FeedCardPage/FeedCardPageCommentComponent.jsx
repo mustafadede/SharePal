@@ -6,21 +6,22 @@ import InfoLabel from "../../common/InfoLabel";
 import { getAllPosts, getCommentsList, getProfilePhoto, getUserByTheIds } from "../../../firebase/firebaseActions";
 import { postsActions } from "../../../store/postsSlice";
 import { cardActions } from "../../../store/cardSlice";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import LoginRestrictionComponent from "../../common/LoginRestrictionComponent";
 import { useTranslation } from "react-i18next";
 
 function FeedCardPageCommentComponent() {
   const { cardComments, commentsState } = useSelector((state) => state.card);
-  const { state: incomingData } = useLocation();
+  const { id } = useParams();
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  
   useEffect(() => {
     const getData = async () => {
       const response = await getAllPosts();
       dispatch(postsActions.updatePosts(response));
       dispatch(cardActions.updateCommentsState("loading"));
-      getCommentsList(incomingData?.pId).then((res) => {
+      getCommentsList(id).then((res) => {
         if (res.length === 0) {
           return dispatch(cardActions.updateCommentsState("noComments"));
         }
@@ -43,6 +44,8 @@ function FeedCardPageCommentComponent() {
         dispatch(cardActions.updateCommentsState("done"));
       });
     };
+    console.log(commentsState);
+    
     localStorage.getItem("user") ? getData() : dispatch(cardActions.updateCommentsState("login"));
   }, []);
 
@@ -78,8 +81,8 @@ function FeedCardPageCommentComponent() {
             likesList={user.likesList}
             comments={user.comments}
             dataEdited={user.isEdited}
-            relatedPostId={incomingData.pId}
-            relatedUserId={incomingData.uId}
+            relatedPostId={id}
+            relatedUserId={user.relatedUserId}
             userId={user.userId}
           />
         ))}

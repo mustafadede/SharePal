@@ -239,6 +239,7 @@
   "account.profilePic": "Profile Picture",
   "account.profileBanner": "Banner",
   "account.upload": "Upload",
+  "account.imageSizeError": "Image size cannot exceed 1MB.",
   "account.save": "Save Changes",
   "password.title": "Change Password",
   "password.currentPassword": "Current Password",

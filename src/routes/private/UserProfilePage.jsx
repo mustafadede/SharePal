@@ -36,6 +36,8 @@ import { BarChartIcon, ChatBubbleIcon, CounterClockwiseClockIcon, TextAlignCente
 function UserProfilePage() {
   const { username } = useParams();
   const { t } = useTranslation();
+  const today = new Date();
+  const month = today.getMonth() + 1;
   const tabs = [
     { id: 0, name: t("profile.stats"), icon: <BarChartIcon className="w-6 h-6" /> },
     { id: 1, name: t("profile.lists"), icon: <TextAlignCenterIcon className="w-6 h-6" /> },
@@ -98,14 +100,14 @@ function UserProfilePage() {
 
   return (
     <>
-      <Snowfall
+      {(month === 12 || month === 1 || month === 2) && <Snowfall
         style={{
           position: "fixed",
           width: "100vw",
           height: "100vh",
           zIndex: "999",
         }}
-      />
+      />}
       <Navbar
         isNotLoggedin={localStorage.getItem("user") ? false : true}
         additionalClasses="sticky top-0 bg-gradient-to-t from-transparent to-cGradient2 z-30"

@@ -44,13 +44,27 @@ function AccountSettings() {
   };
 
   const handleProfileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (file.size > 1024 * 1024) {
+      return toast.error(t("account.imageSizeError"));
+    }
+
     toast.info("Uploading...");
-    await uploadProfilePhoto(e.target.files[0]);
+    await uploadProfilePhoto(file);
   };
 
   const handleBannerChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (file.size > 1024 * 1024) {
+      return toast.error(t("account.imageSizeError"));
+    }
+
     toast.info("Uploading...");
-    await uploadBannerPhoto(e.target.files[0]);
+    await uploadBannerPhoto(file);
   };
 
   const handleUploadPhotoButtonClick = () => {

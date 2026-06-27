@@ -10,11 +10,11 @@ import { useTranslation } from "react-i18next";
 
 const ProfileCard = () => {
   const { t } = useTranslation();
-  const photo = getAuth().currentUser?.photoURL;
+  const { user } = useSelector((state) => state.user);
+  const photo = user?.photoURL;
   const { followingList } = useSelector((state) => state.following);
   const { followersLists } = useSelector((state) => state.followers);
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
   useEffect(() => {
     const getData = async () => {
       const userData = await getCurrentUserData(localStorage.getItem("user"));

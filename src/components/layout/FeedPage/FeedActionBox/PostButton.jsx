@@ -18,7 +18,7 @@ function PostButton({ text, setText }) {
     if (text.length > 0 && text.length <= 280) {
       dispatch(
         createPostActions.updatePost({
-          photoURL: getAuth().currentUser.photoURL || null,
+          photoURL: user.photoURL || null,
           id: getAuth().currentUser.uid,
           text: text,
           attachedFilm: modalHasData,
@@ -31,7 +31,7 @@ function PostButton({ text, setText }) {
           date: new Date().toISOString(),
         })
       );
-      createPostAction(text, modalHasData, spoiler, user?.nick);
+      createPostAction(text, modalHasData, spoiler, user?.nick, user?.photoURL);
       setText("");
       spoiler && dispatch(createPostActions.updateSpoiler(false));
       if (i18n.language === "en") {

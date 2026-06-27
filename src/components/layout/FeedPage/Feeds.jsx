@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 
 function Feeds({ tab }) {
   const { t } = useTranslation();
-
   const { posts, status } = useSelector((state) => state.posts);
   const { post } = useSelector((state) => state.createPost);
   const dispatch = useDispatch();

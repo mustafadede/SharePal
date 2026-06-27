@@ -237,6 +237,7 @@
   "account.profilePic": "Profil Fotoğrafı",
   "account.profileBanner": "Arkaplan Fotoğrafı",
   "account.upload": "Yükle",
+  "account.imageSizeError": "Resim boyutu 1MB'dan büyük olamaz.",
   "account.save": "Değişiklikleri kaydet",
   "password.title": "Şifre",
   "password.currentPassword": "Mevcut Şifre",

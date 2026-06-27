@@ -19,7 +19,7 @@ function ActionTextArea({ text, setText }) {
     if (text.length > 0 && text.length <= 280) {
       dispatch(
         createPostActions.updatePost({
-          photoURL: getAuth().currentUser.photoURL || null,
+          photoURL: user.photoURL || null,
           id: getAuth().currentUser.uid,
           text: text,
           attachedFilm: modalHasData ? modalHasData : attachedFilm,

@@ -35,7 +35,7 @@ const router = createHashRouter([
         ),
       },
       {
-        path: "feed/:user/:id",
+        path: "post/:id",
         element: <FeedCardPage />,
       },
       {

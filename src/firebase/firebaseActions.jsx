@@ -88,7 +88,7 @@ const getCurrentUserData = async (userId) => {
         currentlyWatching: snapshot.val().currentlyWatching || "",
         bestMovieYear: snapshot.val().bestMovieYear || "",
         bestSeriesYear: snapshot.val().bestSeriesYear || "",
-        photoURL: getAuth().currentUser.photoURL || snapshot.val().photoURL || "",
+        photoURL: snapshot.val().photoURL || getAuth().currentUser.photoURL || "",
         online: snapshot.val().online,
         splash: snapshot.val().splash,
         accountPrivate: snapshot.val().accountPrivate || "Public",
@@ -169,6 +169,7 @@ const getUserByTheUsername = async (username) => {
             quote: childSnapshot.val().quote,
             topOne: childSnapshot.val().topOne,
             instagram: childSnapshot.val().instagram,
+            photoURL: childSnapshot.val().photoURL,
             linkedin: childSnapshot.val().linkedin,
             github: childSnapshot.val().github,
             banner: childSnapshot.val().banner,
@@ -252,6 +253,7 @@ const getUserBySearch = async (username) => {
             quote: childSnapshot.val().quote,
             topOne: childSnapshot.val().topOne,
             instagram: childSnapshot.val().instagram,
+            photoURL: childSnapshot.val().photoUrl,
             linkedin: childSnapshot.val().linkedin,
             github: childSnapshot.val().github,
             banner: childSnapshot.val().banner,
@@ -336,7 +338,7 @@ const updateCurrentUserData = async (userId, data) => {
         currentlyWatching: data.currentlyWatching || snapshot.val().currentlyWatching || "",
         bestMovieYear: data.bestMovieYear || snapshot.val().bestMovieYear || "",
         bestSeriesYear: data.bestSeriesYear || snapshot.val().bestSeriesYear || "",
-        photoURL: getAuth().currentUser.photoURL || snapshot.val().photoURL || null,
+        photoURL: snapshot.val().photoURL || null,
         online: data.online || snapshot.val().online || false,
         deleted: data.deleted || snapshot.val().deleted || false,
         splash: data.splash || snapshot.val().splash || false,
@@ -418,7 +420,7 @@ const unfollowUser = async (userId, data) => {
   }
 };
 
-const createPostAction = async (text, attachedFilm, spoiler, nick) => {
+const createPostAction = async (text, attachedFilm, spoiler, nick, photo) => {
   try {
     const userId = getAuth().currentUser.uid;
     const newPostRef = push(ref(database, `posts/`));
@@ -426,7 +428,7 @@ const createPostAction = async (text, attachedFilm, spoiler, nick) => {
     set(newPostRef, {
       userId: userId,
       postId: newPostRef.key,
-      photoURL: getAuth().currentUser.photoURL || null,
+      photoURL: photo || usergetAuth().currentUser.photoURL || null,
       nick: nick,
       spoiler: spoiler || null,
       attachedFilm: attachedFilm || null,

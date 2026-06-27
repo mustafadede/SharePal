@@ -5,9 +5,13 @@ import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import Socials from "./ProfileBannerSocials/Socials";
 import ProfileOnlineStatus from "../../common/ProfileOnlineStatus";
+import { useSelector } from "react-redux";
 
 function ProfileBanner({ user = { nick: "Loading...", quote: "Loading...", banner: "" }, username }) {
-  const photo = username ? user.photoURL : getAuth().currentUser?.photoURL;
+  const { user: profileUser } = useSelector((state) => state.user);
+  const photoURL = profileUser?.photoURL;
+  const photo = username ? user.photoURL : photoURL;
+  
   return (
     <motion.div
       className="relative w-full overflow-hidden h-52 md:h-64 rounded-2xl bg-slate-900"

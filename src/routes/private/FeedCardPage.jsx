@@ -28,12 +28,10 @@ function FeedCardPage() {
           dispatch(cardActions.updateData(res));
         });
       } else {
-        getUserByTheUsername(window.location.hash.split("/")[2]).then((res) => {
-          getSpecificPost(window.location.hash.split("/")[3]).then((res) => {
+          getSpecificPost(window.location.hash.split("/")[2]).then((res) => {
             dispatch(cardActions.updateState("done"));
             dispatch(cardActions.updateData(res));
           });
-        });
       }
     };
     getData();
