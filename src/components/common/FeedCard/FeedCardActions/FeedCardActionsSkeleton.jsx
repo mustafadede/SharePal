@@ -9,6 +9,8 @@ function FeedCardActionsSkeleton({ action, number, data }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  console.log(data);
+  
   const handleClick = () => {
     if (action === t("feedPost.likes")) {
       dispatch(modalActions.openModal({ name: "likesModal", data: { title: t("notification.likes"), ids: data.likesList } }));

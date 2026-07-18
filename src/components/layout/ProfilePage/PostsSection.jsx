@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { getSelectedUserPosts, getSelectedUserPostsList } from "../../../firebase/firebaseActions";
+import { getSelectedUserPost, getSelectedUserPosts, getSelectedUserPostsList } from "../../../firebase/firebaseActions";
 import FeedCard from "../../common/FeedCard";
 import LoginRestrictionComponent from "../../common/LoginRestrictionComponent";
 import { useTranslation } from "react-i18next";
@@ -13,32 +13,23 @@ function PostsSection({ username, uid, accountPrivacyFlag }) {
     setTimeout(() => {
       setPosts([]);
       const userId = localStorage.getItem("user");
-
+      
       if (!userId) return;
-
-      if (!username) {
-        getSelectedUserPostsList(userPostIds)
+      console.log(username);
+      
+        getSelectedUserPostsList(uid)
           .then((userPostIds) => {
             userPostIds.forEach((postId) => {
-              getSelectedUserPosts(postId).then((userPosts) => {
-                setPosts((prev) => (prev ? [...prev, userPosts] : [userPosts]));
+              getSelectedUserPost(postId).then((userPost) => {
+               setPosts((prev) => [...prev, userPost]);
               });
             });
           })
-          .then((userPosts) => {
-            setPosts(userPosts);
-          });
-      } else if (accountPrivacyFlag) {
-        getSelectedUserPostsList(uid).then((userPostIds) => {
-          userPostIds?.forEach((postId) => {
-            getSelectedUserPosts(postId).then((userPosts) => {
-              setPosts((prev) => (prev ? [...prev, userPosts] : [userPosts]));
-            });
-          });
-        });
-      }
     }, 500);
   }, []);
+
+  console.log(posts);
+  
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -52,12 +43,13 @@ function PostsSection({ username, uid, accountPrivacyFlag }) {
         )}
         {posts
           ?.map((data, index) => {
-            if (data[0].attachedFilm) {
-              return <FeedCard key={index} isAttached={true} data={data[0]} index={index} />;
-            } else if (data[0].spoiler) {
-              return <FeedCard key={index} isSpoiler={true} data={data[0]} index={index} />;
-            } else if (!data[0].actionName && !data[0].attachedFilm && !data[0].spoiler) {
-              return <FeedCard key={index} isComment={true} data={data[0]} index={index} />;
+            if(!data) return;
+            if (data?.attachedFilm) {
+              return <FeedCard key={index} isAttached={true} data={data} index={index} />;
+            } else if (data?.spoiler) {
+              return <FeedCard key={index} isSpoiler={true} data={data} index={index} />;
+            } else if (!data?.actionName && data[0]?.attachedFilm && data?.spoiler) {
+              return <FeedCard key={index} isComment={true} data={data} index={index} />;
             }
           })
           .reverse()}

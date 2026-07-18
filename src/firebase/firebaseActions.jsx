@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword, deleteUser, getAuth, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, database, storage } from "./firebaseConfig";
 import { toast } from "react-toastify";
-import { child, endBefore, equalTo, get, getDatabase, limitToLast, orderByChild, push, query, ref, set, update } from "firebase/database";
+import { child, endBefore, equalTo, get, getDatabase, limitToLast, orderByChild, push, query, ref, remove, set, update } from "firebase/database";
 import { getDownloadURL, ref as sRef, uploadBytes } from "firebase/storage";
 
 const dbRef = ref(getDatabase());
@@ -424,7 +424,6 @@ const createPostAction = async (text, attachedFilm, spoiler, nick, photo) => {
   try {
     const userId = getAuth().currentUser.uid;
     const newPostRef = push(ref(database, `posts/`));
-    const newUserPostRef = push(ref(database, `userPostsList/${userId}/posts/`));
     set(newPostRef, {
       userId: userId,
       postId: newPostRef.key,
@@ -443,8 +442,8 @@ const createPostAction = async (text, attachedFilm, spoiler, nick, photo) => {
       repostList: [],
       date: Date.now(),
     });
-    await update(newUserPostRef, {
-      [newPostRef.ref.key]: newPostRef.key,
+    await update(ref(database, `userPostsList/${userId}/posts/`), {
+      [newPostRef.ref.key]: true,
     });
     return true;
   } catch (error) {
@@ -602,10 +601,14 @@ const getPreviousPosts = async (lastPostDate) => {
 };
 
 const deleteSelectedPost = async (postId) => {
+  const userId = getAuth().currentUser.uid;
+  
   try {
     const postsRef = ref(database, `posts/${postId}`);
     const snapshot = await get(postsRef);
+
     if (snapshot.exists()) {
+      await remove(ref(database, `userPostsList/${userId}/posts/${postId}`))
       set(ref(database, `posts/${postId}`), null);
       return true;
     } else {
@@ -997,7 +1000,7 @@ const getSelectedUserPostsList = async (userId) => {
   const posts = [];
   if (snapshot.exists()) {
     snapshot.forEach((childSnapshot) => {
-      posts.push(childSnapshot.val());
+      posts.push(childSnapshot.key);
     });
   }
   return posts;
@@ -1048,9 +1051,9 @@ const getSelectedUserPosts = async (postId) => {
 const getSelectedUserPost = async (postId) => {
   const selectedUserPosts = ref(database, `posts/${postId}`);
   const snapshot = await get(selectedUserPosts);
-  const post = [];
   if (snapshot.exists()) {
-    post.push({
+    return {
+      postId: snapshot.key,
       photoURL: snapshot.val().photoURL,
       nick: snapshot.val().nick,
       content: snapshot.val().content,
@@ -1065,9 +1068,8 @@ const getSelectedUserPost = async (postId) => {
       userId: snapshot.val().userId,
       attachedAction: snapshot.val().attachedAction || null,
       actionName: snapshot.val().actionName || null,
-    });
+    }
   }
-  return post;
 };
 
 const getNotifications = async (uid) => {
