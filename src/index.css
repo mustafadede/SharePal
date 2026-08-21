@@ -1,45 +1,90 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap");
-@tailwind base;
+@import "tailwindcss";
 
-* {
-  scrollbar-width: auto;
-  scrollbar-color: #0f172a #0e0b13;
-  scroll-behavior: smooth;
-  font-family: "Inter", sans-serif;
-}
+@theme {
+  /* Font */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 
-::selection {
-  background-color: rgb(134 25 143);
-  color: #fff;
-}
+  /* Colors */
+  --color-cBlack: #000;
+  --color-cDarkGray: #353535;
+  --color-cDarkerPurple: #3a1479;
+  --color-cWhite: #fff;
+  --color-cGolden: #efd05b;
+  --color-cGradient1: #18043a;
+  --color-cGradient2: #0e0b13;
 
-/* Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-  width: 15px;
-}
+  /* Font weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
 
-*::-webkit-scrollbar-track {
-  background: #0e0b13;
-}
+  /* Animations */
+  --animate-text: text 5s ease infinite;
+  --animate-box: box 5s ease infinite;
+  --animate-scrollDown: scrollDown 3s ease infinite;
+  --animate-scrollText: scrollText 3s ease infinite;
 
-*::-webkit-scrollbar-thumb {
-  background-color: #9826d2;
-}
-
-@tailwind components;
-@tailwind utilities;
-
-@layer utilities {
-  @variants responsive {
-    /* Hide scrollbar for Chrome, Safari and Opera */
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
+  /* Keyframes */
+  @keyframes text {
+    0%,
+    100% {
+      background-size: 200% 200%;
+      background-position: left center;
     }
 
-    /* Hide scrollbar for IE, Edge and Firefox */
-    .no-scrollbar {
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
+    50% {
+      background-size: 200% 200%;
+      background-position: right center;
+    }
+
+    25% {
+      background-size: 200% 200%;
+      background-position: top center;
+    }
+  }
+
+  @keyframes box {
+    0%,
+    100% {
+      background-size: 200% 200%;
+      background-position: top center;
+    }
+
+    50% {
+      background-size: 200% 200%;
+      background-position: bottom center;
+    }
+
+    25% {
+      background-size: 200% 200%;
+      background-position: top center;
+    }
+  }
+
+  @keyframes scrollDown {
+    0%,
+    100% {
+      background-size: 200% 200%;
+      background-position: left center;
+      background-color: #86198f;
+    }
+
+    50% {
+      background-size: 200% 200%;
+      background-position: right center;
+    }
+  }
+
+  @keyframes scrollText {
+    0%,
+    100% {
+      position: relative;
+      top: 0px;
+    }
+
+    50% {
+      top: 20px;
     }
   }
 }

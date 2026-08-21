@@ -6,7 +6,7 @@ function SecondaryButton({ title, whereTo, onClickHandler }) {
     <Link to={whereTo}>
       <button
         onClick={onClickHandler}
-        className="p-2 text-lg transition-colors duration-150 rounded-lg select-none md:text-xl text-cWhite hover:text-fuchsia-700 w-fit"
+        className="p-2 text-lg cursor-pointer transition-colors duration-150 rounded-lg select-none md:text-xl text-cWhite hover:text-fuchsia-700 w-fit"
       >
         {title}
       </button>

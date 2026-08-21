@@ -161,10 +161,11 @@ function LoginPage() {
                 className={onClassDefiner(errors.password)}
                 {...register("password", { required: true, minLength: 6 })}
                 aria-invalid={errors.password ? true : false}
-              />
+              >
+              </motion.input>
               <button
                 type="button"
-                className="absolute select-none top-6 md:right-14 xl:right-24 2xl:right-24 right-4 text-slate-400"
+                className="absolute right-[10px] md:right-16 lg:right-20 xl:right-24 top-1/2 -translate-y-1/2  text-gray-500 hover:text-gray-700"
                 onClick={handleShowPasword}
               >
                 {showPassword ? <EyeOpenIcon className="w-6 h-6" /> : <EyeClosedIcon className="w-6 h-6" />}

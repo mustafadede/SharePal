@@ -5,8 +5,8 @@ function FeedActionBoxButton({ icons, text, onClickAction, check = false }) {
     <motion.button
       className={
         check
-          ? "flex items-center h-12 px-4 transition-all rounded-lg w-100 bg-slate-800"
-          : "flex items-center h-12 px-4 transition-all rounded-lg w-100 hover:bg-slate-800"
+          ? "flex items-center cursor-pointer h-12 px-4 transition-all rounded-lg w-100 bg-slate-800"
+          : "flex items-center cursor-pointer h-12 px-4 transition-all rounded-lg w-100 hover:bg-slate-800"
       }
       onClick={onClickAction}
       initial={{ opacity: 0, y: -20 }}

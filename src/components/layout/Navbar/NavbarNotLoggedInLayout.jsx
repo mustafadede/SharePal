@@ -9,9 +9,9 @@ function NavbarNotLoggedInLayout() {
 
   return (
     <>
-      <LanguageButton />
       <SecondaryButton title={t("navbar.signup")} whereTo={"/signup"} />
       <PrimaryButton title={t("navbar.login")} whereTo={"/login"} />
+      <LanguageButton />
     </>
   );
 }

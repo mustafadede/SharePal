@@ -35,7 +35,7 @@ const ProfileCard = () => {
     getData();
   }, []);
   return (
-    <div className="flex flex-col lg:w-56 xl:w-72 h-fit bg-slate-900 rounded-2xl">
+    <div className="flex flex-col lg:w-56 xl:w-full h-fit bg-slate-900 rounded-2xl">
       <div className="relative h-28">
         {!user?.banner && <div className="absolute object-cover object-top w-full h-24 bg-slate-700 rounded-t-2xl opacity-90"></div>}
         {user?.banner && (

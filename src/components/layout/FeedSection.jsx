@@ -9,7 +9,7 @@ import Feeds from "./FeedPage/Feeds";
 function FeedSection() {
   const [tab, setTab] = useState(0);
   return (
-    <motion.div className="flex flex-col w-full xl:px-6">
+    <motion.div className="flex flex-col max-w-1/2 xl:px-6">
       <FeedTabs tabInfo={tab} tab={setTab} info="feed" />
       <FeedActionBox />
       <FeedLoading />

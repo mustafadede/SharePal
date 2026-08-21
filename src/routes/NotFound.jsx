@@ -15,7 +15,7 @@ function NotFound() {
         <h1 className="text-3xl text-slate-400">Ups... Are you lost ?</h1>
         <Link
           to={user ? "/feed" : "/"}
-          className="px-6 py-2 text-lg transition-colors duration-300 rounded-lg select-none w-fit h-100 bg-fuchsia-800 hover:bg-slate-900 text-cWhite"
+          className="px-6 py-2 text-lg transition-colors h-fit duration-300 rounded-lg select-none w-fit bg-fuchsia-800 hover:bg-slate-900 text-cWhite"
         >
           Go to SharePal
         </Link>

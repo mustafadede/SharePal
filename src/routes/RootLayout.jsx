@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,30 +18,56 @@ import SearchModal from "../components/common/SearchModal/SearchModal";
 import PersonModal from "../components/layout/SearchPage/PersonModal";
 
 const contextClass = {
-  success: "backdrop-blur-lg",
-  error: "backdrop-blur-lg",
-  info: "backdrop-blur-lg",
-  warning: "backdrop-blur-lg",
-  default: "backdrop-blur-lg",
-  dark: "bg-white-600 font-slate-200",
+  success:
+    "border border-emerald-500/20 bg-emerald-950/90 text-emerald-50 backdrop-blur-lg",
+  error:
+    "border border-red-500/20 bg-red-950/90 text-red-50 backdrop-blur-lg",
+  info:
+    "border border-blue-500/20 bg-blue-950/90 text-blue-50 backdrop-blur-lg",
+  warning:
+    "border border-yellow-500/20 bg-yellow-950/90 text-yellow-50 backdrop-blur-lg",
+  default:
+    "border border-white/10 bg-slate-900/90 text-white backdrop-blur-lg",
+  dark:
+    "border border-white/10 bg-slate-900/90 text-white backdrop-blur-lg",
 };
 
 function RootLayout() {
   const { modalState, modalName } = useSelector((state) => state.modal);
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+      setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+      window.addEventListener('resize', handleWindowSizeChange);
+      return () => {
+          window.removeEventListener('resize', handleWindowSizeChange);
+      }
+  }, []);
+
+  const isMobile = width <= 768;
   return (
     <>
       {/* {!localStorage.getItem("isClosed") && !isClosed && (
         <LabelInfo info={t("info.contact")} data="mustafadededev@gmail.com" handleClose={handleClose} />
       )} */}
-      <div className="container mx-auto">
+      <div className="mx-auto w-full max-w-8xl px-4 sm:px-6 lg:px-8">
         <ToastContainer
           toastClassName={(context) =>
-            contextClass[context?.type || "default"] + " relative flex p-1 h-16 rounded-md justify-between overflow-hidden cursor-pointer"
+            `${contextClass[context?.type || "default"]}
+            relative flex min-h-16 w-full
+            items-center justify-between
+            rounded-lg px-4 py-3
+            shadow-xl mb-2
+            cursor-pointer
+            overflow-hidden`
           }
-          position="top-right"
+          closeButton={false}
+          position={isMobile ? "top-right" : "bottom-right"}
           autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
+          hideProgressBar={true}
+          newestOnTop
           closeOnClick
           rtl={false}
           pauseOnFocusLoss
